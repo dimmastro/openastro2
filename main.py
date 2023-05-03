@@ -19,14 +19,22 @@ if __name__ == '__main__':
     event["month"] = 1
     event["day"] = 1
     event["hour"] = 1
+    event["minute"] = 1
+    event["second"] = 1
     event["timezone"] = 0
     event["altitude"] = 25
     event["geonameid"] = None
 
-    openAstro = openAstroInstance(db, cfg, event)
-    r = 240
-    file = openAstro.makeSVG()
-    print(file)
-    openAstro.makePlanets(r)
+    event["location"] = "London"
+    event["geolat"] = 0
+    event["geolon"] = 0
+    event["countrycode"] = "en"
+    event["timezonestr"] = "Europe/Amsterdam"
+
+    openAstro = openAstroInstance(event)
+    # r = 240
+    svg = openAstro.makeSVG()
+    print (svg)
+    # openAstro.makePlanets(r)
     print(openAstro.planets_degree)
     print(openAstro.planets_degree_ut)

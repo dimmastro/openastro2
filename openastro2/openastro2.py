@@ -46,7 +46,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk, GObject, Rsvg, cairo
 
 import json
-
+from pathlib import Path
 
 #internal openastro modules
 sys.path.append("/usr/lib/python3.5/dist-packages") #trying to 'fix' some problems importing openastromod on some distros
@@ -178,6 +178,14 @@ class openAstroCfg:
 #Sqlite database
 class openAstroSqlite:
 	def __init__(self):
+
+		DATADIR = Path(__file__)
+		json_path = DATADIR.parent / 'cfg/oa2_config.json'
+		with open(json_path, 'r', encoding='utf-8') as f:
+			self.db = json.load(f)
+
+
+
 		self.dbcheck=False
 		self.dbpurge="IGNORE"
 		
@@ -258,10 +266,15 @@ class openAstroSqlite:
 		# self.astrocfg = {}
 		# self.astrocfg["version"]=self.cursor.fetchone()[0]
 
-		# Read conf from json
-		with open('/home/dimm/djangogirls/openastro/cfg/astrocfg.json', 'r', encoding='utf-8') as f:
-			astrocfg = json.load(f)
-			self.astrocfg = {item['name']: item['value'] for item in astrocfg}
+		# # Read conf from json
+		# DATADIR = Path(__file__)
+		# json_path = DATADIR.parent / 'cfg/astrocfg.json'
+		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
+		# # with open('/home/dimm/PycharmProjects/openastro2/openastro2/cfg/astrocfg.json', 'r', encoding='utf-8') as f:
+		# 	self.astrocfg = json.load(f)
+		# 	# self.astrocfg = {item['name']: item['value'] for item in astrocfg}
+		# # print (self.astrocfg)
+		self.astrocfg = self.db["astrocfg"]
 
 		# #check for updated version
 		# if self.astrocfg['version'] != str(cfg.version):
@@ -295,12 +308,7 @@ class openAstroSqlite:
 		# for row in self.cursor:
 		# 	self.astrocfg[row['name']]=row['value']
 
-		# Read conf from json
-		with open('/home/dimm/djangogirls/openastro/cfg/astrocfg.json', 'r', encoding='utf-8') as f:
-			astrocfg = json.load(f)
-			self.astrocfg = {item['name']: item['value'] for item in astrocfg}
-
-		#install language
+		# #install language
 		self.setLanguage(self.astrocfg['language'])
 		self.lang_label=LANGUAGES_LABEL
 
@@ -779,10 +787,16 @@ class openAstroSqlite:
 		# 	out[list[i][0]] = list[i][1]
 		# self.close()
 
-		# Read conf from json
-		with open('/home/dimm/djangogirls/openastro/cfg/color_codes.json', 'r', encoding='utf-8') as f:  # открыли файл
-			out_jason = json.load(f)
-			out = {item['name']: item['code'] for item in out_jason}
+		# # Read conf from json
+		# DATADIR = Path(__file__)
+		#
+		# json_path = DATADIR.parent / 'cfg/color_codes.json'
+		# # json_path = self.json_dir / f"openastro2/cfg/color_codes.json"
+		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
+		# 	out = json.load(f)
+		# 	# out = {item['name']: item['code'] for item in out_jason}
+		# 	# print (out)
+		out = self.db["color_codes"]
 		return out
 
 	def getLabel(self):
@@ -795,11 +809,14 @@ class openAstroSqlite:
 		# 	out[list[i][0]] = list[i][1]
 		# self.close()
 
-		# Read conf from json
-		with open('/home/dimm/djangogirls/openastro/cfg/label.json', 'r', encoding='utf-8') as f:  # открыли файл
-			out_jason = json.load(f)
-			out = {item['name']: item['value'] for item in out_jason}
-
+		# # Read conf from json
+		# DATADIR = Path(__file__)
+		# json_path = DATADIR.parent / 'cfg/label.json'
+		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
+		# 	out = json.load(f)
+		# 	# out = {item['name']: item['value'] for item in out_jason}
+		# 	print (out)
+		out = self.db["label"]
 		return out	
 	
 	# def getDatabase(self):
@@ -902,10 +919,13 @@ class openAstroSqlite:
 		# 	dict.append(s)
 		# self.close()
 
-		# Read conf from json
-		with open('/home/dimm/djangogirls/openastro/cfg/settings_planet.json', 'r', encoding='utf-8') as f:
-			dict = json.load(f)
-			# dict = {item['id']: item['name'] for item in out_jason}
+		# # Read conf from json
+		# DATADIR = Path(__file__)
+		# json_path = DATADIR.parent / 'cfg/settings_planet.json'
+		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
+		# 	dict = json.load(f)
+		# 	# dict = {item['id']: item['name'] for item in out_jason}
+		dict = self.db["settings_planet"]
 		return dict
 		
 	def getSettingsAspect(self):
@@ -920,12 +940,14 @@ class openAstroSqlite:
 		# 	,'is_major':row['is_major'],'is_minor':row['is_minor'],'orb':row['orb']})
 		# self.close()
 
-		# Read conf from json
-		with open('/home/dimm/djangogirls/openastro/cfg/settings_aspect.json', 'r', encoding='utf-8') as f:
-			dict = json.load(f)
-		# dict = {item['id']: item['name'] for item in out_jason}
+		# # Read conf from json
+		# DATADIR = Path(__file__)
+		# json_path = DATADIR.parent / 'cfg/settings_aspect.json'
+		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
+		# 	dict = json.load(f)
+		# # dict = {item['id']: item['name'] for item in out_jason}
 
-
+		dict = self.db["settings_aspect"]
 		return dict
 	
 	# def getSettingsLocation(self):
@@ -1183,9 +1205,9 @@ class openAstroSqlite:
 #calculation and svg drawing class
 class openAstroInstance:
 
-	def __init__(self, db, cfg, event):
-		self.db = db
-		self.cfg = cfg
+	def __init__(self, event):
+		self.db = openAstroSqlite()
+		self.cfg = openAstroCfg()
 		self.event = event
 		#screen size
 		#displayManager = Gdk.display_manager_get()
@@ -1221,7 +1243,15 @@ class openAstroInstance:
 		self.geolon=float(self.home_geolon)
 		self.countrycode=self.home_countrycode
 		self.timezonestr=self.home_timezonestr
-		
+
+
+		self.location = event["location"]
+		self.geolat = float(event["geolat"])
+		self.geolon = float(event["geolon"])
+		self.countrycode = event["countrycode"]
+		self.timezonestr = event["timezonestr"]
+
+
 		#current datetime
 		now = datetime.datetime.now()
 
@@ -1232,7 +1262,7 @@ class openAstroInstance:
 		#naive utc datetime object
 		dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
 
-		self.label = db.getLabel()
+		self.label = self.db.getLabel()
 		#Default
 		self.name=_("Here and Now")
 		self.charttype=self.label["radix"]
@@ -1243,7 +1273,18 @@ class openAstroInstance:
 		self.timezone=self.offsetToTz(dt.utcoffset())
 		self.altitude=25
 		self.geonameid=None
-		
+
+
+		self.name = event["name"]
+		self.charttype = event["charttype"]
+		self.year = event["year"]
+		self.month = event["month"]
+		self.day = event["day"]
+		self.hour=self.decHourJoin(event["hour"],event["minute"], event["second"])
+		self.timezone = event["timezone"]
+		self.altitude = event["altitude"]
+		self.geonameid = event["geonameid"]
+
 		#Make locals
 		self.utcToLocal()
 		
@@ -1262,7 +1303,7 @@ class openAstroInstance:
 		self.zodiac_element = ['fire','earth','air','water','fire','earth','air','water','fire','earth','air','water']
 
 		#get color configuration
-		self.colors = db.getColors()
+		self.colors = self.db.getColors()
 		
 		return
 		
@@ -1707,8 +1748,10 @@ class openAstroInstance:
 		f.write(template)
 		f.close()
 
-		#return filename
+		# #return filename
 		return self.cfg.tempfilename
+		# return SVG
+		# return template
 
 	#draw transit ring
 	def transitRing( self , r ):

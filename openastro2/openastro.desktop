@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Open Source Astrology
+GenericName=Open Source Astrology
+Categories=Graphics;2DGraphics;GTK;
+Exec=openastro
+Icon=openastro
+StartupNotify=true
+Terminal=false

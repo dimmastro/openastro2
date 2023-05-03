@@ -1,0 +1,27 @@
+Source: openastro.org
+Maintainer: Pelle van der Scheer <pellesimon@gmail.com>
+Section: universe/graphics 
+Priority: optional
+Build-Depends: python3-all (>= 3.4), debhelper (>= 8.0.0)
+Standards-Version: 3.9.3
+X-Python-Version: >= 3.4
+
+Package: openastro.org
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, openastro.org-data, python3-swisseph, gir1.2-gtk-3.0, python3-dateutil, gir1.2-rsvg-2.0, python3-cairo, python3-tz, imagemagick, librsvg2-bin
+Description: A fully featured Open Source Astrology software
+ Current features include:
+    * Natal/Radix Charts
+    * Transit Charts
+    * Synastry/Combine/Composite Charts
+    * Customizeable Planets & Aspects
+    * Additional celestial bodies: Chiron, Pholus, Ceres, Pallas, Juno, Vesta
+    * Fictional points: North/South Node, Day/Night Pars
+    * Online Atlas (Geocoder) using geonames (virtually every location)
+    * Offline Atlas (Geonames database) with about 80.000 major cities!
+    * Database export/import, Save as JPG, PNG, SVG
+    * Import from skylendar (*.skif), oroboros (*.xml), astrolog32 (*.dat), Zet8 (*.zbs)
+    * Ephemeris files for 1800 AD - 2400 AD
+    * PySwisseph swiss ephemeris wrapper
+
+

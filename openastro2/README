@@ -13,3 +13,13 @@ dependencies:
   imagemagick /* export features */
   pyswisseph /* http://pyswisseph.atarax.org/ */
   openastro.org-data
+
+
+---------------------------------------------------------------------------------
+sudo apt install libcairo2-dev libxt-dev libgirepository1.0-dev
+pip install pycairo PyGObject
+PyGObjec
+
+pytz
+pip install swisseph
+swisseph

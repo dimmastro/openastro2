@@ -1,4 +1,4 @@
-from openastro.my_openastro import openAstroCfg, openAstroSqlite, openAstroInstance
+from openastro2 import openAstroCfg, openAstroSqlite, openAstroInstance
 
 cfg = openAstroCfg()
 db = openAstroSqlite()

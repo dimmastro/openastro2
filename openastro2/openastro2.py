@@ -55,8 +55,8 @@ from openastromod import zonetab, geoname, importfile, dignities, swiss as ephem
 
 #debug
 LOCAL=True
-DEBUG=False
-VERSION='1.1.57'
+DEBUG=True
+VERSION='2.0.0'
 
 #directories
 if LOCAL:
@@ -305,25 +305,25 @@ class openAstroSqlite:
 		self.lang_label=LANGUAGES_LABEL
 
 
-		#fix inconsitencies between in people's database
-		if self.dbcheck:
-			sql='PRAGMA table_info(event_natal)'
-			self.pcursor.execute(sql)
-			list=self.pcursor.fetchall()
-			vacuum = False
-			cnames=[]
-			for i in range(len(list)):
-				cnames.append(list[i][1])
-			for key,val in self.ptable_event_natal.items():
-				if key not in cnames:
-					sql = 'ALTER TABLE event_natal ADD %s %s'%(key,val)
-					dprint("dbcheck peopledb.event_natal adding %s %s"%(key,val))					
-					self.pcursor.execute(sql)
-					vacuum = True
-			if vacuum:
-				sql = "VACUUM"
-				self.pcursor.execute(sql)
-				dprint('dbcheck peopledb.event_natal: updating table definitions!')
+		# #fix inconsitencies between in people's database
+		# if self.dbcheck:
+		# 	sql='PRAGMA table_info(event_natal)'
+		# 	self.pcursor.execute(sql)
+		# 	list=self.pcursor.fetchall()
+		# 	vacuum = False
+		# 	cnames=[]
+		# 	for i in range(len(list)):
+		# 		cnames.append(list[i][1])
+		# 	for key,val in self.ptable_event_natal.items():
+		# 		if key not in cnames:
+		# 			sql = 'ALTER TABLE event_natal ADD %s %s'%(key,val)
+		# 			dprint("dbcheck peopledb.event_natal adding %s %s"%(key,val))
+		# 			self.pcursor.execute(sql)
+		# 			vacuum = True
+		# 	if vacuum:
+		# 		sql = "VACUUM"
+		# 		self.pcursor.execute(sql)
+		# 		dprint('dbcheck peopledb.event_natal: updating table definitions!')
 
 				
 		# #check for history table in astrodb
@@ -725,10 +725,10 @@ class openAstroSqlite:
 		# 		self.cursor.execute(sql,values)
 
 		#commit initial changes
-		self.updateHistory()
+		# self.updateHistory()
 		# self.link.commit()
 		# self.plink.commit()
-		self.close()
+		# self.close()
 
 	def setLanguage(self, lang=None):
 		if lang==None or lang=="default":			
@@ -739,35 +739,35 @@ class openAstroSqlite:
 			dprint("installing language (%s)"%(lang))
 		return
 
-	def addHistory(self):
-		self.open()
-		sql = 'INSERT INTO history \
-			(id,name,year,month,day,hour,geolon,geolat,altitude,location,timezone,countrycode) VALUES \
-			(null,?,?,?,?,?,?,?,?,?,?,?)'
-		tuple = (openAstro.name,openAstro.year,openAstro.month,openAstro.day,openAstro.hour,
-			openAstro.geolon,openAstro.geolat,openAstro.altitude,openAstro.location,
-			openAstro.timezone,openAstro.countrycode)
-		self.cursor.execute(sql,tuple)
-		self.link.commit()
-		self.updateHistory()
-		self.close()
+	# def addHistory(self):
+		# self.open()
+		# sql = 'INSERT INTO history \
+		# 	(id,name,year,month,day,hour,geolon,geolat,altitude,location,timezone,countrycode) VALUES \
+		# 	(null,?,?,?,?,?,?,?,?,?,?,?)'
+		# tuple = (openAstro.name,openAstro.year,openAstro.month,openAstro.day,openAstro.hour,
+		# 	openAstro.geolon,openAstro.geolat,openAstro.altitude,openAstro.location,
+		# 	openAstro.timezone,openAstro.countrycode)
+		# self.cursor.execute(sql,tuple)
+		# self.link.commit()
+		# self.updateHistory()
+		# self.close()
 	
-	def getAstrocfg(self,key):
-		self.open()
-		sql='SELECT value FROM astrocfg WHERE name="%s"' % key
-		self.cursor.execute(sql)
-		one=self.cursor.fetchone()
-		self.close()
-		if one == None:
-			return None
-		else:
-			return one[0]
+	# def getAstrocfg(self,key):
+	# 	self.open()
+	# 	sql='SELECT value FROM astrocfg WHERE name="%s"' % key
+	# 	self.cursor.execute(sql)
+	# 	one=self.cursor.fetchone()
+	# 	self.close()
+	# 	if one == None:
+	# 		return None
+	# 	else:
+	# 		return one[0]
 	
-	def setAstrocfg(self,key,val):
-		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES (?,?)'
-		self.query([sql],[(key,val)])
-		self.astrocfg[key]=val
-		return
+	# def setAstrocfg(self,key,val):
+	# 	sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES (?,?)'
+	# 	self.query([sql],[(key,val)])
+	# 	self.astrocfg[key]=val
+	# 	return
 
 	def getColors(self):
 		# self.open()
@@ -802,94 +802,94 @@ class openAstroSqlite:
 
 		return out	
 	
-	def getDatabase(self):
-		self.open()
+	# def getDatabase(self):
+	# 	self.open()
+	#
+	# 	sql = 'SELECT * FROM event_natal ORDER BY id ASC'
+	# 	self.pcursor.execute(sql)
+	# 	dict = []
+	# 	for row in self.pcursor:
+	# 		s={}
+	# 		for key,val in self.ptable_event_natal.items():
+	# 			if row[key] == None:
+	# 				s[key]=""
+	# 			else:
+	# 				s[key]=row[key]
+	# 		dict.append(s)
+	# 	self.close()
+	# 	return dict
+	#
 
-		sql = 'SELECT * FROM event_natal ORDER BY id ASC'
-		self.pcursor.execute(sql)
-		dict = []
-		for row in self.pcursor:
-			s={}			
-			for key,val in self.ptable_event_natal.items():
-				if row[key] == None:
-					s[key]=""
-				else:
-					s[key]=row[key]
-			dict.append(s)
-		self.close()
-		return dict
-		
-
-	def getDatabaseFamous(self,limit="2000",search=None):
-		self.flink = sqlite3.connect(cfg.famousdb)
-		self.flink.row_factory = sqlite3.Row
-		self.fcursor = self.flink.cursor()
-		
-		if search:
-			sql='SELECT * FROM famous WHERE year>? AND \
-			(lastname LIKE ? OR firstname LIKE ? OR name LIKE ?)\
-			 LIMIT %s'%(limit)
-			self.fcursor.execute(sql,(1800,search,search,search))	
-		else:
-			sql='SELECT * FROM famous WHERE year>? LIMIT %s'%(limit)
-			self.fcursor.execute(sql,(1800,))
-		
-		oldDB=self.fcursor.fetchall()
-		
-		self.fcursor.close()
-		self.flink.close()
-
-		#process database
-		newDB = []
-		for a in range(len(oldDB)):
-			#minus years
-			if oldDB[a][12] == '571/': #Muhammad
-				year = 571		
-			elif oldDB[a][12] <= 0:
-				year = 1
-			else:
-				year = oldDB[a][12]
-		
-			month = oldDB[a][13]
-			day = oldDB[a][14]
-			hour = oldDB[a][15]
-			h,m,s = openAstro.decHour(hour)
-			
-			#aware datetime object
-			dt_input = datetime.datetime(year,month,day,h,m,s)
-			dt = pytz.timezone(oldDB[a][20]).localize(dt_input)
-			
-			#naive utc datetime object
-			dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-			#timezone
-			timezone=openAstro.offsetToTz(dt.utcoffset())
-			year = dt_utc.year
-			month = dt_utc.month
-			day = dt_utc.day
-			hour = openAstro.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-		
-			newDB.append({
-						"id":oldDB[a][0], #id INTEGER
-						"name":str(a+1)+". "+oldDB[a][3]+" "+oldDB[a][4], #name
-						"year":year, #year
-						"month":month, #month
-						"day":day, #day
-						"hour":hour, #hour
-						"geolon":oldDB[a][18], #geolon
-						"geolat":oldDB[a][17], #geolat
-						"altitude":"25", #altitude
-						"location":oldDB[a][16], #location
-						"timezone":timezone, #timezone
-						"notes":"",#notes
-						"image":"",#image
-						"countrycode":oldDB[a][8], #countrycode
-						"geonameid":oldDB[a][19], #geonameid
-						"timezonestr":oldDB[a][20], #timezonestr
-						"extra":"" #extra
-						}) 
-
-		return newDB	
-		
+	# def getDatabaseFamous(self,limit="2000",search=None):
+	# 	self.flink = sqlite3.connect(cfg.famousdb)
+	# 	self.flink.row_factory = sqlite3.Row
+	# 	self.fcursor = self.flink.cursor()
+	#
+	# 	if search:
+	# 		sql='SELECT * FROM famous WHERE year>? AND \
+	# 		(lastname LIKE ? OR firstname LIKE ? OR name LIKE ?)\
+	# 		 LIMIT %s'%(limit)
+	# 		self.fcursor.execute(sql,(1800,search,search,search))
+	# 	else:
+	# 		sql='SELECT * FROM famous WHERE year>? LIMIT %s'%(limit)
+	# 		self.fcursor.execute(sql,(1800,))
+	#
+	# 	oldDB=self.fcursor.fetchall()
+	#
+	# 	self.fcursor.close()
+	# 	self.flink.close()
+	#
+	# 	#process database
+	# 	newDB = []
+	# 	for a in range(len(oldDB)):
+	# 		#minus years
+	# 		if oldDB[a][12] == '571/': #Muhammad
+	# 			year = 571
+	# 		elif oldDB[a][12] <= 0:
+	# 			year = 1
+	# 		else:
+	# 			year = oldDB[a][12]
+	#
+	# 		month = oldDB[a][13]
+	# 		day = oldDB[a][14]
+	# 		hour = oldDB[a][15]
+	# 		h,m,s = openAstro.decHour(hour)
+	#
+	# 		#aware datetime object
+	# 		dt_input = datetime.datetime(year,month,day,h,m,s)
+	# 		dt = pytz.timezone(oldDB[a][20]).localize(dt_input)
+	#
+	# 		#naive utc datetime object
+	# 		dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
+	# 		#timezone
+	# 		timezone=openAstro.offsetToTz(dt.utcoffset())
+	# 		year = dt_utc.year
+	# 		month = dt_utc.month
+	# 		day = dt_utc.day
+	# 		hour = openAstro.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
+	#
+	# 		newDB.append({
+	# 					"id":oldDB[a][0], #id INTEGER
+	# 					"name":str(a+1)+". "+oldDB[a][3]+" "+oldDB[a][4], #name
+	# 					"year":year, #year
+	# 					"month":month, #month
+	# 					"day":day, #day
+	# 					"hour":hour, #hour
+	# 					"geolon":oldDB[a][18], #geolon
+	# 					"geolat":oldDB[a][17], #geolat
+	# 					"altitude":"25", #altitude
+	# 					"location":oldDB[a][16], #location
+	# 					"timezone":timezone, #timezone
+	# 					"notes":"",#notes
+	# 					"image":"",#image
+	# 					"countrycode":oldDB[a][8], #countrycode
+	# 					"geonameid":oldDB[a][19], #geonameid
+	# 					"timezonestr":oldDB[a][20], #timezonestr
+	# 					"extra":"" #extra
+	# 					})
+	#
+	# 	return newDB
+	#
 	def getSettingsPlanet(self):
 		# self.open()
 		# sql = 'SELECT * FROM settings_planet ORDER BY id ASC'
@@ -928,56 +928,56 @@ class openAstroSqlite:
 
 		return dict
 	
-	def getSettingsLocation(self):
-		#look if location is known
-		if 'home_location' not in self.astrocfg or 'home_timezonestr' not in self.astrocfg:
-			self.open()			
-			sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_location","")'
-			self.cursor.execute(sql)
-			sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_geolat","")'
-			self.cursor.execute(sql)
-			sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_geolon","")'
-			self.cursor.execute(sql)
-			sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_countrycode","")'
-			self.cursor.execute(sql)
-			sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_timezonestr","")'
-			self.cursor.execute(sql)			
-			self.link.commit()
-			self.close
-			return '','','','',''
-		else:
-			return self.astrocfg['home_location'],self.astrocfg['home_geolat'],self.astrocfg['home_geolon'],self.astrocfg['home_countrycode'],self.astrocfg['home_timezonestr']
-		
-	def setSettingsLocation(self, lat, lon, loc, cc, tzstr):
-		self.open()
-		sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_location"' % loc
-		self.cursor.execute(sql)
-		sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_geolat"' % lat
-		self.cursor.execute(sql)
-		sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_geolon"' % lon
-		self.cursor.execute(sql)
-		sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_countrycode"' % cc
-		self.cursor.execute(sql)
-		sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_timezonestr"' % tzstr
-		self.cursor.execute(sql)
-		self.link.commit()
-		self.close()
-		
-	def updateHistory(self):
-		# sql='SELECT * FROM history'
-		# self.cursor.execute(sql)
-		# self.history = self.cursor.fetchall()
-		# #check if limit is exceeded
-		# limit=10
-		# if len(self.history) > limit:
-		# 	sql = "DELETE FROM history WHERE id < '"+str(self.history[len(self.history)-limit][0])+"'"
-		# 	self.cursor.execute(sql)
-		# 	self.link.commit()
-		# 	#update self.history
-		# 	sql = 'SELECT * FROM history'
-		# 	self.cursor.execute(sql)
-		# 	self.history = self.cursor.fetchall()
-		return	
+	# def getSettingsLocation(self):
+	# 	#look if location is known
+	# 	if 'home_location' not in self.astrocfg or 'home_timezonestr' not in self.astrocfg:
+	# 		self.open()
+	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_location","")'
+	# 		self.cursor.execute(sql)
+	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_geolat","")'
+	# 		self.cursor.execute(sql)
+	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_geolon","")'
+	# 		self.cursor.execute(sql)
+	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_countrycode","")'
+	# 		self.cursor.execute(sql)
+	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_timezonestr","")'
+	# 		self.cursor.execute(sql)
+	# 		self.link.commit()
+	# 		self.close
+	# 		return '','','','',''
+	# 	else:
+	# 		return self.astrocfg['home_location'],self.astrocfg['home_geolat'],self.astrocfg['home_geolon'],self.astrocfg['home_countrycode'],self.astrocfg['home_timezonestr']
+	#
+	# def setSettingsLocation(self, lat, lon, loc, cc, tzstr):
+	# 	self.open()
+	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_location"' % loc
+	# 	self.cursor.execute(sql)
+	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_geolat"' % lat
+	# 	self.cursor.execute(sql)
+	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_geolon"' % lon
+	# 	self.cursor.execute(sql)
+	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_countrycode"' % cc
+	# 	self.cursor.execute(sql)
+	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_timezonestr"' % tzstr
+	# 	self.cursor.execute(sql)
+	# 	self.link.commit()
+	# 	self.close()
+	#
+	# def updateHistory(self):
+	# 	# sql='SELECT * FROM history'
+	# 	# self.cursor.execute(sql)
+	# 	# self.history = self.cursor.fetchall()
+	# 	# #check if limit is exceeded
+	# 	# limit=10
+	# 	# if len(self.history) > limit:
+	# 	# 	sql = "DELETE FROM history WHERE id < '"+str(self.history[len(self.history)-limit][0])+"'"
+	# 	# 	self.cursor.execute(sql)
+	# 	# 	self.link.commit()
+	# 	# 	#update self.history
+	# 	# 	sql = 'SELECT * FROM history'
+	# 	# 	self.cursor.execute(sql)
+	# 	# 	self.history = self.cursor.fetchall()
+	# 	return
 	
 	"""
 	
@@ -985,207 +985,208 @@ class openAstroSqlite:
 
 	"""	
 	
-	def importZet8(self, target_db, data):
-	
-		target_con = sqlite3.connect(target_db)
-		target_con.row_factory = sqlite3.Row
-		target_cur = target_con.cursor()
-		
-		#get target names
-		target_names={}
-		sql='SELECT name FROM event_natal'
-		target_cur.execute(sql)
-		for row in target_cur:
-			target_names[row['name']]=1
-		for k,v in target_names.items():		
-			for i in range(1,10):
-				if '%s (#%s)' % (k,i) in target_names:
-					target_names[k] += 1
-					
-		#read input write target
-		for row in data:
-			
-			if row['name'] in target_names:
-				name_suffix = ' (#%s)' % target_names[row['name']]
-				target_names[row['name']] += 1
-			else:
-				name_suffix = ''
-			
-			gname = self.gnearest( float(row['latitude']),float(row['longitude']) )	
-			
-			sql = 'INSERT INTO event_natal (id,name,year,month,day,hour,geolon,geolat,altitude,\
-				location,timezone,notes,image,countrycode,geonameid,timezonestr,extra) VALUES \
-				(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-			tuple = (row['name']+name_suffix,row['year'],row['month'],row['day'],row['hour'],row['longitude'],
-				row['latitude'],25,row['location'],row['timezone'],"",
-				"",gname['geonameid'],gname['timezonestr'],"")
-			target_cur.execute(sql,tuple)
-			
-		#Finished, close connection
-		target_con.commit()
-		target_cur.close()
-		target_con.close()
-						
-		return
-	
-	"""
-	
-	Function to merge two databases containing entries for persons
-	databaseMerge(target_db,input_db)
-	
-	database format:
-	'CREATE TABLE IF NOT EXISTS event_natal (id INTEGER PRIMARY KEY,name VARCHAR(50)\
-				 ,year VARCHAR(4),month VARCHAR(2), day VARCHAR(2), hour VARCHAR(50), geolon VARCHAR(50)\
-			 	,geolat VARCHAR(50), altitude VARCHAR(50), location VARCHAR(150), timezone VARCHAR(50)\
-			 	,notes VARCHAR(500), image VARCHAR(250), countrycode VARCHAR(2), geonameid INTEGER\
-			 	,timezonestr VARCHAR(100), extra VARCHAR(250))'
-	"""	
-	def databaseMerge(self,target_db,input_db):
-		dprint('db.databaseMerge: %s << %s'%(target_db,input_db))
-		target_con = sqlite3.connect(target_db)
-		target_con.row_factory = sqlite3.Row
-		target_cur = target_con.cursor()
-		input_con = sqlite3.connect(input_db)
-		input_con.row_factory = sqlite3.Row
-		input_cur = input_con.cursor()
-		#get target names
-		target_names={}
-		sql='SELECT name FROM event_natal'
-		target_cur.execute(sql)
-		for row in target_cur:
-			target_names[row['name']]=1
-		for k,v in target_names.items():		
-			for i in range(1,10):
-				if '%s (#%s)'% (k,i) in target_names:
-					target_names[k] += 1
-
-		#read input write target
-		sql='SELECT * FROM event_natal'
-		input_cur.execute(sql)
-		for row in input_cur:
-			if row['name'] in target_names:
-				name_suffix = ' (#%s)' % target_names[row['name']]
-				target_names[row['name']] += 1
-			else:
-				name_suffix = ''
-			sql = 'INSERT INTO event_natal (id,name,year,month,day,hour,geolon,geolat,altitude,\
-				location,timezone,notes,image,countrycode,geonameid,timezonestr,extra) VALUES \
-				(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-			tuple = (row['name']+name_suffix,row['year'],row['month'],row['day'],row['hour'],row['geolon'],
-				row['geolat'],row['altitude'],row['location'],row['timezone'],row['notes'],
-				row['image'],row['countrycode'],row['geonameid'],row['timezonestr'],row['extra'])
-			target_cur.execute(sql,tuple)
-		
-		#Finished, close connection
-		target_con.commit()
-		target_cur.close()
-		target_con.close()
-		input_cur.close()
-		input_con.close()
-		return
-	
-	"""
-	
-	Basic Query Functions for common databases
-	
-	"""
-	def query(self, sql, tuple=None):
-		l=sqlite3.connect(cfg.astrodb)
-		c=l.cursor()
-		for i in range(len(sql)):
-			if tuple == None:
-				c.execute(sql[i])
-			else:
-				c.execute(sql[i],tuple[i])
-		l.commit()
-		c.close()
-		l.close()		
-		
-	def pquery(self, sql, tuple=None):
-		l=sqlite3.connect(cfg.peopledb)
-		c=l.cursor()
-		for i in range(len(sql)):
-			if tuple == None:
-				c.execute(sql[i])
-			else:
-				c.execute(sql[i],tuple[i])
-		l.commit()
-		c.close()
-		l.close()	
-	
-	def gnearest(self, lat=None, lon=None):
-		#check for none
-		if lat==None or lon==None:
-			return {'country':None,'admin1':None,'geonameid':None,'continent':None,'timezonestr':None}
-		#get closest value to lat lon
-		dprint('gnearest: using %s,%s' %(lat,lon))
-		diff = {}
-		sql = 'SELECT id,latitude,longitude FROM geonames WHERE latitude >= %s AND latitude <= %s AND longitude >= %s AND longitude <= %s' % (lat-0.5,lat+0.5,lon-0.5,lon+0.5)
-		self.gquery(sql)
-		for row in self.gcursor:
-			diff[zonetab.distance( lat , lon , row['latitude'] , row['longitude'])]=row['id']
-		self.gclose()
-		keys=list(diff.keys())
-		keys.sort()
- 		
-		dict={}
-		if keys == []:
-			dict = {'country':None,'admin1':None,'geonameid':None,'continent':None,'timezonestr':None}
-			dprint('gnearest: no town found within 66km range!')
-		else:
-			sql = 'SELECT * FROM geonames WHERE id=%s LIMIT 1' % (diff[keys[0]])
-			self.gquery(sql)
-			geoname = self.gcursor.fetchone()
-			self.gclose()
-			dict['country']=geoname['country']
-			dict['admin1']=geoname['admin1']
-			dict['geonameid']=geoname['geonameid']
-			dict['timezonestr']=geoname['timezone']
-			sql = 'SELECT * FROM countryinfo WHERE isoalpha2="%s" LIMIT 1' % (geoname['country'])
-			self.gquery(sql) 			
-			countryinfo = self.gcursor.fetchone()
-			dict['continent']=countryinfo['continent']
-			self.gclose()
-			dprint('gnearest: found town %s at %s,%s,%s' % (geoname['name'],geoname['latitude'],
-				geoname['longitude'],geoname['timezone']))
-		return dict
-	
-	def gquery(self, sql, tuple=None):
-		self.glink = sqlite3.connect(cfg.geonamesdb)
-		self.glink.row_factory = sqlite3.Row
-		self.gcursor = self.glink.cursor()
-		if tuple:
-			self.gcursor.execute(sql,tuple)
-		else:
-			self.gcursor.execute(sql)
-	
-	def gclose(self):
-		self.glink.commit()
-		self.gcursor.close()
-		self.glink.close()
-		
-	def open(self):
-		self.link = sqlite3.connect(cfg.astrodb)
-		self.link.row_factory = sqlite3.Row
-		self.cursor = self.link.cursor()
-
-		self.plink = sqlite3.connect(cfg.peopledb)
-		self.plink.row_factory = sqlite3.Row
-		self.pcursor = self.plink.cursor()
-			
-	def close(self):
-		# self.cursor.close()
-		# self.pcursor.close()
-		# self.link.close()
-		# self.plink.close()
-		return
+	# def importZet8(self, target_db, data):
+	#
+	# 	target_con = sqlite3.connect(target_db)
+	# 	target_con.row_factory = sqlite3.Row
+	# 	target_cur = target_con.cursor()
+	#
+	# 	#get target names
+	# 	target_names={}
+	# 	sql='SELECT name FROM event_natal'
+	# 	target_cur.execute(sql)
+	# 	for row in target_cur:
+	# 		target_names[row['name']]=1
+	# 	for k,v in target_names.items():
+	# 		for i in range(1,10):
+	# 			if '%s (#%s)' % (k,i) in target_names:
+	# 				target_names[k] += 1
+	#
+	# 	#read input write target
+	# 	for row in data:
+	#
+	# 		if row['name'] in target_names:
+	# 			name_suffix = ' (#%s)' % target_names[row['name']]
+	# 			target_names[row['name']] += 1
+	# 		else:
+	# 			name_suffix = ''
+	#
+	# 		gname = self.gnearest( float(row['latitude']),float(row['longitude']) )
+	#
+	# 		sql = 'INSERT INTO event_natal (id,name,year,month,day,hour,geolon,geolat,altitude,\
+	# 			location,timezone,notes,image,countrycode,geonameid,timezonestr,extra) VALUES \
+	# 			(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+	# 		tuple = (row['name']+name_suffix,row['year'],row['month'],row['day'],row['hour'],row['longitude'],
+	# 			row['latitude'],25,row['location'],row['timezone'],"",
+	# 			"",gname['geonameid'],gname['timezonestr'],"")
+	# 		target_cur.execute(sql,tuple)
+	#
+	# 	#Finished, close connection
+	# 	target_con.commit()
+	# 	target_cur.close()
+	# 	target_con.close()
+	#
+	# 	return
+	#
+	# """
+	#
+	# Function to merge two databases containing entries for persons
+	# databaseMerge(target_db,input_db)
+	#
+	# database format:
+	# 'CREATE TABLE IF NOT EXISTS event_natal (id INTEGER PRIMARY KEY,name VARCHAR(50)\
+	# 			 ,year VARCHAR(4),month VARCHAR(2), day VARCHAR(2), hour VARCHAR(50), geolon VARCHAR(50)\
+	# 		 	,geolat VARCHAR(50), altitude VARCHAR(50), location VARCHAR(150), timezone VARCHAR(50)\
+	# 		 	,notes VARCHAR(500), image VARCHAR(250), countrycode VARCHAR(2), geonameid INTEGER\
+	# 		 	,timezonestr VARCHAR(100), extra VARCHAR(250))'
+	# """
+	# def databaseMerge(self,target_db,input_db):
+	# 	dprint('db.databaseMerge: %s << %s'%(target_db,input_db))
+	# 	target_con = sqlite3.connect(target_db)
+	# 	target_con.row_factory = sqlite3.Row
+	# 	target_cur = target_con.cursor()
+	# 	input_con = sqlite3.connect(input_db)
+	# 	input_con.row_factory = sqlite3.Row
+	# 	input_cur = input_con.cursor()
+	# 	#get target names
+	# 	target_names={}
+	# 	sql='SELECT name FROM event_natal'
+	# 	target_cur.execute(sql)
+	# 	for row in target_cur:
+	# 		target_names[row['name']]=1
+	# 	for k,v in target_names.items():
+	# 		for i in range(1,10):
+	# 			if '%s (#%s)'% (k,i) in target_names:
+	# 				target_names[k] += 1
+	#
+	# 	#read input write target
+	# 	sql='SELECT * FROM event_natal'
+	# 	input_cur.execute(sql)
+	# 	for row in input_cur:
+	# 		if row['name'] in target_names:
+	# 			name_suffix = ' (#%s)' % target_names[row['name']]
+	# 			target_names[row['name']] += 1
+	# 		else:
+	# 			name_suffix = ''
+	# 		sql = 'INSERT INTO event_natal (id,name,year,month,day,hour,geolon,geolat,altitude,\
+	# 			location,timezone,notes,image,countrycode,geonameid,timezonestr,extra) VALUES \
+	# 			(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+	# 		tuple = (row['name']+name_suffix,row['year'],row['month'],row['day'],row['hour'],row['geolon'],
+	# 			row['geolat'],row['altitude'],row['location'],row['timezone'],row['notes'],
+	# 			row['image'],row['countrycode'],row['geonameid'],row['timezonestr'],row['extra'])
+	# 		target_cur.execute(sql,tuple)
+	#
+	# 	#Finished, close connection
+	# 	target_con.commit()
+	# 	target_cur.close()
+	# 	target_con.close()
+	# 	input_cur.close()
+	# 	input_con.close()
+	# 	return
+	#
+	# """
+	#
+	# Basic Query Functions for common databases
+	#
+	# """
+	# def query(self, sql, tuple=None):
+	# 	l=sqlite3.connect(cfg.astrodb)
+	# 	c=l.cursor()
+	# 	for i in range(len(sql)):
+	# 		if tuple == None:
+	# 			c.execute(sql[i])
+	# 		else:
+	# 			c.execute(sql[i],tuple[i])
+	# 	l.commit()
+	# 	c.close()
+	# 	l.close()
+	#
+	# def pquery(self, sql, tuple=None):
+	# 	l=sqlite3.connect(cfg.peopledb)
+	# 	c=l.cursor()
+	# 	for i in range(len(sql)):
+	# 		if tuple == None:
+	# 			c.execute(sql[i])
+	# 		else:
+	# 			c.execute(sql[i],tuple[i])
+	# 	l.commit()
+	# 	c.close()
+	# 	l.close()
+	#
+	# def gnearest(self, lat=None, lon=None):
+	# 	#check for none
+	# 	if lat==None or lon==None:
+	# 		return {'country':None,'admin1':None,'geonameid':None,'continent':None,'timezonestr':None}
+	# 	#get closest value to lat lon
+	# 	dprint('gnearest: using %s,%s' %(lat,lon))
+	# 	diff = {}
+	# 	sql = 'SELECT id,latitude,longitude FROM geonames WHERE latitude >= %s AND latitude <= %s AND longitude >= %s AND longitude <= %s' % (lat-0.5,lat+0.5,lon-0.5,lon+0.5)
+	# 	self.gquery(sql)
+	# 	for row in self.gcursor:
+	# 		diff[zonetab.distance( lat , lon , row['latitude'] , row['longitude'])]=row['id']
+	# 	self.gclose()
+	# 	keys=list(diff.keys())
+	# 	keys.sort()
+ 	#
+	# 	dict={}
+	# 	if keys == []:
+	# 		dict = {'country':None,'admin1':None,'geonameid':None,'continent':None,'timezonestr':None}
+	# 		dprint('gnearest: no town found within 66km range!')
+	# 	else:
+	# 		sql = 'SELECT * FROM geonames WHERE id=%s LIMIT 1' % (diff[keys[0]])
+	# 		self.gquery(sql)
+	# 		geoname = self.gcursor.fetchone()
+	# 		self.gclose()
+	# 		dict['country']=geoname['country']
+	# 		dict['admin1']=geoname['admin1']
+	# 		dict['geonameid']=geoname['geonameid']
+	# 		dict['timezonestr']=geoname['timezone']
+	# 		sql = 'SELECT * FROM countryinfo WHERE isoalpha2="%s" LIMIT 1' % (geoname['country'])
+	# 		self.gquery(sql)
+	# 		countryinfo = self.gcursor.fetchone()
+	# 		dict['continent']=countryinfo['continent']
+	# 		self.gclose()
+	# 		dprint('gnearest: found town %s at %s,%s,%s' % (geoname['name'],geoname['latitude'],
+	# 			geoname['longitude'],geoname['timezone']))
+	# 	return dict
+	#
+	# def gquery(self, sql, tuple=None):
+	# 	self.glink = sqlite3.connect(cfg.geonamesdb)
+	# 	self.glink.row_factory = sqlite3.Row
+	# 	self.gcursor = self.glink.cursor()
+	# 	if tuple:
+	# 		self.gcursor.execute(sql,tuple)
+	# 	else:
+	# 		self.gcursor.execute(sql)
+	#
+	# def gclose(self):
+	# 	self.glink.commit()
+	# 	self.gcursor.close()
+	# 	self.glink.close()
+	#
+	# def open(self):
+	# 	self.link = sqlite3.connect(cfg.astrodb)
+	# 	self.link.row_factory = sqlite3.Row
+	# 	self.cursor = self.link.cursor()
+	#
+	# 	self.plink = sqlite3.connect(cfg.peopledb)
+	# 	self.plink.row_factory = sqlite3.Row
+	# 	self.pcursor = self.plink.cursor()
+	#
+	# def close(self):
+	# 	# self.cursor.close()
+	# 	# self.pcursor.close()
+	# 	# self.link.close()
+	# 	# self.plink.close()
+	# 	return
 
 #calculation and svg drawing class
 class openAstroInstance:
 
-	def __init__(self, db, cfg):
+	def __init__(self, db, cfg, event):
 		self.db = db
 		self.cfg = cfg
+		self.event = event
 		#screen size
 		#displayManager = Gdk.display_manager_get()
 		#display = displayManager.get_default_display()

@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='OpenAstro2',
       version='2.0.0',
@@ -10,6 +10,15 @@ setup(name='OpenAstro2',
       package_dir={"openastro2": "openastro2"},
       license='GPL',
       scripts=['openastro2'],
-      install_requires=["path >= 16.6",
-                        "pytz"]
+      include_package_data=True,
+      python_requires=">=3.9",
+      install_requires=[
+            "pyswisseph",
+            "pytz",
+            "jsonpickle",
+            "requests",
+            "requests_cache",
+            "pydantic",
+            "terminaltables"
+      ],
      )

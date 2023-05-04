@@ -10,4 +10,6 @@ setup(name='OpenAstro2',
       package_dir={"openastro2": "openastro2"},
       license='GPL',
       scripts=['openastro2'],
+      install_requires=["path >= 16.6",
+                        "pytz"]
      )

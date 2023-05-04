@@ -32,7 +32,7 @@ import swisseph as swe
 class ephData:
 	def __init__(self,year,month,day,hour,geolon,geolat,altitude,planets,zodiac,openastrocfg,houses_override=None):
 		#ephemeris path (default "/usr/share/swisseph:/usr/local/share/swisseph")
-		swe.set_ephe_path(ephe_path)
+		# swe.set_ephe_path(ephe_path)
 		
 		#basic location		
 		self.jul_day_UT=swe.julday(year,month,day,hour)
@@ -348,7 +348,7 @@ class ephData:
 		swe.close()
 
 def years_diff(y1, m1, d1, h1 , y2, m2, d2, h2):
-		swe.set_ephe_path(ephe_path)
+		# swe.set_ephe_path(ephe_path)
 		jd1 = swe.julday(y1,m1,d1,h1)
 		jd2 = swe.julday(y2,m2,d2,h2)
 		jd = jd1 + swe._years_diff(jd1, jd2)

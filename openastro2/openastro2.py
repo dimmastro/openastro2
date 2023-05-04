@@ -117,1097 +117,142 @@ except IOError as err:
 	TRANSLATION["default"] = gettext.translation("openastro",TDomain,languages=['en'])
 
 
-#config class
-class openAstroCfg:
-	
+class openAstroSettings:
+
 	def __init__(self):
 		self.version = VERSION
 		dprint("-------------------------------")
-		dprint('  OpenAstro.org '+str(self.version))
+		dprint('  OpenAstro.org ' + str(self.version))
 		dprint("-------------------------------")
 		self.homedir = os.path.expanduser("~")
 
-		#check for astrodir
+		# check for astrodir
 		self.astrodir = os.path.join(self.homedir, '.openastro.org')
 		if os.path.isdir(self.astrodir) == False:
 			os.mkdir(self.astrodir)
 
-		#check for tmpdir
+		# check for tmpdir
 		self.tmpdir = os.path.join(self.astrodir, 'tmp')
 		if os.path.isdir(self.tmpdir) == False:
 			os.mkdir(self.tmpdir)
 
-		#check for swiss local dir
+		# check for swiss local dir
 		self.swissLocalDir = os.path.join(self.astrodir, 'swiss_ephemeris')
 		if os.path.isdir(self.swissLocalDir) == False:
 			os.mkdir(self.swissLocalDir)
 
-		#geonames database
-		self.geonamesdb = os.path.join(DATADIR, 'geonames.sql' )
-		
-		#icons
-		icons = os.path.join(DATADIR,'icons')
+		# geonames database
+		# self.geonamesdb = os.path.join(DATADIR, 'geonames.sql' )
+
+		# directories
+		if LOCAL:
+			DATADIR = os.path.dirname(__file__)
+		elif os.path.exists(os.path.join(sys.prefix, 'share', 'openastro.org')):
+			DATADIR = os.path.join(sys.prefix, 'share', 'openastro.org')
+		elif os.path.exists(os.path.join('usr', 'local', 'share', 'openastro.org')):
+			DATADIR = os.path.join('usr', 'local', 'share', 'openastro.org')
+		elif os.path.exists(os.path.join('usr', 'share', 'openastro.org')):
+			DATADIR = os.path.join('usr', 'share', 'openastro.org')
+		else:
+			print("Exiting... can't find data directory")
+			sys.exit()
+		# icons
+		icons = os.path.join(DATADIR, 'icons')
 		self.iconWindow = os.path.join(icons, 'openastro.svg')
 		self.iconAspects = os.path.join(icons, 'aspects')
-		
-		#basic files
-		self.tempfilename = os.path.join(self.tmpdir,"openAstroChart.svg")
-		self.tempfilenameprint = os.path.join(self.tmpdir,"openAstroChartPrint.svg")
-		self.tempfilenametable = os.path.join(self.tmpdir,"openAstroChartTable.svg")
-		self.tempfilenametableprint = os.path.join(self.tmpdir,"openAstroChartTablePrint.svg")
-		self.xml_ui = os.path.join(DATADIR, 'openastro-ui.xml')
-		self.xml_svg = os.path.join(DATADIR, 'openastro-svg.xml')
-		self.xml_svg_table = os.path.join(DATADIR, 'openastro-svg-table.xml')
 
-		#sqlite databases		
-		self.astrodb = os.path.join(self.astrodir, 'astrodb.sql')
-		self.peopledb = os.path.join(self.astrodir, 'peopledb.sql')
-		self.famousdb = os.path.join(DATADIR, 'famous.sql' )
-		return
-	
-	def checkSwissEphemeris(self,num):	
-		#00 = -01-600
-		#06 = 600 - 1200
-		#12 = 1200 - 1800
-		#18 = 1800 - 2400
-		#24 = 2400 - 3000
-		seas='ftp://ftp.astro.com/pub/swisseph/ephe/seas_12.se1'
-		semo='ftp://ftp.astro.com/pub/swisseph/ephe/semo_12.se1'
-		sepl='ftp://ftp.astro.com/pub/swisseph/ephe/sepl_12.se1'
+		# basic files
+		self.tempfilename = os.path.join(self.tmpdir, "openAstroChart.svg")
+		self.tempfilenameprint = os.path.join(self.tmpdir, "openAstroChartPrint.svg")
+		self.tempfilenametable = os.path.join(self.tmpdir, "openAstroChartTable.svg")
+		self.tempfilenametableprint = os.path.join(self.tmpdir, "openAstroChartTablePrint.svg")
+		self.xml_ui = os.path.join(DATADIR, 'xml/openastro-ui.xml')
+		self.xml_svg = os.path.join(DATADIR, 'xml/openastro-svg.xml')
+		self.xml_svg_table = os.path.join(DATADIR, 'xml/openastro-svg-table.xml')
 
-#Sqlite database
-class openAstroSqlite:
-	def __init__(self):
+		# sqlite databases
+		# self.astrodb = os.path.join(self.astrodir, 'astrodb.sql')
+		# self.peopledb = os.path.join(self.astrodir, 'peopledb.sql')
+		# self.famousdb = os.path.join(DATADIR, 'famous.sql' )
+
+		#------------------------------
 
 		DATADIR = Path(__file__).parent
-		json_path = DATADIR/ 'cfg/oa2_config.json'
+		json_path = DATADIR / 'settings/settings.json'
 		with open(json_path, 'r', encoding='utf-8') as f:
 			self.settings = json.load(f)
 
-		#
-		#
-		# self.dbcheck=False
-		# self.dbpurge="IGNORE"
-		#
-		# #--dbcheck puts dbcheck to true
-		# if "--dbcheck" in sys.argv:
-		# 	self.dbcheck=True
-		# 	dprint("  Database Check Enabled!")
-		# 	dprint("-------------------------------")
-		#
-		# #--purge purges database
-		# if "--purge" in sys.argv:
-		# 	self.dbcheck=True
-		# 	self.dbpurge="REPLACE"
-		# 	dprint("  Database Check Enabled!")
-		# 	dprint("  Database Purge Enabled!")
-		# 	dprint("-------------------------------")
-			
-		# self.open()
-		# #get table names from sqlite_master for astrodb
-		# sql='SELECT name FROM sqlite_master'
-		# self.cursor.execute(sql)
-		# list=self.cursor.fetchall()
-		# self.tables={}
-		# for i in range(len(list)):
-		# 		self.tables[list[i][0]]=1
-		#
-		# #get table names from sqlite_master for peopledb
-		# sql='SELECT name FROM sqlite_master'
-		# self.pcursor.execute(sql)
-		# list=self.pcursor.fetchall()
-		# self.ptables={}
-		# for i in range(len(list)):
-		# 		self.ptables[list[i][0]]=1
-		#
-		# #check for event_natal table in peopledb
-		# self.ptable_event_natal = {
-		# 	"id":"INTEGER PRIMARY KEY",
-		# 	"name":"VARCHAR(50)",
-		# 	"year":"VARCHAR(4)",
-		# 	"month":"VARCHAR(2)",
-		# 	"day":"VARCHAR(2)",
-		# 	"hour":"VARCHAR(50)",
-		# 	"geolon":"VARCHAR(50)",
-		# 	"geolat":"VARCHAR(50)",
-		# 	"altitude":"VARCHAR(50)",
-		# 	"location":"VARCHAR(150)",
-		# 	"timezone":"VARCHAR(50)",
-		# 	"notes":"VARCHAR(500)",
-		# 	"image":"VARCHAR(250)",
-		# 	"countrycode":"VARCHAR(2)",
-		# 	"geonameid":"INTEGER",
-		# 	"timezonestr":"VARCHAR(100)",
-		# 	"extra":"VARCHAR(500)"
-		# 	}
-		# if 'event_natal' not in self.ptables:
-		# 	sql='CREATE TABLE IF NOT EXISTS event_natal (id INTEGER PRIMARY KEY,name VARCHAR(50)\
-		# 		 ,year VARCHAR(4),month VARCHAR(2), day VARCHAR(2), hour VARCHAR(50), geolon VARCHAR(50)\
-		# 	 	,geolat VARCHAR(50), altitude VARCHAR(50), location VARCHAR(150), timezone VARCHAR(50)\
-		# 	 	,notes VARCHAR(500), image VARCHAR(250), countrycode VARCHAR(2), geonameid INTEGER\
-		# 	 	,timezonestr VARCHAR(100), extra VARCHAR(250))'
-		# 	self.pcursor.execute(sql)
-		# 	dprint('creating sqlite table event_natal in peopledb')
-		
-		#check for astrocfg table in astrodb
-		# if 'astrocfg' not in self.tables:
-		# 	#0=cfg_name, 1=cfg_value
-		# 	sql='CREATE TABLE IF NOT EXISTS astrocfg (name VARCHAR(150) UNIQUE,value VARCHAR(150))'
-		# 	self.cursor.execute(sql)
-		# 	self.dbcheck=True
-		# 	dprint('creating sqlite table astrocfg in astrodb')
-		#
-		# #check for astrocfg version
-		# sql='INSERT OR IGNORE INTO astrocfg (name,value) VALUES(?,?)'
-		# self.cursor.execute(sql,("version",cfg.version))
-		# #get astrocfg dict
-		# sql='SELECT value FROM astrocfg WHERE name="version"'
-		# self.cursor.execute(sql)
-		# self.astrocfg = {}
-		# self.astrocfg["version"]=self.cursor.fetchone()[0]
-
-		# # Read conf from json
-		# DATADIR = Path(__file__)
-		# json_path = DATADIR.parent / 'cfg/astrocfg.json'
-		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
-		# # with open('/home/dimm/PycharmProjects/openastro2/openastro2/cfg/astrocfg.json', 'r', encoding='utf-8') as f:
-		# 	self.astrocfg = json.load(f)
-		# 	# self.astrocfg = {item['name']: item['value'] for item in astrocfg}
-		# # print (self.astrocfg)
 		self.astrocfg = self.settings["astrocfg"]
-
-		# #check for updated version
-		# if self.astrocfg['version'] != str(cfg.version):
-		# 	dprint('version mismatch(%s != %s), checking table structure' % (self.astrocfg['version'],cfg.version))
-		# 	#insert current version and set dbcheck to true
-		# 	self.dbcheck = True
-		# 	sql='INSERT OR REPLACE INTO astrocfg VALUES("version","'+str(cfg.version)+'")'
-		# 	self.cursor.execute(sql)
-		#
-		# #default astrocfg keys (if dbcheck)
-		# if self.dbcheck:
-		# 	dprint('dbcheck astrodb.astrocfg')
-		# 	default = {
-		# 					"version":str(cfg.version),
-		# 					"use_geonames.org":"0",
-		# 					"houses_system":"P",
-		# 					"language":"default",
-		# 					"postype":"geo",
-		# 					"chartview":"traditional",
-		# 					"zodiactype":"tropical",
-		# 					"siderealmode":"FAGAN_BRADLEY"
-		# 				 }
-		# 	for k, v in default.items():
-		# 		sql='INSERT OR %s INTO astrocfg (name,value) VALUES(?,?)' % (self.dbpurge)
-		# 		self.cursor.execute(sql,(k,v))
-				
-		# #get astrocfg dict
-		# sql='SELECT * FROM astrocfg'
-		# self.cursor.execute(sql)
-		# self.astrocfg = {}
-		# for row in self.cursor:
-		# 	self.astrocfg[row['name']]=row['value']
 
 		# #install language
 		self.setLanguage(self.astrocfg['language'])
-		self.lang_label=LANGUAGES_LABEL
+		self.lang_label = LANGUAGES_LABEL
 
+	# 	orb = [
+	# 	#sun
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
+	# 	#moon
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
+	# 	#mercury
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
+	# 	#venus
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
+	# 	#mars
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
+	# 	#jupiter
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
+	# 	#saturn
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
+	# 	#uranus
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
+	# 	#neptunus
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
+	# 	#pluto
+	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}'
+	# 	]
 
-		# #fix inconsitencies between in people's database
-		# if self.dbcheck:
-		# 	sql='PRAGMA table_info(event_natal)'
-		# 	self.pcursor.execute(sql)
-		# 	list=self.pcursor.fetchall()
-		# 	vacuum = False
-		# 	cnames=[]
-		# 	for i in range(len(list)):
-		# 		cnames.append(list[i][1])
-		# 	for key,val in self.ptable_event_natal.items():
-		# 		if key not in cnames:
-		# 			sql = 'ALTER TABLE event_natal ADD %s %s'%(key,val)
-		# 			dprint("dbcheck peopledb.event_natal adding %s %s"%(key,val))
-		# 			self.pcursor.execute(sql)
-		# 			vacuum = True
-		# 	if vacuum:
-		# 		sql = "VACUUM"
-		# 		self.pcursor.execute(sql)
-		# 		dprint('dbcheck peopledb.event_natal: updating table definitions!')
-
-				
-		# #check for history table in astrodb
-		# if 'history' not in self.tables:
-		# 	#0=id,1=name,2=year,3=month,4=day,5=hour,6=geolon,7=geolat,8=alt,9=location,10=tz
-		# 	sql='CREATE TABLE IF NOT EXISTS history (id INTEGER PRIMARY KEY,name VARCHAR(50)\
-		# 		 ,year VARCHAR(50),month VARCHAR(50), day VARCHAR(50), hour VARCHAR(50), geolon VARCHAR(50)\
-		# 	 	,geolat VARCHAR(50), altitude VARCHAR(50), location VARCHAR(150), timezone VARCHAR(50)\
-		# 	 	,notes VARCHAR(500), image VARCHAR(250), countrycode VARCHAR(2), geonameid INTEGER, extra VARCHAR(250))'
-		# 	self.cursor.execute(sql)
-		# 	dprint('creating sqlite table history in astrodb')
-		#
-		# #fix inconsitencies between 0.6x and 0.7x in history table
-		# if self.dbcheck:
-		# 	sql='PRAGMA table_info(history)'
-		# 	self.cursor.execute(sql)
-		# 	list=self.cursor.fetchall()
-		# 	cnames=[]
-		# 	for i in range(len(list)):
-		# 		cnames.append(list[i][1])
-		# 	vacuum = False
-		# 	if "notes" not in cnames:
-		# 		sql = 'ALTER TABLE history ADD notes VARCHAR(500)'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if "image" not in cnames:
-		# 		sql = 'ALTER TABLE history ADD image VARCHAR(250)'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if "countrycode" not in cnames:
-		# 		sql = 'ALTER TABLE history ADD countrycode VARCHAR(2)'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if "geonameid" not in cnames:
-		# 		sql = 'ALTER TABLE history ADD geonameid INTEGER'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if "extra" not in cnames:
-		# 		sql = 'ALTER TABLE history ADD extra VARCHAR(250)'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if vacuum:
-		# 		sql = "VACUUM"
-		# 		self.cursor.execute(sql)
-		# 		dprint('dbcheck: updating history table definitions!')
-		#
-		# #check for settings_aspect table in astrodb
-		# if 'settings_aspect' not in self.tables:
-		# 	sql='CREATE TABLE IF NOT EXISTS settings_aspect (degree INTEGER UNIQUE, name VARCHAR(50)\
-		# 		 ,color VARCHAR(50),visible INTEGER, visible_grid INTEGER\
-		# 		 ,is_major INTEGER, is_minor INTEGER, orb VARCHAR(5))'
-		# 	self.cursor.execute(sql)
-		# 	self.dbcheck=True
-		# 	dprint('creating sqlite table settings_aspect in astrodb')
-		#
-		# #if update, check if everything is in order
-		# if self.dbcheck:
-		# 	sql='PRAGMA table_info(settings_aspect)'
-		# 	self.cursor.execute(sql)
-		# 	list=self.cursor.fetchall()
-		# 	cnames=[]
-		# 	for i in range(len(list)):
-		# 		cnames.append(list[i][1])
-		# 	vacuum = False
-		# 	if "visible" not in cnames:
-		# 		sql = 'ALTER TABLE settings_aspect ADD visible INTEGER'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if "visible_grid" not in cnames:
-		# 		sql = 'ALTER TABLE settings_aspect ADD visible_grid INTEGER'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if "is_major" not in cnames:
-		# 		sql = 'ALTER TABLE settings_aspect ADD is_major INTEGER'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if "is_minor" not in cnames:
-		# 		sql = 'ALTER TABLE settings_aspect ADD is_minor INTEGER'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if "orb" not in cnames:
-		# 		sql = 'ALTER TABLE settings_aspect ADD orb VARCHAR(5)'
-		# 		self.cursor.execute(sql)
-		# 		vacuum = True
-		# 	if vacuum:
-		# 		sql = "VACUUM"
-		# 		self.cursor.execute(sql)
-		#
-		# #default values for settings_aspect (if dbcheck)
-		# if self.dbcheck:
-		# 	dprint('dbcheck astrodb.settings_aspect')
-		# 	degree = [ 0 , 30 , 45 , 60 , 72 , 90 , 120 , 135 , 144 , 150 , 180 ]
-		# 	name = [ _('conjunction') , _('semi-sextile') , _('semi-square') , _('sextile') , _('quintile') , _('square') , _('trine') , _('sesquiquadrate') , _('biquintile') , _('quincunx') , _('opposition') ]
-		# 	color = [ '#5757e2' ,	'#810757' , 			'#b14e58' ,	 '#d59e28' , '#1f99b3' ,'#dc0000' , '#36d100' , '#985a10' , 		  '#7a9810' , 	'#fff600' ,		 '#510060' ]
-		# 	visible =      [ 1 , 0 , 0 , 1 , 1 , 1 , 1 , 0 , 1 , 1 , 1 ]
-		# 	visible_grid = [ 1 , 0 , 0 , 1 , 1 , 1 , 1 , 0 , 1 , 1 , 1 ]
-		# 	is_major =     [ 1 , 0 , 0 , 1 , 0 , 1 , 1 , 0 , 0 , 0 , 1 ]
-		# 	is_minor = 	   [ 0 , 1 , 1 , 0 , 1 , 0 , 0 , 1 , 1 , 0 , 0 ]
-		# 	orb =    		[ 10, 3 , 3 , 6 , 2 , 8 , 8 , 3 , 2 , 3 , 10]
-		# 	#insert values
-		# 	for i in range(len(degree)):
-		# 		sql='INSERT OR %s INTO settings_aspect \
-		# 		(degree, name, color, visible, visible_grid, is_major, is_minor, orb)\
-		# 		VALUES(%s,"%s","%s",%s,%s,%s,%s,"%s")' % ( self.dbpurge,degree[i],name[i],color[i],visible[i],
-		# 		visible_grid[i],is_major[i],is_minor[i],orb[i] )
-		# 		self.cursor.execute(sql)
-		#
-		# #check for colors table in astrodb
-		# if 'color_codes' not in self.tables:
-		# 	sql='CREATE TABLE IF NOT EXISTS color_codes (name VARCHAR(50) UNIQUE\
-		# 		 ,code VARCHAR(50))'
-		# 	self.cursor.execute(sql)
-		# 	self.dbcheck=True
-		# 	dprint('creating sqlite table color_codes in astrodb')
-		#
-		# #default values for colors (if dbcheck)
-		# self.defaultColors = {
-		# 	"paper_0":"#000000",
-		# 	"paper_1":"#ffffff",
-		# 	"zodiac_bg_0":"#482900",
-		# 	"zodiac_bg_1":"#6b3d00",
-		# 	"zodiac_bg_2":"#5995e7",
-		# 	"zodiac_bg_3":"#2b4972",
-		# 	"zodiac_bg_4":"#c54100",
-		# 	"zodiac_bg_5":"#2b286f",
-		# 	"zodiac_bg_6":"#69acf1",
-		# 	"zodiac_bg_7":"#ffd237",
-		# 	"zodiac_bg_8":"#ff7200",
-		# 	"zodiac_bg_9":"#863c00",
-		# 	"zodiac_bg_10":"#4f0377",
-		# 	"zodiac_bg_11":"#6cbfff",
-		# 	"zodiac_icon_0":"#482900",
-		# 	"zodiac_icon_1":"#6b3d00",
-		# 	"zodiac_icon_2":"#5995e7",
-		# 	"zodiac_icon_3":"#2b4972",
-		# 	"zodiac_icon_4":"#c54100",
-		# 	"zodiac_icon_5":"#2b286f",
-		# 	"zodiac_icon_6":"#69acf1",
-		# 	"zodiac_icon_7":"#ffd237",
-		# 	"zodiac_icon_8":"#ff7200",
-		# 	"zodiac_icon_9":"#863c00",
-		# 	"zodiac_icon_10":"#4f0377",
-		# 	"zodiac_icon_11":"#6cbfff",
-		# 	"zodiac_radix_ring_0":"#ff0000",
-		# 	"zodiac_radix_ring_1":"#ff0000",
-		# 	"zodiac_radix_ring_2":"#ff0000",
-		# 	"zodiac_transit_ring_0":"#ff0000",
-		# 	"zodiac_transit_ring_1":"#ff0000",
-		# 	"zodiac_transit_ring_2":"#0000ff",
-		# 	"zodiac_transit_ring_3":"#0000ff",
-		# 	"houses_radix_line":"#ff0000",
-		# 	"houses_transit_line":"#0000ff",
-		# 	"aspect_0":"#5757e2",
-		# 	"aspect_30":"#810757",
-		# 	"aspect_45":"#b14e58",
-		# 	"aspect_60":"#d59e28",
-		# 	"aspect_72":"#1f99b3",
-		# 	"aspect_90":"#dc0000",
-		# 	"aspect_120":"#36d100",
-		# 	"aspect_135":"#985a10",
-		# 	"aspect_144":"#7a9810",
-		# 	"aspect_150":"#fff600",
-		# 	"aspect_180":"#510060",
-		# 	"planet_0":"#984b00",
-		# 	"planet_1":"#150052",
-		# 	"planet_2":"#520800",
-		# 	"planet_3":"#400052",
-		# 	"planet_4":"#540000",
-		# 	"planet_5":"#47133d",
-		# 	"planet_6":"#124500",
-		# 	"planet_7":"#6f0766",
-		# 	"planet_8":"#06537f",
-		# 	"planet_9":"#713f04",
-		# 	"planet_10":"#4c1541",
-		# 	"planet_11":"#4c1541",
-		# 	"planet_12":"#331820",
-		# 	"planet_13":"#585858",
-		# 	"planet_14":"#000000",
-		# 	"planet_15":"#666f06",
-		# 	"planet_16":"#000000",
-		# 	"planet_17":"#000000",
-		# 	"planet_18":"#000000",
-		# 	"planet_19":"#000000",
-		# 	"planet_20":"#000000",
-		# 	"planet_21":"#000000",
-		# 	"planet_22":"#000000",
-		# 	"planet_23":"#ff7e00",
-		# 	"planet_24":"#FF0000",
-		# 	"planet_25":"#0000FF",
-		# 	"planet_26":"#000000",
-		# 	"planet_27":"#000000",
-		# 	"planet_28":"#000000",
-		# 	"planet_29":"#000000",
-		# 	"planet_30":"#000000",
-		# 	"planet_31":"#000000",
-		# 	"planet_32":"#000000",
-		# 	"planet_33":"#000000",
-		# 	"planet_34":"#000000",
-		# 	"lunar_phase_0":"#000000",
-		# 	"lunar_phase_1":"#FFFFFF",
-		# 	"lunar_phase_2":"#CCCCCC"
-		# }
-		# if self.dbcheck:
-		# 	dprint('dbcheck astrodb.color_codes')
-		# 	#insert values
-		# 	for k,v in self.defaultColors.items():
-		# 		sql='INSERT OR %s INTO color_codes \
-		# 		(name, code)\
-		# 		VALUES("%s","%s")' % ( self.dbpurge , k, v )
-		# 		self.cursor.execute(sql)
-		#
-		# #check for label table in astrodb
-		# if 'label' not in self.tables:
-		# 	sql='CREATE TABLE IF NOT EXISTS label (name VARCHAR(150) UNIQUE\
-		# 		 ,value VARCHAR(200))'
-		# 	self.cursor.execute(sql)
-		# 	self.dbcheck=True
-		# 	dprint('creating sqlite table label in astrodb')
-		#
-		# #default values for label (if dbcheck)
-		# self.defaultLabel = {
-		# 	"cusp":_("Cusp"),
-		# 	"longitude":_("Longitude"),
-		# 	"latitude":_("Latitude"),
-		# 	"north":_("North"),
-		# 	"east":_("East"),
-		# 	"south":_("South"),
-		# 	"west":_("West"),
-		# 	"apparent_geocentric":_("Apparent Geocentric"),
-		# 	"true_geocentric":_("True Geocentric"),
-		# 	"topocentric":_("Topocentric"),
-		# 	"heliocentric":_("Heliocentric"),
-		# 	"fire":_("Fire"),
-		# 	"earth":_("Earth (element)"),
-		# 	"air":_("Air"),
-		# 	"water":_("Water"),
-		# 	"radix":_("Radix"),
-		# 	"transit":_("Transit"),
-		# 	"synastry":_("Synastry"),
-		# 	"composite":_("Composite"),
-		# 	"combine":_("Combine"),
-		# 	"solar":_("Solar"),
-		# 	"secondary_progressions":_("Secondary Progressions")
-		# }
-		# if self.dbcheck:
-		# 	dprint('dbcheck astrodb.label')
-		# 	#insert values
-		# 	for k,v in self.defaultLabel.items():
-		# 		sql='INSERT OR %s INTO label \
-		# 		(name, value)\
-		# 		VALUES("%s","%s")' % ( self.dbpurge , k, v )
-		# 		self.cursor.execute(sql)
-		#
-		# #check for settings_planet table in astrodb
-		# self.table_settings_planet={
-		# 		"id":"INTEGER UNIQUE",
-		# 		"name":"VARCHAR(50)",
-		# 		"color":"VARCHAR(50)",
-		# 		"visible":"INTEGER",
-		# 		"element_points":"INTEGER",
-		# 		"zodiac_relation":"VARCHAR(50)",
-		# 		"label":"VARCHAR(50)",
-		# 		"label_short":"VARCHAR(20)",
-		# 		"visible_aspect_line":"INTEGER",
-		# 		"visible_aspect_grid":"INTEGER"
-		# 		}
-		# if 'settings_planet' not in self.tables:
-		# 	sql='CREATE TABLE IF NOT EXISTS settings_planet (id INTEGER UNIQUE, name VARCHAR(50)\
-		# 		,color VARCHAR(50),visible INTEGER, element_points INTEGER, zodiac_relation VARCHAR(50)\
-		# 	 	,label VARCHAR(50), label_short VARCHAR(20), visible_aspect_line INTEGER\
-		# 	 	,visible_aspect_grid INTEGER)'
-		# 	self.cursor.execute(sql)
-		# 	self.dbcheck=True
-		# 	dprint('creating sqlite table settings_planet in astrodb')
-		#
-		#
-		# #default values for settings_planet (if dbcheck)
-		# if self.dbcheck:
-		# 	dprint('dbcheck astrodb.settings_planet')
-		# 	self.value_settings_planet={}
-		# 	self.value_settings_planet['name'] = [
-		# 	'sun','moon','mercury','venus','mars','jupiter','saturn',
-		# 	'uranus','neptune','pluto','mean node','true node','mean apogee','osc. apogee',
-		# 	'earth','chiron','pholus','ceres','pallas','juno','vesta',
-		# 	'intp. apogee','intp. perigee','Asc','Mc','Dsc','Ic','day pars',
-		# 	'night pars','south node', 'marriage pars', 'black sun', 'vulcanus', 'persephone',
-		# 	'true lilith']
-		# 	orb = [
-		# 	#sun
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-		# 	#moon
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-		# 	#mercury
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-		# 	#venus
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-		# 	#mars
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-		# 	#jupiter
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-		# 	#saturn
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-		# 	#uranus
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-		# 	#neptunus
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-		# 	#pluto
-		# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}'
-		# 	]
-		# 	self.value_settings_planet['label'] = [
-		# 	_('Sun'),_('Moon'),_('Mercury'),_('Venus'),_('Mars'),_('Jupiter'),_('Saturn'),
-		# 	_('Uranus'),_('Neptune'),_('Pluto'),_('North Node'),'?',_('Lilith'),_('Osc. Lilith'),
-		# 	_('Earth'),_('Chiron'),_('Pholus'),_('Ceres'),_('Pallas'),_('Juno'),_('Vesta'),
-		# 	'intp. apogee','intp. perigee',_('Asc'),_('Mc'),_('Dsc'),_('Ic'),_('Day Pars'),
-		# 	_('Night Pars'),_('South Node'),_('Marriage Pars'),_('Black Sun'),_('Vulcanus'),
-		# 	_('Persephone'),_('True Lilith')]
-		# 	self.value_settings_planet['label_short'] = [
-		# 	'sun','moon','mercury','venus','mars','jupiter','saturn',
-		# 	'uranus','neptune','pluto','Node','?','Lilith','?',
-		# 	'earth','chiron','pholus','ceres','pallas','juno','vesta',
-		# 	'intp. apogee','intp. perigee','Asc','Mc','Dsc','Ic','DP',
-		# 	'NP','SNode','marriage','blacksun','vulcanus','persephone','truelilith']
-		# 	self.value_settings_planet['color'] = [
-		# 	'#984b00','#150052','#520800','#400052','#540000','#47133d','#124500',
-		# 	'#6f0766','#06537f','#713f04','#4c1541','#4c1541','#33182','#000000',
-		# 	'#000000','#666f06','#000000','#000000','#000000','#000000','#000000',
-		# 	'#000000','#000000','orange','#FF0000','#0000FF','#000000','#000000',
-		# 	'#000000','#000000','#000000','#000000','#000000','#000000','#000000']
-		# 	self.value_settings_planet['visible'] = [
-		# 	1,1,1,1,1,1,1,
-		# 	1,1,1,1,0,1,0,
-		# 	0,1,0,0,0,0,0,
-		# 	0,0,1,1,0,0,1,
-		# 	1,0,0,0,0,0,0]
-		# 	self.value_settings_planet['visible_aspect_line'] = [
-		# 	1,1,1,1,1,1,1,
-		# 	1,1,1,1,0,1,0,
-		# 	0,1,0,0,0,0,0,
-		# 	0,0,1,1,0,0,1,
-		# 	1,0,0,0,0,0,0]
-		# 	self.value_settings_planet['visible_aspect_grid'] = [
-		# 	1,1,1,1,1,1,1,
-		# 	1,1,1,1,0,1,0,
-		# 	0,1,0,0,0,0,0,
-		# 	0,0,1,1,0,0,1,
-		# 	1,0,0,0,0,0,0]
-		# 	self.value_settings_planet['element_points'] = [
-		# 	40,40,15,15,15,10,10,
-		# 	10,10,10,20,0,0,0,
-		# 	0,5,0,0,0,0,0,
-		# 	0,0,40,20,0,0,0,
-		# 	0,0,0,0,0,0,0]
-		# 	#zodiac relation gives 10 extra points in element calculation
-		# 	self.value_settings_planet['zodiac_relation'] = [
-		# 	'4','3','2,5','1,6','0','8','9',
-		# 	'10','11','7','-1','-1','-1','-1',
-		# 	'-1','-1','-1','-1','-1','-1','-1',
-		# 	'-1','-1','-1','-1','-1','-1','-1',
-		# 	'-1','-1','-1','-1','-1','-1','-1']
-		#
-		# 	#if update, check if everything is in order with settings_planet
-		# 	sql='PRAGMA table_info(settings_planet)'
-		# 	self.cursor.execute(sql)
-		# 	list=self.cursor.fetchall()
-		# 	vacuum = False
-		# 	cnames=[]
-		# 	for i in range(len(list)):
-		# 		cnames.append(list[i][1])
-		# 	for key,val in self.table_settings_planet.items():
-		# 		if key not in cnames:
-		# 			sql = 'ALTER TABLE settings_planet ADD %s %s'%(key,val)
-		# 			dprint("dbcheck astrodb.settings_planet adding %s %s"%(key,val))
-		# 			self.cursor.execute(sql)
-		# 			#update values for col
-		# 			self.cursor.execute("SELECT id FROM settings_planet ORDER BY id DESC LIMIT 1")
-		# 			c = self.cursor.fetchone()[0]+1
-		# 			for rowid in range(c):
-		# 				sql = 'UPDATE settings_planet SET %s=? WHERE id=?' %(key)
-		# 				self.cursor.execute(sql,(self.value_settings_planet[key][rowid],rowid))
-		# 			vacuum = True
-		# 	if vacuum:
-		# 		sql = "VACUUM"
-		# 		self.cursor.execute(sql)
-		#
-		# 	#insert values for planets that don't exists
-		# 	for i in range(len(self.value_settings_planet['name'])):
-		# 		sql='INSERT OR %s INTO settings_planet VALUES(?,?,?,?,?,?,?,?,?,?)'%(self.dbpurge)
-		# 		values=(i,
-		# 				self.value_settings_planet['name'][i],
-		# 				self.value_settings_planet['color'][i],
-		# 				self.value_settings_planet['visible'][i],
-		# 				self.value_settings_planet['element_points'][i],
-		# 				self.value_settings_planet['zodiac_relation'][i],
-		# 				self.value_settings_planet['label'][i],
-		# 				self.value_settings_planet['label_short'][i],
-		# 				self.value_settings_planet['visible_aspect_line'][i],
-		# 				self.value_settings_planet['visible_aspect_grid'][i]
-		# 				)
-		# 		self.cursor.execute(sql,values)
-
-		#commit initial changes
-		# self.updateHistory()
-		# self.link.commit()
-		# self.plink.commit()
-		# self.close()
-
+		return
 	def setLanguage(self, lang=None):
-		if lang==None or lang=="default":			
+		if lang == None or lang == "default":
 			TRANSLATION["default"].install()
 			dprint("installing default language")
 		else:
 			TRANSLATION[lang].install()
-			dprint("installing language (%s)"%(lang))
+			dprint("installing language (%s)" % (lang))
 		return
 
-	# def addHistory(self):
-		# self.open()
-		# sql = 'INSERT INTO history \
-		# 	(id,name,year,month,day,hour,geolon,geolat,altitude,location,timezone,countrycode) VALUES \
-		# 	(null,?,?,?,?,?,?,?,?,?,?,?)'
-		# tuple = (openAstro.name,openAstro.year,openAstro.month,openAstro.day,openAstro.hour,
-		# 	openAstro.geolon,openAstro.geolat,openAstro.altitude,openAstro.location,
-		# 	openAstro.timezone,openAstro.countrycode)
-		# self.cursor.execute(sql,tuple)
-		# self.link.commit()
-		# self.updateHistory()
-		# self.close()
-	
-	# def getAstrocfg(self,key):
-	# 	self.open()
-	# 	sql='SELECT value FROM astrocfg WHERE name="%s"' % key
-	# 	self.cursor.execute(sql)
-	# 	one=self.cursor.fetchone()
-	# 	self.close()
-	# 	if one == None:
-	# 		return None
-	# 	else:
-	# 		return one[0]
-	
-	# def setAstrocfg(self,key,val):
-	# 	sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES (?,?)'
-	# 	self.query([sql],[(key,val)])
-	# 	self.astrocfg[key]=val
-	# 	return
-
 	def getColors(self):
-		# self.open()
-		# sql='SELECT * FROM color_codes'
-		# self.cursor.execute(sql)
-		# list=self.cursor.fetchall()
-		# out={}
-		# for i in range(len(list)):
-		# 	out[list[i][0]] = list[i][1]
-		# self.close()
-
-		# # Read conf from json
-		# DATADIR = Path(__file__)
-		#
-		# json_path = DATADIR.parent / 'cfg/color_codes.json'
-		# # json_path = self.json_dir / f"openastro2/cfg/color_codes.json"
-		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
-		# 	out = json.load(f)
-		# 	# out = {item['name']: item['code'] for item in out_jason}
-		# 	# print (out)
 		out = self.settings["color_codes"]
 		return out
 
 	def getLabel(self):
-		# self.open()
-		# sql='SELECT * FROM label'
-		# self.cursor.execute(sql)
-		# list=self.cursor.fetchall()
-		# out={}
-		# for i in range(len(list)):
-		# 	out[list[i][0]] = list[i][1]
-		# self.close()
-
-		# # Read conf from json
-		# DATADIR = Path(__file__)
-		# json_path = DATADIR.parent / 'cfg/label.json'
-		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
-		# 	out = json.load(f)
-		# 	# out = {item['name']: item['value'] for item in out_jason}
-		# 	print (out)
 		out = self.settings["label"]
 		return out
-	
-	# def getDatabase(self):
-	# 	self.open()
-	#
-	# 	sql = 'SELECT * FROM event_natal ORDER BY id ASC'
-	# 	self.pcursor.execute(sql)
-	# 	dict = []
-	# 	for row in self.pcursor:
-	# 		s={}
-	# 		for key,val in self.ptable_event_natal.items():
-	# 			if row[key] == None:
-	# 				s[key]=""
-	# 			else:
-	# 				s[key]=row[key]
-	# 		dict.append(s)
-	# 	self.close()
-	# 	return dict
-	#
 
-	# def getDatabaseFamous(self,limit="2000",search=None):
-	# 	self.flink = sqlite3.connect(cfg.famousdb)
-	# 	self.flink.row_factory = sqlite3.Row
-	# 	self.fcursor = self.flink.cursor()
-	#
-	# 	if search:
-	# 		sql='SELECT * FROM famous WHERE year>? AND \
-	# 		(lastname LIKE ? OR firstname LIKE ? OR name LIKE ?)\
-	# 		 LIMIT %s'%(limit)
-	# 		self.fcursor.execute(sql,(1800,search,search,search))
-	# 	else:
-	# 		sql='SELECT * FROM famous WHERE year>? LIMIT %s'%(limit)
-	# 		self.fcursor.execute(sql,(1800,))
-	#
-	# 	oldDB=self.fcursor.fetchall()
-	#
-	# 	self.fcursor.close()
-	# 	self.flink.close()
-	#
-	# 	#process database
-	# 	newDB = []
-	# 	for a in range(len(oldDB)):
-	# 		#minus years
-	# 		if oldDB[a][12] == '571/': #Muhammad
-	# 			year = 571
-	# 		elif oldDB[a][12] <= 0:
-	# 			year = 1
-	# 		else:
-	# 			year = oldDB[a][12]
-	#
-	# 		month = oldDB[a][13]
-	# 		day = oldDB[a][14]
-	# 		hour = oldDB[a][15]
-	# 		h,m,s = openAstro.decHour(hour)
-	#
-	# 		#aware datetime object
-	# 		dt_input = datetime.datetime(year,month,day,h,m,s)
-	# 		dt = pytz.timezone(oldDB[a][20]).localize(dt_input)
-	#
-	# 		#naive utc datetime object
-	# 		dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-	# 		#timezone
-	# 		timezone=openAstro.offsetToTz(dt.utcoffset())
-	# 		year = dt_utc.year
-	# 		month = dt_utc.month
-	# 		day = dt_utc.day
-	# 		hour = openAstro.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-	#
-	# 		newDB.append({
-	# 					"id":oldDB[a][0], #id INTEGER
-	# 					"name":str(a+1)+". "+oldDB[a][3]+" "+oldDB[a][4], #name
-	# 					"year":year, #year
-	# 					"month":month, #month
-	# 					"day":day, #day
-	# 					"hour":hour, #hour
-	# 					"geolon":oldDB[a][18], #geolon
-	# 					"geolat":oldDB[a][17], #geolat
-	# 					"altitude":"25", #altitude
-	# 					"location":oldDB[a][16], #location
-	# 					"timezone":timezone, #timezone
-	# 					"notes":"",#notes
-	# 					"image":"",#image
-	# 					"countrycode":oldDB[a][8], #countrycode
-	# 					"geonameid":oldDB[a][19], #geonameid
-	# 					"timezonestr":oldDB[a][20], #timezonestr
-	# 					"extra":"" #extra
-	# 					})
-	#
-	# 	return newDB
-	#
 	def getSettingsPlanet(self):
-		# self.open()
-		# sql = 'SELECT * FROM settings_planet ORDER BY id ASC'
-		# self.cursor.execute(sql)
-		# dict = []
-		# for row in self.cursor:
-		# 	s={}
-		# 	for key,val in self.table_settings_planet.items():
-		# 		s[key]=row[key]
-		# 	dict.append(s)
-		# self.close()
-
-		# # Read conf from json
-		# DATADIR = Path(__file__)
-		# json_path = DATADIR.parent / 'cfg/settings_planet.json'
-		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
-		# 	dict = json.load(f)
-		# 	# dict = {item['id']: item['name'] for item in out_jason}
 		dict = self.settings["settings_planet"]
 		return dict
-		
+
 	def getSettingsAspect(self):
-		# self.open()
-		# sql = 'SELECT * FROM settings_aspect ORDER BY degree ASC'
-		# self.cursor.execute(sql)
-		# dict = []
-		# for row in self.cursor:
-		# 	#degree, name, color, visible, visible_grid, is_major, is_minor, orb
-		# 	dict.append({'degree':row['degree'],'name':row['name'],'color':row['color']
-		# 	,'visible':row['visible'],'visible_grid':row['visible_grid']
-		# 	,'is_major':row['is_major'],'is_minor':row['is_minor'],'orb':row['orb']})
-		# self.close()
-
-		# # Read conf from json
-		# DATADIR = Path(__file__)
-		# json_path = DATADIR.parent / 'cfg/settings_aspect.json'
-		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
-		# 	dict = json.load(f)
-		# # dict = {item['id']: item['name'] for item in out_jason}
-
 		dict = self.settings["settings_aspect"]
 		return dict
-	
-	# def getSettingsLocation(self):
-	# 	#look if location is known
-	# 	if 'home_location' not in self.astrocfg or 'home_timezonestr' not in self.astrocfg:
-	# 		self.open()
-	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_location","")'
-	# 		self.cursor.execute(sql)
-	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_geolat","")'
-	# 		self.cursor.execute(sql)
-	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_geolon","")'
-	# 		self.cursor.execute(sql)
-	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_countrycode","")'
-	# 		self.cursor.execute(sql)
-	# 		sql='INSERT OR REPLACE INTO astrocfg (name,value) VALUES("home_timezonestr","")'
-	# 		self.cursor.execute(sql)
-	# 		self.link.commit()
-	# 		self.close
-	# 		return '','','','',''
-	# 	else:
-	# 		return self.astrocfg['home_location'],self.astrocfg['home_geolat'],self.astrocfg['home_geolon'],self.astrocfg['home_countrycode'],self.astrocfg['home_timezonestr']
-	#
-	# def setSettingsLocation(self, lat, lon, loc, cc, tzstr):
-	# 	self.open()
-	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_location"' % loc
-	# 	self.cursor.execute(sql)
-	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_geolat"' % lat
-	# 	self.cursor.execute(sql)
-	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_geolon"' % lon
-	# 	self.cursor.execute(sql)
-	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_countrycode"' % cc
-	# 	self.cursor.execute(sql)
-	# 	sql = 'UPDATE astrocfg SET value="%s" WHERE name="home_timezonestr"' % tzstr
-	# 	self.cursor.execute(sql)
-	# 	self.link.commit()
-	# 	self.close()
-	#
-	# def updateHistory(self):
-	# 	# sql='SELECT * FROM history'
-	# 	# self.cursor.execute(sql)
-	# 	# self.history = self.cursor.fetchall()
-	# 	# #check if limit is exceeded
-	# 	# limit=10
-	# 	# if len(self.history) > limit:
-	# 	# 	sql = "DELETE FROM history WHERE id < '"+str(self.history[len(self.history)-limit][0])+"'"
-	# 	# 	self.cursor.execute(sql)
-	# 	# 	self.link.commit()
-	# 	# 	#update self.history
-	# 	# 	sql = 'SELECT * FROM history'
-	# 	# 	self.cursor.execute(sql)
-	# 	# 	self.history = self.cursor.fetchall()
-	# 	return
-	
-	"""
-	
-	Function to import zet8 databases
 
-	"""	
-	
-	# def importZet8(self, target_db, data):
-	#
-	# 	target_con = sqlite3.connect(target_db)
-	# 	target_con.row_factory = sqlite3.Row
-	# 	target_cur = target_con.cursor()
-	#
-	# 	#get target names
-	# 	target_names={}
-	# 	sql='SELECT name FROM event_natal'
-	# 	target_cur.execute(sql)
-	# 	for row in target_cur:
-	# 		target_names[row['name']]=1
-	# 	for k,v in target_names.items():
-	# 		for i in range(1,10):
-	# 			if '%s (#%s)' % (k,i) in target_names:
-	# 				target_names[k] += 1
-	#
-	# 	#read input write target
-	# 	for row in data:
-	#
-	# 		if row['name'] in target_names:
-	# 			name_suffix = ' (#%s)' % target_names[row['name']]
-	# 			target_names[row['name']] += 1
-	# 		else:
-	# 			name_suffix = ''
-	#
-	# 		gname = self.gnearest( float(row['latitude']),float(row['longitude']) )
-	#
-	# 		sql = 'INSERT INTO event_natal (id,name,year,month,day,hour,geolon,geolat,altitude,\
-	# 			location,timezone,notes,image,countrycode,geonameid,timezonestr,extra) VALUES \
-	# 			(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-	# 		tuple = (row['name']+name_suffix,row['year'],row['month'],row['day'],row['hour'],row['longitude'],
-	# 			row['latitude'],25,row['location'],row['timezone'],"",
-	# 			"",gname['geonameid'],gname['timezonestr'],"")
-	# 		target_cur.execute(sql,tuple)
-	#
-	# 	#Finished, close connection
-	# 	target_con.commit()
-	# 	target_cur.close()
-	# 	target_con.close()
-	#
-	# 	return
-	#
-	# """
-	#
-	# Function to merge two databases containing entries for persons
-	# databaseMerge(target_db,input_db)
-	#
-	# database format:
-	# 'CREATE TABLE IF NOT EXISTS event_natal (id INTEGER PRIMARY KEY,name VARCHAR(50)\
-	# 			 ,year VARCHAR(4),month VARCHAR(2), day VARCHAR(2), hour VARCHAR(50), geolon VARCHAR(50)\
-	# 		 	,geolat VARCHAR(50), altitude VARCHAR(50), location VARCHAR(150), timezone VARCHAR(50)\
-	# 		 	,notes VARCHAR(500), image VARCHAR(250), countrycode VARCHAR(2), geonameid INTEGER\
-	# 		 	,timezonestr VARCHAR(100), extra VARCHAR(250))'
-	# """
-	# def databaseMerge(self,target_db,input_db):
-	# 	dprint('db.databaseMerge: %s << %s'%(target_db,input_db))
-	# 	target_con = sqlite3.connect(target_db)
-	# 	target_con.row_factory = sqlite3.Row
-	# 	target_cur = target_con.cursor()
-	# 	input_con = sqlite3.connect(input_db)
-	# 	input_con.row_factory = sqlite3.Row
-	# 	input_cur = input_con.cursor()
-	# 	#get target names
-	# 	target_names={}
-	# 	sql='SELECT name FROM event_natal'
-	# 	target_cur.execute(sql)
-	# 	for row in target_cur:
-	# 		target_names[row['name']]=1
-	# 	for k,v in target_names.items():
-	# 		for i in range(1,10):
-	# 			if '%s (#%s)'% (k,i) in target_names:
-	# 				target_names[k] += 1
-	#
-	# 	#read input write target
-	# 	sql='SELECT * FROM event_natal'
-	# 	input_cur.execute(sql)
-	# 	for row in input_cur:
-	# 		if row['name'] in target_names:
-	# 			name_suffix = ' (#%s)' % target_names[row['name']]
-	# 			target_names[row['name']] += 1
-	# 		else:
-	# 			name_suffix = ''
-	# 		sql = 'INSERT INTO event_natal (id,name,year,month,day,hour,geolon,geolat,altitude,\
-	# 			location,timezone,notes,image,countrycode,geonameid,timezonestr,extra) VALUES \
-	# 			(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-	# 		tuple = (row['name']+name_suffix,row['year'],row['month'],row['day'],row['hour'],row['geolon'],
-	# 			row['geolat'],row['altitude'],row['location'],row['timezone'],row['notes'],
-	# 			row['image'],row['countrycode'],row['geonameid'],row['timezonestr'],row['extra'])
-	# 		target_cur.execute(sql,tuple)
-	#
-	# 	#Finished, close connection
-	# 	target_con.commit()
-	# 	target_cur.close()
-	# 	target_con.close()
-	# 	input_cur.close()
-	# 	input_con.close()
-	# 	return
-	#
-	# """
-	#
-	# Basic Query Functions for common databases
-	#
-	# """
-	# def query(self, sql, tuple=None):
-	# 	l=sqlite3.connect(cfg.astrodb)
-	# 	c=l.cursor()
-	# 	for i in range(len(sql)):
-	# 		if tuple == None:
-	# 			c.execute(sql[i])
-	# 		else:
-	# 			c.execute(sql[i],tuple[i])
-	# 	l.commit()
-	# 	c.close()
-	# 	l.close()
-	#
-	# def pquery(self, sql, tuple=None):
-	# 	l=sqlite3.connect(cfg.peopledb)
-	# 	c=l.cursor()
-	# 	for i in range(len(sql)):
-	# 		if tuple == None:
-	# 			c.execute(sql[i])
-	# 		else:
-	# 			c.execute(sql[i],tuple[i])
-	# 	l.commit()
-	# 	c.close()
-	# 	l.close()
-	#
-	# def gnearest(self, lat=None, lon=None):
-	# 	#check for none
-	# 	if lat==None or lon==None:
-	# 		return {'country':None,'admin1':None,'geonameid':None,'continent':None,'timezonestr':None}
-	# 	#get closest value to lat lon
-	# 	dprint('gnearest: using %s,%s' %(lat,lon))
-	# 	diff = {}
-	# 	sql = 'SELECT id,latitude,longitude FROM geonames WHERE latitude >= %s AND latitude <= %s AND longitude >= %s AND longitude <= %s' % (lat-0.5,lat+0.5,lon-0.5,lon+0.5)
-	# 	self.gquery(sql)
-	# 	for row in self.gcursor:
-	# 		diff[zonetab.distance( lat , lon , row['latitude'] , row['longitude'])]=row['id']
-	# 	self.gclose()
-	# 	keys=list(diff.keys())
-	# 	keys.sort()
- 	#
-	# 	dict={}
-	# 	if keys == []:
-	# 		dict = {'country':None,'admin1':None,'geonameid':None,'continent':None,'timezonestr':None}
-	# 		dprint('gnearest: no town found within 66km range!')
-	# 	else:
-	# 		sql = 'SELECT * FROM geonames WHERE id=%s LIMIT 1' % (diff[keys[0]])
-	# 		self.gquery(sql)
-	# 		geoname = self.gcursor.fetchone()
-	# 		self.gclose()
-	# 		dict['country']=geoname['country']
-	# 		dict['admin1']=geoname['admin1']
-	# 		dict['geonameid']=geoname['geonameid']
-	# 		dict['timezonestr']=geoname['timezone']
-	# 		sql = 'SELECT * FROM countryinfo WHERE isoalpha2="%s" LIMIT 1' % (geoname['country'])
-	# 		self.gquery(sql)
-	# 		countryinfo = self.gcursor.fetchone()
-	# 		dict['continent']=countryinfo['continent']
-	# 		self.gclose()
-	# 		dprint('gnearest: found town %s at %s,%s,%s' % (geoname['name'],geoname['latitude'],
-	# 			geoname['longitude'],geoname['timezone']))
-	# 	return dict
-	#
-	# def gquery(self, sql, tuple=None):
-	# 	self.glink = sqlite3.connect(cfg.geonamesdb)
-	# 	self.glink.row_factory = sqlite3.Row
-	# 	self.gcursor = self.glink.cursor()
-	# 	if tuple:
-	# 		self.gcursor.execute(sql,tuple)
-	# 	else:
-	# 		self.gcursor.execute(sql)
-	#
-	# def gclose(self):
-	# 	self.glink.commit()
-	# 	self.gcursor.close()
-	# 	self.glink.close()
-	#
-	# def open(self):
-	# 	self.link = sqlite3.connect(cfg.astrodb)
-	# 	self.link.row_factory = sqlite3.Row
-	# 	self.cursor = self.link.cursor()
-	#
-	# 	self.plink = sqlite3.connect(cfg.peopledb)
-	# 	self.plink.row_factory = sqlite3.Row
-	# 	self.pcursor = self.plink.cursor()
-	#
-	# def close(self):
-	# 	# self.cursor.close()
-	# 	# self.pcursor.close()
-	# 	# self.link.close()
-	# 	# self.plink.close()
-	# 	return
 
-#calculation and svg drawing class
-class openAstroInstance:
+	def checkSwissEphemeris(self, num):
+		# 00 = -01-600
+		# 06 = 600 - 1200
+		# 12 = 1200 - 1800
+		# 18 = 1800 - 2400
+		# 24 = 2400 - 3000
+		seas = 'ftp://ftp.astro.com/pub/swisseph/ephe/seas_12.se1'
+		semo = 'ftp://ftp.astro.com/pub/swisseph/ephe/semo_12.se1'
+		sepl = 'ftp://ftp.astro.com/pub/swisseph/ephe/sepl_12.se1'
+
+
+class openAstro:
 
 	def __init__(self, event):
-		self.settings = openAstroSqlite()
-		self.cfg = openAstroCfg()
+		self.settings = openAstroSettings()
 		self.event = event
 		#screen size
 		#displayManager = Gdk.display_manager_get()
@@ -1733,7 +778,7 @@ class openAstroInstance:
 		td['makeHousesGrid'] = self.makeHousesGrid()
 				
 		#read template
-		f=open(self.cfg.xml_svg)
+		f=open(self.settings.xml_svg)
 		template=Template(f.read()).substitute(td)
 		f.close()
 		
@@ -1742,14 +787,14 @@ class openAstroInstance:
 			f=open(cfg.tempfilenameprint,"w")
 			dprint("Printing SVG: lat="+str(self.geolat)+' lon='+str(self.geolon)+' loc='+self.location)
 		else:
-			f=open(self.cfg.tempfilename,"w")
+			f=open(self.settings.tempfilename,"w")
 			dprint("Creating SVG: lat="+str(self.geolat)+' lon='+str(self.geolon)+' loc='+self.location)
 		
 		f.write(template)
 		f.close()
 
 		# #return filename
-		return self.cfg.tempfilename
+		return self.settings.tempfilename
 		# return SVG
 		# return template
 

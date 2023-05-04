@@ -17,6 +17,9 @@ setup(name='OpenAstro2',
             "requests",
             "requests_cache",
             "pydantic",
-            "terminaltables"
+            "terminaltables",
+            "gi",
+            "pathlib"
+
       ],
      )

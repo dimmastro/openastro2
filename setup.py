@@ -18,10 +18,7 @@ setup(name='OpenAstro2',
             "requests_cache",
             "pydantic",
             "terminaltables",
-            "gi",
             "pathlib",
-            "PyPI",
-            "PyGObject"
 
       ],
      )

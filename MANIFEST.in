@@ -1,5 +1,2 @@
 include README.md
-recursive-include icons *
-recursive-include locale *
-recursive-include settings *
-recursive-include xml *
+recursive-include openastro2 *

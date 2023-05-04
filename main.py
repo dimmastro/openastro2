@@ -16,8 +16,8 @@ if __name__ == '__main__':
     event["name"] = "Now"
     event["charttype"] = "Radix"
     event["year"] = 2023
-    event["month"] = 1
-    event["day"] = 1
+    event["month"] = 10
+    event["day"] = 10
     event["hour"] = 1
     event["minute"] = 1
     event["second"] = 1

@@ -179,29 +179,29 @@ class openAstroCfg:
 class openAstroSqlite:
 	def __init__(self):
 
-		DATADIR = Path(__file__)
-		json_path = DATADIR.parent / 'cfg/oa2_config.json'
+		DATADIR = Path(__file__).parent
+		json_path = DATADIR/ 'cfg/oa2_config.json'
 		with open(json_path, 'r', encoding='utf-8') as f:
-			self.db = json.load(f)
+			self.settings = json.load(f)
 
-
-
-		self.dbcheck=False
-		self.dbpurge="IGNORE"
-		
-		#--dbcheck puts dbcheck to true
-		if "--dbcheck" in sys.argv:
-			self.dbcheck=True
-			dprint("  Database Check Enabled!")
-			dprint("-------------------------------")
-
-		#--purge purges database
-		if "--purge" in sys.argv:
-			self.dbcheck=True
-			self.dbpurge="REPLACE"
-			dprint("  Database Check Enabled!")
-			dprint("  Database Purge Enabled!")
-			dprint("-------------------------------")
+		#
+		#
+		# self.dbcheck=False
+		# self.dbpurge="IGNORE"
+		#
+		# #--dbcheck puts dbcheck to true
+		# if "--dbcheck" in sys.argv:
+		# 	self.dbcheck=True
+		# 	dprint("  Database Check Enabled!")
+		# 	dprint("-------------------------------")
+		#
+		# #--purge purges database
+		# if "--purge" in sys.argv:
+		# 	self.dbcheck=True
+		# 	self.dbpurge="REPLACE"
+		# 	dprint("  Database Check Enabled!")
+		# 	dprint("  Database Purge Enabled!")
+		# 	dprint("-------------------------------")
 			
 		# self.open()
 		# #get table names from sqlite_master for astrodb
@@ -274,7 +274,7 @@ class openAstroSqlite:
 		# 	self.astrocfg = json.load(f)
 		# 	# self.astrocfg = {item['name']: item['value'] for item in astrocfg}
 		# # print (self.astrocfg)
-		self.astrocfg = self.db["astrocfg"]
+		self.astrocfg = self.settings["astrocfg"]
 
 		# #check for updated version
 		# if self.astrocfg['version'] != str(cfg.version):
@@ -796,7 +796,7 @@ class openAstroSqlite:
 		# 	out = json.load(f)
 		# 	# out = {item['name']: item['code'] for item in out_jason}
 		# 	# print (out)
-		out = self.db["color_codes"]
+		out = self.settings["color_codes"]
 		return out
 
 	def getLabel(self):
@@ -816,8 +816,8 @@ class openAstroSqlite:
 		# 	out = json.load(f)
 		# 	# out = {item['name']: item['value'] for item in out_jason}
 		# 	print (out)
-		out = self.db["label"]
-		return out	
+		out = self.settings["label"]
+		return out
 	
 	# def getDatabase(self):
 	# 	self.open()
@@ -925,7 +925,7 @@ class openAstroSqlite:
 		# with open(json_path, 'r', encoding='utf-8') as f:  # открыли файл
 		# 	dict = json.load(f)
 		# 	# dict = {item['id']: item['name'] for item in out_jason}
-		dict = self.db["settings_planet"]
+		dict = self.settings["settings_planet"]
 		return dict
 		
 	def getSettingsAspect(self):
@@ -947,7 +947,7 @@ class openAstroSqlite:
 		# 	dict = json.load(f)
 		# # dict = {item['id']: item['name'] for item in out_jason}
 
-		dict = self.db["settings_aspect"]
+		dict = self.settings["settings_aspect"]
 		return dict
 	
 	# def getSettingsLocation(self):
@@ -1206,7 +1206,7 @@ class openAstroSqlite:
 class openAstroInstance:
 
 	def __init__(self, event):
-		self.db = openAstroSqlite()
+		self.settings = openAstroSqlite()
 		self.cfg = openAstroCfg()
 		self.event = event
 		#screen size
@@ -1262,7 +1262,7 @@ class openAstroInstance:
 		#naive utc datetime object
 		dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
 
-		self.label = self.db.getLabel()
+		self.label = self.settings.getLabel()
 		#Default
 		self.name=_("Here and Now")
 		self.charttype=self.label["radix"]
@@ -1303,7 +1303,7 @@ class openAstroInstance:
 		self.zodiac_element = ['fire','earth','air','water','fire','earth','air','water','fire','earth','air','water']
 
 		#get color configuration
-		self.colors = self.db.getColors()
+		self.colors = self.settings.getColors()
 		
 		return
 		
@@ -1403,10 +1403,10 @@ class openAstroInstance:
 		self.water=0.0
 			
 		#get database planet settings	
-		self.planets = self.db.getSettingsPlanet()
+		self.planets = self.settings.getSettingsPlanet()
 		
 		#get database aspect settings
-		self.aspects = self.db.getSettingsAspect()
+		self.aspects = self.settings.getSettingsAspect()
 		
 		#Combine module data
 		if self.type == "Combine":
@@ -1426,7 +1426,7 @@ class openAstroInstance:
 		
 		else:
 			#make calculations
-			module_data = ephemeris.ephData(self.year,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.db.astrocfg)
+			module_data = ephemeris.ephData(self.year,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 
 		#Transit module data
 		if self.type == "Transit" or self.type == "Composite":
@@ -1565,7 +1565,7 @@ class openAstroInstance:
 		#template dictionary		
 		td = dict()
 		r=240
-		if(self.db.astrocfg['chartview']=="european"):
+		if(self.settings.astrocfg['chartview']=="european"):
 			self.c1=56
 			self.c2=92
 			self.c3=112
@@ -1634,7 +1634,7 @@ class openAstroInstance:
 				"B1950":_("B1950")
 				}
 
-		if self.db.astrocfg['zodiactype'] == 'sidereal':
+		if self.settings.astrocfg['zodiactype'] == 'sidereal':
 			td['bottomLeft1']=_("Sidereal")
 			td['bottomLeft2']=siderealmode_chartview[db.astrocfg['siderealmode']]
 		else:
@@ -1700,7 +1700,7 @@ class openAstroInstance:
 		td['stringLon']="%s: %s" %(self.label['longitude'],self.lon2str(self.geolon))
 		postype={"geo":self.label["apparent_geocentric"],"truegeo":self.label["true_geocentric"],
 				"topo":self.label["topocentric"],"helio":self.label["heliocentric"]}
-		td['stringPosition']=postype[self.db.astrocfg['postype']]
+		td['stringPosition']=postype[self.settings.astrocfg['postype']]
 
 		#paper_color_X
 		td['paper_color_0']=self.colors["paper_0"]
@@ -1899,7 +1899,7 @@ class openAstroInstance:
 	
 	def zodiacSlice( self , num , r , style,  type):
 		#pie slices
-		if self.db.astrocfg["houses_system"] == "G":
+		if self.settings.astrocfg["houses_system"] == "G":
 			offset = 360 - self.houses_degree_ut[18]
 		else:
 			offset = 360 - self.houses_degree_ut[6]
@@ -1927,7 +1927,7 @@ class openAstroInstance:
 		
 	def makeHouses( self , r ):
 		path = ""
-		if self.db.astrocfg["houses_system"] == "G":
+		if self.settings.astrocfg["houses_system"] == "G":
 			xr = 36
 		else:
 			xr = 12
@@ -1993,7 +1993,7 @@ class openAstroInstance:
 			#if transit			
 			if self.type == "Transit":
 				dropin=84
-			elif self.db.astrocfg["chartview"] == "european":
+			elif self.settings.astrocfg["chartview"] == "european":
 				dropin=100
 			else:		
 				dropin=48
@@ -2158,7 +2158,7 @@ class openAstroInstance:
 				#if 22 < i < 27 it is asc,mc,dsc,ic (angles of chart)
 				#put on special line (rplanet is range from outer ring)
 				amin,bmin,cmin=0,0,0				
-				if self.db.astrocfg["chartview"] == "european":
+				if self.settings.astrocfg["chartview"] == "european":
 					amin=74-10
 					bmin=94-10
 					cmin=40-10
@@ -2173,7 +2173,7 @@ class openAstroInstance:
 					switch = 1			
 				
 			rtext=45
-			if self.db.astrocfg['houses_system'] == "G":
+			if self.settings.astrocfg['houses_system'] == "G":
 				offset = (int(self.houses_degree_ut[18]) / -1) + int(self.planets_degree_ut[i])
 			else:
 				offset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i]+planets_delta[e])
@@ -2182,7 +2182,7 @@ class openAstroInstance:
 			planet_y = self.sliceToY( 0 , (r-rplanet) , offset ) + rplanet
 			if self.type == "Transit":
 				scale=0.8
-			elif self.db.astrocfg["chartview"] == "european":
+			elif self.settings.astrocfg["chartview"] == "european":
 				scale=0.8
 				#line1
 				x1=self.sliceToX( 0 , (r-self.c3) , trueoffset ) + self.c3
@@ -6037,20 +6037,20 @@ class mainWindow:
 		self.win_SL.show_all()		
 		return
 	
-	def settingsLabelSubmit(self, widget, data):
-		query=[]
-		for i in range(len(data)):
-			if data[i]['value'].get_text() != openAstro.label[data[i]['name']]:
-				sql = 'UPDATE label SET value = "%s" WHERE name = "%s"'%(data[i]['value'].get_text(),data[i]['name'])
-				query.append(sql)
-		#query
-		db.query(query)
-		#update label
-		openAstro.label = db.getLabel()	
-		#update chart
-		self.updateChart()
-		#destroy window
-		self.win_SL.destroy()
+	# def settingsLabelSubmit(self, widget, data):
+	# 	query=[]
+	# 	for i in range(len(data)):
+	# 		if data[i]['value'].get_text() != openAstro.label[data[i]['name']]:
+	# 			sql = 'UPDATE label SET value = "%s" WHERE name = "%s"'%(data[i]['value'].get_text(),data[i]['name'])
+	# 			query.append(sql)
+	# 	#query
+	# 	db.query(query)
+	# 	#update label
+	# 	openAstro.label = db.getLabel()
+	# 	#update chart
+	# 	self.updateChart()
+	# 	#destroy window
+	# 	self.win_SL.destroy()
 
 
 	"""

@@ -794,9 +794,9 @@ class openAstro:
 		f.close()
 
 		# #return filename
-		return self.settings.tempfilename
+		# return self.settings.tempfilename
 		# return SVG
-		# return template
+		return template
 
 	#draw transit ring
 	def transitRing( self , r ):

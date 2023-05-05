@@ -21,8 +21,14 @@ if __name__ == '__main__':
     event["countrycode"] = "en"
     event["timezonestr"] = "Europe/Amsterdam"
 
-    openAstro = openAstro(event)
+    settings={}
+    settings['astrocfg']={}
+    settings['astrocfg']['home_location'] = "Krasnoyarsk, Krasnoyarskiy, Russia"
+    settings['astrocfg']['language'] = "ru"
+
+    openAstro = openAstro([event], type="Radix", settings=settings)
     svg = openAstro.makeSVG()
-    print(svg)
+    # print(svg)
     print(openAstro.planets_degree)
     print(openAstro.planets_degree_ut)
+    print(openAstro.settings.settings['astrocfg'])

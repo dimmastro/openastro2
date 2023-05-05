@@ -256,73 +256,15 @@ class openAstroSettings:
 
 class openAstro:
 
-	def __init__(self, events=[], type="Radix", settings=[]):
+	def __init__(self, event1, event2=[], type="Radix", settings=[]):
 		self.settings = openAstroSettings(settings=settings)
 
-		self.event1 = events[0]
-		if(len(events) > 1):
-			self.event2 = events[1]
+		self.event1 = event1
+		self.event2 = event2
+		self.type = type
 
 		self.screen_width = 1024
 		self.screen_height = 768
-
-		#get label configuration
-		# self.label = db.getLabel()
-
-		#check for home
-		# self.home_location,self.home_geolat,self.home_geolon,self.home_countrycode,self.home_timezonestr = db.getSettingsLocation()
-		self.home_location = ''
-		self.home_geolat = ''
-		self.home_geolon = ''
-		if self.home_location == '' or self.home_geolat == '' or self.home_geolon == '':
-			dprint('Unknown home location, asking for new')
-			self.ask_for_home = True
-			self.home_location='Amsterdam'
-			self.home_geolon=6.219530
-			self.home_geolat=52.120710
-			self.home_countrycode='NL'
-			self.home_timezonestr='Europe/Amsterdam'
-		else:	
-			self.ask_for_home = False
-			dprint('known home location: %s %s %s' % (self.home_location, self.home_geolat, self.home_geolon))
-			
-		#default location
-		self.location=self.home_location
-		self.geolat=float(self.home_geolat)
-		self.geolon=float(self.home_geolon)
-		self.countrycode=self.home_countrycode
-		self.timezonestr=self.home_timezonestr
-
-
-		self.location = self.event1["location"]
-		self.geolat = float(self.event1["geolat"])
-		self.geolon = float(self.event1["geolon"])
-		self.countrycode = self.event1["countrycode"]
-		self.timezonestr = self.event1["timezonestr"]
-
-
-		#current datetime
-		now = datetime.datetime.now()
-
-		#aware datetime object
-		dt_input = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, now.second)
-		dt = pytz.timezone(self.timezonestr).localize(dt_input)
-		
-		#naive utc datetime object
-		dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-
-		self.label = self.settings.getLabel()
-		#Default
-		self.name=_("Here and Now")
-		self.charttype=self.label["radix"]
-		self.year=dt_utc.year
-		self.month=dt_utc.month
-		self.day=dt_utc.day
-		self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-		self.timezone=self.offsetToTz(dt.utcoffset())
-		self.altitude=25
-		self.geonameid=None
-
 
 		self.name = self.event1["name"]
 		self.charttype = self.event1["charttype"]
@@ -333,6 +275,49 @@ class openAstro:
 		self.timezone = self.event1["timezone"]
 		self.altitude = self.event1["altitude"]
 		self.geonameid = self.event1["geonameid"]
+		self.location = self.event1["location"]
+		self.geolat = float(self.event1["geolat"])
+		self.geolon = float(self.event1["geolon"])
+		self.countrycode = self.event1["countrycode"]
+		self.timezonestr = self.event1["timezonestr"]
+
+		self.t_name = self.event2["name"]
+		self.t_charttype = self.event2["charttype"]
+		self.t_year = self.event2["year"]
+		self.t_month = self.event2["month"]
+		self.t_day = self.event2["day"]
+		self.t_hour = self.decHourJoin(self.event2["hour"], self.event2["minute"], self.event2["second"])
+		self.t_timezone = self.event2["timezone"]
+		self.t_altitude = self.event2["altitude"]
+		self.t_geonameid = self.event2["geonameid"]
+		self.t_location = self.event2["location"]
+		self.t_geolat = float(self.event2["geolat"])
+		self.t_geolon = float(self.event2["geolon"])
+		self.t_countrycode = self.event2["countrycode"]
+		self.t_timezonestr = self.event2["timezonestr"]
+
+		#current datetime
+		now = datetime.datetime.now()
+
+		#aware datetime object
+		dt_input = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, now.second)
+		dt = pytz.timezone(self.timezonestr).localize(dt_input)
+		
+		#naive utc datetime object
+		# dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
+
+
+		#Default
+		# self.name=_("Here and Now")
+		# self.charttype=self.label["radix"]
+		# self.year=dt_utc.year
+		# self.month=dt_utc.month
+		# self.day=dt_utc.day
+		# self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
+		# self.timezone=self.offsetToTz(dt.utcoffset())
+		# self.altitude=25
+		# self.geonameid=None
+
 
 		#Make locals
 		self.utcToLocal()
@@ -340,10 +325,8 @@ class openAstro:
 		#configuration
 		#ZOOM 1 = 100%
 		self.zoom=1
-		self.type="Radix"
-		
-		#Default dpi for svg
-		# Rsvg.set_default_dpi(400)
+		# self.type="Radix"
+
 
 		#12 zodiacs
 		self.zodiac = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
@@ -353,7 +336,8 @@ class openAstro:
 
 		#get color configuration
 		self.colors = self.settings.getColors()
-		
+		self.label = self.settings.getLabel()
+
 		return
 		
 	def utcToLocal(self):
@@ -378,7 +362,7 @@ class openAstro:
 		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
 		dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
 		dprint("localToSolar: first sun %s" % (self.planets_degree_ut[0]) )
-		mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,db.astrocfg)
+		mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[0]) )
 		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
 		dprint("localToSolar: sundiff %s" %(sundiff))
@@ -386,7 +370,7 @@ class openAstro:
 		dprint("localToSolar: sundelta %s" % (sundelta))
 		dt_delta = datetime.timedelta(seconds=int(sundelta))
 		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,db.astrocfg)
+		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[0]))
 		
 		#get precise
@@ -395,7 +379,7 @@ class openAstro:
 		sundelta = sundiff / step
 		dt_delta = datetime.timedelta(seconds=int(sundelta))
 		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,db.astrocfg)
+		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[0]))
 
 		step = 0.000000011408 # 1 milli seconds in degrees
@@ -403,7 +387,7 @@ class openAstro:
 		sundelta = sundiff / step
 		dt_delta = datetime.timedelta(milliseconds=int(sundelta))
 		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,db.astrocfg)
+		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[0]))	
 		
 		self.s_year = dt_new.year
@@ -444,42 +428,52 @@ class openAstro:
 		openAstro.transit=False
 		return
 	
-	def makeSVG( self , printing=None ):
-		#empty element points
-		self.fire=0.0
-		self.earth=0.0
-		self.air=0.0
-		self.water=0.0
-			
-		#get database planet settings	
-		self.planets = self.settings.getSettingsPlanet()
-		
-		#get database aspect settings
-		self.aspects = self.settings.getSettingsAspect()
-		
-		#Combine module data
-		if self.type == "Combine":
-			#make calculations
-			module_data = ephemeris.ephData(self.c_year,self.c_month,self.c_day,self.c_hour,self.c_geolon,self.c_geolat,self.c_altitude,self.planets,self.zodiac,db.astrocfg)
-		
-		#Solar module data
-		if self.type == "Solar":
-			module_data = ephemeris.ephData(self.s_year,self.s_month,self.s_day,self.s_hour,self.s_geolon,self.s_geolat,self.s_altitude,self.planets,self.zodiac,db.astrocfg)
-		
-		elif self.type == "SecondaryProgression":
-			module_data = ephemeris.ephData(self.sp_year,self.sp_month,self.sp_day,self.sp_hour,self.sp_geolon,self.sp_geolat,self.sp_altitude,self.planets,self.zodiac,db.astrocfg,houses_override=self.houses_override)				
-			
-		elif self.type == "Transit" or self.type == "Composite":
-			module_data = ephemeris.ephData(self.year,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,db.astrocfg)
-			t_module_data = ephemeris.ephData(self.t_year,self.t_month,self.t_day,self.t_hour,self.t_geolon,self.t_geolat,self.t_altitude,self.planets,self.zodiac,db.astrocfg)
-		
-		else:
-			#make calculations
-			module_data = ephemeris.ephData(self.year,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+	def calcAstro( self ):
+		# empty element points
+		self.fire = 0.0
+		self.earth = 0.0
+		self.air = 0.0
+		self.water = 0.0
 
-		#Transit module data
+		# get database planet settings
+		self.planets = self.settings.getSettingsPlanet()
+
+		# get database aspect settings
+		self.aspects = self.settings.getSettingsAspect()
+
+		# Combine module data
+		if self.type == "Combine":
+			# make calculations
+			module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+
+		# Solar module data
+		if self.type == "Solar":
+			module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+
+		elif self.type == "SecondaryProgression":
+			module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											self.settings.astrocfg, houses_override=self.houses_override)
+
+		elif self.type == "Transit" or self.type == "Composite":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
+											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+
+		else:
+			# make calculations
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
+											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+
+		# Transit module data
 		if self.type == "Transit" or self.type == "Composite":
-			#grab transiting module data
+			# grab transiting module data
 			self.t_planets_sign = t_module_data.planets_sign
 			self.t_planets_degree = t_module_data.planets_degree
 			self.t_planets_degree_ut = t_module_data.planets_degree_ut
@@ -487,33 +481,33 @@ class openAstro:
 			self.t_houses_degree = t_module_data.houses_degree
 			self.t_houses_sign = t_module_data.houses_sign
 			self.t_houses_degree_ut = t_module_data.houses_degree_ut
-			
-		#grab normal module data
+
+		# grab normal module data
 		self.planets_sign = module_data.planets_sign
 		self.planets_degree = module_data.planets_degree
 		self.planets_degree_ut = module_data.planets_degree_ut
 		self.planets_retrograde = module_data.planets_retrograde
 		self.houses_degree = module_data.houses_degree
 		self.houses_sign = module_data.houses_sign
-		self.houses_degree_ut = module_data.houses_degree_ut		
+		self.houses_degree_ut = module_data.houses_degree_ut
 		self.lunar_phase = module_data.lunar_phase
-		
-		#make composite averages
+
+		# make composite averages
 		if self.type == "Composite":
-			#new houses
+			# new houses
 			asc = self.houses_degree_ut[0]
 			t_asc = self.t_houses_degree_ut[0]
 			for i in range(12):
-				#difference in distances measured from ASC
+				# difference in distances measured from ASC
 				diff = self.houses_degree_ut[i] - asc
 				if diff < 0:
 					diff = diff + 360.0
 				t_diff = self.t_houses_degree_ut[i] - t_asc
 				if t_diff < 0:
-					t_diff = t_diff + 360.0	
+					t_diff = t_diff + 360.0
 				newdiff = (diff + t_diff) / 2.0
-				
-				#new ascendant
+
+				# new ascendant
 				if asc > t_asc:
 					diff = asc - t_asc
 					if diff > 180:
@@ -528,24 +522,24 @@ class openAstro:
 						nasc = t_asc + (diff / 2.0)
 					else:
 						nasc = asc + (diff / 2.0)
-				
-				#new house degrees
+
+				# new house degrees
 				self.houses_degree_ut[i] = nasc + newdiff
 				if self.houses_degree_ut[i] > 360:
-					self.houses_degree_ut[i] = self.houses_degree_ut[i] - 360.0	
-					
-				#new house sign				
+					self.houses_degree_ut[i] = self.houses_degree_ut[i] - 360.0
+
+				# new house sign
 				for x in range(len(self.zodiac)):
-					deg_low=float(x*30)
-					deg_high=float((x+1)*30)
+					deg_low = float(x * 30)
+					deg_high = float((x + 1) * 30)
 					if self.houses_degree_ut[i] >= deg_low:
 						if self.houses_degree_ut[i] <= deg_high:
-							self.houses_sign[i]=x
+							self.houses_sign[i] = x
 							self.houses_degree[i] = self.houses_degree_ut[i] - deg_low
 
-			#new planets
+			# new planets
 			for i in range(23):
-				#difference in degrees
+				# difference in degrees
 				p1 = self.planets_degree_ut[i]
 				p2 = self.t_planets_degree_ut[i]
 				if p1 > p2:
@@ -562,28 +556,30 @@ class openAstro:
 						self.planets_degree_ut[i] = (diff / 2.0) + p2
 					else:
 						self.planets_degree_ut[i] = (diff / 2.0) + p1
-				
+
 				if self.planets_degree_ut[i] > 360:
 					self.planets_degree_ut[i] = self.planets_degree_ut[i] - 360.0
-			
-			#list index 23 is asc, 24 is Mc, 25 is Dsc, 26 is Ic
+
+			# list index 23 is asc, 24 is Mc, 25 is Dsc, 26 is Ic
 			self.planets_degree_ut[23] = self.houses_degree_ut[0]
 			self.planets_degree_ut[24] = self.houses_degree_ut[9]
 			self.planets_degree_ut[25] = self.houses_degree_ut[6]
 			self.planets_degree_ut[26] = self.houses_degree_ut[3]
-								
-			#new planet signs
+
+			# new planet signs
 			for i in range(27):
 				for x in range(len(self.zodiac)):
-					deg_low=float(x*30)
-					deg_high=float((x+1)*30)
+					deg_low = float(x * 30)
+					deg_high = float((x + 1) * 30)
 					if self.planets_degree_ut[i] >= deg_low:
 						if self.planets_degree_ut[i] <= deg_high:
-							self.planets_sign[i]=x
+							self.planets_sign[i] = x
 							self.planets_degree[i] = self.planets_degree_ut[i] - deg_low
 							self.planets_retrograde[i] = False
-			
-		
+
+	def makeSVG( self , printing=None ):
+		self.calcAstro()
+
 		#width and height from screen
 		ratio = float(self.screen_width) / float(self.screen_height)
 		if ratio < 1.3: #1280x1024
@@ -685,7 +681,7 @@ class openAstro:
 
 		if self.settings.astrocfg['zodiactype'] == 'sidereal':
 			td['bottomLeft1']=_("Sidereal")
-			td['bottomLeft2']=siderealmode_chartview[db.astrocfg['siderealmode']]
+			td['bottomLeft2']=siderealmode_chartview[self.settings.astrocfg['siderealmode']]
 		else:
 			td['bottomLeft1']=_("Tropical")
 			td['bottomLeft2'] = '%s: %s (%s) %s (%s)' % (_("Lunar Phase"),self.lunar_phase['sun_phase'],_("Sun"),self.lunar_phase['moon_phase'],_("Moon"))

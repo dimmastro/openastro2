@@ -17,22 +17,26 @@
     along with OpenAstro.org.  If not, see <http://www.gnu.org/licenses/>.
 """
 import os.path, sys, datetime, math
-#swiss ephemeris files directory
-swissDir = os.path.join(sys.prefix,'share','swisseph')
+from pathlib import Path
+# #swiss ephemeris files directory
+# swissDir = os.path.join(sys.prefix,'share','swisseph')
 #local swiss ephemeris files directory
-home=os.path.expanduser("~")
-oa=os.path.join(home, '.openastro.org')
-swissLocalDir=os.path.join(oa, 'swiss_ephemeris')
+# home=os.path.expanduser("~")
+# oa=os.path.join(home, '.openastro.org')
+# swissLocalDir=os.path.join(oa, 'swiss_ephemeris')
+#
+# #swiss ephemeris path
+# ephe_path=swissDir+':'+swissLocalDir
 
-#swiss ephemeris path
-ephe_path=swissDir+':'+swissLocalDir
+DATADIR = Path(__file__).parent.parent
+ephe_path = str(DATADIR) + '/swiss_ephemeris'
 
 import swisseph as swe
 
 class ephData:
 	def __init__(self,year,month,day,hour,geolon,geolat,altitude,planets,zodiac,openastrocfg,houses_override=None):
 		#ephemeris path (default "/usr/share/swisseph:/usr/local/share/swisseph")
-		# swe.set_ephe_path(ephe_path)
+		swe.set_ephe_path(ephe_path)
 		
 		#basic location		
 		self.jul_day_UT=swe.julday(year,month,day,hour)

@@ -165,12 +165,13 @@ class openAstroSettings:
 		self.tempfilenametableprint = os.path.join(self.tmpdir, "openAstroChartTablePrint.svg")
 		self.xml_ui = os.path.join(DATADIR, 'xml/openastro-ui.xml')
 		self.xml_svg = os.path.join(DATADIR, 'xml/openastro-svg.xml')
+		self.xml_svg2 = os.path.join(DATADIR, 'xml/openastro2-svg.xml')
 		self.xml_svg_table = os.path.join(DATADIR, 'xml/openastro-svg-table.xml')
 
 		#------------------------------
 
 		DATADIR = Path(__file__).parent
-		json_path = DATADIR / 'settings/settings.json'
+		json_path = DATADIR / 'settings/settings2.json'
 		with open(json_path, 'r', encoding='utf-8') as f:
 			settings0 = json.load(f)
 		def merge_dicts(dict1, dict2):
@@ -193,6 +194,8 @@ class openAstroSettings:
 		self.setLanguage(self.astrocfg['language'])
 		self.lang_label = LANGUAGES_LABEL
 
+		self.settings_svg = self.settings["settings_svg"]
+		self.settings_planet = self.settings["settings_planet"]
 	# 	orb = [
 	# 	#sun
 	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
@@ -364,7 +367,6 @@ class openAstro:
 		h, m, s = self.decHour(self.hour)
 		utc = datetime.datetime(self.year, self.month, self.day, h, m, s)
 		tz = datetime.timedelta(seconds=float(self.timezone) * float(3600))
-		# loc = utc + tz
 		utc_loc = utc - tz
 		self.year = utc_loc.year
 		self.month = utc_loc.month
@@ -796,7 +798,8 @@ class openAstro:
 		td['makeHousesGrid'] = self.makeHousesGrid()
 				
 		#read template
-		f=open(self.settings.xml_svg)
+		# f=open(self.settings.xml_svg)
+		f=open(self.settings.xml_svg2)
 		template=Template(f.read()).substitute(td)
 		f.close()
 		
@@ -808,6 +811,236 @@ class openAstro:
 			f=open(self.settings.tempfilename,"w")
 			dprint("Creating SVG: lat="+str(self.geolat)+' lon='+str(self.geolon)+' loc='+self.location)
 		
+		f.write(template)
+		f.close()
+
+		# #return filename
+		# return self.settings.tempfilename
+		# return SVG
+		return template
+
+	def makeSVG2(self, printing=None):
+		self.calcAstro()
+
+		# width and height from screen
+		ratio = float(self.screen_width) / float(self.screen_height)
+		if ratio < 1.3:  # 1280x1024
+			wm_off = 130
+		else:  # 1024x768, 800x600, 1280x800, 1680x1050
+			wm_off = 100
+
+		# check for printer
+		if printing == None:
+			svgHeight = self.screen_height - wm_off
+			svgWidth = self.screen_width - 5.0
+			# svgHeight=self.screen_height-wm_off
+			# svgWidth=(770.0*svgHeight)/540.0
+			# svgWidth=float(self.screen_width)-25.0
+			rotate = "0"
+			translate = "0"
+			viewbox = '0 0 772.2 546.0'  # 297mm * 2.6 + 210mm * 2.6
+		else:
+			sizeX = 546.0
+			sizeY = 772.2
+			svgWidth = printing['width']
+			svgHeight = printing['height']
+			rotate = "0"
+			viewbox = '0 0 772.2 546.0'
+			translate = "0"
+
+		# template dictionary
+		td = dict()
+		r = 240
+		if (self.settings.astrocfg['chartview'] == "european"):
+			self.c1 = self.settings.settings_svg["c1"]
+			self.c2 = self.settings.settings_svg['c2']
+			self.c3 = self.settings.settings_svg['c3']
+		else:
+			self.c1 = 0
+			self.c2 = 36
+			self.c3 = 120
+
+		# make chart
+		# transit
+		if self.type == "Transit":
+			td['transitRing'] = self.transitRing(r)
+			td['degreeRing'] = self.degreeTransitRing(r)
+			# circles
+			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - 36) + '"'
+			td['c1style'] = 'fill: none; stroke: %s; stroke-width: 1px; stroke-opacity:.4;' % (
+			self.colors['zodiac_transit_ring_2'])
+			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - 72) + '"'
+			td['c2style'] = 'fill: %s; fill-opacity:.4; stroke: %s; stroke-opacity:.4; stroke-width: 1px' % (
+			self.colors['paper_1'], self.colors['zodiac_transit_ring_1'])
+			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - 160) + '"'
+			td['c3style'] = 'fill: %s; fill-opacity:.8; stroke: %s; stroke-width: 1px' % (
+			self.colors['paper_1'], self.colors['zodiac_transit_ring_0'])
+			td['makeAspects'] = self.makeAspectsTransit(r, (r - 160))
+			td['makeAspectGrid'] = self.makeAspectTransitGrid(r)
+			td['makePatterns'] = ''
+		else:
+			td['transitRing'] = ""
+			# td['degreeRing'] = self.degreeRing(r)
+			td['degreeRing'] = ""
+			# circles
+			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"'
+			td['c1style'] = 'fill: none; stroke: %s; stroke-width: 0.5px; ' % (self.colors['zodiac_radix_ring_2'])
+			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"'
+			td['c2style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.3; stroke-width: 0.5px' % (
+			self.colors['paper_1'], self.colors['zodiac_radix_ring_1'])
+			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"'
+			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 0.5px' % (
+			self.colors['paper_1'], self.colors['zodiac_radix_ring_0'])
+			td['makeAspects'] = self.makeAspects(r, (r - self.c3))
+			td['makeAspectGrid'] = self.makeAspectGrid(r)
+			td['makePatterns'] = self.makePatterns()
+
+		td['circleX'] = str(0)
+		td['circleY'] = str(0)
+		td['svgWidth'] = str(svgWidth)
+		td['svgHeight'] = str(svgHeight)
+		td['viewbox'] = viewbox
+		td['stringTitle'] = self.name
+		td['stringName'] = self.charttype
+
+		# bottom left
+		siderealmode_chartview = {
+			"FAGAN_BRADLEY": _("Fagan Bradley"),
+			"LAHIRI": _("Lahiri"),
+			"DELUCE": _("Deluce"),
+			"RAMAN": _("Ramanb"),
+			"USHASHASHI": _("Ushashashi"),
+			"KRISHNAMURTI": _("Krishnamurti"),
+			"DJWHAL_KHUL": _("Djwhal Khul"),
+			"YUKTESHWAR": _("Yukteshwar"),
+			"JN_BHASIN": _("Jn Bhasin"),
+			"BABYL_KUGLER1": _("Babyl Kugler 1"),
+			"BABYL_KUGLER2": _("Babyl Kugler 2"),
+			"BABYL_KUGLER3": _("Babyl Kugler 3"),
+			"BABYL_HUBER": _("Babyl Huber"),
+			"BABYL_ETPSC": _("Babyl Etpsc"),
+			"ALDEBARAN_15TAU": _("Aldebaran 15Tau"),
+			"HIPPARCHOS": _("Hipparchos"),
+			"SASSANIAN": _("Sassanian"),
+			"J2000": _("J2000"),
+			"J1900": _("J1900"),
+			"B1950": _("B1950")
+		}
+
+		if self.settings.astrocfg['zodiactype'] == 'sidereal':
+			td['bottomLeft1'] = _("Sidereal")
+			td['bottomLeft2'] = siderealmode_chartview[self.settings.astrocfg['siderealmode']]
+		else:
+			td['bottomLeft1'] = _("Tropical")
+			td['bottomLeft2'] = '%s: %s (%s) %s (%s)' % (
+			_("Lunar Phase"), self.lunar_phase['sun_phase'], _("Sun"), self.lunar_phase['moon_phase'], _("Moon"))
+
+		td['bottomLeft3'] = '%s: %s' % (_("Lunar Phase"), self.dec2deg(self.lunar_phase['degrees']))
+		td['bottomLeft4'] = ''
+
+		# lunar phase
+		deg = self.lunar_phase['degrees']
+
+		if (deg < 90.0):
+			maxr = deg
+			if (deg > 80.0): maxr = maxr * maxr
+			lfcx = 20.0 + (deg / 90.0) * (maxr + 10.0)
+			lfr = 10.0 + (deg / 90.0) * maxr
+			lffg, lfbg = self.colors["lunar_phase_0"], self.colors["lunar_phase_1"]
+
+		elif (deg < 180.0):
+			maxr = 180.0 - deg
+			if (deg < 100.0): maxr = maxr * maxr
+			lfcx = 20.0 + ((deg - 90.0) / 90.0 * (maxr + 10.0)) - (maxr + 10.0)
+			lfr = 10.0 + maxr - ((deg - 90.0) / 90.0 * maxr)
+			lffg, lfbg = self.colors["lunar_phase_1"], self.colors["lunar_phase_0"]
+
+		elif (deg < 270.0):
+			maxr = deg - 180.0
+			if (deg > 260.0): maxr = maxr * maxr
+			lfcx = 20.0 + ((deg - 180.0) / 90.0 * (maxr + 10.0))
+			lfr = 10.0 + ((deg - 180.0) / 90.0 * maxr)
+			lffg, lfbg = self.colors["lunar_phase_1"], self.colors["lunar_phase_0"]
+
+		elif (deg < 361):
+			maxr = 360.0 - deg
+			if (deg < 280.0): maxr = maxr * maxr
+			lfcx = 20.0 + ((deg - 270.0) / 90.0 * (maxr + 10.0)) - (maxr + 10.0)
+			lfr = 10.0 + maxr - ((deg - 270.0) / 90.0 * maxr)
+			lffg, lfbg = self.colors["lunar_phase_0"], self.colors["lunar_phase_1"]
+
+		td['lunar_phase_fg'] = lffg
+		td['lunar_phase_bg'] = lfbg
+		td['lunar_phase_cx'] = '%s' % (lfcx)
+		td['lunar_phase_r'] = '%s' % (lfr)
+		td['lunar_phase_outline'] = self.colors["lunar_phase_2"]
+
+		# rotation based on latitude
+		td['lunar_phase_rotate'] = "%s" % (-90.0 - self.geolat)
+
+		# stringlocation
+		if len(self.location) > 35:
+			split = self.location.split(",")
+			if len(split) > 1:
+				td['stringLocation'] = split[0] + ", " + split[-1]
+				if len(td['stringLocation']) > 35:
+					td['stringLocation'] = td['stringLocation'][:35] + "..."
+			else:
+				td['stringLocation'] = self.location[:35] + "..."
+		else:
+			td['stringLocation'] = self.location
+		td['stringDateTime'] = str(self.year_loc) + '-%(#1)02d-%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+			'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
+			'#5': self.second_loc} + self.decTzStr(self.timezone)
+		td['stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.geolat))
+		td['stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.geolon))
+		postype = {"geo": self.label["apparent_geocentric"], "truegeo": self.label["true_geocentric"],
+				   "topo": self.label["topocentric"], "helio": self.label["heliocentric"]}
+		td['stringPosition'] = postype[self.settings.astrocfg['postype']]
+
+		# paper_color_X
+		td['paper_color_0'] = self.colors["paper_0"]
+		td['paper_color_1'] = self.colors["paper_1"]
+
+		# planets_color_X
+		for i in range(len(self.planets)):
+			td['planets_color_%s' % (i)] = self.colors["planet_%s" % (i)]
+
+		# zodiac_color_X
+		for i in range(12):
+			td['zodiac_color_%s' % (i)] = self.colors["zodiac_icon_%s" % (i)]
+
+		# orb_color_X
+		for i in range(len(self.aspects)):
+			td['orb_color_%s' % (self.aspects[i]['degree'])] = self.colors["aspect_%s" % (self.aspects[i]['degree'])]
+
+		# config
+		td['cfgZoom'] = str(self.zoom)
+		td['cfgRotate'] = rotate
+		td['cfgTranslate'] = translate
+
+		# functions
+		td['makeZodiac'] = self.makeZodiac(r)
+		td['makeHouses'] = self.makeHouses(r)
+		td['makePlanets'] = self.makePlanets(r)
+		td['makeElements'] = self.makeElements(r)
+		td['makePlanetGrid'] = self.makePlanetGrid()
+		td['makeHousesGrid'] = self.makeHousesGrid()
+
+		# read template
+		# f=open(self.settings.xml_svg)
+		f = open(self.settings.xml_svg2)
+		template = Template(f.read()).substitute(td)
+		f.close()
+
+		# write template
+		if printing:
+			f = open(cfg.tempfilenameprint, "w")
+			dprint("Printing SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
+		else:
+			f = open(self.settings.tempfilename, "w")
+			dprint("Creating SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
+
 		f.write(template)
 		f.close()
 
@@ -937,6 +1170,8 @@ class openAstro:
 			out = '%(#1)02d&#176;%(#2)02d&#39;' % {'#1':a,'#2':b_rounded}
 		elif type=="1":
 			out = '%(#1)02d&#176;' % {'#1':a}
+		elif type == "0":
+			out = '%(#1)2d' % {'#1': a}
 		return str(out)
 	
 	#draw svg aspects: ring, aspect ring, degreeA degreeB
@@ -978,8 +1213,14 @@ class openAstro:
 		if self.type == "Transit":
 			dropin=54
 		else:
-			dropin=18+self.c1
-		sign = '<g transform="translate(-16,-16)"><use x="' + str(dropin + self.sliceToX(num,r-dropin,offset)) + '" y="' + str(dropin + self.sliceToY(num,r-dropin,offset)) + '" xlink:href="#' + type + '" /></g>\n'
+			dropin=self.c2/2
+		# sign = '<g transform="translate(-16,-16)"><use x="' + str(dropin + self.sliceToX(num,r-dropin,offset)) + '" y="' + str(dropin + self.sliceToY(num,r-dropin,offset)) + '" xlink:href="#' + type + '" /></g>\n'
+		sign_x = dropin + self.sliceToX(num, r - dropin, offset)
+		sign_y = dropin + self.sliceToY(num, r - dropin, offset)
+		scale = 0.3
+		sign = '<g transform="translate(-' + str(16 * scale) + ',-' + str(16 * scale) + ')"><g transform="scale(' + str(
+			scale) + ')"><use x="' + str(sign_x * (1 / scale)) + '" y="' + str(
+			sign_y * (1 / scale)) + '" xlink:href="#' + type + '" stroke="black" fill="black" /></g></g>\n'
 		return slice + '\n' + sign
 	
 	def makeZodiac( self , r ):
@@ -1012,9 +1253,10 @@ class openAstro:
 			y2 = self.sliceToY( 0 , r-roff , offset ) + roff
 			
 			if i < (xr-1):		
-				text_offset = offset + int(self.degreeDiff( self.houses_degree_ut[(i+1)], self.houses_degree_ut[i] ) / 2 )
+				text_offset = offset + int(self.degreeDiff( self.houses_degree_ut[(i)], self.houses_degree_ut[i] ) / 1 )
 			else:
-				text_offset = offset + int(self.degreeDiff( self.houses_degree_ut[0], self.houses_degree_ut[(xr-1)] ) / 2 )
+				# text_offset = offset + int(self.degreeDiff( self.houses_degree_ut[0], self.houses_degree_ut[(xr-1)] ) / 2 )
+				text_offset = offset + int(self.degreeDiff( self.houses_degree_ut[0], self.houses_degree_ut[0] ) / 1 )
 
 			#mc, asc, dsc, ic
 			if i == 0:
@@ -1041,6 +1283,7 @@ class openAstro:
 				t_y2 = self.sliceToY( 0 , r , t_offset )
 				if i < 11:		
 					t_text_offset = t_offset + int(self.degreeDiff( self.t_houses_degree_ut[(i+1)], self.t_houses_degree_ut[i] ) / 2 )
+					t_text_offset = t_offset + int(self.degreeDiff( self.t_houses_degree_ut[(i+1)], self.t_houses_degree_ut[i] ) / 2 )
 				else:
 					t_text_offset = t_offset + int(self.degreeDiff( self.t_houses_degree_ut[0], self.t_houses_degree_ut[11] ) / 2 )
 				#linecolor
@@ -1051,21 +1294,50 @@ class openAstro:
 				xtext = self.sliceToX( 0 , (r-8) , t_text_offset ) + 8
 				ytext = self.sliceToY( 0 , (r-8) , t_text_offset ) + 8
 				path = path + '<text style="fill: #00f; fill-opacity: .4; font-size: 14px"><tspan x="'+str(xtext-3)+'" y="'+str(ytext+3)+'">'+str(i+1)+'</tspan></text>\n'
-				path = path + '<line x1="'+str(t_x1)+'" y1="'+str(t_y1)+'" x2="'+str(t_x2)+'" y2="'+str(t_y2)+'" style="stroke: '+t_linecolor+'; stroke-width: 2px; stroke-opacity:.3;"/>\n'				
+				path = path + '<line x1="'+str(t_x1)+'" y1="'+str(t_y1)+'" x2="'+str(t_x2)+'" y2="'+str(t_y2)+'" style="stroke: '+t_linecolor+'; stroke-width: 2px; stroke-opacity:.3;"/>\n'
 				
 			#if transit			
 			if self.type == "Transit":
 				dropin=84
 			elif self.settings.astrocfg["chartview"] == "european":
-				dropin=100
+				dropin=-20
 			else:		
 				dropin=48
 				
-			xtext = self.sliceToX( 0 , (r-dropin) , text_offset ) + dropin #was 132
-			ytext = self.sliceToY( 0 , (r-dropin) , text_offset ) + dropin #was 132
-			path = path + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+linecolor+'; stroke-width: 2px; stroke-dasharray:3,2; stroke-opacity:.4;"/>\n'
-			path = path + '<text style="fill: #f00; fill-opacity: .6; font-size: 14px"><tspan x="'+str(xtext-3)+'" y="'+str(ytext+3)+'">'+str(i+1)+'</tspan></text>\n'
-						
+			# xtext = self.sliceToX( 0 , (r-dropin) , text_offset ) + dropin #was 132
+			# ytext = self.sliceToY( 0 , (r-dropin) , text_offset ) + dropin #was 132
+			# path = path + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+linecolor+'; stroke-width: 2px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
+			# path = path + '<text style="fill: #f00; fill-opacity: .6; font-size: 14px"><tspan x="'+str(xtext-3)+'" y="'+str(ytext+3)+'">'+str(i+1)+'</tspan></text>\n'
+			# mc, asc, dsc, ic
+			if i == 0:
+				# h_text = self.settings.settings_planet[12]['label_short']
+				h_text = str(i + 1)
+			elif i == 9:
+				# h_text = self.settings.settings_planet[13]['label_short']
+				h_text = str(i + 1)
+			elif i == 6:
+				# h_text = self.settings.settings_planet[14]['label_short']
+				h_text = str(i + 1)
+			elif i == 3:
+				# h_text = self.settings.settings_planet[15]['label_short']
+				h_text = str(i + 1)
+			else:
+				h_text = str(i + 1)
+
+			xtext = self.sliceToX(
+				0, (r - dropin), text_offset) + dropin  # was 132
+			ytext = self.sliceToY(
+				0, (r - dropin), text_offset) + dropin  # was 132
+			if i == 0:
+				xtext = xtext - 6
+			path = path + '<line x1="' + str(x1) + '" y1="' + str(y1) + '" x2="' + str(x2) + '" y2="' + str(
+				y2) + '" style="stroke: ' + linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
+			path = path + '<text style="fill: ' + linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + \
+				   str(xtext - 3) + '" y="' + str(ytext + 3) + \
+				   '">' + h_text + '</tspan></text>\n'
+			path = path + '<text text-anchor="start" x="' + str(xtext + 4) + '" y="' + str(ytext - 4) + '"  style="fill:' + \
+				   self.colors['paper_0'] + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)], type="0") + '</text>'
+
 		return path
 	
 	def makePlanets( self , r ):
@@ -1238,6 +1510,7 @@ class openAstro:
 			rtext=45
 			if self.settings.astrocfg['houses_system'] == "G":
 				offset = (int(self.houses_degree_ut[18]) / -1) + int(self.planets_degree_ut[i])
+				trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])
 			else:
 				offset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i]+planets_delta[e])
 				trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])

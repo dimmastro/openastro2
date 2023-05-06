@@ -3,22 +3,22 @@ if __name__ == '__main__':
     from openastro2.openastro2 import openAstro
 
     event1 = {}
-    event1["name"] = "Now"
-    event1["charttype"] = "Transit"
-    event1["year"] = 2023
-    event1["month"] = 10
+    event1["name"] = "Nikola Tesla"
+    event1["charttype"] = "Radix"
+    event1["year"] = 1856
+    event1["month"] = 7
     event1["day"] = 10
-    event1["hour"] = 1
-    event1["minute"] = 1
-    event1["second"] = 1
-    event1["timezone"] = 0
+    event1["hour"] = 0
+    event1["minute"] = 0
+    event1["second"] = 0
+    event1["timezone"] = 1
     event1["altitude"] = 25
     event1["geonameid"] = None
-    event1["location"] = "London"
-    event1["geolat"] = 0
-    event1["geolon"] = 0
-    event1["countrycode"] = "en"
-    event1["timezonestr"] = "Europe/Amsterdam"
+    event1["location"] = "Smiljan"
+    event1["geolat"] = 44.5666644
+    event1["geolon"] = 15.3166654
+    event1["countrycode"] = "hr"
+    event1["timezonestr"] = "Europe/Zagreb"
 
     event2 = {}
     event2["name"] = "Now"
@@ -44,7 +44,8 @@ if __name__ == '__main__':
     settings['astrocfg']['home_location'] = "Krasnoyarsk, Krasnoyarskiy, Russia"
     settings['astrocfg']['language'] = "ru"
 
-    openAstro = openAstro(event1, event2, type="Transit", settings=settings)
+    # openAstro = openAstro(event1, event2, type="Transit", settings=settings)
+    openAstro = openAstro(event1, event2, type="Radix", settings=settings)
     svg = openAstro.makeSVG()
     # print(svg)
     print(openAstro.planets_degree)

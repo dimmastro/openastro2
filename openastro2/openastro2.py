@@ -267,12 +267,13 @@ class openAstro:
 		self.screen_height = 768
 
 		self.name = self.event1["name"]
-		self.charttype = self.event1["charttype"]
+		self.charttype = self.type
 		self.year = self.event1["year"]
 		self.month = self.event1["month"]
 		self.day = self.event1["day"]
 		self.hour=self.decHourJoin(self.event1["hour"],self.event1["minute"], self.event1["second"])
-		self.timezone = self.event1["timezone"]
+		if ("timezone" in self.event1):
+			self.timezone = self.event1["timezone"]
 		self.altitude = self.event1["altitude"]
 		self.geonameid = self.event1["geonameid"]
 		self.location = self.event1["location"]
@@ -318,7 +319,8 @@ class openAstro:
 		# self.altitude=25
 		# self.geonameid=None
 
-
+		# OpenAstro1 used UTC time in database
+		self.localToUtc()
 		#Make locals
 		self.utcToLocal()
 		
@@ -346,6 +348,7 @@ class openAstro:
 		utc = datetime.datetime(self.year, self.month, self.day, h, m, s)
 		tz = datetime.timedelta(seconds=float(self.timezone)*float(3600))
 		loc = utc + tz
+		# loc = utc - tz
 		self.year_loc = loc.year
 		self.month_loc = loc.month
 		self.day_loc = loc.day
@@ -354,7 +357,22 @@ class openAstro:
 		self.second_loc = loc.second
 		#print some info
 		dprint('utcToLocal: '+str(utc)+' => '+str(loc)+self.decTzStr(self.timezone))
-	
+
+	def localToUtc(self):
+		# OpenAstro1 used UTC time in database
+		# make global UTC time variables from local
+		h, m, s = self.decHour(self.hour)
+		utc = datetime.datetime(self.year, self.month, self.day, h, m, s)
+		tz = datetime.timedelta(seconds=float(self.timezone) * float(3600))
+		# loc = utc + tz
+		utc_loc = utc - tz
+		self.year = utc_loc.year
+		self.month = utc_loc.month
+		self.day = utc_loc.day
+		self.hour = self.decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
+		# print some info
+		dprint('localToUtc: ' + str(utc) + ' => ' + str(utc_loc) + self.decTzStr(self.timezone))
+
 	def localToSolar(self, newyear):
 		solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
 		dprint("localToSolar: from %s to %s" %(self.year,newyear))

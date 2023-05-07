@@ -1375,6 +1375,8 @@ class openAstro:
 						extrapoints = 10
 
 			#calculate element points for all planets
+			print (i)
+			print(self.planets_sign[i])
 			ele = self.zodiac_element[self.planets_sign[i]]			
 			if ele == "fire":
 				self.fire = self.fire + self.planets[i]['element_points'] + extrapoints
@@ -1748,7 +1750,7 @@ class openAstro:
 			y1 = self.sliceToY( 0 , r-dropin , offset ) + dropin
 			x2 = self.sliceToX( 0 , (r-(dropin-3)) , offset ) + (dropin-3)
 			y2 = self.sliceToY( 0 , (r-(dropin-3)) , offset ) + (dropin-3)
-			output = output + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+self.planets[i]['color']+'; stroke-width: 2px; stroke-opacity:.6;"/>\n'
+			# output = output + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+self.planets[i]['color']+'; stroke-width: 2px; stroke-opacity:.6;"/>\n'
 
 		return output
 

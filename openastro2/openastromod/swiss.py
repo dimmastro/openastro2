@@ -292,28 +292,37 @@ class ephData:
 		self.planets_degree_ut[24] = self.houses_degree_ut[9]
 		self.planets_degree_ut[25] = self.houses_degree_ut[6]
 		self.planets_degree_ut[26] = self.houses_degree_ut[3]
-		
+
+		self.planets_degree_ut[27] = self.houses_degree_ut[1]
+		self.planets_degree_ut[28] = self.houses_degree_ut[2]
+		self.planets_degree_ut[29] = self.houses_degree_ut[4]
+		self.planets_degree_ut[30] = self.houses_degree_ut[5]
+		self.planets_degree_ut[31] = self.houses_degree_ut[7]
+		self.planets_degree_ut[32] = self.houses_degree_ut[8]
+		self.planets_degree_ut[33] = self.houses_degree_ut[10]
+		self.planets_degree_ut[34] = self.houses_degree_ut[11]
+
 		#list index 27 is day pars
-		self.planets_degree_ut[27] = asc + (moon - sun)
+		self.planets_degree_ut[35] = asc + (moon - sun)
 		#list index 28 is night pars
-		self.planets_degree_ut[28] = asc + (sun - moon)
+		self.planets_degree_ut[36] = asc + (sun - moon)
 		#list index 29 is South Node
-		self.planets_degree_ut[29] = self.planets_degree_ut[10] - 180.0
+		self.planets_degree_ut[37] = self.planets_degree_ut[10] - 180.0
 		#list index 30 is marriage pars
-		self.planets_degree_ut[30] = (asc+dsc)-venus
+		self.planets_degree_ut[38] = (asc+dsc)-venus
 		#list index 31 is black sun
-		self.planets_degree_ut[31] = swe.nod_aps_ut(self.jul_day_UT,0,swe.NODBIT_MEAN,swe.FLG_SWIEPH)[3][0]
+		self.planets_degree_ut[39] = swe.nod_aps_ut(self.jul_day_UT,0,swe.NODBIT_MEAN,swe.FLG_SWIEPH)[3][0]
 		#list index 32 is vulcanus
-		self.planets_degree_ut[32] = 31.1 + (self.jul_day_UT-2425246.5) * 0.00150579
+		self.planets_degree_ut[40] = 31.1 + (self.jul_day_UT-2425246.5) * 0.00150579
 		#list index 33 is persephone
-		self.planets_degree_ut[33] = 240.0 + (self.jul_day_UT-2425246.5) * 0.002737829
+		self.planets_degree_ut[41] = 240.0 + (self.jul_day_UT-2425246.5) * 0.002737829
 		#list index 34 is true lilith (own calculation)
-		self.planets_degree_ut[34] = self.planets_degree_ut[12] + true_lilith
+		self.planets_degree_ut[42] = self.planets_degree_ut[12] + true_lilith
 		#swiss ephemeris version of true lilith
 		#self.planets_degree_ut[34] = swe.nod_aps_ut(self.jul_day_UT,1,swe.NODBIT_OSCU,swe.FLG_SWIEPH)[3][0]
 
 		#adjust list index 32 and 33
-		for i in range(23,35):
+		for i in range(23,43):
 			while ( self.planets_degree_ut[i] < 0 ): self.planets_degree_ut[i]+=360.0
 			while ( self.planets_degree_ut[i] > 360.0): self.planets_degree_ut[i]-=360.0
 	

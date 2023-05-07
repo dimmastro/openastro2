@@ -44,8 +44,8 @@ if __name__ == '__main__':
     settings['astrocfg']['home_location'] = "Krasnoyarsk, Krasnoyarskiy, Russia"
     settings['astrocfg']['language'] = "ru"
 
-    openAstro = openAstro(event1, event2, type="Transit", settings=settings)
-    # openAstro = openAstro(event1, event2, type="Radix", settings=settings)
+    # openAstro = openAstro(event1, event2, type="Transit", settings=settings)
+    openAstro = openAstro(event1, event2, type="Radix", settings=settings)
     svg = openAstro.makeSVG2()
 
     # print(svg)

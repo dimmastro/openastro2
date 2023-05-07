@@ -253,6 +253,39 @@
 	<text y="20" style="font-size:22px; fill: $planets_color_26;">Ic</text>
 </symbol>
 
+<symbol id="II">
+	<text y="20" style="font-size:22px; fill: $planets_color_26;">II</text>
+</symbol>
+
+<symbol id="III">
+	<text y="20" style="font-size:22px; fill: $planets_color_26;">III</text>
+</symbol>
+
+<symbol id="V">
+	<text y="20" style="font-size:22px; fill: $planets_color_26;">V</text>
+</symbol>
+
+<symbol id="VI">
+	<text y="20" style="font-size:22px; fill: $planets_color_26;">VI</text>
+</symbol>
+
+<symbol id="VIII">
+	<text y="20" style="font-size:22px; fill: $planets_color_26;">VIII</text>
+</symbol>
+
+<symbol id="IX">
+	<text y="20" style="font-size:22px; fill: $planets_color_26;">IX</text>
+</symbol>
+
+<symbol id="XI">
+	<text y="20" style="font-size:22px; fill: $planets_color_26;">XI</text>
+</symbol>
+
+<symbol id="XII">
+	<text y="20" style="font-size:22px; fill: $planets_color_26;">XII</text>
+</symbol>
+
+
 <symbol id="day pars">
 <g transform="translate(2,4)">
 <g transform="scale(.9)">

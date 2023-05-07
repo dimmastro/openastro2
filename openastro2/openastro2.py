@@ -195,6 +195,7 @@ class openAstroSettings:
 		self.lang_label = LANGUAGES_LABEL
 
 		self.settings_svg = self.settings["settings_svg"]
+		self.color_codes = self.settings["color_codes"]
 		self.settings_planet = self.settings["settings_planet"]
 	# 	orb = [
 	# 	#sun
@@ -774,8 +775,9 @@ class openAstro:
 		
 		#planets_color_X
 		for i in range(len(self.planets)):
-			td['planets_color_%s'%(i)]=self.colors["planet_%s"%(i)]
-		
+			# td['planets_color_%s'%(i)]=self.colors["planet_%s"%(i)]
+			td['planets_color_%s'%(i)]=self.colors["planet_all"]
+
 		#zodiac_color_X
 		for i in range(12):
 			td['zodiac_color_%s'%(i)]=self.colors["zodiac_icon_%s" %(i)]
@@ -866,16 +868,16 @@ class openAstro:
 			td['transitRing'] = self.transitRing(r)
 			td['degreeRing'] = self.degreeTransitRing(r)
 			# circles
-			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - 36) + '"'
-			td['c1style'] = 'fill: none; stroke: %s; stroke-width: 1px; stroke-opacity:.4;' % (
-			self.colors['zodiac_transit_ring_2'])
-			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - 72) + '"'
-			td['c2style'] = 'fill: %s; fill-opacity:.4; stroke: %s; stroke-opacity:.4; stroke-width: 1px' % (
+			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"'
+			td['c1style'] = 'fill: %s; stroke: %s;  fill-opacity:0.0; stroke-width: 0px; stroke-opacity:1.0;' % (
+			self.colors['paper_1'], self.colors['zodiac_transit_ring_2'])
+			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"'
+			td['c2style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.4; stroke-width: 0px' % (
 			self.colors['paper_1'], self.colors['zodiac_transit_ring_1'])
-			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - 160) + '"'
-			td['c3style'] = 'fill: %s; fill-opacity:.8; stroke: %s; stroke-width: 1px' % (
+			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"'
+			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px' % (
 			self.colors['paper_1'], self.colors['zodiac_transit_ring_0'])
-			td['makeAspects'] = self.makeAspectsTransit(r, (r - 160))
+			td['makeAspects'] = self.makeAspectsTransit(r, (r - self.c3))
 			td['makeAspectGrid'] = self.makeAspectTransitGrid(r)
 			td['makePatterns'] = ''
 		else:
@@ -1002,9 +1004,11 @@ class openAstro:
 		td['paper_color_0'] = self.colors["paper_0"]
 		td['paper_color_1'] = self.colors["paper_1"]
 
-		# planets_color_X
+
+
 		for i in range(len(self.planets)):
-			td['planets_color_%s' % (i)] = self.colors["planet_%s" % (i)]
+			# td['planets_color_%s'%(i)]=self.colors["planet_%s"%(i)]
+			td['planets_color_%s'%(i)]=self.colors["planet_all"]
 
 		# zodiac_color_X
 		for i in range(12):
@@ -1051,9 +1055,10 @@ class openAstro:
 
 	#draw transit ring
 	def transitRing( self , r ):
-		out = '<circle cx="%s" cy="%s" r="%s" style="fill: none; stroke: %s; stroke-width: 36px; stroke-opacity: .4;"/>' % (r,r,r-18,self.colors['paper_1'])
-		out += '<circle cx="%s" cy="%s" r="%s" style="fill: none; stroke: %s; stroke-width: 1px; stroke-opacity: .6;"/>' % (r,r,r,self.colors['zodiac_transit_ring_3'])
-		return out	
+		# out = '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:0.7; stroke: %s; stroke-width: 36px; stroke-opacity: 1.0;"/>' % (r,r,r-18,self.colors['paper_1'] ,self.colors['paper_1'])
+		# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:0.7; stroke: %s; stroke-width: 1px; stroke-opacity: .6;"/>' % (r,r,r,self.colors['paper_1'] ,self.colors['zodiac_transit_ring_3'])
+		# return out
+		return
 	
 	#draw degree ring
 	def degreeRing( self , r ):
@@ -1074,18 +1079,18 @@ class openAstro:
 		
 	def degreeTransitRing( self , r ):
 		out=''
-		for i in range(72):
-			offset = float(i*5) - self.houses_degree_ut[6]
-			if offset < 0:
-				offset = offset + 360.0
-			elif offset > 360:
-				offset = offset - 360.0
-			x1 = self.sliceToX( 0 , r , offset )
-			y1 = self.sliceToY( 0 , r , offset )
-			x2 = self.sliceToX( 0 , r+2 , offset ) - 2
-			y2 = self.sliceToY( 0 , r+2 , offset ) - 2
-			out += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke: #F00; stroke-width: 1px; stroke-opacity:.9;"/>\n' % (
-				x1,y1,x2,y2 )
+		# for i in range(72):
+		# 	offset = float(i*5) - self.houses_degree_ut[6]
+		# 	if offset < 0:
+		# 		offset = offset + 360.0
+		# 	elif offset > 360:
+		# 		offset = offset - 360.0
+		# 	x1 = self.sliceToX( 0 , r , offset )
+		# 	y1 = self.sliceToY( 0 , r , offset )
+		# 	x2 = self.sliceToX( 0 , r+2 , offset ) - 2
+		# 	y2 = self.sliceToY( 0 , r+2 , offset ) - 2
+		# 	out += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke: #F00; stroke-width: 1px; stroke-opacity:.9;"/>\n' % (
+		# 		x1,y1,x2,y2 )
 		return out
 	
 	#floating latitude an longitude to string
@@ -1238,9 +1243,9 @@ class openAstro:
 		for i in range(xr):
 			#check transit
 			if self.type == "Transit":
-				dropin=160
-				roff=72
-				t_roff=36
+				dropin=self.c3
+				roff=self.c1 - 10
+				t_roff=self.c1 - 20
 			else:
 				dropin=self.c3
 				roff=self.c1-10
@@ -1262,18 +1267,21 @@ class openAstro:
 			if i == 0:
 				linecolor=self.planets[23]['color']
 			elif i == 9:
-				linecolor=self.planets[24]['color']	
+				linecolor=self.planets[24]['color']
 			elif i == 6:
 				linecolor=self.planets[25]['color']
 			elif i == 3:
 				linecolor=self.planets[26]['color']
 			else:
 				linecolor=self.colors['houses_radix_line']
+			if self.type == "Transit":
+				linecolor = self.colors['houses_transit_line_1']
 
 			#transit houses lines
 			if self.type == "Transit":
 				#degrees for point zero
 				zeropoint = 360 - self.houses_degree_ut[6]
+				t_offset = zeropoint + self.t_houses_degree_ut[i]
 				t_offset = zeropoint + self.t_houses_degree_ut[i]
 				if t_offset > 360:
 					t_offset = t_offset - 360
@@ -1282,25 +1290,36 @@ class openAstro:
 				t_x2 = self.sliceToX( 0 , r , t_offset )
 				t_y2 = self.sliceToY( 0 , r , t_offset )
 				if i < 11:		
-					t_text_offset = t_offset + int(self.degreeDiff( self.t_houses_degree_ut[(i+1)], self.t_houses_degree_ut[i] ) / 2 )
-					t_text_offset = t_offset + int(self.degreeDiff( self.t_houses_degree_ut[(i+1)], self.t_houses_degree_ut[i] ) / 2 )
+					# t_text_offset = t_offset + int(self.degreeDiff( self.t_houses_degree_ut[(i+1)], self.t_houses_degree_ut[i] ) / 2 )
+					t_text_offset = t_offset
 				else:
-					t_text_offset = t_offset + int(self.degreeDiff( self.t_houses_degree_ut[0], self.t_houses_degree_ut[11] ) / 2 )
+					t_text_offset = t_offset
 				#linecolor
 				if i ==  0 or i ==  9 or i ==  6 or i ==  3:
-					t_linecolor=linecolor
+					t_linecolor = self.colors['houses_transit_line_2']
 				else:
-					t_linecolor = self.colors['houses_transit_line']			
-				xtext = self.sliceToX( 0 , (r-8) , t_text_offset ) + 8
-				ytext = self.sliceToY( 0 , (r-8) , t_text_offset ) + 8
-				path = path + '<text style="fill: #00f; fill-opacity: .4; font-size: 14px"><tspan x="'+str(xtext-3)+'" y="'+str(ytext+3)+'">'+str(i+1)+'</tspan></text>\n'
-				path = path + '<line x1="'+str(t_x1)+'" y1="'+str(t_y1)+'" x2="'+str(t_x2)+'" y2="'+str(t_y2)+'" style="stroke: '+t_linecolor+'; stroke-width: 2px; stroke-opacity:.3;"/>\n'
-				
+					t_linecolor = self.colors['houses_transit_line_2']
+				# xtext = self.sliceToX( 0 , (r-25) , t_text_offset ) + 25
+				# ytext = self.sliceToY( 0 , (r-25) , t_text_offset ) + 25
+				# path = path + '<text style="fill: #00f; fill-opacity: .4; font-size: 14px"><tspan x="'+str(xtext-3)+'" y="'+str(ytext+3)+'">'+str(i+1)+'</tspan></text>\n'
+				# path = path + '<line x1="'+str(t_x1)+'" y1="'+str(t_y1)+'" x2="'+str(t_x2)+'" y2="'+str(t_y2)+'" style="stroke: '+t_linecolor+'; stroke-width: 2px; stroke-opacity:.3;"/>\n'
+				dropin = self.c1 - 30
+				h_text = str(i + 1)
+				xtext = self.sliceToX(
+					0, (r - dropin), t_text_offset) + dropin  # was 132
+				ytext = self.sliceToY(
+					0, (r - dropin), t_text_offset) + dropin  # was 132
+				# if i == 0:
+				# 	xtext = xtext - 6
+				path = path + '<line x1="' + str(t_x1) + '" y1="' + str(t_y1) + '" x2="' + str(t_x2) + '" y2="' + str(t_y2) + '" style="stroke: ' + t_linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
+				path = path + '<text style="fill: ' + t_linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
+				path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)], type="0") + '</text>'
+
 			#if transit			
 			if self.type == "Transit":
-				dropin=84
+				dropin = self.c1 - 20
 			elif self.settings.astrocfg["chartview"] == "european":
-				dropin=-20
+				dropin = self.c1 -20
 			else:		
 				dropin=48
 				
@@ -1332,14 +1351,14 @@ class openAstro:
 			# 	xtext = xtext - 6
 			path = path + '<line x1="' + str(x1) + '" y1="' + str(y1) + '" x2="' + str(x2) + '" y2="' + str(y2) + '" style="stroke: ' + linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
 			path = path + '<text style="fill: ' + linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
-			path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)], type="0") + '</text>'
+			path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + linecolor + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)], type="0") + '</text>'
 
 		return path
 	
 	def makePlanets( self , r ):
 		
 		planets_degut={}
-		
+
 		diff=range(len(self.planets))
 		for i in range(len(self.planets)):
 			if self.planets[i]['visible'] == 1:
@@ -1478,12 +1497,12 @@ class openAstro:
 			#coordinates			
 			if self.type == "Transit":
 				if 22 < i < 27:
-					rplanet = 76
+					rplanet = self.c2 - (self.c2-self.c3)/2
 				elif switch == 1:
-					rplanet=110
+					rplanet=self.c2 - (self.c2-self.c3)/2
 					switch = 0
 				else:
-					rplanet=130
+					rplanet=self.c2 - (self.c2-self.c3)/2
 					switch = 1				
 			else:
 				#if 22 < i < 27 it is asc,mc,dsc,ic (angles of chart)
@@ -1513,7 +1532,28 @@ class openAstro:
 			planet_x = self.sliceToX( 0 , (r-rplanet) , offset ) + rplanet
 			planet_y = self.sliceToY( 0 , (r-rplanet) , offset ) + rplanet
 			if self.type == "Transit":
-				scale=0.8
+				scale=0.6
+				scale=0.6
+				#line1
+				x1=self.sliceToX( 0 , (r-self.c3) , trueoffset ) + self.c3
+				y1=self.sliceToY( 0 , (r-self.c3) , trueoffset ) + self.c3
+				x2=self.sliceToX( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
+				y2=self.sliceToY( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
+				# color=self.planets[i]["color"]
+				color=self.colors["color_transit_2"]
+				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
+				#line2
+				x1=self.sliceToX( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
+				y1=self.sliceToY( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
+				x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
+				y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
+				output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.5;"/>\n' % (x1,y1,x2,y2,color)
+
+				x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
+				y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
+				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
+					x1, y1, 1.5, self.colors['paper_1'], self.colors['planet_point'])
+
 			elif self.settings.astrocfg["chartview"] == "european":
 				scale=0.6
 				#line1
@@ -1542,7 +1582,7 @@ class openAstro:
 			# 	text_offset = offset + int(self.degreeDiff( self.houses_degree_ut[0], self.houses_degree_ut[0] ) / 1 )
 			text_offset = offset
 			# text_offset = 10
-			dropin = 40
+			dropin = rplanet
 			xtext = self.sliceToX(0, (r - dropin), text_offset) + dropin  + self.settings.settings_svg["offset_degree_planet_x"]
 			ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin  + self.settings.settings_svg["offset_degree_planet_y"]
 			output = output + '<text text-anchor="start" x="' + str(xtext + 0) + '" y="' + str(ytext - 0) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: 7px;">' + self.dec2deg(self.planets_degree[(i)], type="0") + '</text>'
@@ -1604,10 +1644,10 @@ class openAstro:
 				if 22 < i < 27:
 					rplanet = 9
 				elif switch == 1:
-					rplanet=18
+					rplanet=self.c1 - 10
 					switch = 0
 				else:
-					rplanet=26
+					rplanet=self.c1 - 10
 					switch = 1	
 				
 				zeropoint = 360 - self.houses_degree_ut[6]
@@ -1617,38 +1657,71 @@ class openAstro:
 				planet_x = self.sliceToX( 0 , (r-rplanet) , t_offset ) + rplanet
 				planet_y = self.sliceToY( 0 , (r-rplanet) , t_offset ) + rplanet
 				output = output + '<g transform="translate(-6,-6)"><g transform="scale(0.5)"><use x="' + str(planet_x*2) + '" y="' + str(planet_y*2) + '" xlink:href="#' + self.planets[i]['name'] + '" /></g></g>\n'
-				#transit planet line
-				x1 = self.sliceToX( 0 , r+3 , t_offset ) - 3
-				y1 = self.sliceToY( 0 , r+3 , t_offset ) - 3
-				x2 = self.sliceToX( 0 , r-3 , t_offset ) + 3
-				y2 = self.sliceToY( 0 , r-3 , t_offset ) + 3
-				output = output + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+self.planets[i]['color']+'; stroke-width: 1px; stroke-opacity:.8;"/>\n'
-				
-				#transit planet degree text
-				rotate = self.houses_degree_ut[0] - self.t_planets_degree_ut[i]
-				textanchor="end"
-				t_offset += group_offset[i]
-				rtext=-3.0
-	
-				if -90 > rotate > -270:
-					rotate = rotate + 180.0
-					textanchor="start"
-				if 270 > rotate > 90:
-					rotate = rotate - 180.0
-					textanchor="start"
-	
-					
-				if textanchor == "end":
-					xo=1
-				else:
-					xo=-1				
-				deg_x = self.sliceToX( 0 , (r-rtext) , t_offset + xo ) + rtext
-				deg_y = self.sliceToY( 0 , (r-rtext) , t_offset + xo ) + rtext
-				degree=int(t_offset)
-				output += '<g transform="translate(%s,%s)">' % (deg_x,deg_y)
-				output += '<text transform="rotate(%s)" text-anchor="%s' % (rotate,textanchor)
-				output += '" style="fill: '+self.planets[i]['color']+'; font-size: 10px;">'+self.dec2deg(self.t_planets_degree[i],type="1")
-				output += '</text></g>\n'
+
+				text_offset = t_offset
+				# text_offset = 10
+				dropin = rplanet
+				xtext = self.sliceToX(0, (r - dropin), text_offset) + dropin + self.settings.settings_svg[
+					"offset_degree_planet_x"]
+				ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin + self.settings.settings_svg[
+					"offset_degree_planet_y"]
+				output = output + '<text text-anchor="start" x="' + str(xtext + 0) + '" y="' + str(
+					ytext - 0) + '"  style="fill:' + self.colors["color_transit_2"] + '; font-size: 7px;">' + self.dec2deg(
+					self.planets_degree[(i)], type="0") + '</text>'
+				output = output + ''
+
+				# #transit planet line
+				# x1 = self.sliceToX( 0 , r+3 , t_offset ) - 3
+				# y1 = self.sliceToY( 0 , r+3 , t_offset ) - 3
+				# x2 = self.sliceToX( 0 , r-3 , t_offset ) + 3
+				# y2 = self.sliceToY( 0 , r-3 , t_offset ) + 3
+				# output = output + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+self.planets[i]['color']+'; stroke-width: 1px; stroke-opacity:.8;"/>\n'
+				# # transit planet line
+				# # dropin = rplanet
+				# delta = 2
+				#
+				# x1 = self.sliceToX(0, r + delta - self.c3, t_offset) - delta + self.c3
+				# y1 = self.sliceToY(0, r + delta - self.c3, t_offset) - delta + self.c3
+				# x2 = self.sliceToX(0, r - delta - self.c3, t_offset) + delta + self.c3
+				# y2 = self.sliceToY(0, r - delta - self.c3, t_offset) + delta + self.c3
+				# output = output + '<line x1="' + str(x1) + '" y1="' + str(y1) + '" x2="' + str(x2) + '" y2="' + str(
+				# 	y2) + '" style="stroke: ' + self.planets[i]['color'] + '; stroke-width: 1px; stroke-opacity:.8;"/>\n'
+
+				x1 = self.sliceToX(0, (r - self.c3), t_offset) + self.c3
+				y1 = self.sliceToY(0, (r - self.c3), t_offset) + self.c3
+				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
+					x1, y1, 1.5, self.colors['paper_1'], self.colors["color_transit_2"])
+
+				x1 = self.sliceToX(0, (r - self.c1), t_offset) + self.c1
+				y1 = self.sliceToY(0, (r - self.c1), t_offset) + self.c1
+				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
+					x1, y1, 1.5, self.colors['paper_1'], self.colors["color_transit_2"])
+
+			# #transit planet degree text
+				# rotate = self.houses_degree_ut[0] - self.t_planets_degree_ut[i]
+				# textanchor="end"
+				# t_offset += group_offset[i]
+				# rtext=-3.0
+				#
+				# if -90 > rotate > -270:
+				# 	rotate = rotate + 180.0
+				# 	textanchor="start"
+				# if 270 > rotate > 90:
+				# 	rotate = rotate - 180.0
+				# 	textanchor="start"
+				#
+				#
+				# if textanchor == "end":
+				# 	xo=1
+				# else:
+				# 	xo=-1
+				# deg_x = self.sliceToX( 0 , (r-rtext) , t_offset + xo ) + rtext
+				# deg_y = self.sliceToY( 0 , (r-rtext) , t_offset + xo ) + rtext
+				# degree=int(t_offset)
+				# output += '<g transform="translate(%s,%s)">' % (deg_x,deg_y)
+				# output += '<text transform="rotate(%s)" text-anchor="%s' % (rotate,textanchor)
+				# output += '" style="fill: '+self.planets[i]['color']+'; font-size: 10px;">'+self.dec2deg(self.t_planets_degree[i],type="1")
+				# output += '</text></g>\n'
 			
 			#check transit
 			if self.type == "Transit":

@@ -1216,7 +1216,7 @@ class openAstro:
 		offset = offset + 15
 		#check transit
 		if self.type == "Transit":
-			dropin=54
+			dropin=self.c2/2
 		else:
 			dropin=self.c2/2
 		# sign = '<g transform="translate(-16,-16)"><use x="' + str(dropin + self.sliceToX(num,r-dropin,offset)) + '" y="' + str(dropin + self.sliceToY(num,r-dropin,offset)) + '" xlink:href="#' + type + '" /></g>\n'
@@ -1313,7 +1313,7 @@ class openAstro:
 				# 	xtext = xtext - 6
 				path = path + '<line x1="' + str(t_x1) + '" y1="' + str(t_y1) + '" x2="' + str(t_x2) + '" y2="' + str(t_y2) + '" style="stroke: ' + t_linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
 				path = path + '<text style="fill: ' + t_linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
-				path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)], type="0") + '</text>'
+				path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(self.t_houses_degree[(i)]+1, type="0") + '</text>'
 
 			#if transit			
 			if self.type == "Transit":
@@ -1351,7 +1351,7 @@ class openAstro:
 			# 	xtext = xtext - 6
 			path = path + '<line x1="' + str(x1) + '" y1="' + str(y1) + '" x2="' + str(x2) + '" y2="' + str(y2) + '" style="stroke: ' + linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
 			path = path + '<text style="fill: ' + linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
-			path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + linecolor + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)], type="0") + '</text>'
+			path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + linecolor + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)]+1, type="0") + '</text>'
 
 		return path
 	
@@ -1499,10 +1499,10 @@ class openAstro:
 				if 22 < i < 27:
 					rplanet = self.c2 - (self.c2-self.c3)/2
 				elif switch == 1:
-					rplanet=self.c2 - (self.c2-self.c3)/2
+					rplanet = self.c2 - (self.c2-self.c3)/2
 					switch = 0
 				else:
-					rplanet=self.c2 - (self.c2-self.c3)/2
+					rplanet = self.c2 - (self.c2-self.c3)/2
 					switch = 1				
 			else:
 				#if 22 < i < 27 it is asc,mc,dsc,ic (angles of chart)
@@ -1540,7 +1540,7 @@ class openAstro:
 				x2=self.sliceToX( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
 				y2=self.sliceToY( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
 				# color=self.planets[i]["color"]
-				color=self.colors["color_transit_2"]
+				color=self.colors["color_transit_1"]
 				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
 				#line2
 				x1=self.sliceToX( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
@@ -1552,7 +1552,7 @@ class openAstro:
 				x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
 				y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
 				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
-					x1, y1, 1.5, self.colors['paper_1'], self.colors['planet_point'])
+					x1, y1, 1.5, self.colors['paper_1'], self.colors['color_transit_1'])
 
 			elif self.settings.astrocfg["chartview"] == "european":
 				scale=0.6
@@ -1562,7 +1562,7 @@ class openAstro:
 				x2=self.sliceToX( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
 				y2=self.sliceToY( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
 				# color=self.planets[i]["color"]
-				color=self.planets[i]["color"]
+				color=self.colors["color_radix"]
 				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
 				#line2
 				x1=self.sliceToX( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
@@ -1570,6 +1570,8 @@ class openAstro:
 				x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 				y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 				output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.5;"/>\n' % (x1,y1,x2,y2,color)
+				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
+					x1, y1, 1.5, self.colors['paper_1'], self.colors['color_radix'])
 			else:
 				scale=1
 			#output planet			
@@ -1585,7 +1587,7 @@ class openAstro:
 			dropin = rplanet
 			xtext = self.sliceToX(0, (r - dropin), text_offset) + dropin  + self.settings.settings_svg["offset_degree_planet_x"]
 			ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin  + self.settings.settings_svg["offset_degree_planet_y"]
-			output = output + '<text text-anchor="start" x="' + str(xtext + 0) + '" y="' + str(ytext - 0) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: 7px;">' + self.dec2deg(self.planets_degree[(i)], type="0") + '</text>'
+			output = output + '<text text-anchor="start" x="' + str(xtext + 0) + '" y="' + str(ytext - 0) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: 7px;">' + self.dec2deg(self.planets_degree[(i)]+1, type="0") + '</text>'
 			output = output + ''
 
 		#make transit degut and display planets
@@ -1644,10 +1646,10 @@ class openAstro:
 				if 22 < i < 27:
 					rplanet = 9
 				elif switch == 1:
-					rplanet=self.c1 - 10
+					rplanet=self.c1 - 15
 					switch = 0
 				else:
-					rplanet=self.c1 - 10
+					rplanet=self.c1 - 15
 					switch = 1	
 				
 				zeropoint = 360 - self.houses_degree_ut[6]
@@ -1667,7 +1669,7 @@ class openAstro:
 					"offset_degree_planet_y"]
 				output = output + '<text text-anchor="start" x="' + str(xtext + 0) + '" y="' + str(
 					ytext - 0) + '"  style="fill:' + self.colors["color_transit_2"] + '; font-size: 7px;">' + self.dec2deg(
-					self.planets_degree[(i)], type="0") + '</text>'
+					self.t_planets_degree[(i)]+1, type="0") + '</text>'
 				output = output + ''
 
 				# #transit planet line
@@ -1735,7 +1737,7 @@ class openAstro:
 			x2 = self.sliceToX( 0 , (r-(dropin-3)) , offset ) + (dropin-3)
 			y2 = self.sliceToY( 0 , (r-(dropin-3)) , offset ) + (dropin-3)
 			output = output + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+self.planets[i]['color']+'; stroke-width: 2px; stroke-opacity:.6;"/>\n'
-			
+
 			#check transit
 			if self.type == "Transit":
 				dropin=160

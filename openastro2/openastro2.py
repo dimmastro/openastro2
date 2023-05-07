@@ -1514,7 +1514,7 @@ class openAstro:
 					cmin=40-30
 				
 				if 22 < i < 27:
-					rplanet = 40-cmin
+					rplanet = 50-cmin
 				elif switch == 1:
 					rplanet=84-amin
 					switch = 0
@@ -1644,7 +1644,7 @@ class openAstro:
 				i=t_planets_degut[t_keys[e]]
 	
 				if 22 < i < 27:
-					rplanet = 9
+					rplanet = self.c1 - 15
 				elif switch == 1:
 					rplanet=self.c1 - 15
 					switch = 0

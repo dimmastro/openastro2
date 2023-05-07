@@ -1922,7 +1922,7 @@ class openAstro:
 		self.atgrid=[]
 		for i in range(len(self.planets)):
 			start=self.planets_degree_ut[i]
-			for x in range(i+1):
+			for x in range(len(self.planets)):
 				end=self.t_planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs

@@ -43,7 +43,7 @@
   {"id": 12, "name": "mean apogee", "color": "#444444", "visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "Lilith", "label_short": "Lilith", "visible_aspect_line": 0, "visible_aspect_grid": 0},
   {"id": 13, "name": "osc. apogee", "color": "#444444", "visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "Osc. Lilith", "label_short": "?", "visible_aspect_line": 0, "visible_aspect_grid": 0},
   {"id": 14, "name": "earth", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Earth", "label_short": "earth", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 15, "name": "chiron", "color": "#444444", "visible": 0, "element_points": 5, "zodiac_relation": "-1", "label": "Chiron", "label_short": "chiron", "visible_aspect_line": 0, "visible_aspect_grid": 0},
+  {"id": 15, "name": "chiron", "color": "#444444", "visible": 1, "element_points": 5, "zodiac_relation": "-1", "label": "Chiron", "label_short": "chiron", "visible_aspect_line": 0, "visible_aspect_grid": 0},
   {"id": 16, "name": "pholus", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Pholus", "label_short": "pholus", "visible_aspect_line": 0, "visible_aspect_grid": 0},
   {"id": 17, "name": "ceres", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Ceres", "label_short": "ceres", "visible_aspect_line": 0, "visible_aspect_grid": 0},
   {"id": 18, "name": "pallas", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Pallas", "label_short": "pallas", "visible_aspect_line": 0, "visible_aspect_grid": 0},

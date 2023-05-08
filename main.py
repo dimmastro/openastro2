@@ -48,7 +48,8 @@ if __name__ == '__main__':
     # openAstro = openAstro(event1, event2, type="Radix", settings=settings)
 
     # openAstro = openAstro(event1, event2, type="Solar", settings=settings)
-    openAstro = openAstro(event1, event2, type="Lunar", settings=settings)
+    # openAstro = openAstro(event1, event2, type="Lunar", settings=settings)
+    openAstro = openAstro(event1, event2, type="Direction", settings=settings)
     # openAstro.calcAstro()
     # openAstro.localToSolar(1900)
     # openAstro.calcAstro()

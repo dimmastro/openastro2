@@ -125,10 +125,10 @@ class ephData:
 			
 		if geolat > 66.0:
 			geolat = 66.0
-			print("polar circle override for houses, using 66 degrees")
+			# print("polar circle override for houses, using 66 degrees")
 		elif geolat < -66.0:
 			geolat = -66.0
-			print("polar circle override for houses, using -66 degrees")
+			# print("polar circle override for houses, using -66 degrees")
 
 		#sidereal houses
 		if(openastrocfg['zodiactype']=="sidereal"):
@@ -211,17 +211,17 @@ class ephData:
 		sbm=sun-bm
 		if sbm < 0: sbm += 360
 		if sbm > 180.0: sbm -= 180
-		print("sun %s black moon %s sun-bm %s=%s" % (sun,bm,sun-bm,sbm))
+		# print("sun %s black moon %s sun-bm %s=%s" % (sun,bm,sun-bm,sbm))
 
 		q=12.333
 		if sbm < 60.0:
-			print('sbm<60')
+			# print('sbm<60')
 			c= q * math.sin(1.5*math.radians(sbm))
 		elif sbm > 120.0:
-			print('sbm>120')
+			# print('sbm>120')
 			c= q * math.cos(1.5*math.radians(sbm))
 		else:
-			print('sbm 60-120')
+			# print('sbm 60-120')
 			c= -q * math.cos(3.0*math.radians(sbm))
 
 		true_lilith=c
@@ -340,7 +340,7 @@ class ephData:
 		ddeg=moon-sun
 		if ddeg<0: ddeg+=360.0
 		step=360.0 / 28.0
-		print(moon,sun,ddeg)
+		# print(moon,sun,ddeg)
 		for x in range(28):
 			low=x*step
 			high=(x+1)*step

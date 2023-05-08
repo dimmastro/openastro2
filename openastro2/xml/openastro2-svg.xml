@@ -544,19 +544,19 @@
 	</g>
 	
 	<!-- makePatterns -->
-<!--	$makePatterns 	-->
+	$makePatterns
 	
 	<!-- AspectGrid -->
-<!--	$makeAspectGrid-->
+	$makeAspectGrid
 	
 	<!-- Elements -->
-<!--	$makeElements-->
+	$makeElements
 
 	<!-- Planet Grid -->
-<!--	$makePlanetGrid-->
+	$makePlanetGrid
 	
 	<!-- Houses Grid -->
-<!--	$makeHousesGrid	-->
+	$makeHousesGrid
 
 </g>
 <!-- testing printer

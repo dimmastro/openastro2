@@ -1134,6 +1134,7 @@ class openAstro:
 		#rotation based on latitude
 		td['lunar_phase_rotate'] = "%s" % (-90.0-self.geolat)
 
+		td['stringDateTime']=str(self.year_loc)+'-%(#1)02d-%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {'#1':self.month_loc,'#2':self.day_loc,'#3':self.hour_loc,'#4':self.minute_loc,'#5':self.second_loc} + self.decTzStr(self.timezone)
 		#stringlocation
 		if len(self.location) > 35:
 			split=self.location.split(",")
@@ -1145,7 +1146,6 @@ class openAstro:
 				td['stringLocation']=self.location[:35]+"..."
 		else:
 			td['stringLocation']=self.location
-		td['stringDateTime']=str(self.year_loc)+'-%(#1)02d-%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {'#1':self.month_loc,'#2':self.day_loc,'#3':self.hour_loc,'#4':self.minute_loc,'#5':self.second_loc} + self.decTzStr(self.timezone)
 		td['stringLat']="%s: %s" %(self.label['latitude'],self.lat2str(self.geolat))
 		td['stringLon']="%s: %s" %(self.label['longitude'],self.lon2str(self.geolon))
 		postype={"geo":self.label["apparent_geocentric"],"truegeo":self.label["true_geocentric"],
@@ -1168,8 +1168,9 @@ class openAstro:
 		
 		#orb_color_X
 		for i in range(len(self.aspects)):
-			td['orb_color_%s'%(self.aspects[i]['degree'])]=self.colors["aspect_%s" %(self.aspects[i]['degree'])]
-		
+			# td['orb_color_%s'%(self.aspects[i]['degree'])]=self.colors["aspect_%s" %(self.aspects[i]['degree'])]
+			td['orb_color_%s'%(self.aspects[i]['degree'])]=self.aspects[i]['color']
+
 		#config
 		td['cfgZoom']=str(self.zoom)
 		td['cfgRotate']=rotate
@@ -1236,7 +1237,7 @@ class openAstro:
 
 		# template dictionary
 		td = dict()
-		r = 240
+		r = self.settings.settings_svg["r"]
 		if (self.settings.astrocfg['chartview'] == "european"):
 			self.c1 = self.settings.settings_svg["c1"]
 			self.c2 = self.settings.settings_svg['c2']
@@ -1281,8 +1282,8 @@ class openAstro:
 			td['makeAspectGrid'] = self.makeAspectGrid(r)
 			td['makePatterns'] = self.makePatterns()
 
-		td['circleX'] = str(0)
-		td['circleY'] = str(0)
+		td['circleX'] = str(self.settings.settings_svg["circleX"])
+		td['circleY'] = str(self.settings.settings_svg["circleY"])
 		td['svgWidth'] = str(svgWidth)
 		td['svgHeight'] = str(svgHeight)
 		td['viewbox'] = viewbox
@@ -1364,6 +1365,9 @@ class openAstro:
 		# rotation based on latitude
 		td['lunar_phase_rotate'] = "%s" % (-90.0 - self.geolat)
 
+		td['stringDateTime'] = str(self.year_loc) + '-%(#1)02d-%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+			'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
+			'#5': self.second_loc} + self.decTzStr(self.timezone)
 		# stringlocation
 		if len(self.location) > 35:
 			split = self.location.split(",")
@@ -1375,9 +1379,7 @@ class openAstro:
 				td['stringLocation'] = self.location[:35] + "..."
 		else:
 			td['stringLocation'] = self.location
-		td['stringDateTime'] = str(self.year_loc) + '-%(#1)02d-%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
-			'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
-			'#5': self.second_loc} + self.decTzStr(self.timezone)
+
 		td['stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.geolat))
 		td['stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.geolon))
 		postype = {"geo": self.label["apparent_geocentric"], "truegeo": self.label["true_geocentric"],
@@ -1400,7 +1402,8 @@ class openAstro:
 
 		# orb_color_X
 		for i in range(len(self.aspects)):
-			td['orb_color_%s' % (self.aspects[i]['degree'])] = self.colors["aspect_%s" % (self.aspects[i]['degree'])]
+			# td['orb_color_%s' % (self.aspects[i]['degree'])] = self.colors["aspect_%s" % (self.aspects[i]['degree'])]
+			td['orb_color_%s' % (self.aspects[i]['degree'])] = self.aspects[i]['color']
 
 		# config
 		td['cfgZoom'] = str(self.zoom)
@@ -1594,7 +1597,7 @@ class openAstro:
 		if self.type == "Transit":
 			dropin=0
 		else:
-			dropin=self.c1		
+			dropin=self.c1
 		slice = '<path d="M' + str(r) + ',' + str(r) + ' L' + str(dropin + self.sliceToX(num,r-dropin,offset)) + ',' + str( dropin + self.sliceToY(num,r-dropin,offset)) + ' A' + str(r-dropin) + ',' + str(r-dropin) + ' 0 0,0 ' + str(dropin + self.sliceToX(num+1,r-dropin,offset)) + ',' + str(dropin + self.sliceToY(num+1,r-dropin,offset)) + ' z" style="' + style + '"/>'
 		#symbols
 		offset = offset + 15
@@ -2298,7 +2301,9 @@ class openAstro:
 						if	( float(self.aspects[z]['degree']) - float(self.aspects[z]['orb']) ) <= diff <= ( float(self.aspects[z]['degree']) + float(self.aspects[z]['orb']) ):
 							#check if we want to display this aspect
 							if self.aspects[z]['visible'] == 1:					
-								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
+								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
+								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.aspects[z]['color'] )
+
 		return out
 	
 	def makeAspectsTransit( self , r , ar ):
@@ -2320,7 +2325,9 @@ class openAstro:
 						#check if we want to display this aspect	
 						if	( float(self.aspects[z]['degree']) - orb_before ) <= diff <= ( float(self.aspects[z]['degree']) + 1.0 ):
 							if self.aspects[z]['visible'] == 1:
-								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )		
+								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
+								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.aspects[z]['color'] )
+
 							#aspect grid dictionary
 							if self.aspects[z]['visible_grid'] == 1:
 								self.atgrid.append({})

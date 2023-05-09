@@ -11,13 +11,13 @@
 <g transform="rotate($cfgRotate)">
 <g transform="scale($cfgZoom)">
 <rect x="0" y="0" width="772.2" height="546.0" style="fill: $paper_color_1;" />
-<text x="20" y="30" style="fill: $paper_color_0; font-size: 24px">$stringTitle</text>
-<text x="20" y="50" style="fill: $paper_color_0; font-size: 12px">$stringName</text>
-<text x="20" y="62" style="fill: $paper_color_0; font-size: 10px">$stringLocation</text>
-<text x="20" y="74" style="fill: $paper_color_0; font-size: 10px">$stringDateTime</text>
-<text x="20" y="86" style="fill: $paper_color_0; font-size: 10px">$stringLat</text>
-<text x="20" y="98" style="fill: $paper_color_0; font-size: 10px">$stringLon</text>
-<text x="20" y="110" style="fill: $paper_color_0; font-size: 10px">$stringPosition</text>
+<text x="20" y="20" style="fill: $paper_color_0; font-size: 18px">$stringTitle</text>
+<text x="20" y="40" style="fill: $paper_color_0; font-size: 12px">$stringName</text>
+<text x="20" y="52" style="fill: $paper_color_0; font-size: 10px">$stringDateTime</text>
+<text x="20" y="64" style="fill: $paper_color_0; font-size: 10px">$stringLocation</text>
+<text x="20" y="76" style="fill: $paper_color_0; font-size: 10px">$stringLat</text>
+<text x="20" y="88" style="fill: $paper_color_0; font-size: 10px">$stringLon</text>
+<text x="20" y="100" style="fill: $paper_color_0; font-size: 10px">$stringPosition</text>
 <!--<text x="20" y="480" style="fill: $paper_color_0; font-size: 10px">$bottomLeft1</text>-->
 <!--<text x="20" y="494" style="fill: $paper_color_0; font-size: 10px">$bottomLeft2</text>-->
 <!--<text x="20" y="508" style="fill: $paper_color_0; font-size: 10px">$bottomLeft3</text>-->
@@ -519,7 +519,7 @@
 	$makeZodiac
 	
 	<!-- First Circle -->
-	<circle $c1 style="$c1style"/>	
+	<circle $c1 style="$c1style"/>
 
 	<!-- Second Circle -->
 	<circle $c2 style="$c2style"/>	
@@ -550,7 +550,7 @@
 	$makeAspectGrid
 	
 	<!-- Elements -->
-	$makeElements
+<!--	$makeElements-->
 
 	<!-- Planet Grid -->
 	$makePlanetGrid

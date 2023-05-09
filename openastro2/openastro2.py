@@ -2292,31 +2292,35 @@ class openAstro:
 		out=""
 		for i in range(len(self.planets)):
 			start=self.planets_degree_ut[i]
-			for x in range(i):
+			# for x in range(i):
+			for x in range(len(self.planets)):
 				end=self.planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs
 				if (self.planets[i]['visible_aspect_line'] == 1) & (self.planets[x]['visible_aspect_line'] == 1):
 					for z in range(len(self.aspects)):
 
-						# select orb
-						# if ('orbs' in self.aspects[z]):
-						# 	if (self.type in self.aspects[z]['orbs']):
-						# 		if ("default" in self.aspects[z]['orbs'][self.type]):
-						# 			orb = self.aspects[z]['orbs'][self.type]["default"]
-						# 		if (str(i) in self.aspects[z]['orbs'][self.type]):
-						# 			orb = self.aspects[z]['orbs'][self.type][str(i)]
-						# else:
-						# 	orb = self.aspects[z]['orb']
 						orb = self.aspects[z]['orb']
-						if ('planet_orbs' in self.planets[i]):
-							if (self.type in self.planets[i]['planet_orbs']):
-								if ("default" in self.planets[i]['planet_orbs'][self.type]):
-									orb = self.planets[i]['planet_orbs'][self.type]["default"]
+						orb1 = self.aspects[z]['orb']
+						orb2 = self.aspects[z]['orb']
+						if ('planet_orb' in self.planets[i]):
+							if (self.type in self.planets[i]['planet_orb']):
+								if ("default" in self.planets[i]['planet_orb'][self.type]):
+									orb1 = self.planets[i]['planet_orb'][self.type]["default"]
 								aspect = str(self.aspects[z]['degree'])
-								print (aspect)
-								if (aspect in self.planets[i]['planet_orbs'][self.type]):
-									orb = self.planets[i]['planet_orbs'][self.type][aspect]
+								# print (aspect)
+								if (aspect in self.planets[i]['planet_orb'][self.type]):
+									orb1 = self.planets[i]['planet_orb'][self.type][aspect]
+						if ('planet_orb' in self.planets[x]):
+							if (self.type in self.planets[x]['planet_orb']):
+								if ("default" in self.planets[x]['planet_orb'][self.type]):
+									orb2 = self.planets[x]['planet_orb'][self.type]["default"]
+								aspect = str(self.aspects[z]['degree'])
+								# print (aspect)
+								if (aspect in self.planets[x]['planet_orb'][self.type]):
+									orb2 = self.planets[x]['planet_orb'][self.type][aspect]
+						orb = max([orb1, orb2])
+						# orb = (orb1 + orb2)/2
 
 
 
@@ -2340,12 +2344,38 @@ class openAstro:
 				if (self.planets[i]['visible'] == 1) & (self.planets[x]['visible'] == 1):	
 					for z in range(len(self.aspects)):
 						#check for personal planets and determine orb
-						if 0 <= i <= 4 or 0 <= x <= 4:
-							orb_before = 1.0
-						else:
-							orb_before = 2.0
+						# if 0 <= i <= 4 or 0 <= x <= 4:
+						# 	orb_before = 1.0
+						# else:
+						# 	orb_before = 2.0
+
+
+						orb = self.aspects[z]['orb']
+						orb1 = self.aspects[z]['orb']
+						orb2 = self.aspects[z]['orb']
+						if ('planet_orb' in self.planets[i]):
+							if (self.type in self.planets[i]['planet_orb']):
+								if ("default" in self.planets[i]['planet_orb'][self.type]):
+									orb1 = self.planets[i]['planet_orb'][self.type]["default"]
+								aspect = str(self.aspects[z]['degree'])
+								# print (aspect)
+								if (aspect in self.planets[i]['planet_orb'][self.type]):
+									orb1 = self.planets[i]['planet_orb'][self.type][aspect]
+						if ('planet_orb' in self.planets[x]):
+							if (self.type in self.planets[x]['planet_orb']):
+								if ("default" in self.planets[x]['planet_orb'][self.type]):
+									orb2 = self.planets[x]['planet_orb'][self.type]["default"]
+								aspect = str(self.aspects[z]['degree'])
+								# print (aspect)
+								if (aspect in self.planets[x]['planet_orb'][self.type]):
+									orb2 = self.planets[x]['planet_orb'][self.type][aspect]
+						orb = max([orb1, orb2])
+						# orb = (orb1 + orb2)/2
+
 						#check if we want to display this aspect	
-						if	( float(self.aspects[z]['degree']) - orb_before ) <= diff <= ( float(self.aspects[z]['degree']) + 1.0 ):
+						# if	( float(self.aspects[z]['degree']) - orb_before ) <= diff <= ( float(self.aspects[z]['degree']) + 1.0 ):
+						if	( float(self.aspects[z]['degree']) - orb ) <= diff <= ( float(self.aspects[z]['degree']) + orb ):
+
 							if self.aspects[z]['visible'] == 1:
 								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
 								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.aspects[z]['color'] )

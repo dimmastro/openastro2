@@ -2557,7 +2557,7 @@ class openAstro:
 		return out
 
 	def planetsInAspect( self , diff, aspect_id, p1_id, p2_id ):
-		if(p1_id==29 and p2_id==4 and self.aspects[aspect_id]['degree']==90 ):
+		if(p1_id==2 and p2_id==3 and self.aspects[aspect_id]['degree']==108 ):
 			1
 		z = aspect_id
 		i = p1_id
@@ -2581,7 +2581,8 @@ class openAstro:
 				# print (aspect)
 				if (aspect in self.planets[x]['planet_orb'][self.type]):
 					orb2 = self.planets[x]['planet_orb'][self.type][aspect]
-		orb = max([orb1, orb2])
+		# orb = max([orb1, orb2])
+		orb = max([orb1, orb2]) + min([orb1, orb2])/2
 		# orb = (orb1 + orb2)/2
 
 		# check if we want to display this aspect

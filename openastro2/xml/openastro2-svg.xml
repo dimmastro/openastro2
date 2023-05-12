@@ -505,6 +505,61 @@
 	/>
 </symbol>
 
+
+
+
+
+<symbol id="orb18">
+	<text y="4" style="font-size:22px; fill: $orb_color_18;">*</text>
+</symbol>
+<symbol id="orb20">
+	<text y="4" style="font-size:22px; fill: $orb_color_20;">*</text>
+</symbol>
+<symbol id="orb30">
+	<text y="4" style="font-size:22px; fill: $orb_color_30;">*</text>
+</symbol>
+<symbol id="orb36">
+	<text y="4" style="font-size:22px; fill: $orb_color_36;">*</text>
+</symbol>
+<symbol id="orb40">
+	<text y="4" style="font-size:22px; fill: $orb_color_40;">*</text>
+</symbol>
+<symbol id="orb45">
+	<text y="4" style="font-size:22px; fill: $orb_color_45;">*</text>
+</symbol>
+<symbol id="orb51.5">
+	<text y="4" style="font-size:22px; fill: $orb_color_45;">*</text>
+</symbol>
+<symbol id="orb72">
+	<text y="4" style="font-size:22px; fill: $orb_color_72;">*</text>
+</symbol>
+<symbol id="orb80">
+	<text y="4" style="font-size:22px; fill: $orb_color_80;">*</text>
+</symbol>
+<symbol id="orb100">
+	<text y="4" style="font-size:22px; fill: $orb_color_100;">*</text>
+</symbol>
+<symbol id="orb108">
+	<text y="4" style="font-size:22px; fill: $orb_color_108;">*</text>
+</symbol>
+<symbol id="orb135">
+	<text y="4" style="font-size:22px; fill: $orb_color_135;">*</text>
+</symbol>
+<symbol id="orb144">
+	<text y="4" style="font-size:22px; fill: $orb_color_144;">*</text>
+</symbol>
+<symbol id="orb150">
+	<text y="4" style="font-size:22px; fill: $orb_color_150;">*</text>
+</symbol>
+
+
+
+
+
+
+
+
+
 <!-- retrograde symbol (12x12) -->
 <symbol id="retrograde">
 	<path

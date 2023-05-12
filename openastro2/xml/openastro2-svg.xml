@@ -10,7 +10,8 @@
 <g transform="translate($cfgTranslate)">
 <g transform="rotate($cfgRotate)">
 <g transform="scale($cfgZoom)">
-<rect x="0" y="0" width="772.2" height="546.0" style="fill: $paper_color_1;" />
+<!--<rect x="0" y="0" width="772.2" height="546.0" style="fill: $paper_color_1;" />-->
+<rect x="0" y="0" width="970.7" height="546.0" style="fill: $paper_color_1;" />
 <text x="20" y="20" style="fill: $paper_color_0; font-size: 18px">$stringTitle</text>
 <text x="20" y="40" style="fill: $paper_color_0; font-size: 12px">$stringName</text>
 <text x="20" y="52" style="fill: $paper_color_0; font-size: 10px">$stringDateTime</text>
@@ -602,16 +603,32 @@
 	$makePatterns
 	
 	<!-- AspectGrid -->
+	<g transform="translate(00,0)">
 	$makeAspectGrid
-	
+	</g>
+
 	<!-- Elements -->
 <!--	$makeElements-->
 
 	<!-- Planet Grid -->
+	<g transform="translate(510,-40)">
 	$makePlanetGrid
-	
+	</g>
+
+	<g transform="translate(680,-40)">
+	<!-- Planet Grid -->
+	$makePlanetGrid_t
+	</g>
+
 	<!-- Houses Grid -->
+	<g transform="translate(570,-40)">
 	$makeHousesGrid
+	</g>
+
+	<!-- Houses Grid -->
+	<g transform="translate(730,-40)">
+	$makeHousesGrid_t
+	</g>
 
 </g>
 <!-- testing printer

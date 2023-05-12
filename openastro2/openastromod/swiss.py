@@ -289,16 +289,15 @@ class ephData:
 		#compute additional points and angles
 		#list index 23 is asc, 24 is Mc, 25 is Dsc, 26 is Ic
 		self.planets_degree_ut[23] = self.houses_degree_ut[0]
-		self.planets_degree_ut[24] = self.houses_degree_ut[9]
-		self.planets_degree_ut[25] = self.houses_degree_ut[6]
+		self.planets_degree_ut[24] = self.houses_degree_ut[1]
+		self.planets_degree_ut[25] = self.houses_degree_ut[2]
 		self.planets_degree_ut[26] = self.houses_degree_ut[3]
-
-		self.planets_degree_ut[27] = self.houses_degree_ut[1]
-		self.planets_degree_ut[28] = self.houses_degree_ut[2]
-		self.planets_degree_ut[29] = self.houses_degree_ut[4]
-		self.planets_degree_ut[30] = self.houses_degree_ut[5]
-		self.planets_degree_ut[31] = self.houses_degree_ut[7]
-		self.planets_degree_ut[32] = self.houses_degree_ut[8]
+		self.planets_degree_ut[27] = self.houses_degree_ut[4]
+		self.planets_degree_ut[28] = self.houses_degree_ut[5]
+		self.planets_degree_ut[29] = self.houses_degree_ut[6]
+		self.planets_degree_ut[30] = self.houses_degree_ut[7]
+		self.planets_degree_ut[31] = self.houses_degree_ut[8]
+		self.planets_degree_ut[32] = self.houses_degree_ut[9]
 		self.planets_degree_ut[33] = self.houses_degree_ut[10]
 		self.planets_degree_ut[34] = self.houses_degree_ut[11]
 

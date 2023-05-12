@@ -197,29 +197,6 @@ class openAstroSettings:
 		self.settings_svg = self.settings["settings_svg"]
 		self.color_codes = self.settings["color_codes"]
 		self.settings_planet = self.settings["settings_planet"]
-	# 	orb = [
-	# 	#sun
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-	# 	#moon
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-	# 	#mercury
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-	# 	#venus
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-	# 	#mars
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-	# 	#jupiter
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-	# 	#saturn
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-	# 	#uranus
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-	# 	#neptunus
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}',
-	# 	#pluto
-	# 	'{0:10,180:10,90:10,120:10,60:6,30:3,150:3,45:3,135:3,72:1,144:1}'
-	# 	]
-
 		return
 	def setLanguage(self, lang=None):
 		if lang == None or lang == "default":
@@ -267,8 +244,8 @@ class openAstro:
 		self.event2 = event2
 		self.type = type
 
-		self.screen_width = 1024
-		self.screen_height = 768
+		self.screen_width = 1920
+		self.screen_height = 1080
 
 		self.name = self.event1["name"]
 		self.charttype = self.type
@@ -972,11 +949,11 @@ class openAstro:
 				if self.planets_degree_ut[i] > 360:
 					self.planets_degree_ut[i] = self.planets_degree_ut[i] - 360.0
 
-			# list index 23 is asc, 24 is Mc, 25 is Dsc, 26 is Ic
+			# list index 23 is asc, 26 is Mc, 29 is Dsc, 32 is Ic
 			self.planets_degree_ut[23] = self.houses_degree_ut[0]
-			self.planets_degree_ut[24] = self.houses_degree_ut[9]
-			self.planets_degree_ut[25] = self.houses_degree_ut[6]
 			self.planets_degree_ut[26] = self.houses_degree_ut[3]
+			self.planets_degree_ut[29] = self.houses_degree_ut[6]
+			self.planets_degree_ut[32] = self.houses_degree_ut[9]
 
 			# new planet signs
 			for i in range(27):
@@ -993,29 +970,30 @@ class openAstro:
 		self.calcAstro()
 
 		#width and height from screen
-		ratio = float(self.screen_width) / float(self.screen_height)
-		if ratio < 1.3: #1280x1024
-			wm_off = 130
-		else: # 1024x768, 800x600, 1280x800, 1680x1050
-			wm_off = 100
+		# ratio = float(self.screen_width) / float(self.screen_height)
+		# if ratio < 1.3: #1280x1024
+		# 	wm_off = 130
+		# else: # 1024x768, 800x600, 1280x800, 1680x1050
+		# 	wm_off = 100
 			
 		#check for printer
 		if printing == None:
-			svgHeight=self.screen_height-wm_off
-			svgWidth=self.screen_width-5.0
+			svgHeight=self.screen_height
+			svgWidth=self.screen_width
 			#svgHeight=self.screen_height-wm_off
 			#svgWidth=(770.0*svgHeight)/540.0
 			#svgWidth=float(self.screen_width)-25.0
 			rotate = "0"
 			translate = "0"
-			viewbox = '0 0 772.2 546.0' #297mm * 2.6 + 210mm * 2.6
+			# viewbox = '0 0 772.2 546.0' #297mm * 2.6 + 210mm * 2.6
+			viewbox = '0 0 970.7 546.0' #297mm * 2.6 + 210mm * 2.6
 		else:
 			sizeX=546.0
-			sizeY=772.2
+			sizeY=970.7
 			svgWidth = printing['width']
 			svgHeight = printing['height']
 			rotate = "0"
-			viewbox = '0 0 772.2 546.0'
+			viewbox = '0 0 970.7 546.0'
 			translate = "0"
 			
 		
@@ -1217,29 +1195,30 @@ class openAstro:
 		self.calcAstro()
 
 		# width and height from screen
-		ratio = float(self.screen_width) / float(self.screen_height)
-		if ratio < 1.3:  # 1280x1024
-			wm_off = 130
-		else:  # 1024x768, 800x600, 1280x800, 1680x1050
-			wm_off = 100
+		# ratio = float(self.screen_width) / float(self.screen_height)
+		# if ratio < 1.3:  # 1280x1024
+		# 	wm_off = 0
+		# else:  # 1024x768, 800x600, 1280x800, 1680x1050
+		# 	wm_off = 0
 
 		# check for printer
 		if printing == None:
-			svgHeight = self.screen_height - wm_off
-			svgWidth = self.screen_width - 5.0
+			svgHeight = self.screen_height
+			svgWidth = self.screen_width
 			# svgHeight=self.screen_height-wm_off
 			# svgWidth=(770.0*svgHeight)/540.0
 			# svgWidth=float(self.screen_width)-25.0
 			rotate = "0"
 			translate = "0"
-			viewbox = '0 0 772.2 546.0'  # 297mm * 2.6 + 210mm * 2.6
+			# viewbox = '0 0 772.2 546.0'  # 297mm * 2.6 + 210mm * 2.6
+			viewbox = '0 0 970.7 546.0'  # 297mm * 2.6 + 210mm * 2.6
 		else:
 			sizeX = 546.0
-			sizeY = 772.2
+			sizeY = 970.7
 			svgWidth = printing['width']
 			svgHeight = printing['height']
 			rotate = "0"
-			viewbox = '0 0 772.2 546.0'
+			viewbox = '0 0 970.7 546.0'
 			translate = "0"
 
 		# template dictionary
@@ -1425,6 +1404,12 @@ class openAstro:
 		td['makeElements'] = self.makeElements(r)
 		td['makePlanetGrid'] = self.makePlanetGrid()
 		td['makeHousesGrid'] = self.makeHousesGrid()
+		if self.type == "Transit" or self.type == "Direction":
+			td['makePlanetGrid_t'] = self.makePlanetGrid_t()
+			td['makeHousesGrid_t'] = self.makeHousesGrid_t()
+		else:
+			td['makePlanetGrid_t'] = ""
+			td['makeHousesGrid_t'] = ""
 
 		# read template
 		# f=open(self.settings.xml_svg)
@@ -1662,11 +1647,11 @@ class openAstro:
 			if i == 0:
 				linecolor=self.planets[23]['color']
 			elif i == 9:
-				linecolor=self.planets[24]['color']
-			elif i == 6:
-				linecolor=self.planets[25]['color']
-			elif i == 3:
 				linecolor=self.planets[26]['color']
+			elif i == 6:
+				linecolor=self.planets[29]['color']
+			elif i == 3:
+				linecolor=self.planets[32]['color']
 			else:
 				linecolor=self.colors['houses_radix_line']
 			if self.type == "Transit" or self.type == "Direction":
@@ -2403,7 +2388,7 @@ class openAstro:
 		return out
 	
 	def makeAspectTransitGrid( self , r ):
-		out = '<g transform="translate(500,310)">'
+		out = ''
 		out += '<text y="-15" x="0" style="fill:%s; font-size: 12px;">%s</text>\n' % (self.colors['paper_0'],_("Planets in Transit"))
 		line = 0
 		nl = 0
@@ -2433,7 +2418,7 @@ class openAstro:
 			#line
 			out += '</g>'
 			line = line + 14		
-		out += '</g>'
+		out += ''
 		return out
 	
 	def makeAspectGrid( self , r ):
@@ -2572,6 +2557,8 @@ class openAstro:
 		return out
 
 	def planetsInAspect( self , diff, aspect_id, p1_id, p2_id ):
+		if(p1_id==29 and p2_id==4 and self.aspects[aspect_id]['degree']==90 ):
+			1
 		z = aspect_id
 		i = p1_id
 		x = p2_id
@@ -2617,41 +2604,79 @@ class openAstro:
 		out = out + '<text y="36" style="fill:#630e73; font-size: 10px;">'+self.label['water']+' '+str(pw)+'%</text>\n'		
 		out = out + '</g>\n'
 		return out
-		
-	def makePlanetGrid( self ):
-		out = '<g transform="translate(510,-40)">'
-		#loop over all planets
-		li=10
-		offset=0
+
+	def makePlanetGrid(self):
+		out = ''
+		# loop over all planets
+		li = 10
+		offset = 0
 		for i in range(len(self.planets)):
 			if i == 27:
 				li = 10
 				offset = -120
 			if self.planets[i]['visible'] == 1:
-				#start of line				
-				out = out + '<g transform="translate(%s,%s)">' % (offset,li)
-				#planet text
+				# start of line
+				out = out + '<g transform="translate(%s,%s)">' % (offset, li)
+				# planet text
 				# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.colors['paper_0'],self.planets[i]['label'])
-				#planet symbol
-				out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#'+self.planets[i]['name']+'" /></g>'								
-				#planet degree				
-				out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (self.colors['paper_0'],self.dec2deg(self.planets_degree[i]))
-				#zodiac
-				out = out + '<g transform="translate(60,-8)"><use transform="scale(0.3)" xlink:href="#'+self.zodiac[self.planets_sign[i]]+'" /></g>'				
-				#planet retrograde
+				# planet symbol
+				out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
+					  self.planets[i]['name'] + '" /></g>'
+				# planet degree
+				out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
+				self.colors['paper_0'], self.dec2deg(self.planets_degree[i]))
+				# zodiac
+				out = out + '<g transform="translate(60,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
+					self.planets_sign[i]] + '" /></g>'
+				# planet retrograde
 				if self.planets_retrograde[i]:
-					out = out + '<g transform="translate(74,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'				
+					out = out + '<g transform="translate(74,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
 
-				#end of line
+				# end of line
 				out = out + '</g>\n'
-				#offset between lines
-				li = li + 14	
-		
-		out = out + '</g>\n'
+				# offset between lines
+				li = li + 14
+
+		out = out + '\n'
 		return out
-	
+
+	def makePlanetGrid_t(self):
+		out = ''
+		# loop over all planets
+		li = 10
+		offset = 0
+		for i in range(len(self.planets)):
+			if i == 27:
+				li = 10
+				offset = -120
+			if self.planets[i]['visible'] == 1:
+				# start of line
+				out = out + '<g transform="translate(%s,%s)">' % (offset, li)
+				# planet text
+				# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.colors['paper_0'],self.planets[i]['label'])
+				# planet symbol
+				out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
+					  self.planets[i]['name'] + '" /></g>'
+				# planet degree
+				out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
+				self.colors['paper_0'], self.dec2deg(self.t_planets_degree[i]))
+				# zodiac
+				out = out + '<g transform="translate(60,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
+					self.t_planets_sign[i]] + '" /></g>'
+				# planet retrograde
+				if self.t_planets_retrograde[i]:
+					out = out + '<g transform="translate(74,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
+
+				# end of line
+				out = out + '</g>\n'
+				# offset between lines
+				li = li + 14
+
+		out = out + '\n'
+		return out
+
 	def makeHousesGrid( self ):
-		out = '<g transform="translate(610,-40)">'
+		out = ''
 		li=10
 		for i in range(12):
 			if i < 9:
@@ -2665,9 +2690,26 @@ class openAstro:
 			out += '<text x="53" style="fill:%s; font-size: 10px;"> %s</text>' % (self.colors['paper_0'],self.dec2deg(self.houses_degree[i]))
 			out += '</g>\n'
 			li = li + 14
-		out += '</g>\n'
+		out += '\n'
 		return out
-	
+	def makeHousesGrid_t( self ):
+		out = ''
+		li=10
+		for i in range(12):
+			if i < 9:
+				cusp = '&#160;&#160;'+str(i+1)
+			else:
+				cusp = str(i+1)
+			out += '<g transform="translate(0,'+str(li)+')">'
+			# out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s %s:</text>' % (self.colors['paper_0'],self.label['cusp'],cusp)
+			out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s:</text>' % (self.colors['paper_0'],cusp)
+			out += '<g transform="translate(40,-8)"><use transform="scale(0.3)" xlink:href="#'+self.zodiac[self.t_houses_sign[i]]+'" /></g>'
+			out += '<text x="53" style="fill:%s; font-size: 10px;"> %s</text>' % (self.colors['paper_0'],self.dec2deg(self.t_houses_degree[i]))
+			out += '</g>\n'
+			li = li + 14
+		out += '\n'
+		return out
+
 	"""Export/Import Functions related to openastro.org
 
 	def exportOAC(filename)

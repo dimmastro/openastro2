@@ -1931,27 +1931,28 @@ class openAstro:
 
 
 			if self.type == "Transit" or self.type == "Direction":
-				scale=0.6
-				scale=0.6
-				#line1
-				x1=self.sliceToX( 0 , (r-self.c3) , trueoffset ) + self.c3
-				y1=self.sliceToY( 0 , (r-self.c3) , trueoffset ) + self.c3
-				x2=self.sliceToX( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
-				y2=self.sliceToY( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
-				# color=self.planets[i]["color"]
-				color=self.colors["color_transit_1"]
-				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
-				#line2
-				x1=self.sliceToX( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
-				y1=self.sliceToY( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
-				x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
-				y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
-				output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.2;"/>\n' % (x1,y1,x2,y2,color)
-
-				x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
-				y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
-				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
-					x1, y1, 1.5, self.colors['paper_1'], self.colors['color_transit_1'])
+				1
+				# scale=0.6
+				# scale=0.6
+				# #line1
+				# x1=self.sliceToX( 0 , (r-self.c3) , trueoffset ) + self.c3
+				# y1=self.sliceToY( 0 , (r-self.c3) , trueoffset ) + self.c3
+				# x2=self.sliceToX( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
+				# y2=self.sliceToY( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
+				# # color=self.planets[i]["color"]
+				# color=self.colors["color_transit_1"]
+				# # output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
+				# #line2
+				# x1=self.sliceToX( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
+				# y1=self.sliceToY( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
+				# x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
+				# y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
+				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.2;"/>\n' % (x1,y1,x2,y2,color)
+				#
+				# x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
+				# y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
+				# output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
+				# 	x1, y1, 1.5, self.colors['paper_1'], self.colors['color_transit_1'])
 
 			elif self.settings.astrocfg["chartview"] == "european":
 				scale=0.6
@@ -1968,14 +1969,15 @@ class openAstro:
 				y1=self.sliceToY( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
 				x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 				y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
-				output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.5;"/>\n' % (x1,y1,x2,y2,color)
-				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
-					x1, y1, 1.5, self.colors['paper_1'], self.colors['color_radix'])
+				if (not (23 <= i and i <= 34)):
+					output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.5;"/>\n' % (x1,y1,x2,y2,color)
+					output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
+						x1, y1, 1.5, self.colors['paper_1'], self.colors['color_radix'])
 			else:
 				scale=1
 
 			if (not (23 <= i and i <= 34)):
-			#output planet
+				#output planet
 				output = output + '<g transform="translate(-'+str(12*scale)+',-'+str(12*scale)+')"><g transform="scale('+str(scale)+')"><use x="' + str(planet_x*(1/scale)) + '" y="' + str(planet_y*(1/scale)) + '" xlink:href="#' + self.planets[i]['name'] + '" /></g></g>\n'
 
 				# if i < (xr-1):
@@ -1993,6 +1995,30 @@ class openAstro:
 
 		#make transit degut and display planets
 		if self.type == "Transit" or self.type == "Direction":
+
+			scale = 0.6
+			scale = 0.6
+			# line1
+			x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
+			y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
+			x2 = self.sliceToX(0, (r - rplanet - 30), trueoffset) + rplanet + 30
+			y2 = self.sliceToY(0, (r - rplanet - 30), trueoffset) + rplanet + 30
+			# color=self.planets[i]["color"]
+			color = self.colors["color_transit_1"]
+			# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
+			# line2
+			x1 = self.sliceToX(0, (r - rplanet - 20), trueoffset) + rplanet + 20
+			y1 = self.sliceToY(0, (r - rplanet - 20), trueoffset) + rplanet + 20
+			x2 = self.sliceToX(0, (r - rplanet - 10), offset) + rplanet + 10
+			y2 = self.sliceToY(0, (r - rplanet - 10), offset) + rplanet + 10
+			output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.2;"/>\n' % (
+			x1, y1, x2, y2, color)
+
+			x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
+			y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
+			output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 1.0;"/>' % (
+				x1, y1, 1.5, self.colors['paper_1'], self.colors['color_transit_1'])
+
 			group_offset={}
 			t_planets_degut={}
 			for i in range(len(self.planets)):

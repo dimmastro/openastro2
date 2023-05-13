@@ -605,7 +605,7 @@
 	$makePatterns
 	
 	<!-- AspectGrid -->
-	<g transform="translate(00,0)">
+	<g transform="translate(20,-30)">
 	$makeAspectGrid
 	</g>
 
@@ -628,7 +628,7 @@
 	</g>
 
 	<!-- Houses Grid -->
-	<g transform="translate(730,-40)">
+	<g transform="translate(740,-40)">
 	$makeHousesGrid_t
 	</g>
 

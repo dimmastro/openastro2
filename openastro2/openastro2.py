@@ -1946,7 +1946,7 @@ class openAstro:
 				y1=self.sliceToY( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
 				x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 				y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
-				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.5;"/>\n' % (x1,y1,x2,y2,color)
+				output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.2;"/>\n' % (x1,y1,x2,y2,color)
 
 				x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
 				y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3

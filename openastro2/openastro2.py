@@ -244,8 +244,10 @@ class openAstro:
 		self.event2 = event2
 		self.type = type
 
-		self.screen_width = 1920
-		self.screen_height = 1080
+		# self.screen_width = 1920
+		# self.screen_height = 1080
+		self.screen_width = 1024
+		self.screen_height = 576
 
 		self.name = self.event1["name"]
 		self.charttype = self.type

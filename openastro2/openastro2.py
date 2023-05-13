@@ -1534,6 +1534,9 @@ class openAstro:
 
 	#degree difference
 	def degreeDiff( self , a , b ):
+		if (self.settings.astrocfg["round_aspects"] == 1):
+			a = int(a)
+			b = int(b)
 		out=float()
 		if a > b:
 			out=a-b
@@ -1932,8 +1935,8 @@ class openAstro:
 
 			if self.type == "Transit" or self.type == "Direction":
 				1
-				# scale=0.6
-				# scale=0.6
+				scale=0.6
+				scale=0.6
 				# #line1
 				# x1=self.sliceToX( 0 , (r-self.c3) , trueoffset ) + self.c3
 				# y1=self.sliceToY( 0 , (r-self.c3) , trueoffset ) + self.c3
@@ -2758,8 +2761,8 @@ class openAstro:
 				# print (aspect)
 				if (aspect in self.planets[x]['planet_orb'][self.type]):
 					orb2 = self.planets[x]['planet_orb'][self.type][aspect]
-		# orb = max([orb1, orb2])
-		orb = max([orb1, orb2]) + min([orb1, orb2])/2
+		orb = max([orb1, orb2])
+		# orb = max([orb1, orb2]) + min([orb1, orb2])/2
 		# orb = (orb1 + orb2)/2
 
 		# check if we want to display this aspect

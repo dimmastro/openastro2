@@ -109,7 +109,7 @@ class ephData:
 						self.planet_longitude[i] = ret_flag[0][0]
 						self.planet_latitude[i] = ret_flag[0][1]
 						# Вычислите часовой угол планеты в градусах
-						self.planet_hour_angle[i] = swe.degnorm(swe.sidtime(self.jul_day_UT) - self.planet_longitude[i] - geolon -11)
+						self.planet_hour_angle[i] = swe.degnorm(swe.sidtime(self.jul_day_UT) - self.planet_longitude[i] - geolon -10.5)
 						print ('self.jul_day_UT')
 						print (self.jul_day_UT)
 						print ('swe.sidtime(self.jul_day_UT)')

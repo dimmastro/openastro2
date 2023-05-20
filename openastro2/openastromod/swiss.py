@@ -37,7 +37,7 @@ class ephData:
 	def __init__(self,year,month,day,hour,geolon,geolat,altitude,planets,zodiac,openastrocfg,houses_override=None):
 		#ephemeris path (default "/usr/share/swisseph:/usr/local/share/swisseph")
 		swe.set_ephe_path(ephe_path)
-		
+		# print (ephe_path)
 		#basic location		
 		self.jul_day_UT=swe.julday(year,month,day,hour)
 		self.geo_loc = swe.set_topo(geolon,geolat,altitude)
@@ -48,7 +48,10 @@ class ephData:
 		self.planets_degree_ut = list(range(len(planets)))
 		self.planets_info_string = list(range(len(planets)))
 		self.planets_retrograde = list(range(len(planets)))
-		
+		self.planet_longitude = list(range(len(planets)))
+		self.planet_latitude = list(range(len(planets)))
+		self.planet_hour_angle = list(range(len(planets)))
+
 		#iflag
 		"""
 		#define SEFLG_JPLEPH         1L     // use JPL ephemeris
@@ -101,7 +104,14 @@ class ephData:
 						else:
 							self.planets_retrograde[i] = False
 
-							
+						# Вычислите часовой угол планеты в градусах
+						# Calc hour_angle in degrees
+						self.planet_longitude[i] = ret_flag[0][0]
+						self.planet_latitude[i] = ret_flag[0][1]
+						# Вычислите часовой угол планеты в градусах
+						self.planet_hour_angle[i] = swe.degnorm(swe.sidtime(self.jul_day_UT) - self.planet_longitude[i] - geolon)
+
+
 		#available house systems:
 		"""
 		hsys= 		‘P’     Placidus
@@ -347,7 +357,8 @@ class ephData:
 		sunstep=[0,30,40,50,60,70,80,90,120,130,140,150,160,170,180,210,220,230,240,250,260,270,300,310,320,330,340,350]
 		for x in range(len(sunstep)):
 			low=sunstep[x]
-			if x is 27: high=360
+			#ToDo Fix 27
+			if x == 27: high=360
 			else: high=sunstep[x+1]
 			if ddeg >= low and ddeg < high: sphase=x+1
 		self.lunar_phase={

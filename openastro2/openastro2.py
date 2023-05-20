@@ -55,7 +55,7 @@ from openastromod import zonetab, geoname, importfile, dignities, swiss as ephem
 
 #debug
 LOCAL=True
-DEBUG=True
+DEBUG=False
 VERSION='2.0.0'
 
 #directories
@@ -188,7 +188,7 @@ class openAstroSettings:
 
 
 		self.astrocfg = self.settings["astrocfg"]
-		print(self.astrocfg)
+		# print(self.astrocfg)
 
 		# #install language
 		self.setLanguage(self.astrocfg['language'])
@@ -882,6 +882,9 @@ class openAstro:
 		self.houses_sign = module_data.houses_sign
 		self.houses_degree_ut = module_data.houses_degree_ut
 		self.lunar_phase = module_data.lunar_phase
+		self.planet_longitude = module_data.planet_longitude
+		self.planet_latitude = module_data.planet_latitude
+		self.planet_hour_angle = module_data.planet_hour_angle
 
 		# make composite averages
 		if self.type == "Composite":
@@ -2795,28 +2798,29 @@ class openAstro:
 			# if i == 27:
 			# 	li = 10
 			# 	offset = -120
-			if self.planets[i]['visible'] == 1:
-				# start of line
-				out = out + '<g transform="translate(%s,%s)">' % (offset, li)
-				# planet text
-				# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.colors['paper_0'],self.planets[i]['label'])
-				# planet symbol
-				out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
-					  self.planets[i]['name'] + '" /></g>'
-				# planet degree
-				out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
-				self.colors['paper_0'], self.dec2deg(self.planets_degree[i]))
-				# zodiac
-				out = out + '<g transform="translate(60,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
-					self.planets_sign[i]] + '" /></g>'
-				# planet retrograde
-				if self.planets_retrograde[i]:
-					out = out + '<g transform="translate(74,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
+			if  not(23 <= i and i <= 34):
+				if self.planets[i]['visible'] == 1:
+					# start of line
+					out = out + '<g transform="translate(%s,%s)">' % (offset, li)
+					# planet text
+					# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.colors['paper_0'],self.planets[i]['label'])
+					# planet symbol
+					out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
+						  self.planets[i]['name'] + '" /></g>'
+					# planet degree
+					out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
+					self.colors['paper_0'], self.dec2deg(self.planets_degree[i]))
+					# zodiac
+					out = out + '<g transform="translate(60,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
+						self.planets_sign[i]] + '" /></g>'
+					# planet retrograde
+					if self.planets_retrograde[i]:
+						out = out + '<g transform="translate(74,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
 
-				# end of line
-				out = out + '</g>\n'
-				# offset between lines
-				li = li + 14
+					# end of line
+					out = out + '</g>\n'
+					# offset between lines
+					li = li + 14
 
 		out = out + '\n'
 		return out
@@ -2830,28 +2834,29 @@ class openAstro:
 			# if i == 27:
 			# 	li = 10
 			# 	offset = -120
-			if self.planets[i]['visible'] == 1:
-				# start of line
-				out = out + '<g transform="translate(%s,%s)">' % (offset, li)
-				# planet text
-				# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.colors['paper_0'],self.planets[i]['label'])
-				# planet symbol
-				out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
-					  self.planets[i]['name'] + '" /></g>'
-				# planet degree
-				out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
-				self.colors['paper_0'], self.dec2deg(self.t_planets_degree[i]))
-				# zodiac
-				out = out + '<g transform="translate(60,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
-					self.t_planets_sign[i]] + '" /></g>'
-				# planet retrograde
-				if self.t_planets_retrograde[i]:
-					out = out + '<g transform="translate(74,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
+			if  not(23 <= i and i <= 34):
+				if self.planets[i]['visible'] == 1:
+					# start of line
+					out = out + '<g transform="translate(%s,%s)">' % (offset, li)
+					# planet text
+					# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.colors['paper_0'],self.planets[i]['label'])
+					# planet symbol
+					out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
+						  self.planets[i]['name'] + '" /></g>'
+					# planet degree
+					out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
+					self.colors['paper_0'], self.dec2deg(self.t_planets_degree[i]))
+					# zodiac
+					out = out + '<g transform="translate(60,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
+						self.t_planets_sign[i]] + '" /></g>'
+					# planet retrograde
+					if self.t_planets_retrograde[i]:
+						out = out + '<g transform="translate(74,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
 
-				# end of line
-				out = out + '</g>\n'
-				# offset between lines
-				li = li + 14
+					# end of line
+					out = out + '</g>\n'
+					# offset between lines
+					li = li + 14
 
 		out = out + '\n'
 		return out

@@ -51,6 +51,7 @@ class ephData:
 		self.planet_longitude = list(range(len(planets)))
 		self.planet_latitude = list(range(len(planets)))
 		self.planet_hour_angle = list(range(len(planets)))
+		self.planet_azimuth = list(range(len(planets)))
 
 		#iflag
 		"""
@@ -110,16 +111,40 @@ class ephData:
 						self.planet_latitude[i] = ret_flag[0][1]
 						# Вычислите часовой угол планеты в градусах
 						self.planet_hour_angle[i] = swe.degnorm(swe.sidtime(self.jul_day_UT) - self.planet_longitude[i] - geolon -10.5)
-						print ('self.jul_day_UT')
-						print (self.jul_day_UT)
-						print ('swe.sidtime(self.jul_day_UT)')
-						print (swe.sidtime(self.jul_day_UT))
-						print ('self.planet_longitude[i]')
-						print (self.planet_longitude[i])
-						print ('geolon')
-						print (geolon)
-						print ('self.planet_hour_angle[i]')
-						print (self.planet_hour_angle[i])
+						# print ('self.jul_day_UT')
+						# print (self.jul_day_UT)
+						# print ('swe.sidtime(self.jul_day_UT)')
+						# print (swe.sidtime(self.jul_day_UT))
+						# print ('self.planet_longitude[i]')
+						# print (self.planet_longitude[i])
+						# print ('geolon')
+						# print (geolon)
+						# print ('self.planet_hour_angle[i]')
+						# print (self.planet_hour_angle[i])
+
+						# Определение момента времени
+						current_time = datetime.datetime.now()
+
+						# Определение широты и долготы наблюдателя
+						observer_latitude = geolat  # Широта (например, для Москвы)
+						observer_longitude = geolon  # Долгота (например, для Москвы)
+
+						# Определение кода планеты (например, для Солнца - swe.SUN)
+						planet_code = swe.SUN
+
+						# Вычисление планетарных координат в заданный момент времени
+						swe.set_sid_mode(swe.SIDM_FAGAN_BRADLEY)  # Установка режима сидерического времени
+						planet_pos = ret_flag
+
+						# Вычисление азимута планеты
+						azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.EQU2HOR,
+																			  [observer_longitude, observer_latitude, 287], 0, 0,
+																			  planet_pos[0])
+
+						print("Азимут планеты:", azimuth)
+						print("Истинная высота:", true_altitude)
+						print("Видимая высота:", apparent_altitude)
+						self.planet_azimuth[i] = azimuth
 		#available house systems:
 		"""
 		hsys= 		‘P’     Placidus

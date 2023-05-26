@@ -872,6 +872,7 @@ class openAstro:
 			self.t_houses_degree = t_module_data.houses_degree
 			self.t_houses_sign = t_module_data.houses_sign
 			self.t_houses_degree_ut = t_module_data.houses_degree_ut
+			self.t_planet_azimuth = t_module_data.planet_azimuth
 
 		# grab normal module data
 		self.planets_sign = module_data.planets_sign
@@ -885,6 +886,7 @@ class openAstro:
 		self.planet_longitude = module_data.planet_longitude
 		self.planet_latitude = module_data.planet_latitude
 		self.planet_hour_angle = module_data.planet_hour_angle
+		self.planet_azimuth = module_data.planet_azimuth
 
 		# make composite averages
 		if self.type == "Composite":

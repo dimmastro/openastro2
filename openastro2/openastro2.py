@@ -237,22 +237,11 @@ class openAstroSettings:
 
 class openAstro:
 
-	def event(name="Now", year="", month="", day="", hour="", minute="", second="", timezone=False, location="London", countrycode="", geolat=False, geolon=False):
+	def event(name="Now", year="", month="", day="", hour="", minute="", second="", timezone=False, location="London", countrycode="", geolat=False, geolon=False, altitude=25):
 		event = {}
 		if(timezone==False or geolat==False or geolon==False):
 			geoname0 = geoname.search(location, countrycode)
 			geo = geoname0[0]
-			event["geonameid"] = geo["geonameId"]
-			event["location"] = geo["name"]
-			event["geolat"] = geo["lat"]
-			event["geolon"] = geo["lng"]
-			event["countrycode"] = geo["countryCode"]
-			event["timezonestr"] = geo["timezonestr"]
-		else:
-			event["location"] = location
-			event["geolat"] = geolat
-			event["geolon"] = geolon
-		# print(geo)
 		if(year=="" and month=="" and day=="" and hour=="" and minute=="" and second==""):
 			now = datetime.datetime.now()
 			year: int = now.year
@@ -281,8 +270,18 @@ class openAstro:
 			dh = float(dt.utcoffset().days * 24)
 			sh = float(dt.utcoffset().seconds / 3600.0)
 			event["timezone"] = dh + sh
-
-		event["altitude"] = 25
+		if(timezone==False or geolat==False or geolon==False):
+			event["geonameid"] = geo["geonameId"]
+			event["location"] = geo["name"]
+			event["geolat"] = geo["lat"]
+			event["geolon"] = geo["lng"]
+			event["countrycode"] = geo["countryCode"]
+			event["timezonestr"] = geo["timezonestr"]
+		else:
+			event["location"] = location
+			event["geolat"] = geolat
+			event["geolon"] = geolon
+		event["altitude"] = altitude
 		return event
 
 	def __init__(self, event1, event2=[], type="Radix", settings=[]):
@@ -1421,7 +1420,7 @@ class openAstro:
 		if self.type == "Transit" or self.type == "Direction":
 			td['stringDateTime'] = td['stringDateTime']  + " - " + str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
 				'#1': self.t_month, '#2': self.t_day, '#3': self.t_h, '#4': self.t_m,
-				'#5': self.t_s} + self.decTzStr(self.timezone)
+				'#5': self.t_s} + self.decTzStr(self.t_timezone)
 
 		# stringlocation
 		if len(self.location) > 35:

@@ -237,6 +237,54 @@ class openAstroSettings:
 
 class openAstro:
 
+	def event(name="Now", year="", month="", day="", hour="", minute="", second="", timezone=False, location="London", countrycode="", geolat=False, geolon=False):
+		event = {}
+		if(timezone==False or geolat==False or geolon==False):
+			geoname0 = geoname.search(location, countrycode)
+			geo = geoname0[0]
+			event["geonameid"] = geo["geonameId"]
+			event["location"] = geo["name"]
+			event["geolat"] = geo["lat"]
+			event["geolon"] = geo["lng"]
+			event["countrycode"] = geo["countryCode"]
+			event["timezonestr"] = geo["timezonestr"]
+		else:
+			event["location"] = location
+			event["geolat"] = geolat
+			event["geolon"] = geolon
+		# print(geo)
+		if(year=="" and month=="" and day=="" and hour=="" and minute=="" and second==""):
+			now = datetime.datetime.now()
+			year: int = now.year
+			month: int = now.month
+			day: int = now.day
+			hour: int = now.hour
+			minute: int = now.minute
+			second: int = now.second
+
+		event["name"] = name
+		event["year"] = year
+		event["month"] = month
+		event["day"] = day
+		event["hour"] = hour
+		event["minute"] = minute
+		event["second"] = second
+		if(timezone):
+			event["timezone"] = timezone
+		else:
+			# current datetime
+			now = datetime.datetime.now()
+			# aware datetime object
+			dt_input = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, now.second)
+			dt = pytz.timezone(geo["timezonestr"]).localize(dt_input)
+			# Datetime offset to float in hours
+			dh = float(dt.utcoffset().days * 24)
+			sh = float(dt.utcoffset().seconds / 3600.0)
+			event["timezone"] = dh + sh
+
+		event["altitude"] = 25
+		return event
+
 	def __init__(self, event1, event2=[], type="Radix", settings=[]):
 		self.settings = openAstroSettings(settings=settings)
 
@@ -254,22 +302,28 @@ class openAstro:
 		self.year = self.event1["year"]
 		self.month = self.event1["month"]
 		self.day = self.event1["day"]
+		self.h = self.event1["hour"]
+		self.m = self.event1["minute"]
+		self.s = self.event1["second"]
 		self.hour=self.decHourJoin(self.event1["hour"],self.event1["minute"], self.event1["second"])
 		if ("timezone" in self.event1):
 			self.timezone = self.event1["timezone"]
 		self.altitude = self.event1["altitude"]
-		self.geonameid = self.event1["geonameid"]
+		# self.geonameid = self.event1["geonameid"]
 		self.location = self.event1["location"]
 		self.geolat = float(self.event1["geolat"])
 		self.geolon = float(self.event1["geolon"])
-		self.countrycode = self.event1["countrycode"]
-		self.timezonestr = self.event1["timezonestr"]
+		# self.countrycode = self.event1["countrycode"]
+		# self.timezonestr = self.event1["timezonestr"]
 
 		self.t_name = self.event2["name"]
-		self.t_charttype = self.event2["charttype"]
+		# self.t_charttype = self.event2["charttype"]
 		self.t_year = self.event2["year"]
 		self.t_month = self.event2["month"]
 		self.t_day = self.event2["day"]
+		self.t_h = self.event2["hour"]
+		self.t_m = self.event2["minute"]
+		self.t_s = self.event2["second"]
 		self.t_hour = self.decHourJoin(self.event2["hour"], self.event2["minute"], self.event2["second"])
 		self.t_timezone = self.event2["timezone"]
 		self.t_altitude = self.event2["altitude"]
@@ -291,12 +345,12 @@ class openAstro:
 		self.t_hour = self.decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
 
 
-		#current datetime
-		now = datetime.datetime.now()
-
-		#aware datetime object
-		dt_input = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, now.second)
-		dt = pytz.timezone(self.timezonestr).localize(dt_input)
+		# #current datetime
+		# now = datetime.datetime.now()
+		#
+		# #aware datetime object
+		# dt_input = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, now.second)
+		# dt = pytz.timezone(self.timezonestr).localize(dt_input)
 		
 		#naive utc datetime object
 		# dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
@@ -1051,7 +1105,6 @@ class openAstro:
 		td['viewbox']=viewbox
 		td['stringTitle']=self.name
 		td['stringName']=self.charttype
-		
 		#bottom left
 		siderealmode_chartview={
 				"FAGAN_BRADLEY":_("Fagan Bradley"),
@@ -1283,6 +1336,9 @@ class openAstro:
 		td['viewbox'] = viewbox
 		td['stringTitle'] = self.name
 		td['stringName'] = self.charttype
+		if self.type == "Transit" or self.type == "Direction":
+			td['stringTitle'] = self.name + " - " + self.t_name
+			td['stringName'] = self.charttype
 
 		# bottom left
 		siderealmode_chartview = {
@@ -1359,9 +1415,14 @@ class openAstro:
 		# rotation based on latitude
 		td['lunar_phase_rotate'] = "%s" % (-90.0 - self.geolat)
 
-		td['stringDateTime'] = str(self.year_loc) + '-%(#1)02d-%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+		td['stringDateTime'] = str(self.year_loc) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
 			'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
 			'#5': self.second_loc} + self.decTzStr(self.timezone)
+		if self.type == "Transit" or self.type == "Direction":
+			td['stringDateTime'] = td['stringDateTime']  + " - " + str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+				'#1': self.t_month, '#2': self.t_day, '#3': self.t_h, '#4': self.t_m,
+				'#5': self.t_s} + self.decTzStr(self.timezone)
+
 		# stringlocation
 		if len(self.location) > 35:
 			split = self.location.split(",")
@@ -1373,6 +1434,9 @@ class openAstro:
 				td['stringLocation'] = self.location[:35] + "..."
 		else:
 			td['stringLocation'] = self.location
+		# stringlocation
+		if self.type == "Transit" or self.type == "Direction":
+			td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
 
 		td['stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.geolat))
 		td['stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.geolon))

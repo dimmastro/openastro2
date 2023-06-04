@@ -107,5 +107,5 @@ def search(name='',country=''):
 		print("No results!")
 		return None
 	else:
-		print(geoname)
+		# print(geoname)
 		return geoname

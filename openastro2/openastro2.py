@@ -188,7 +188,7 @@ class openAstroSettings:
 
 
 		self.astrocfg = self.settings["astrocfg"]
-		# print(self.astrocfg)
+		# dprint(self.astrocfg)
 
 		# #install language
 		self.setLanguage(self.astrocfg['language'])
@@ -416,7 +416,7 @@ class openAstro:
 		self.month = utc_loc.month
 		self.day = utc_loc.day
 		self.hour = self.decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
-		# print some info
+		# dprint some info
 		dprint('localToUtc: ' + str(utc) + ' => ' + str(utc_loc) + self.decTzStr(self.timezone))
 
 	def localToDirection(self, t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude):
@@ -466,12 +466,12 @@ class openAstro:
 		# dt_new = dt_new + dt_delta
 		# mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		# dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[0]))
-		# print (dt_new)
-		print (self.planets_degree_ut)
+		# dprint (dt_new)
+		dprint (self.planets_degree_ut)
 		mdata = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
 											self.settings.astrocfg)
-		print (mdata.planets_degree_ut)
+		dprint (mdata.planets_degree_ut)
 		for i in range(0,43):
 			mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
 			while ( mdata.planets_degree_ut[i] < 0 ): mdata.planets_degree_ut[i]+=360.0
@@ -507,8 +507,8 @@ class openAstro:
 						mdata.houses_sign[i]=x
 						mdata.houses_degree[i] = mdata.houses_degree_ut[i] - deg_low
 
-		print (self.planets_degree_ut)
-		print (mdata.planets_degree_ut)
+		dprint (self.planets_degree_ut)
+		dprint (mdata.planets_degree_ut)
 		#
 		# self.t_year = dt_new.year
 		# self.t_month = dt_new.month
@@ -520,7 +520,7 @@ class openAstro:
 		# self.type = "Transit"
 		# openAstro.charttype="%s (%s-%02d-%02d %02d:%02d:%02d UTC)" % (openAstro.label["solar"],self.s_year,self.s_month,self.s_day,dt_new.hour,dt_new.minute,dt_new.second)
 		openAstro.transit=False
-		print (dt_new)
+		dprint (dt_new)
 		return mdata
 	def localToSolar(self, t_year, t_month, t_day, t_hour, t_geolon,
 											t_geolat, t_altitude):
@@ -555,7 +555,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[0]))
-		print (dt_new)
+		# dprint (dt_new)
 		#get precise
 		step = 0.000011408 # 1 seconds in degrees
 		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
@@ -564,7 +564,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[0]))
-		print (dt_new)
+		# dprint (dt_new)
 		#get precise
 		step = 0.000011408 # 1 seconds in degrees
 		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
@@ -573,7 +573,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[0]))
-		print (dt_new)
+		# dprint (dt_new)
 
 		#get precise
 		step = 0.000011408 # 1 seconds in degrees
@@ -583,7 +583,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[0]))
-		print (dt_new)
+		# dprint (dt_new)
 		#get precise
 		step = 0.000011408 # 1 seconds in degrees
 		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
@@ -592,7 +592,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[0]))
-		print (dt_new)
+		# dprint (dt_new)
 		step = 0.000000011408 # 1 milli seconds in degrees
 		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
 		sundelta = sundiff / step
@@ -600,7 +600,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[0]))
-		print (dt_new)
+		# dprint (dt_new)
 		step = 0.000000011408 # 1 milli seconds in degrees
 		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
 		sundelta = sundiff / step
@@ -608,7 +608,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[0]))
-		print (dt_new)
+		# dprint (dt_new)
 		step = 0.000000011408 # 1 milli seconds in degrees
 		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
 		sundelta = sundiff / step
@@ -616,7 +616,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[0]))
-		print (dt_new)
+		# dprint (dt_new)
 		# step = 0.0000000011408  # 0.1 milli seconds in degrees
 		# sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
 		# sundelta = sundiff / step
@@ -637,7 +637,7 @@ class openAstro:
 		self.type = "Transit"
 		# openAstro.charttype="%s (%s-%02d-%02d %02d:%02d:%02d UTC)" % (openAstro.label["solar"],self.s_year,self.s_month,self.s_day,dt_new.hour,dt_new.minute,dt_new.second)
 		openAstro.transit=False
-		print (dt_new)
+		dprint (dt_new)
 		return
 
 	def localToLunar(self, t_year, t_month, t_day, t_hour, t_geolon,
@@ -1828,8 +1828,8 @@ class openAstro:
 						extrapoints = 10
 
 			#calculate element points for all planets
-			# print (i)
-			# print(self.planets_sign[i])
+			# dprint (i)
+			# dprint(self.planets_sign[i])
 			ele = self.zodiac_element[self.planets_sign[i]]			
 			if ele == "fire":
 				self.fire = self.fire + self.planets[i]['element_points'] + extrapoints
@@ -1882,7 +1882,7 @@ class openAstro:
 		# def zero(x): return 0
 		# planets_delta = list(map(zero,range(len(self.planets))))
 		#
-		# # print (groups)
+		# # dprint (groups)
 		# #print planets_by_pos
 		# for a in range(len(groups)):
 		# 	#Two grouped planets
@@ -2298,7 +2298,7 @@ class openAstro:
 			diffa = self.degreeDiff(prev, temp_planets_degree_ut[i])
 			diffb = self.degreeDiff(next, temp_planets_degree_ut[i])
 			planets_by_pos[e] = [i, diffa, diffb]
-			# print "%s %s %s" % (self.planets[i]['label'],diffa,diffb)
+			# dprint "%s %s %s" % (self.planets[i]['label'],diffa,diffb)
 			if (diffb < planet_drange):
 				if group_open:
 					groups[-1].append([e, diffa, diffb, self.planets[planets_degut[keys[e]]]["label"]])
@@ -2316,8 +2316,8 @@ class openAstro:
 
 		planets_delta = list(map(zero, range(len(self.planets))))
 
-		# print (groups)
-		# print planets_by_pos
+		# dprint (groups)
+		# dprint planets_by_pos
 		for a in range(len(groups)):
 			# Two grouped planets
 			if len(groups[a]) == 2:
@@ -2549,7 +2549,7 @@ class openAstro:
 						# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
 						# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
 						# 		aspect = str(self.aspects[z]['degree'])
-						# 		# print (aspect)
+						# 		# dprint (aspect)
 						# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
 						# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
 						# if ('planet_orb' in self.planets[x]):
@@ -2557,7 +2557,7 @@ class openAstro:
 						# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
 						# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
 						# 		aspect = str(self.aspects[z]['degree'])
-						# 		# print (aspect)
+						# 		# dprint (aspect)
 						# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
 						# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
 						# orb = max([orb1, orb2])
@@ -2604,7 +2604,7 @@ class openAstro:
 										# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
 										# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
 										# 		aspect = str(self.aspects[z]['degree'])
-										# 		# print (aspect)
+										# 		# dprint (aspect)
 										# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
 										# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
 										# if ('planet_orb' in self.planets[x]):
@@ -2612,7 +2612,7 @@ class openAstro:
 										# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
 										# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
 										# 		aspect = str(self.aspects[z]['degree'])
-										# 		# print (aspect)
+										# 		# dprint (aspect)
 										# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
 										# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
 										# orb = max([orb1, orb2])
@@ -2710,7 +2710,7 @@ class openAstro:
 								# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
 								# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
 								# 		aspect = str(self.aspects[z]['degree'])
-								# 		# print (aspect)
+								# 		# dprint (aspect)
 								# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
 								# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
 								# if ('planet_orb' in self.planets[x]):
@@ -2718,7 +2718,7 @@ class openAstro:
 								# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
 								# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
 								# 		aspect = str(self.aspects[z]['degree'])
-								# 		# print (aspect)
+								# 		# dprint (aspect)
 								# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
 								# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
 								# orb = max([orb1, orb2])
@@ -2779,7 +2779,7 @@ class openAstro:
 								# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
 								# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
 								# 		aspect = str(self.aspects[z]['degree'])
-								# 		# print (aspect)
+								# 		# dprint (aspect)
 								# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
 								# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
 								# if ('planet_orb' in self.planets[x]):
@@ -2787,7 +2787,7 @@ class openAstro:
 								# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
 								# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
 								# 		aspect = str(self.aspects[z]['degree'])
-								# 		# print (aspect)
+								# 		# dprint (aspect)
 								# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
 								# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
 								# orb = max([orb1, orb2])
@@ -2818,7 +2818,7 @@ class openAstro:
 				if ("default" in self.planets[i]['planet_orb'][self.type]):
 					orb1 = self.planets[i]['planet_orb'][self.type]["default"]
 				aspect = str(self.aspects[z]['degree'])
-				# print (aspect)
+				# dprint (aspect)
 				if (aspect in self.planets[i]['planet_orb'][self.type]):
 					orb1 = self.planets[i]['planet_orb'][self.type][aspect]
 		if ('planet_orb' in self.planets[x]):
@@ -2826,7 +2826,7 @@ class openAstro:
 				if ("default" in self.planets[x]['planet_orb'][self.type]):
 					orb2 = self.planets[x]['planet_orb'][self.type]["default"]
 				aspect = str(self.aspects[z]['degree'])
-				# print (aspect)
+				# dprint (aspect)
 				if (aspect in self.planets[x]['planet_orb'][self.type]):
 					orb2 = self.planets[x]['planet_orb'][self.type][aspect]
 		orb = max([orb1, orb2])
@@ -3027,7 +3027,7 @@ class openAstro:
 		self.hour=self.decHourJoin(dt.hour,dt.minute,dt.second)
 		#Make locals
 		self.utcToLocal()
-		#debug print
+		#debug dprint
 		dprint('importOAC: %s' % filename)
 		return
 	
@@ -3067,7 +3067,7 @@ class openAstro:
 		self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
 		#Make locals
 		self.utcToLocal()
-		#debug print
+		#debug dprint
 		dprint('importOroboros: UTC: %s file: %s' % (dt_utc,filename))
 		return
 	

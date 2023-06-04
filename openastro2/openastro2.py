@@ -326,12 +326,12 @@ class openAstro:
 		self.t_hour = self.decHourJoin(self.event2["hour"], self.event2["minute"], self.event2["second"])
 		self.t_timezone = self.event2["timezone"]
 		self.t_altitude = self.event2["altitude"]
-		self.t_geonameid = self.event2["geonameid"]
+		# self.t_geonameid = self.event2["geonameid"]
 		self.t_location = self.event2["location"]
 		self.t_geolat = float(self.event2["geolat"])
 		self.t_geolon = float(self.event2["geolon"])
-		self.t_countrycode = self.event2["countrycode"]
-		self.t_timezonestr = self.event2["timezonestr"]
+		# self.t_countrycode = self.event2["countrycode"]
+		# self.t_timezonestr = self.event2["timezonestr"]
 		# OpenAstro1 used UTC time in database
 		# make global UTC time variables from local
 		h, m, s = self.decHour(self.t_hour)

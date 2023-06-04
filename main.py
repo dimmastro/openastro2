@@ -39,7 +39,8 @@ if __name__ == '__main__':
     # event2["geolon"] = 0
     # event2["countrycode"] = "en"
     # event2["timezonestr"] = "Europe/Amsterdam"
-    event2 = openAstro.event("End", 1943, 4, 7, 12, 0, 0, location="New York", countrycode="US")
+    event2 = openAstro.event("Ill", 1873, 10, 10, 0, 30, 0, timezone=1.36666666, location="Smiljan", countrycode="HR", geolat=44.5666644, geolon=15.3166654)
+    # event2 = openAstro.event("End", 1943, 4, 7, 12, 0, 0, location="New York", countrycode="US")
     # event2 = openAstro.event("Now", location="New York", countrycode="US")
     # print (event2)
 

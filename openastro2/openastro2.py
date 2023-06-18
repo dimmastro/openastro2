@@ -237,6 +237,7 @@ class openAstroSettings:
 
 class openAstro:
 
+	@staticmethod
 	def event(name="Now", year="", month="", day="", hour="", minute="", second="", timezone=False, location="London", countrycode="", geolat=False, geolon=False, altitude=25):
 		event = {}
 		if(timezone==False or geolat==False or geolon==False):
@@ -284,7 +285,19 @@ class openAstro:
 		event["altitude"] = altitude
 		return event
 
-	def __init__(self, event1, event2=[], type="Radix", settings=[]):
+	@classmethod
+	def event_dt_str(self, name="Now", dt_str="", dt_str_format="%Y-%m-%d %H:%M:%S",  timezone=False, location="London", countrycode="", geolat=False, geolon=False, altitude=25):
+		# date_time_str = '2022-12-01 10:27:03.929149'
+		dt = datetime.datetime.strptime(dt_str, dt_str_format)
+		year: int = dt.year
+		month: int = dt.month
+		day: int = dt.day
+		hour: int = dt.hour
+		minute: int = dt.minute
+		second: int = dt.second
+		return self.event(name, year, month, day, hour, minute, second, timezone, location, countrycode, geolat, geolon, altitude)
+
+	def __init__(self, event1, event2=[], type="Radix", settings={}):
 		self.settings = openAstroSettings(settings=settings)
 
 		self.event1 = event1
@@ -314,34 +327,40 @@ class openAstro:
 		self.geolon = float(self.event1["geolon"])
 		# self.countrycode = self.event1["countrycode"]
 		# self.timezonestr = self.event1["timezonestr"]
-
-		self.t_name = self.event2["name"]
-		# self.t_charttype = self.event2["charttype"]
-		self.t_year = self.event2["year"]
-		self.t_month = self.event2["month"]
-		self.t_day = self.event2["day"]
-		self.t_h = self.event2["hour"]
-		self.t_m = self.event2["minute"]
-		self.t_s = self.event2["second"]
-		self.t_hour = self.decHourJoin(self.event2["hour"], self.event2["minute"], self.event2["second"])
-		self.t_timezone = self.event2["timezone"]
-		self.t_altitude = self.event2["altitude"]
-		# self.t_geonameid = self.event2["geonameid"]
-		self.t_location = self.event2["location"]
-		self.t_geolat = float(self.event2["geolat"])
-		self.t_geolon = float(self.event2["geolon"])
-		# self.t_countrycode = self.event2["countrycode"]
-		# self.t_timezonestr = self.event2["timezonestr"]
-		# OpenAstro1 used UTC time in database
-		# make global UTC time variables from local
-		h, m, s = self.decHour(self.t_hour)
-		utc = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
-		tz = datetime.timedelta(seconds=float(self.t_timezone) * float(3600))
+		h, m, s = self.decHour(self.hour)
+		utc = datetime.datetime(self.year, self.month, self.day, h, m, s)
+		tz = datetime.timedelta(seconds=float(self.timezone) * float(3600))
 		utc_loc = utc - tz
-		self.t_year = utc_loc.year
-		self.t_month = utc_loc.month
-		self.t_day = utc_loc.day
-		self.t_hour = self.decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
+
+		if (len(self.event2)):
+			self.t_name = self.event2["name"]
+			# self.t_charttype = self.event2["charttype"]
+			self.t_year = self.event2["year"]
+			self.t_month = self.event2["month"]
+			self.t_day = self.event2["day"]
+			self.t_h = self.event2["hour"]
+			self.t_m = self.event2["minute"]
+			self.t_s = self.event2["second"]
+			self.t_hour = self.decHourJoin(self.event2["hour"], self.event2["minute"], self.event2["second"])
+			self.t_timezone = self.event2["timezone"]
+			self.t_altitude = self.event2["altitude"]
+			# self.t_geonameid = self.event2["geonameid"]
+			self.t_location = self.event2["location"]
+			self.t_geolat = float(self.event2["geolat"])
+			self.t_geolon = float(self.event2["geolon"])
+			# self.t_countrycode = self.event2["countrycode"]
+			# self.t_timezonestr = self.event2["timezonestr"]
+			# OpenAstro1 used UTC time in database
+			# make global UTC time variables from local
+			h, m, s = self.decHour(self.t_hour)
+			utc = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
+			tz = datetime.timedelta(seconds=float(self.t_timezone) * float(3600))
+			utc_loc = utc - tz
+			self.t_year = utc_loc.year
+			self.t_month = utc_loc.month
+			self.t_day = utc_loc.day
+			self.t_hour = self.decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
+
 
 
 		# #current datetime
@@ -388,7 +407,9 @@ class openAstro:
 		self.label = self.settings.getLabel()
 
 		return
-		
+
+
+
 	def utcToLocal(self):
 		#make local time variables from global UTC
 		h, m, s = self.decHour(self.hour)
@@ -2531,10 +2552,15 @@ class openAstro:
 	
 	def makeAspects( self , r , ar ):
 		out=""
+		self.planets_aspects= {}
+		self.planets_aspects_arr = [[[0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
+		self.planets_aspects_arr_diff = [[[0.0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
 		for i in range(len(self.planets)):
+			self.planets_aspects[i] = {}
 			start=self.planets_degree_ut[i]
 			# for x in range(i):
 			for x in range(len(self.planets)):
+				self.planets_aspects[i][x] = {}
 				end=self.planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs
@@ -2568,7 +2594,10 @@ class openAstro:
 						# if	( float(self.aspects[z]['degree']) - float(orb) ) <= diff <= ( float(self.aspects[z]['degree']) + float(orb) ):
 						if (self.planetsInAspect(diff, z, i, x)):
 							#check if we want to display this aspect
-							if self.aspects[z]['visible'] == 1:					
+							if self.aspects[z]['visible'] == 1:
+								self.planets_aspects[i][x][z] = 1
+								self.planets_aspects_arr[i][x][z] = 1
+								self.planets_aspects_arr_diff[i][x][z] = diff
 								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
 								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.aspects[z]['color'] )
 

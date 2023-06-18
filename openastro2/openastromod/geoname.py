@@ -57,7 +57,7 @@ def search(name='',country=''):
 	params = urlencode({'q': name,'country':country,'maxRows':1,'featureClass':'P','username': 'openastro.org'})
 
 	try:
-		f = urlopen("http://api.geonames.org/search?%s" % params, timeout=20)
+		f = urlopen("http://api.geonames.org/search?%s" % params, timeout=60)
 
 	except (HTTPError, URLError) as error:
 		print('Errir: not retrieved because %s\nURL: %s', error, url)

@@ -238,9 +238,9 @@ class openAstroSettings:
 class openAstro:
 
 	@staticmethod
-	def event(name="Now", year="", month="", day="", hour="", minute="", second="", timezone=False, location="London", countrycode="", geolat=False, geolon=False, altitude=25):
+	def event(name="Now", year="", month="", day="", hour="", minute="", second="", timezone=None, location="London", countrycode="", geolat=None, geolon=None, altitude=25):
 		event = {}
-		if(timezone==False or geolat==False or geolon==False):
+		if(timezone is None or geolat is None or geolon is None):
 			geoname0 = geoname.search(location, countrycode)
 			geo = geoname0[0]
 		if(year=="" and month=="" and day=="" and hour=="" and minute=="" and second==""):
@@ -259,7 +259,7 @@ class openAstro:
 		event["hour"] = hour
 		event["minute"] = minute
 		event["second"] = second
-		if(timezone):
+		if(timezone is not None ):
 			event["timezone"] = timezone
 		else:
 			# current datetime
@@ -271,7 +271,7 @@ class openAstro:
 			dh = float(dt.utcoffset().days * 24)
 			sh = float(dt.utcoffset().seconds / 3600.0)
 			event["timezone"] = dh + sh
-		if(timezone==False or geolat==False or geolon==False):
+		if(timezone is None or geolat is None or geolon is None):
 			event["geonameid"] = geo["geonameId"]
 			event["location"] = geo["name"]
 			event["geolat"] = geo["lat"]
@@ -1271,6 +1271,11 @@ class openAstro:
 		# return SVG
 		return template
 
+	def makePlanetNames(self):
+		self.planets_name = []
+		for i in range(len(self.settings.settings_planet)):
+			self.planets_name.append(self.settings.settings_planet[i]['name'])
+
 	def makeSVG2(self, printing=None):
 		self.calcAstro()
 
@@ -1495,6 +1500,8 @@ class openAstro:
 		td['makeElements'] = self.makeElements(r)
 		td['makePlanetGrid'] = self.makePlanetGrid()
 		td['makeHousesGrid'] = self.makeHousesGrid()
+
+		self.makePlanetNames()
 		if self.type == "Transit" or self.type == "Direction":
 			td['makePlanetGrid_t'] = self.makePlanetGrid_t()
 			td['makeHousesGrid_t'] = self.makeHousesGrid_t()
@@ -1510,10 +1517,12 @@ class openAstro:
 
 		# write template
 		if printing:
-			f = open(cfg.tempfilenameprint, "w")
+			# f = open(cfg.tempfilenameprint, "w")
+			f = open(os.path.join(self.settings.tmpdir, self.name + '.svg'), "w")
 			dprint("Printing SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
 		else:
-			f = open(self.settings.tempfilename, "w")
+			# f = open(self.settings.tempfilename, "w")
+			f = open(os.path.join(self.settings.tmpdir, self.name + '.svg'), "w")
 			dprint("Creating SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
 
 		f.write(template)
@@ -2595,9 +2604,15 @@ class openAstro:
 						if (self.planetsInAspect(diff, z, i, x)):
 							#check if we want to display this aspect
 							if self.aspects[z]['visible'] == 1:
-								self.planets_aspects[i][x][z] = 1
-								self.planets_aspects_arr[i][x][z] = 1
-								self.planets_aspects_arr_diff[i][x][z] = diff
+								# self.planets_aspects[z][i][x] = 1
+								# self.planets_aspects_arr[z][i][x] = 1
+
+								aspect = str(self.aspects[z]['degree'])
+								orb1 = self.planets[i]['planet_orb'][self.type][aspect]
+								orb2 = self.planets[x]['planet_orb'][self.type][aspect]
+								orb = max([orb1, orb2])
+
+								self.planets_aspects_arr[z][i][x] = orb-abs(float(self.aspects[z]['degree']) - abs(float(diff)))
 								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
 								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.aspects[z]['color'] )
 

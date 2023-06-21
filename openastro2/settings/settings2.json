@@ -1,5 +1,5 @@
 {
-"astrocfg": {"version": "2.0.0", "home_location": "London", "home_geolat": "56.01839", "home_geolon": "92.86717", "home_countrycode": "EN", "home_timezonestr": "Asia/Krasnoyarsk", "use_geonames.org": "0", "houses_system": "P", "postype": "geo", "chartview": "european", "zodiactype": "tropical", "siderealmode": "FAGAN_BRADLEY", "language": "en",
+"astrocfg": {"version": "2.0.0", "home_location": "London", "home_geolat": "56.01839", "home_geolon": "0.0", "home_countrycode": "EN", "home_timezonestr": "Asia/Krasnoyarsk", "use_geonames.org": "0", "houses_system": "P", "postype": "geo", "chartview": "european", "zodiactype": "tropical", "siderealmode": "FAGAN_BRADLEY", "language": "en",
   "round_aspects": 1
 },
 "color_codes": {
@@ -27,7 +27,7 @@
   {"degree": 60, "name": "sextile 1/6", "color": "#ef5350", "visible": 1, "visible_grid": 1, "is_major": 1, "is_minor": 0, "orb": 5},
   {"degree": 72, "name": "quintile 1/5", "color": "#bbbbbb", "visible": 1, "visible_grid": 1, "is_major": 0, "is_minor": 1, "orb": 1},
   {"degree": 80, "name": "binanogon 2/9", "color": "#bbbbbb", "visible": 1, "visible_grid": 1, "is_major": 0, "is_minor": 1, "orb": 1},
-  {"degree": 90, "name": "square 1/4", "color": "#444444", "visible": 1, "visible_grid": 1, "is_major": 1, "is_minor": 0, "orb": 1},
+  {"degree": 90, "name": "square 1/4", "color": "#444444", "visible": 1, "visible_grid": 1, "is_major": 1, "is_minor": 0, "orb": 5},
   {"degree": 100, "name": "sentagon 5/18", "color": "#bbbbbb", "visible": 1, "visible_grid": 1, "is_major": 0, "is_minor": 1, "orb": 1},
   {"degree": 108, "name": "tridecil 3/10", "color": "#bbbbbb", "visible": 1, "visible_grid": 1, "is_major": 0, "is_minor": 1, "orb": 1},
   {"degree": 120, "name": "trine 1/3", "color": "#ef5350", "visible": 1, "visible_grid": 1, "is_major": 1, "is_minor": 0, "orb": 6},

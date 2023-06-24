@@ -2717,7 +2717,7 @@ class openAstro:
 					out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
 						  self.planets[i]['name'] + '" /></g>'
 					# planet degree
-					out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
+					out = out + '<text text-anchor="start" x="16" style="fill:%s; font-size: 10px;">%s</text>' % (
 					self.colors['paper_0'], self.dec2deg(self.planets_degree[i]))
 					# zodiac
 					out = out + '<g transform="translate(64,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
@@ -2753,7 +2753,7 @@ class openAstro:
 					out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
 						  self.planets[i]['name'] + '" /></g>'
 					# planet degree
-					out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
+					out = out + '<text text-anchor="start" x="16" style="fill:%s; font-size: 10px;">%s</text>' % (
 					self.colors['paper_0'], self.dec2deg(self.t_planets_degree[i]))
 					# zodiac
 					out = out + '<g transform="translate(64,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[

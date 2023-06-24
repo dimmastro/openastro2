@@ -1138,6 +1138,8 @@ class openAstro:
 		td['viewbox'] = viewbox
 		td['stringTitle'] = self.name
 		td['stringName'] = self.charttype
+		td['t_stringTitle'] = ""
+
 		if self.type == "Transit" or self.type == "Direction":
 			td['stringName'] = self.charttype
 			td['t_stringTitle'] = self.t_name
@@ -1220,6 +1222,7 @@ class openAstro:
 		td['stringDateTime'] = str(self.year_loc) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
 			'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
 			'#5': self.second_loc}
+		td['t_stringDateTime'] = ""
 		if self.type == "Transit" or self.type == "Direction":
 			td['t_stringDateTime'] = str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
 				'#1': self.t_month, '#2': self.t_day, '#3': self.t_h, '#4': self.t_m,
@@ -1238,6 +1241,9 @@ class openAstro:
 			td['stringLocation'] = self.location
 		td['stringLocation'] = td['stringLocation'] + " " + self.decTzStr(self.timezone)
 
+		td['t_stringLocation'] = ""
+		td['t_stringLat'] = ""
+		td['t_stringLon'] = ""
 		# stringlocation
 		if self.type == "Transit" or self.type == "Direction":
 			# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location

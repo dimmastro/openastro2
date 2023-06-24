@@ -238,5 +238,5 @@
   {"id": 41, "name": "persephone", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "South Node", "label_short": "SNode", "visible_aspect_line": 0, "visible_aspect_grid": 0},
   {"id": 42, "name": "true lilith own", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "South Node", "label_short": "SNode", "visible_aspect_line": 0, "visible_aspect_grid": 0}
 ],
-"settings_svg": {"c1": 0, "c2": 20, "c3": 60, "r": 240, "circleX": 0, "circleY": -10, "offset_degree_planet_x": 4, "offset_degree_planet_y": -4}
+"settings_svg": {"c1": 0, "c2": 20, "c3": 60, "r": 232, "roff": 5, "t_roff": 15, "roff_deg": 15, "t_roff_deg": 25, "circleX": 0, "circleY": -10, "offset_degree_planet_x": 4, "offset_degree_planet_y": -4}
 }

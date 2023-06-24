@@ -1248,14 +1248,19 @@ class openAstro:
 		if self.type == "Transit" or self.type == "Direction":
 			# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
 			td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
-			td['t_stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.t_geolat))
-			td['t_stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.t_geolon))
+			# td['t_stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.t_geolat))
+			# td['t_stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.t_geolon))
+			td['t_stringLat'] = "%s" % (self.lat2str(self.t_geolat))
+			td['t_stringLon'] = "%s" % (self.lon2str(self.t_geolon))
 
-		td['stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.geolat))
-		td['stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.geolon))
+		# td['stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.geolat))
+		# td['stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.geolon))
+		td['stringLat'] = "%s" % ( self.lat2str(self.geolat))
+		td['stringLon'] = "%s" % (self.lon2str(self.geolon))
 		postype = {"geo": self.label["apparent_geocentric"], "truegeo": self.label["true_geocentric"],
 				   "topo": self.label["topocentric"], "helio": self.label["heliocentric"]}
-		td['stringPosition'] = postype[self.settings.astrocfg['postype']]
+		# td['stringPosition'] = postype[self.settings.astrocfg['postype']]
+		td['stringPosition'] = self.settings.astrocfg['postype']
 
 		# paper_color_X
 		td['paper_color_0'] = self.colors["paper_0"]
@@ -1306,11 +1311,11 @@ class openAstro:
 		# write template
 		if printing:
 			# f = open(cfg.tempfilenameprint, "w")
-			f = open(os.path.join(self.settings.tmpdir, self.name + '.svg'), "w")
+			f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
 			dprint("Printing SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
 		else:
 			# f = open(self.settings.tempfilename, "w")
-			f = open(os.path.join(self.settings.tmpdir, self.name + '.svg'), "w")
+			f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
 			dprint("Creating SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
 
 		f.write(template)
@@ -1370,7 +1375,8 @@ class openAstro:
 		deg = int(coord)
 		min = int( (float(coord) - deg) * 60 )
 		sec = int( round( float( ( (float(coord) - deg) * 60 ) - min) * 60.0 ) )
-		return "%s°%s'%s\" %s" % (deg,min,sec,sign)
+		return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': min, '#3': sec, '#4': sign}
+		# return "%s°%s'%s\" %s" % (deg,min,sec,sign)
 		
 	def lon2str( self, coord ):
 		sign=self.label["east"]
@@ -1380,7 +1386,8 @@ class openAstro:
 		deg = int(coord)
 		min = int( (float(coord) - deg) * 60 )
 		sec = int( round( float( ( (float(coord) - deg) * 60 ) - min) * 60.0 ) )
-		return "%s°%s'%s\" %s" % (deg,min,sec,sign)
+		return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': min, '#3': sec, '#4': sign}
+		# return "%s°%s'%s\" %s" % (deg,min,sec,sign)
 	
 	#decimal hour to minutes and seconds
 	def decHour( self , input ):
@@ -1412,11 +1419,11 @@ class openAstro:
 		if tz > 0:
 			h = int(tz)
 			m = int((float(tz)-float(h))*float(60))
-			return " [+%(#1)02d:%(#2)02d]" % {'#1':h,'#2':m}
+			return " +%(#1)02d:%(#2)02d" % {'#1':h,'#2':m}
 		else:
 			h = int(tz)
 			m = int((float(tz)-float(h))*float(60))/-1
-			return " [-%(#1)02d:%(#2)02d]" % {'#1':h/-1,'#2':m}
+			return "-%(#1)02d:%(#2)02d" % {'#1':h/-1,'#2':m}
 
 	#degree difference
 	def degreeDiff( self , a , b ):
@@ -1515,11 +1522,11 @@ class openAstro:
 			#check transit
 			if self.type == "Transit" or self.type == "Direction":
 				dropin=self.c3
-				roff=self.c1 - 10
-				t_roff=self.c1 - 20
+				roff=self.c1 - self.settings.settings_svg['roff']
+				t_roff=self.c1 - self.settings.settings_svg['t_roff']
 			else:
 				dropin=self.c3
-				roff=self.c1-10
+				roff=self.c1-self.settings.settings_svg['roff']
 				
 			#offset is negative desc houses_degree_ut[6]
 			offset = (int(self.houses_degree_ut[int(xr/2)]) / -1) + int(self.houses_degree_ut[i])
@@ -1574,7 +1581,7 @@ class openAstro:
 				# ytext = self.sliceToY( 0 , (r-25) , t_text_offset ) + 25
 				# path = path + '<text style="fill: #00f; fill-opacity: .4; font-size: 14px"><tspan x="'+str(xtext-3)+'" y="'+str(ytext+3)+'">'+str(i+1)+'</tspan></text>\n'
 				# path = path + '<line x1="'+str(t_x1)+'" y1="'+str(t_y1)+'" x2="'+str(t_x2)+'" y2="'+str(t_y2)+'" style="stroke: '+t_linecolor+'; stroke-width: 2px; stroke-opacity:.3;"/>\n'
-				dropin = self.c1 - 30
+				dropin = self.c1 - self.settings.settings_svg['t_roff_deg']
 				h_text = str(i + 1)
 				xtext = self.sliceToX(
 					0, (r - dropin), t_text_offset) + dropin  # was 132
@@ -1588,9 +1595,9 @@ class openAstro:
 
 			#if transit			
 			if self.type == "Transit" or self.type == "Direction":
-				dropin = self.c1 - 20
+				dropin = self.c1 - self.settings.settings_svg['roff_deg']
 			elif self.settings.astrocfg["chartview"] == "european":
-				dropin = self.c1 -20
+				dropin = self.c1 - self.settings.settings_svg['roff_deg']
 			else:		
 				dropin=48
 				

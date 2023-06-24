@@ -331,6 +331,8 @@ class openAstro:
 		utc = datetime.datetime(self.year, self.month, self.day, h, m, s)
 		tz = datetime.timedelta(seconds=float(self.timezone) * float(3600))
 		utc_loc = utc - tz
+		# self.e1 =[]
+		self.e1_dt_utc = utc_loc
 
 		if (len(self.event2)):
 			self.t_name = self.event2["name"]
@@ -366,6 +368,7 @@ class openAstro:
 			self.t_utc_h = utc_loc.hour
 			self.t_utc_m = utc_loc.minute
 			self.t_utc_s = utc_loc.second
+			self.e2_dt_utc = utc_loc
 
 
 		# #current datetime
@@ -976,6 +979,7 @@ class openAstro:
 		self.t_day = dt_new.day
 		self.t_hour = self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second)
 		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
+		self.e2_dt_utc = dt_new
 
 		self.t_geolon = self.geolon
 		self.t_geolat = self.geolat

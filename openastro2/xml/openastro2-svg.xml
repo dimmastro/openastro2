@@ -5,6 +5,11 @@
 ]>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="$svgWidth" height="$svgHeight"
  viewBox="$viewbox" preserveAspectRatio="xMidYMid">
+    <style>
+        text {
+            font-family:Sans,Arial;
+        }
+    </style>
 <title>OpenAstro2</title>
 
 <g transform="translate($cfgTranslate)">
@@ -12,13 +17,22 @@
 <g transform="scale($cfgZoom)">
 <!--<rect x="0" y="0" width="772.2" height="546.0" style="fill: $paper_color_1;" />-->
 <rect x="0" y="0" width="970.7" height="546.0" style="fill: $paper_color_1;" />
-<text x="20" y="20" style="fill: $paper_color_0; font-size: 18px">$stringTitle</text>
-<text x="20" y="40" style="fill: $paper_color_0; font-size: 12px">$stringName</text>
-<text x="20" y="52" style="fill: $paper_color_0; font-size: 10px">$stringDateTime</text>
-<text x="20" y="64" style="fill: $paper_color_0; font-size: 10px">$stringLocation</text>
-<text x="20" y="76" style="fill: $paper_color_0; font-size: 10px">$stringLat</text>
-<text x="20" y="88" style="fill: $paper_color_0; font-size: 10px">$stringLon</text>
-<text x="20" y="100" style="fill: $paper_color_0; font-size: 10px">$stringPosition</text>
+<text x="10" y="20" style="fill: $paper_color_0; font-size: 18px">$stringTitle</text>
+<text x="10" y="32" style="fill: $paper_color_0; font-size: 10px">$stringDateTime</text>
+<text x="10" y="44" style="fill: $paper_color_0; font-size: 10px">$stringLocation</text>
+<text x="10" y="56" style="fill: $paper_color_0; font-size: 10px">$stringLat</text>
+<text x="10" y="68" style="fill: $paper_color_0; font-size: 10px">$stringLon</text>
+<text x="10" y="80" style="fill: $paper_color_0; font-size: 10px">$stringPosition</text>
+<text x="10" y="116" style="fill: $paper_color_0; font-size: 16px">$stringName</text>
+
+
+<text x="550" y="20" text-anchor="end" style="fill: $paper_color_0; font-size: 18px">$t_stringTitle</text>
+<text x="550" y="32" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringDateTime</text>
+<text x="550" y="44" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLocation</text>
+<text x="550" y="56" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLat</text>
+<text x="550" y="68" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLon</text>
+
+
 <!--<text x="20" y="480" style="fill: $paper_color_0; font-size: 10px">$bottomLeft1</text>-->
 <!--<text x="20" y="494" style="fill: $paper_color_0; font-size: 10px">$bottomLeft2</text>-->
 <!--<text x="20" y="508" style="fill: $paper_color_0; font-size: 10px">$bottomLeft3</text>-->
@@ -605,7 +619,7 @@
 	$makePatterns
 	
 	<!-- AspectGrid -->
-	<g transform="translate(20,-30)">
+	<g transform="translate(30,-30)">
 	$makeAspectGrid
 	</g>
 

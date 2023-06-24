@@ -1047,229 +1047,6 @@ class openAstro:
 							self.planets_degree[i] = self.planets_degree_ut[i] - deg_low
 							self.planets_retrograde[i] = False
 
-	def makeSVG( self , printing=None ):
-		self.calcAstro()
-
-		#width and height from screen
-		# ratio = float(self.screen_width) / float(self.screen_height)
-		# if ratio < 1.3: #1280x1024
-		# 	wm_off = 130
-		# else: # 1024x768, 800x600, 1280x800, 1680x1050
-		# 	wm_off = 100
-			
-		#check for printer
-		if printing == None:
-			svgHeight=self.screen_height
-			svgWidth=self.screen_width
-			#svgHeight=self.screen_height-wm_off
-			#svgWidth=(770.0*svgHeight)/540.0
-			#svgWidth=float(self.screen_width)-25.0
-			rotate = "0"
-			translate = "0"
-			# viewbox = '0 0 772.2 546.0' #297mm * 2.6 + 210mm * 2.6
-			viewbox = '0 0 970.7 546.0' #297mm * 2.6 + 210mm * 2.6
-		else:
-			sizeX=546.0
-			sizeY=970.7
-			svgWidth = printing['width']
-			svgHeight = printing['height']
-			rotate = "0"
-			viewbox = '0 0 970.7 546.0'
-			translate = "0"
-			
-		
-		#template dictionary		
-		td = dict()
-		r=240
-		if(self.settings.astrocfg['chartview']=="european"):
-			self.c1=56
-			self.c2=92
-			self.c3=112
-		else:				
-			self.c1=0
-			self.c2=36
-			self.c3=120
-		
-		#transit
-		if self.type == "Transit" or self.type == "Direction":
-			td['transitRing']=self.transitRing( r )
-			td['degreeRing']=self.degreeTransitRing( r )
-			#circles
-			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r-36) + '"'
-			td['c1style'] = 'fill: none; stroke: %s; stroke-width: 1px; stroke-opacity:.4;'%(self.colors['zodiac_transit_ring_2'])
-			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r-72) + '"'
-			td['c2style'] = 'fill: %s; fill-opacity:.4; stroke: %s; stroke-opacity:.4; stroke-width: 1px'%(self.colors['paper_1'],self.colors['zodiac_transit_ring_1'])
-			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r-160) + '"'
-			td['c3style'] = 'fill: %s; fill-opacity:.8; stroke: %s; stroke-width: 1px'%(self.colors['paper_1'],self.colors['zodiac_transit_ring_0'])
-			td['makeAspects'] = self.makeAspectsTransit( r , (r-160))
-			td['makeAspectGrid'] = self.makeAspectTransitGrid( r )
-			td['makePatterns'] = ''
-		else:
-			td['transitRing']=""
-			td['degreeRing']=self.degreeRing( r )
-			#circles
-			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r-self.c1) + '"'
-			td['c1style'] = 'fill: none; stroke: %s; stroke-width: 1px; '%(self.colors['zodiac_radix_ring_2'])
-			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r-self.c2) + '"'
-			td['c2style'] = 'fill: %s; fill-opacity:.2; stroke: %s; stroke-opacity:.4; stroke-width: 1px'%(self.colors['paper_1'],self.colors['zodiac_radix_ring_1'])
-			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r-self.c3) + '"'
-			td['c3style'] = 'fill: %s; fill-opacity:.8; stroke: %s; stroke-width: 1px'%(self.colors['paper_1'],self.colors['zodiac_radix_ring_0'])
-			td['makeAspects'] = self.makeAspects( r , (r-self.c3))
-			td['makeAspectGrid'] = self.makeAspectGrid( r )
-			td['makePatterns'] = self.makePatterns()
-
-		td['circleX']=str(0)
-		td['circleY']=str(0)
-		td['svgWidth']=str(svgWidth)
-		td['svgHeight']=str(svgHeight)
-		td['viewbox']=viewbox
-		td['stringTitle']=self.name
-		td['stringName']=self.charttype
-		#bottom left
-		siderealmode_chartview={
-				"FAGAN_BRADLEY":_("Fagan Bradley"),
-				"LAHIRI":_("Lahiri"),
-				"DELUCE":_("Deluce"),
-				"RAMAN":_("Ramanb"),
-				"USHASHASHI":_("Ushashashi"),
-				"KRISHNAMURTI":_("Krishnamurti"),
-				"DJWHAL_KHUL":_("Djwhal Khul"),
-				"YUKTESHWAR":_("Yukteshwar"),
-				"JN_BHASIN":_("Jn Bhasin"),
-				"BABYL_KUGLER1":_("Babyl Kugler 1"),
-				"BABYL_KUGLER2":_("Babyl Kugler 2"),
-				"BABYL_KUGLER3":_("Babyl Kugler 3"),
-				"BABYL_HUBER":_("Babyl Huber"),
-				"BABYL_ETPSC":_("Babyl Etpsc"),
-				"ALDEBARAN_15TAU":_("Aldebaran 15Tau"),
-				"HIPPARCHOS":_("Hipparchos"),
-				"SASSANIAN":_("Sassanian"),
-				"J2000":_("J2000"),
-				"J1900":_("J1900"),
-				"B1950":_("B1950")
-				}
-
-		if self.settings.astrocfg['zodiactype'] == 'sidereal':
-			td['bottomLeft1']=_("Sidereal")
-			td['bottomLeft2']=siderealmode_chartview[self.settings.astrocfg['siderealmode']]
-		else:
-			td['bottomLeft1']=_("Tropical")
-			td['bottomLeft2'] = '%s: %s (%s) %s (%s)' % (_("Lunar Phase"),self.lunar_phase['sun_phase'],_("Sun"),self.lunar_phase['moon_phase'],_("Moon"))
-		
-		td['bottomLeft3'] = '%s: %s' % (_("Lunar Phase"),self.dec2deg(self.lunar_phase['degrees']))
-		td['bottomLeft4'] = ''
-	
-		#lunar phase
-		deg=self.lunar_phase['degrees']
-
-		if(deg<90.0):
-			maxr=deg
-			if(deg>80.0): maxr=maxr*maxr
-			lfcx=20.0+(deg/90.0)*(maxr+10.0)
-			lfr=10.0+(deg/90.0)*maxr
-			lffg,lfbg=self.colors["lunar_phase_0"],self.colors["lunar_phase_1"]
-
-		elif(deg<180.0):
-			maxr=180.0-deg
-			if(deg<100.0): maxr=maxr*maxr
-			lfcx=20.0+((deg-90.0)/90.0*(maxr+10.0))-(maxr+10.0)
-			lfr=10.0+maxr-((deg-90.0)/90.0*maxr)
-			lffg,lfbg=self.colors["lunar_phase_1"],self.colors["lunar_phase_0"]
-
-		elif(deg<270.0):
-			maxr=deg-180.0
-			if(deg>260.0): maxr=maxr*maxr
-			lfcx=20.0+((deg-180.0)/90.0*(maxr+10.0))
-			lfr=10.0+((deg-180.0)/90.0*maxr)
-			lffg,lfbg=self.colors["lunar_phase_1"],self.colors["lunar_phase_0"]
-
-		elif(deg<361):
-			maxr=360.0-deg
-			if(deg<280.0): maxr=maxr*maxr
-			lfcx=20.0+((deg-270.0)/90.0*(maxr+10.0))-(maxr+10.0)
-			lfr=10.0+maxr-((deg-270.0)/90.0*maxr)
-			lffg,lfbg=self.colors["lunar_phase_0"],self.colors["lunar_phase_1"]
-
-		td['lunar_phase_fg'] = lffg		
-		td['lunar_phase_bg'] = lfbg
-		td['lunar_phase_cx'] = '%s' %(lfcx)
-		td['lunar_phase_r'] = '%s' %(lfr)
-		td['lunar_phase_outline'] = self.colors["lunar_phase_2"]
-
-		#rotation based on latitude
-		td['lunar_phase_rotate'] = "%s" % (-90.0-self.geolat)
-
-		td['stringDateTime']=str(self.year_loc)+'-%(#1)02d-%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {'#1':self.month_loc,'#2':self.day_loc,'#3':self.hour_loc,'#4':self.minute_loc,'#5':self.second_loc} + self.decTzStr(self.timezone)
-		#stringlocation
-		if len(self.location) > 35:
-			split=self.location.split(",")
-			if len(split) > 1:
-				td['stringLocation']=split[0]+", "+split[-1]
-				if len(td['stringLocation']) > 35:
-					td['stringLocation'] = td['stringLocation'][:35]+"..."
-			else:
-				td['stringLocation']=self.location[:35]+"..."
-		else:
-			td['stringLocation']=self.location
-		td['stringLat']="%s: %s" %(self.label['latitude'],self.lat2str(self.geolat))
-		td['stringLon']="%s: %s" %(self.label['longitude'],self.lon2str(self.geolon))
-		postype={"geo":self.label["apparent_geocentric"],"truegeo":self.label["true_geocentric"],
-				"topo":self.label["topocentric"],"helio":self.label["heliocentric"]}
-		td['stringPosition']=postype[self.settings.astrocfg['postype']]
-
-		#paper_color_X
-		td['paper_color_0']=self.colors["paper_0"]
-		td['paper_color_1']=self.colors["paper_1"]
-		
-		
-		#planets_color_X
-		for i in range(len(self.planets)):
-			# td['planets_color_%s'%(i)]=self.colors["planet_%s"%(i)]
-			td['planets_color_%s'%(i)]=self.colors["planet_all"]
-
-		#zodiac_color_X
-		for i in range(12):
-			td['zodiac_color_%s'%(i)]=self.colors["zodiac_icon_%s" %(i)]
-		
-		#orb_color_X
-		for i in range(len(self.aspects)):
-			# td['orb_color_%s'%(self.aspects[i]['degree'])]=self.colors["aspect_%s" %(self.aspects[i]['degree'])]
-			td['orb_color_%s'%(self.aspects[i]['degree'])]=self.aspects[i]['color']
-
-		#config
-		td['cfgZoom']=str(self.zoom)
-		td['cfgRotate']=rotate
-		td['cfgTranslate']=translate
-		
-		#functions
-		td['makeZodiac'] = self.makeZodiac( r )
-		td['makeHouses'] = self.makeHouses( r )
-		td['makePlanets'] = self.makePlanets( r )
-		td['makeElements'] = self.makeElements( r )
-		td['makePlanetGrid'] = self.makePlanetGrid()
-		td['makeHousesGrid'] = self.makeHousesGrid()
-				
-		#read template
-		# f=open(self.settings.xml_svg)
-		f=open(self.settings.xml_svg2)
-		template=Template(f.read()).substitute(td)
-		f.close()
-		
-		#write template
-		if printing:
-			f=open(cfg.tempfilenameprint,"w")
-			dprint("Printing SVG: lat="+str(self.geolat)+' lon='+str(self.geolon)+' loc='+self.location)
-		else:
-			f=open(self.settings.tempfilename,"w")
-			dprint("Creating SVG: lat="+str(self.geolat)+' lon='+str(self.geolon)+' loc='+self.location)
-		
-		f.write(template)
-		f.close()
-
-		# #return filename
-		# return self.settings.tempfilename
-		# return SVG
-		return template
 
 	def makePlanetNames(self):
 		self.planets_name = []
@@ -1362,8 +1139,8 @@ class openAstro:
 		td['stringTitle'] = self.name
 		td['stringName'] = self.charttype
 		if self.type == "Transit" or self.type == "Direction":
-			td['stringTitle'] = self.name + " - " + self.t_name
 			td['stringName'] = self.charttype
+			td['t_stringTitle'] = self.t_name
 
 		# bottom left
 		siderealmode_chartview = {
@@ -1442,11 +1219,11 @@ class openAstro:
 
 		td['stringDateTime'] = str(self.year_loc) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
 			'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
-			'#5': self.second_loc} + self.decTzStr(self.timezone)
+			'#5': self.second_loc}
 		if self.type == "Transit" or self.type == "Direction":
-			td['stringDateTime'] = td['stringDateTime']  + " - " + str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+			td['t_stringDateTime'] = str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
 				'#1': self.t_month, '#2': self.t_day, '#3': self.t_h, '#4': self.t_m,
-				'#5': self.t_s} + self.decTzStr(self.t_timezone)
+				'#5': self.t_s}
 
 		# stringlocation
 		if len(self.location) > 35:
@@ -1459,9 +1236,14 @@ class openAstro:
 				td['stringLocation'] = self.location[:35] + "..."
 		else:
 			td['stringLocation'] = self.location
+		td['stringLocation'] = td['stringLocation'] + " " + self.decTzStr(self.timezone)
+
 		# stringlocation
 		if self.type == "Transit" or self.type == "Direction":
-			td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
+			# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
+			td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
+			td['t_stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.t_geolat))
+			td['t_stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.t_geolon))
 
 		td['stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.geolat))
 		td['stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.geolon))
@@ -2621,6 +2403,8 @@ class openAstro:
 	def makeAspectsTransit( self , r , ar ):
 		out = ""
 		self.atgrid=[]
+		self.t_planets_aspects_arr = [[[0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
+		self.t_planets_aspects_arr_diff = [[[0.0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
 		for i in range(len(self.planets)):
 			start=self.planets_degree_ut[i]
 			for x in range(len(self.planets)):
@@ -2667,6 +2451,16 @@ class openAstro:
 										# if	( float(self.aspects[z]['degree']) - orb ) <= diff <= ( float(self.aspects[z]['degree']) + orb ):
 										if (self.planetsInAspect(diff, z, i, x)):
 											if self.aspects[z]['visible'] == 1:
+												# self.planets_aspects[z][i][x] = 1
+												# self.planets_aspects_arr[z][i][x] = 1
+
+												aspect = str(self.aspects[z]['degree'])
+												orb1 = self.planets[i]['planet_orb'][self.type][aspect]
+												orb2 = self.planets[x]['planet_orb'][self.type][aspect]
+												orb = max([orb1, orb2])
+
+												self.t_planets_aspects_arr[z][i][x] = orb - abs(
+													float(self.aspects[z]['degree']) - abs(float(diff)))
 												# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
 												out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.aspects[z]['color'] )
 
@@ -2920,11 +2714,11 @@ class openAstro:
 					out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
 					self.colors['paper_0'], self.dec2deg(self.planets_degree[i]))
 					# zodiac
-					out = out + '<g transform="translate(60,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
+					out = out + '<g transform="translate(64,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
 						self.planets_sign[i]] + '" /></g>'
 					# planet retrograde
 					if self.planets_retrograde[i]:
-						out = out + '<g transform="translate(74,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
+						out = out + '<g transform="translate(76,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
 
 					# end of line
 					out = out + '</g>\n'
@@ -2956,11 +2750,11 @@ class openAstro:
 					out = out + '<text text-anchor="start" x="19" style="fill:%s; font-size: 10px;">%s</text>' % (
 					self.colors['paper_0'], self.dec2deg(self.t_planets_degree[i]))
 					# zodiac
-					out = out + '<g transform="translate(60,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
+					out = out + '<g transform="translate(64,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
 						self.t_planets_sign[i]] + '" /></g>'
 					# planet retrograde
 					if self.t_planets_retrograde[i]:
-						out = out + '<g transform="translate(74,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
+						out = out + '<g transform="translate(76,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
 
 					# end of line
 					out = out + '</g>\n'

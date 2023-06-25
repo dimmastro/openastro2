@@ -3248,7 +3248,7 @@ class openAstro:
 
 
 
-	def compute_destination_point(latitude, longitude, azimuth, distance):
+	def compute_destination_point(self, latitude, longitude, azimuth, distance):
 		R = 6371  # Радиус Земли в километрах
 
 		# Преобразование градусов в радианы
@@ -3269,14 +3269,14 @@ class openAstro:
 		return lat2, lon2
 
 
-	def makeLocalSpaceDataFrame(dt, lat, lon):
+	def makeLocalSpaceDataFrame(self, dt, lat, lon):
 
 		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
 		data = load('de421.bsp')
 
 		earth = data['earth']
 		ts = load.timescale()
-		place = earth + wgs84.latlon(oa1.geolat * N, oa1.geolon * E, elevation_m=287)
+		place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
@@ -3348,7 +3348,7 @@ class openAstro:
 		return df
 
 
-	def makeLocalSpaceLayer(dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
+	def makeLocalSpaceLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
 	  df = self.makeLocalSpaceDataFrame(dt, lat, lon)
 
 	  # Define a layer to display on a map

@@ -3248,17 +3248,6 @@ class openAstro:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 	def compute_destination_point(latitude, longitude, azimuth, distance):
 		R = 6371  # Радиус Земли в километрах
 
@@ -3313,9 +3302,9 @@ class openAstro:
 				alt, az, distance = app.altaz()
 				azimuth = az.degrees+180
 
-				new_latitude, new_longitude = compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 				# lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
-				new_latitude2, new_longitude2 = compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				dfdata= {
 				  "from": {
@@ -3360,7 +3349,7 @@ class openAstro:
 
 
 	def makeLocalSpaceLayer(dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
-	  df = makeLocalSpaceDataFrame(dt, lat, lon)
+	  df = self.makeLocalSpaceDataFrame(dt, lat, lon)
 
 	  # Define a layer to display on a map
 	  layer = pdk.Layer(
@@ -3375,7 +3364,6 @@ class openAstro:
 	  auto_highlight=True,
 	  )
 	  return layer
-
 
 
 	def makeIconLayer(df_data):

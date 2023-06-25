@@ -3245,7 +3245,170 @@ class openAstro:
 		dprint('importZet8: database with %s entries: %s' % (len(data),filename))
 		f.close()
 		return
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	def compute_destination_point(latitude, longitude, azimuth, distance):
+		R = 6371  # Радиус Земли в километрах
+
+		# Преобразование градусов в радианы
+		lat1 = math.radians(latitude)
+		lon1 = math.radians(longitude)
+		azimuth_rad = math.radians(azimuth)
+
+		# Вычисление географических координат конечной точки
+		lat2 = math.asin(math.sin(lat1) * math.cos(distance / R) +
+						 math.cos(lat1) * math.sin(distance / R) * math.cos(azimuth_rad))
+		lon2 = lon1 + math.atan2(math.sin(azimuth_rad) * math.sin(distance / R) * math.cos(lat1),
+								 math.cos(distance / R) - math.sin(lat1) * math.sin(lat2))
+
+		# Преобразование радианов в градусы
+		lat2 = math.degrees(lat2)
+		lon2 = math.degrees(lon2)
+
+		return lat2, lon2
+
+
+	def makeLocalSpaceDataFrame(dt, lat, lon):
+
+		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
+		data = load('de421.bsp')
+
+		earth = data['earth']
+		ts = load.timescale()
+		place = earth + wgs84.latlon(oa1.geolat * N, oa1.geolon * E, elevation_m=287)
+
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+
+		dfd= []
+
+		for ip in range(11):
+			# print(ip)
+			if (ip == 0):
+				i=301 # kernel 'de421.bsp' is missing 'JUPITER' - the targets it supports are: 0 SOLAR SYSTEM BARYCENTER, 1 MERCURY BARYCENTER, 2 VENUS BARYCENTER, 3 EARTH BARYCENTER, 4 MARS BARYCENTER, 5 JUPITER BARYCENTER, 6 SATURN BARYCENTER, 7 URANUS BARYCENTER, 8 NEPTUNE BARYCENTER, 9 PLUTO BARYCENTER, 10 SUN, 199 MERCURY, 399 EARTH, 299 VENUS, 301 MOON, 499 MARS
+			else:
+				i=ip
+			if (i != 3):
+				planet = data[i]
+				# print(i)
+				# print(planet)
+				# astro = place.at(ts.utc(oa1.t_year, oa1.t_month, oa1.t_day, oa1.t_h, oa1.t_m, oa1.t_s)).observe(planet)
+				# astro = place.at(ts.utc(oa1.utc_year, oa1.utc_month, oa1.utc_day, oa1.utc_h, oa1.utc_m, oa1.utc_s)).observe(planet)
+				astro = place.at(ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)).observe(planet)
+				# astro = place.at(ts.utc(1980, 3, 18, 23, 47, 00)).observe(planet)
+				app = astro.apparent()
+				alt, az, distance = app.altaz()
+				azimuth = az.degrees+180
+
+				new_latitude, new_longitude = compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+				# lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
+				new_latitude2, new_longitude2 = compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
+				dfdata= {
+				  "from": {
+					"name": planet_names[i],
+					"coordinates": [
+					  starting_longitude,
+					  starting_latitude
+					]
+				  },
+				  "to": {
+					"name": planet_names[i],
+					"coordinates": [
+					  new_longitude,
+					  new_latitude
+					]
+				  }
+				}
+
+				dfd.append(dfdata)
+				dfdata= {
+				  "from": {
+					"name": "-" + planet_names[i],
+					"coordinates": [
+					  starting_longitude,
+					  starting_latitude
+					]
+				  },
+				  "to": {
+					"name": "-" + planet_names[i],
+					"coordinates": [
+					  new_longitude2,
+					  new_latitude2
+					]
+				  }
+				}
+				dfd.append(dfdata)
+		df = pd.DataFrame(dfd)
+		# Use pandas to prepare data for tooltip
+		df["name"] = df["from"].apply(lambda f: f["name"])
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
+
+	def makeLocalSpaceLayer(dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
+	  df = makeLocalSpaceDataFrame(dt, lat, lon)
+
+	  # Define a layer to display on a map
+	  layer = pdk.Layer(
+	  "GreatCircleLayer",
+	  df,
+	  pickable=True,
+	  get_stroke_width=12,
+	  get_source_position="from.coordinates",
+	  get_target_position="to.coordinates",
+	  get_source_color=color1,
+	  get_target_color=color2,
+	  auto_highlight=True,
+	  )
+	  return layer
+
+
+
+	def makeIconLayer(df_data):
+
+	  # DATA_URL = "https://raw.githubusercontent.com/ajduberstein/geo_datasets/master/biergartens.json"
+	  ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png"
+	  icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
+
+	  # df_data = [{"lat":47.29810329873421,"lon":39.710726380651636,"name":"Цирк"}]
+	  data = pd.DataFrame(df_data)
+
+	  data["icon_data"] = None
+	  for i in data.index:
+		  data["icon_data"][i] = icon_data
+	  # view_state = pdk.data_utils.compute_view(data[["lon", "lat"]])
+
+	  layer = pdk.Layer(
+		  type="IconLayer",
+		  data=data,
+		  get_icon="icon_data",
+		  get_size=4,
+		  size_scale=15,
+		  get_position=["lon", "lat"],
+		  pickable=True,
+	  )
+	  return layer
+
+
+
+
+
+
+
 ##############
 # MAIN CLASS #
 ##############
@@ -3754,156 +3917,3 @@ if __name__ == "__main__":
 
 
 
-
-
-
-
-
-
-
-
-def compute_destination_point(latitude, longitude, azimuth, distance):
-    R = 6371  # Радиус Земли в километрах
-
-    # Преобразование градусов в радианы
-    lat1 = math.radians(latitude)
-    lon1 = math.radians(longitude)
-    azimuth_rad = math.radians(azimuth)
-
-    # Вычисление географических координат конечной точки
-    lat2 = math.asin(math.sin(lat1) * math.cos(distance / R) +
-                     math.cos(lat1) * math.sin(distance / R) * math.cos(azimuth_rad))
-    lon2 = lon1 + math.atan2(math.sin(azimuth_rad) * math.sin(distance / R) * math.cos(lat1),
-                             math.cos(distance / R) - math.sin(lat1) * math.sin(lat2))
-
-    # Преобразование радианов в градусы
-    lat2 = math.degrees(lat2)
-    lon2 = math.degrees(lon2)
-
-    return lat2, lon2
-
-
-def makeLocalSpaceDataFrame(dt, lat, lon):
-
-  planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
-  data = load('de421.bsp')
-
-  earth = data['earth']
-  ts = load.timescale()
-  place = earth + wgs84.latlon(oa1.geolat * N, oa1.geolon * E, elevation_m=287)
-
-  starting_latitude = lat  # Начальная широта
-  starting_longitude = lon  # Начальная долгота
-  distance2 = 6371*3.1  # Расстояние (в километрах)
-
-  dfd= []
-
-  for ip in range(11):
-    # print(ip)
-    if (ip == 0):
-      i=301 # kernel 'de421.bsp' is missing 'JUPITER' - the targets it supports are: 0 SOLAR SYSTEM BARYCENTER, 1 MERCURY BARYCENTER, 2 VENUS BARYCENTER, 3 EARTH BARYCENTER, 4 MARS BARYCENTER, 5 JUPITER BARYCENTER, 6 SATURN BARYCENTER, 7 URANUS BARYCENTER, 8 NEPTUNE BARYCENTER, 9 PLUTO BARYCENTER, 10 SUN, 199 MERCURY, 399 EARTH, 299 VENUS, 301 MOON, 499 MARS
-    else:
-      i=ip
-    if (i != 3):
-      planet = data[i]
-      # print(i)
-      # print(planet)
-      # astro = place.at(ts.utc(oa1.t_year, oa1.t_month, oa1.t_day, oa1.t_h, oa1.t_m, oa1.t_s)).observe(planet)
-      # astro = place.at(ts.utc(oa1.utc_year, oa1.utc_month, oa1.utc_day, oa1.utc_h, oa1.utc_m, oa1.utc_s)).observe(planet)
-      astro = place.at(ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)).observe(planet)
-      # astro = place.at(ts.utc(1980, 3, 18, 23, 47, 00)).observe(planet)
-      app = astro.apparent()
-      alt, az, distance = app.altaz()
-      azimuth = az.degrees+180
-
-      new_latitude, new_longitude = compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
-      # lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
-      new_latitude2, new_longitude2 = compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
-      # lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
-      dfdata= {
-          "from": {
-            "name": planet_names[i],
-            "coordinates": [
-              starting_longitude,
-              starting_latitude
-            ]
-          },
-          "to": {
-            "name": planet_names[i],
-            "coordinates": [
-              new_longitude,
-              new_latitude
-            ]
-          }
-        }
-
-      dfd.append(dfdata)
-      dfdata= {
-          "from": {
-            "name": "-" + planet_names[i],
-            "coordinates": [
-              starting_longitude,
-              starting_latitude
-            ]
-          },
-          "to": {
-            "name": "-" + planet_names[i],
-            "coordinates": [
-              new_longitude2,
-              new_latitude2
-            ]
-          }
-        }
-
-      dfd.append(dfdata)
-
-  df = pd.DataFrame(dfd)
-  # Use pandas to prepare data for tooltip
-  df["name"] = df["from"].apply(lambda f: f["name"])
-  df["name"] = df["to"].apply(lambda t: t["name"])
-  return df
-
-
-def makeLocalSpaceLayer(dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
-  df = makeLocalSpaceDataFrame(dt, lat, lon)
-
-  # Define a layer to display on a map
-  layer = pdk.Layer(
-  "GreatCircleLayer",
-  df,
-  pickable=True,
-  get_stroke_width=12,
-  get_source_position="from.coordinates",
-  get_target_position="to.coordinates",
-  get_source_color=color1,
-  get_target_color=color2,
-  auto_highlight=True,
-  )
-  return layer
-
-
-
-def makeIconLayer(df_data):
-
-  # DATA_URL = "https://raw.githubusercontent.com/ajduberstein/geo_datasets/master/biergartens.json"
-  ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png"
-  icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
-
-  # df_data = [{"lat":47.29810329873421,"lon":39.710726380651636,"name":"Цирк"}]
-  data = pd.DataFrame(df_data)
-
-  data["icon_data"] = None
-  for i in data.index:
-      data["icon_data"][i] = icon_data
-  # view_state = pdk.data_utils.compute_view(data[["lon", "lat"]])
-
-  layer = pdk.Layer(
-      type="IconLayer",
-      data=data,
-      get_icon="icon_data",
-      get_size=4,
-      size_scale=15,
-      get_position=["lon", "lat"],
-      pickable=True,
-  )
-  return layer

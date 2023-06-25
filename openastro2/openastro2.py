@@ -3349,38 +3349,38 @@ class openAstro:
 
 
 	def makeLocalSpaceLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
-	  df = self.makeLocalSpaceDataFrame(dt, lat, lon)
+		df = self.makeLocalSpaceDataFrame(dt, lat, lon)
+		# print (color1)
+		# Define a layer to display on a map
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
 
-	  # Define a layer to display on a map
-	  layer = pdk.Layer(
-	  "GreatCircleLayer",
-	  df,
-	  pickable=True,
-	  get_stroke_width=12,
-	  get_source_position="from.coordinates",
-	  get_target_position="to.coordinates",
-	  get_source_color=color1,
-	  get_target_color=color2,
-	  auto_highlight=True,
-	  )
-	  return layer
 
+	def makeIconLayer(self, df_data):
 
-	def makeIconLayer(df_data):
+		# DATA_URL = "https://raw.githubusercontent.com/ajduberstein/geo_datasets/master/biergartens.json"
+		ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png"
+		icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
 
-	  # DATA_URL = "https://raw.githubusercontent.com/ajduberstein/geo_datasets/master/biergartens.json"
-	  ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png"
-	  icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
+		# df_data = [{"lat":47.29810329873421,"lon":39.710726380651636,"name":"Цирк"}]
+		data = pd.DataFrame(df_data)
 
-	  # df_data = [{"lat":47.29810329873421,"lon":39.710726380651636,"name":"Цирк"}]
-	  data = pd.DataFrame(df_data)
-
-	  data["icon_data"] = None
-	  for i in data.index:
+		data["icon_data"] = None
+		for i in data.index:
 		  data["icon_data"][i] = icon_data
-	  # view_state = pdk.data_utils.compute_view(data[["lon", "lat"]])
+		# view_state = pdk.data_utils.compute_view(data[["lon", "lat"]])
 
-	  layer = pdk.Layer(
+		layer = pdk.Layer(
 		  type="IconLayer",
 		  data=data,
 		  get_icon="icon_data",
@@ -3388,8 +3388,8 @@ class openAstro:
 		  size_scale=15,
 		  get_position=["lon", "lat"],
 		  pickable=True,
-	  )
-	  return layer
+		)
+		return layer
 
 
 

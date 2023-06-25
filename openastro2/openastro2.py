@@ -3377,7 +3377,7 @@ class openAstro:
 
 		data["icon_data"] = None
 		for i in data.index:
-		  data.loc["icon_data"][i] = icon_data
+		  data["icon_data"][i] = icon_data
 		# view_state = pdk.data_utils.compute_view(data[["lon", "lat"]])
 
 		layer = pdk.Layer(

@@ -338,7 +338,7 @@ class openAstro:
 		tz = datetime.timedelta(seconds=float(self.timezone) * float(3600))
 		utc_loc = utc - tz
 		# self.e1 =[]
-		self.dt1_utc = utc_loc
+		self.e1_dt_utc = utc_loc
 
 		if (len(self.event2)):
 			self.t_name = self.event2["name"]

@@ -23,7 +23,6 @@
 <text x="10" y="56" style="fill: $paper_color_0; font-size: 10px">$stringLat</text>
 <text x="10" y="68" style="fill: $paper_color_0; font-size: 10px">$stringLon</text>
 <text x="10" y="80" style="fill: $paper_color_0; font-size: 10px">$stringPosition</text>
-<text x="10" y="104" style="fill: $paper_color_0; font-size: 14px">$stringName</text>
 
 
 <text x="550" y="20" text-anchor="end" style="fill: $paper_color_0; font-size: 14px">$t_stringTitle</text>
@@ -31,6 +30,7 @@
 <text x="550" y="44" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLocation</text>
 <text x="550" y="56" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLat</text>
 <text x="550" y="68" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLon</text>
+<text x="550" y="92" text-anchor="end" style="fill: $paper_color_0; font-size: 14px">$stringName</text>
 
 
 <!--<text x="20" y="480" style="fill: $paper_color_0; font-size: 10px">$bottomLeft1</text>-->

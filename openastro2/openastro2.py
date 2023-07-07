@@ -563,6 +563,7 @@ class openAstro:
 		openAstro.transit=False
 		dprint (dt_new)
 		return mdata
+
 	def localToSolar(self, t_year, t_month, t_day, t_hour, t_geolon,
 											t_geolat, t_altitude):
 		# OpenAstro1 used UTC time in database
@@ -576,9 +577,9 @@ class openAstro:
 		# t_day = utc_loc.day
 		# t_hour = self.decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
 
-		newyear = t_year
+		# newyear = t_year
 		solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
-		dprint("localToSolar: from %s to %s" %(self.year,newyear))
+		# dprint("localToSolar: from %s to %s" %(self.year,newyear))
 		h,m,s = self.decHour(self.hour)
 		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
 		t_h,t_m,t_s = self.decHour(t_hour)
@@ -588,7 +589,7 @@ class openAstro:
 		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		mdata = ephemeris.ephData(t_year,t_month,t_day,t_hour,t_geolon,t_geolat,t_altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[0]) )
-		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
+		sundiff = -360 + self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
 		dprint("localToSolar: sundiff %s" %(sundiff))
 		sundelta = ( sundiff / 360.0 ) * solaryearsecs
 		dprint("localToSolar: sundelta %s" % (sundelta))
@@ -598,76 +599,20 @@ class openAstro:
 		dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[0]))
 		# dprint (dt_new)
 		#get precise
-		step = 0.000011408 # 1 seconds in degrees
-		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(seconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[0]))
-		# dprint (dt_new)
-		#get precise
-		step = 0.000011408 # 1 seconds in degrees
-		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(seconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[0]))
-		# dprint (dt_new)
+		planet_id = 0
+		for i in range(20):
+			# get precise
+			solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
+			step = 360 / solaryearsecs
+			sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+			sundelta = sundiff / step
+			dt_delta = datetime.timedelta(seconds=int(sundelta))
+			dt_new = dt_new + dt_delta
+			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
+			# print(dt_new)
 
-		#get precise
-		step = 0.000011408 # 1 seconds in degrees
-		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(seconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[0]))
-		# dprint (dt_new)
-		#get precise
-		step = 0.000011408 # 1 seconds in degrees
-		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(seconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[0]))
-		# dprint (dt_new)
-		step = 0.000000011408 # 1 milli seconds in degrees
-		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(milliseconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[0]))
-		# dprint (dt_new)
-		step = 0.000000011408 # 1 milli seconds in degrees
-		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(milliseconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[0]))
-		# dprint (dt_new)
-		step = 0.000000011408 # 1 milli seconds in degrees
-		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(milliseconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[0]))
-		# dprint (dt_new)
-		# step = 0.0000000011408  # 0.1 milli seconds in degrees
-		# sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(milliseconds=int(sundelta))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-		# 						  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-		# 						  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[0]))
-
+		self.e2_dt_utc = dt_new
 		self.t_year = dt_new.year
 		self.t_month = dt_new.month
 		self.t_day = dt_new.day
@@ -698,7 +643,7 @@ class openAstro:
 		mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude, self.planets,
 								  self.zodiac, self.settings.astrocfg)
 		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_id]))
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+		sundiff = -360 + self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
 		# dprint("localToSolar: sundiff %s" % (sundiff))
 		sundelta = (sundiff / 360.0) * solaryearsecs
 		# dprint("localToSolar: sundelta %s" % (sundelta))
@@ -710,127 +655,21 @@ class openAstro:
 		# dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_id]))
 		# print(dt_new)
 
-		# get precise
-		moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		step = 360 / moonyearsecs
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(seconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
-		# print(dt_new)
 
-		# get precise
-		moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		step = 360 / moonyearsecs
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(seconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
-		# print(dt_new)
+		planet_id = 1
+		for i in range(20):
+			# get precise
+			solaryearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
+			step = 360 / solaryearsecs
+			sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+			sundelta = sundiff / step
+			dt_delta = datetime.timedelta(seconds=int(sundelta))
+			dt_new = dt_new + dt_delta
+			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
+			# print(dt_new)
 
-		# get precise
-		moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		step = 360 / moonyearsecs
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(seconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
-		# print(dt_new)
-		# get precise
-		moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		step = 360 / moonyearsecs
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(seconds=int(sundelta))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
-		# print(dt_new)
-
-		moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		step = 360 / (moonyearsecs *10) # 10 milli seconds in degrees
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/10))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[planet_id]))
-		# print(dt_new)
-
-		moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		step = 360 / (moonyearsecs *10) # 10 milli seconds in degrees
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/10))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[planet_id]))
-		# print(dt_new)
-
-		moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		step = 360 / (moonyearsecs *100) # 1 milli seconds in degrees
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/100))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #4 %s" % (mdata.planets_degree_ut[planet_id]))
-		# print(dt_new)
-
-		moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		step = 360 / (moonyearsecs * 1000)  # 1 milli seconds in degrees
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/1000))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #4 %s" % (mdata.planets_degree_ut[planet_id]))
-		# print(dt_new)
-
-		moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		step = 360 / (moonyearsecs * 10000)  # 0.1 milli seconds in degrees
-		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		sundelta = sundiff / step
-		dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/10000))
-		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #4 %s" % (mdata.planets_degree_ut[planet_id]))
-		# print(dt_new)
-
-		# step = 0.0000000011408  # 0.1 milli seconds in degrees
-		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(milliseconds=int(sundelta))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-		# 						  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-		# 						  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[planet_id]))
-
+		self.e2_dt_utc = dt_new
 		self.t_year = dt_new.year
 		self.t_month = dt_new.month
 		self.t_day = dt_new.day
@@ -874,7 +713,7 @@ class openAstro:
 		# print(dt_new)
 		for i in range(20):
 			# get precise
-			moonyearsecs = 1 * 24 * 60 * 60 /2 # 27,3215817 days
+			moonyearsecs = 1 * 24 * 60 * 60 /4 # 27,3215817 days
 			step = 360 / moonyearsecs
 			sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
 			sundelta = sundiff / step
@@ -883,98 +722,6 @@ class openAstro:
 			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
 			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
 			# print(dt_new)
-		#
-		# # get precise
-		# # moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		# step = 360 / moonyearsecs
-		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(seconds=int(sundelta))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# # dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
-		# # print(dt_new)
-		#
-		# # get precise
-		# # moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		# step = 360 / moonyearsecs
-		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(seconds=int(sundelta))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# # dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
-		# # print(dt_new)
-		# # get precise
-		# # moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		# step = 360 / moonyearsecs
-		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(seconds=int(sundelta))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# # dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
-		# # print(dt_new)
-		#
-		# # moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		# step = 360 / (moonyearsecs *10) # 10 milli seconds in degrees
-		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/10))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# # dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[planet_id]))
-		# # print(dt_new)
-		#
-		# # moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		# step = 360 / (moonyearsecs *10) # 10 milli seconds in degrees
-		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/10))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# # dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[planet_id]))
-		# # print(dt_new)
-		#
-		# # moonyearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
-		# step = 360 / (moonyearsecs *100) # 1 milli seconds in degrees
-		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/100))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# # dprint("localToSolar: new sun #4 %s" % (mdata.planets_degree_ut[planet_id]))
-		# # print(dt_new)
-		#
-		# moonyearsecs = 1 * 24 * 60 * 60 /4 # 27,3215817 days
-		# step = 360 / (moonyearsecs * 1000)  # 1 milli seconds in degrees
-		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/1000))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# # dprint("localToSolar: new sun #4 %s" % (mdata.planets_degree_ut[planet_id]))
-		# # print(dt_new)
-		#
-		# moonyearsecs = 1 * 24 * 60 * 60 /4 # 27,3215817 days
-		# step = 360 / (moonyearsecs * 10000)  # 0.1 milli seconds in degrees
-		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# sundelta = sundiff / step
-		# dt_delta = datetime.timedelta(milliseconds=int(sundelta*1000/10000))
-		# dt_new = dt_new + dt_delta
-		# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# # dprint("localToSolar: new sun #4 %s" % (mdata.planets_degree_ut[planet_id]))
-		# # print(dt_new)
-		#
-		# # step = 0.0000000011408  # 0.1 milli seconds in degrees
-		# # sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
-		# # sundelta = sundiff / step
-		# # dt_delta = datetime.timedelta(milliseconds=int(sundelta))
-		# # dt_new = dt_new + dt_delta
-		# # mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
-		# # 						  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,
-		# # 						  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
-		# # dprint("localToSolar: new sun #3 %s" % (mdata.planets_degree_ut[planet_id]))
 
 		self.t_year = dt_new.year
 		self.t_month = dt_new.month

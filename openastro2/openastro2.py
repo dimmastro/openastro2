@@ -3055,14 +3055,14 @@ class openAstro:
 				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				dfdata= {
 				  "from": {
-					"name": self.name + "|" + planet_names[i],
+					"name": self.name + "/" + planet_names[i],
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": self.name + "|" +planet_names[i],
+					"name": self.name + "/" +planet_names[i],
 					"coordinates": [
 					  new_longitude,
 					  new_latitude
@@ -3073,14 +3073,14 @@ class openAstro:
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					"name": "-" + planet_names[i],
+					"name": self.name + "/ " + "-" + planet_names[i],
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": "-" + planet_names[i],
+					"name": self.name + "/ " + "-" + planet_names[i],
 					"coordinates": [
 					  new_longitude2,
 					  new_latitude2

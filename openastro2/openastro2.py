@@ -632,9 +632,13 @@ class openAstro:
 
 	def localToNewMoonNext(self, t_year, t_month, t_day, t_hour, t_geolon,
 											t_geolat, t_altitude):
-		h,m,s = self.decHour(self.hour)
-		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
-		new_moon = ephem.next_new_moon(dt_original)
+		t_h, t_m, t_s = self.decHour(t_hour)
+		# dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
+		dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
+		# print (dt_new)
+		# h,m,s = self.decHour(self.hour)
+		# dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
+		new_moon = ephem.next_new_moon(dt_new)
 		# local_dt = next_new_moon.datetime().localize(tz_tashkent)
 		# print(next_new_moon.datetime())
 		# Преобразуем время новолуния в объект datetime и добавляем информацию о часовом поясе
@@ -655,15 +659,19 @@ class openAstro:
 		self.type = "Transit"
 		# openAstro.charttype="%s (%s-%02d-%02d %02d:%02d:%02d UTC)" % (openAstro.label["solar"],self.s_year,self.s_month,self.s_day,dt_new.hour,dt_new.minute,dt_new.second)
 		openAstro.transit=False
-		# dprint (dt_new)
+		# print (dt_new)
 		return
 
 
 	def localToNewMoonPrev(self, t_year, t_month, t_day, t_hour, t_geolon,
 											t_geolat, t_altitude):
-		h,m,s = self.decHour(self.hour)
-		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
-		new_moon = ephem.previous_new_moon(dt_original)
+		t_h, t_m, t_s = self.decHour(t_hour)
+		# dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
+		dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
+
+		# h,m,s = self.decHour(self.hour)
+		# dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
+		new_moon = ephem.previous_new_moon(dt_new)
 		# local_dt = next_new_moon.datetime().localize(tz_tashkent)
 		# print(next_new_moon.datetime())
 		# Преобразуем время новолуния в объект datetime и добавляем информацию о часовом поясе

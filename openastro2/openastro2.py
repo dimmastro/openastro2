@@ -58,6 +58,8 @@ from skyfield.api import N,S,E,W, wgs84, Topos, load
 import pydeck as pdk
 import pandas as pd
 
+import ephem
+
 
 #debug
 LOCAL=True
@@ -626,6 +628,67 @@ class openAstro:
 		dprint (dt_new)
 		return
 
+
+
+	def localToNewMoonNext(self, t_year, t_month, t_day, t_hour, t_geolon,
+											t_geolat, t_altitude):
+		h,m,s = self.decHour(self.hour)
+		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
+		new_moon = ephem.next_new_moon(dt_original)
+		# local_dt = next_new_moon.datetime().localize(tz_tashkent)
+		# print(next_new_moon.datetime())
+		# Преобразуем время новолуния в объект datetime и добавляем информацию о часовом поясе
+		# new_moon_local = pytz.utc.localize(ephem.Date(new_moon_utc).datetime()).astimezone(tz)
+		new_moon_local = ephem.Date(new_moon).datetime()
+		# print(new_moon_local)
+		dt_new = new_moon_local
+		# print(dt_new)
+		self.e2_dt_utc = dt_new
+		self.t_year = dt_new.year
+		self.t_month = dt_new.month
+		self.t_day = dt_new.day
+		self.t_hour = self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second)
+		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
+		self.t_geolon = self.geolon
+		self.t_geolat = self.geolat
+		self.t_altitude = self.altitude
+		self.type = "Transit"
+		# openAstro.charttype="%s (%s-%02d-%02d %02d:%02d:%02d UTC)" % (openAstro.label["solar"],self.s_year,self.s_month,self.s_day,dt_new.hour,dt_new.minute,dt_new.second)
+		openAstro.transit=False
+		# dprint (dt_new)
+		return
+
+
+	def localToNewMoonPrev(self, t_year, t_month, t_day, t_hour, t_geolon,
+											t_geolat, t_altitude):
+		h,m,s = self.decHour(self.hour)
+		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
+		new_moon = ephem.previous_new_moon(dt_original)
+		# local_dt = next_new_moon.datetime().localize(tz_tashkent)
+		# print(next_new_moon.datetime())
+		# Преобразуем время новолуния в объект datetime и добавляем информацию о часовом поясе
+		# new_moon_local = pytz.utc.localize(ephem.Date(new_moon_utc).datetime()).astimezone(tz)
+		new_moon_local = ephem.Date(new_moon).datetime()
+		# print(new_moon_local)
+		dt_new = new_moon_local
+		# print(dt_new)
+		self.e2_dt_utc = dt_new
+		self.t_year = dt_new.year
+		self.t_month = dt_new.month
+		self.t_day = dt_new.day
+		self.t_hour = self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second)
+		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
+		self.t_geolon = self.geolon
+		self.t_geolat = self.geolat
+		self.t_altitude = self.altitude
+		self.type = "Transit"
+		# openAstro.charttype="%s (%s-%02d-%02d %02d:%02d:%02d UTC)" % (openAstro.label["solar"],self.s_year,self.s_month,self.s_day,dt_new.hour,dt_new.minute,dt_new.second)
+		openAstro.transit=False
+		# dprint (dt_new)
+		return
+
+
+
 	def localToLunar(self, t_year, t_month, t_day, t_hour, t_geolon,
 					 t_geolat, t_altitude):
 		planet_id = 1
@@ -820,6 +883,30 @@ class openAstro:
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											  self.settings.astrocfg)
+		elif self.type == "NewMoonNext":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			self.planets_degree_ut = module_data.planets_degree_ut
+			self.localToNewMoonNext(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+									self.t_geolat, self.t_altitude)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+
+
+		elif self.type == "NewMoonPrev":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			self.planets_degree_ut = module_data.planets_degree_ut
+			self.localToNewMoonPrev(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+							  self.t_geolat, self.t_altitude)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+
+
 		# Lunar module data
 		elif self.type == "Lunar":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
@@ -3055,14 +3142,14 @@ class openAstro:
 				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/" + planet_names[i],
+					"name": self.name + "/"  + "-" + planet_names[i],
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": self.name + "/" +planet_names[i],
+					"name": self.name + "/" + "-"  +planet_names[i],
 					"coordinates": [
 					  new_longitude,
 					  new_latitude
@@ -3073,14 +3160,14 @@ class openAstro:
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/ " + "-" + planet_names[i],
+					"name": self.name + "/ " + "+" + planet_names[i],
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": self.name + "/ " + "-" + planet_names[i],
+					"name": self.name + "/ " + "+" + planet_names[i],
 					"coordinates": [
 					  new_longitude2,
 					  new_latitude2

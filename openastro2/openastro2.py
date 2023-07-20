@@ -3248,7 +3248,7 @@ class openAstro:
 				  "to": {
 					"name": self.name + "/ " + planet_names[i],
 					"coordinates": [
-					  179,
+					  90,
 					  planet_subpoint.latitude.degrees
 					]
 				  }

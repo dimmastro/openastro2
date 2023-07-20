@@ -3189,6 +3189,93 @@ class openAstro:
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
 
+	def makeZenitDataFrame(self, dt, lat, lon):
+
+		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
+		data = load('de421.bsp')
+
+		# eph = load('de421.bsp')
+		# earth = eph['earth']  # vector from solar system barycenter to geocenter
+		data = load('de421.bsp')
+		earth = data['earth']
+
+		dfd= []
+
+		for ip in range(11):
+			# print(ip)
+			if (ip == 0):
+				i=301 # kernel 'de421.bsp' is missing 'JUPITER' - the targets it supports are: 0 SOLAR SYSTEM BARYCENTER, 1 MERCURY BARYCENTER, 2 VENUS BARYCENTER, 3 EARTH BARYCENTER, 4 MARS BARYCENTER, 5 JUPITER BARYCENTER, 6 SATURN BARYCENTER, 7 URANUS BARYCENTER, 8 NEPTUNE BARYCENTER, 9 PLUTO BARYCENTER, 10 SUN, 199 MERCURY, 399 EARTH, 299 VENUS, 301 MOON, 499 MARS
+			else:
+				i=ip
+			if (i != 3):
+				planet = data[i]
+				geocentric_planet = planet - earth  # vector from geocenter to sun
+				ts = load.timescale()
+				t = ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+				# t = ts.utc(dt)
+				# print (dt.year)
+				# t = ts.from_datetime(dt)
+				planet_subpoint = wgs84.subpoint(geocentric_planet.at(t))  # subpoint method requires a geocentric position
+				print('subpoint latitude: ', planet_subpoint.latitude.degrees)
+				print('subpoint longitude: ', planet_subpoint.longitude.degrees)
+
+				dfdata= {
+				  "from": {
+					"name": self.name + "/" + planet_names[i],
+					"coordinates": [
+					  planet_subpoint.longitude.degrees,
+					  -80
+					]
+				  },
+				  "to": {
+					"name": self.name + "/" +planet_names[i],
+					"coordinates": [
+					  planet_subpoint.longitude.degrees,
+					  80
+					]
+				  }
+				}
+
+				dfd.append(dfdata)
+				dfdata= {
+				  "from": {
+					"name": self.name + "/ " + planet_names[i],
+					"coordinates": [
+					  -179,
+					  planet_subpoint.latitude.degrees
+					]
+				  },
+				  "to": {
+					"name": self.name + "/ " + planet_names[i],
+					"coordinates": [
+					  179,
+					  planet_subpoint.latitude.degrees
+					]
+				  }
+				}
+				dfd.append(dfdata)
+		df = pd.DataFrame(dfd)
+		# Use pandas to prepare data for tooltip
+		df["name"] = df["from"].apply(lambda f: f["name"])
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
+	def makeZenitLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
+		df = self.makeZenitDataFrame(dt, lat, lon)
+		# print (color1)
+		# Define a layer to display on a map
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
 
 	def makeLocalSpaceLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
 		df = self.makeLocalSpaceDataFrame(dt, lat, lon)

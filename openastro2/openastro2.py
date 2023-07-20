@@ -3221,39 +3221,56 @@ class openAstro:
 
 				dfdata= {
 				  "from": {
-					"name": self.name + "/" + planet_names[i],
+					"name": self.name + "/" + " K10 " + planet_names[i],
 					"coordinates": [
 					  planet_subpoint.longitude.degrees,
 					  -80
 					]
 				  },
 				  "to": {
-					"name": self.name + "/" +planet_names[i],
+					"name": self.name + "/" + " K10 " + planet_names[i],
 					"coordinates": [
 					  planet_subpoint.longitude.degrees,
 					  80
 					]
 				  }
 				}
-
 				dfd.append(dfdata)
-				dfdata= {
-				  "from": {
-					"name": self.name + "/ " + planet_names[i],
+			dfdata = {
+				"from": {
+					"name": self.name + "/" + " K4 " + planet_names[i],
 					"coordinates": [
-					  0,
-					  planet_subpoint.latitude.degrees
+						planet_subpoint.longitude.degrees +180,
+						-80
 					]
-				  },
-				  "to": {
-					"name": self.name + "/ " + planet_names[i],
+				},
+				"to": {
+					"name": self.name + "/" + " K4 " + planet_names[i],
 					"coordinates": [
-					  90,
-					  planet_subpoint.latitude.degrees
+						planet_subpoint.longitude.degrees +180,
+						80
 					]
-				  }
 				}
-				dfd.append(dfdata)
+			}
+			dfd.append(dfdata)
+
+		# dfdata= {
+				#   "from": {
+				# 	"name": self.name + "/ " + planet_names[i],
+				# 	"coordinates": [
+				# 	  0,
+				# 	  planet_subpoint.latitude.degrees
+				# 	]
+				#   },
+				#   "to": {
+				# 	"name": self.name + "/ " + planet_names[i],
+				# 	"coordinates": [
+				# 	  90,
+				# 	  planet_subpoint.latitude.degrees
+				# 	]
+				#   }
+				# }
+				# dfd.append(dfdata)
 		df = pd.DataFrame(dfd)
 		# Use pandas to prepare data for tooltip
 		df["name"] = df["from"].apply(lambda f: f["name"])

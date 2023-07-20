@@ -3241,14 +3241,14 @@ class openAstro:
 				  "from": {
 					"name": self.name + "/ " + planet_names[i],
 					"coordinates": [
-					  -179,
+					  0,
 					  planet_subpoint.latitude.degrees
 					]
 				  },
 				  "to": {
 					"name": self.name + "/ " + planet_names[i],
 					"coordinates": [
-					  179,
+					  359,
 					  planet_subpoint.latitude.degrees
 					]
 				  }

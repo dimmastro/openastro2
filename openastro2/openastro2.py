@@ -3150,14 +3150,14 @@ class openAstro:
 				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "-" + planet_names[i],
+					"name": self.name + "/"  + "-" + planet_names[i] + " (" + str(azimuth) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": self.name + "/" + "-"  +planet_names[i],
+					"name": self.name + "/" + "-"  +planet_names[i] + " (" + str(azimuth) + ")",
 					"coordinates": [
 					  new_longitude,
 					  new_latitude
@@ -3168,14 +3168,14 @@ class openAstro:
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/ " + "+" + planet_names[i],
+					"name": self.name + "/ " + "+" + planet_names[i] + " (" + str(azimuth) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": self.name + "/ " + "+" + planet_names[i],
+					"name": self.name + "/ " + "+" + planet_names[i] + " (" + str(azimuth) + ")",
 					"coordinates": [
 					  new_longitude2,
 					  new_latitude2
@@ -3193,14 +3193,9 @@ class openAstro:
 
 		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
 		data = load('de421.bsp')
-
-		# eph = load('de421.bsp')
-		# earth = eph['earth']  # vector from solar system barycenter to geocenter
-		data = load('de421.bsp')
 		earth = data['earth']
 
 		dfd= []
-
 		for ip in range(11):
 			# print(ip)
 			if (ip == 0):
@@ -3212,23 +3207,20 @@ class openAstro:
 				geocentric_planet = planet - earth  # vector from geocenter to sun
 				ts = load.timescale()
 				t = ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
-				# t = ts.utc(dt)
-				# print (dt.year)
-				# t = ts.from_datetime(dt)
 				planet_subpoint = wgs84.subpoint(geocentric_planet.at(t))  # subpoint method requires a geocentric position
-				print('subpoint latitude: ', planet_subpoint.latitude.degrees)
-				print('subpoint longitude: ', planet_subpoint.longitude.degrees)
+				# print('subpoint latitude: ', planet_subpoint.latitude.degrees)
+				# print('subpoint longitude: ', planet_subpoint.longitude.degrees)
 
 				dfdata= {
 				  "from": {
-					"name": self.name + "/" + " K10 " + planet_names[i],
+					"name": self.name + "/" + " K10 " + planet_names[i] + " (" + str(planet_subpoint.longitude.degrees) + ")",
 					"coordinates": [
 					  planet_subpoint.longitude.degrees,
 					  -80
 					]
 				  },
 				  "to": {
-					"name": self.name + "/" + " K10 " + planet_names[i],
+					"name": self.name + "/" + " K10 " + planet_names[i] + " (" + str(planet_subpoint.longitude.degrees) + ")",
 					"coordinates": [
 					  planet_subpoint.longitude.degrees,
 					  80
@@ -3238,14 +3230,14 @@ class openAstro:
 				dfd.append(dfdata)
 			dfdata = {
 				"from": {
-					"name": self.name + "/" + " K4 " + planet_names[i],
+					"name": self.name + "/" + " K4 " + planet_names[i] + " (" + str(planet_subpoint.longitude.degrees +180) + ")",
 					"coordinates": [
 						planet_subpoint.longitude.degrees +180,
 						-80
 					]
 				},
 				"to": {
-					"name": self.name + "/" + " K4 " + planet_names[i],
+					"name": self.name + "/" + " K4 " + planet_names[i] + " (" + str(planet_subpoint.longitude.degrees +180) + ")",
 					"coordinates": [
 						planet_subpoint.longitude.degrees +180,
 						80

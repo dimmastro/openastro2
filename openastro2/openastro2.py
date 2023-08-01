@@ -935,16 +935,16 @@ class openAstro:
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											  self.settings.astrocfg)
-			elif self.type == "NewMoonNext":
-			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
-											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
-			self.planets_degree_ut = module_data.planets_degree_ut
-			self.localToNewMoonNext(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
-									self.t_geolat, self.t_altitude)
-			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
-											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+		elif self.type == "NewMoonNext":
+		module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+										self.geolat, self.altitude, self.planets, self.zodiac,
+										self.settings.astrocfg)
+		self.planets_degree_ut = module_data.planets_degree_ut
+		self.localToNewMoonNext(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+								self.t_geolat, self.t_altitude)
+		t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+										  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+										  self.settings.astrocfg)
 
 
 		elif self.type == "NewMoonPrev":

@@ -826,9 +826,9 @@ class openAstro:
 								  t_altitude, self.planets, self.zodiac, self.settings.astrocfg)
 		# dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_id]))
 		# print(dt_new)
-		for i in range(20):
+		for i in range(100):
 			# get precise
-			moonyearsecs = 1 * 24 * 60 * 60 /4 # 27,3215817 days
+			moonyearsecs = 1 * 24 * 60 * 60 /3 # 27,3215817 days
 			step = 360 / moonyearsecs
 			sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
 			sundelta = sundiff / step
@@ -837,6 +837,8 @@ class openAstro:
 			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
 			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
 			# print(dt_new)
+			# print(sundiff)
+
 
 		self.t_year = dt_new.year
 		self.t_month = dt_new.month

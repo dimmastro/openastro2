@@ -305,6 +305,19 @@ class openAstro:
 		second: int = dt.second
 		return self.event(name, year, month, day, hour, minute, second, timezone, location, countrycode, geolat, geolon, altitude)
 
+	@classmethod
+	def event_dt(self, name="Now", dt=None,  timezone=False, location="London", countrycode="", geolat=False, geolon=False, altitude=25):
+		# date_time_str = '2022-12-01 10:27:03.929149'
+		# dt = datetime.datetime.strptime(dt_str, dt_str_format)
+		year: int = dt.year
+		month: int = dt.month
+		day: int = dt.day
+		hour: int = dt.hour
+		minute: int = dt.minute
+		second: int = dt.second
+		return self.event(name, year, month, day, hour, minute, second, timezone, location, countrycode, geolat, geolon, altitude)
+
+
 	def __init__(self, event1, event2=[], type="Radix", settings={}):
 		self.settings = openAstroSettings(settings=settings)
 
@@ -3212,7 +3225,7 @@ class openAstro:
 				# astro = place.at(ts.utc(1980, 3, 18, 23, 47, 00)).observe(planet)
 				app = astro.apparent()
 				alt, az, distance = app.altaz()
-				azimuth = az.degrees+180
+				azimuth = az.degrees
 
 				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 				# lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
@@ -3253,6 +3266,7 @@ class openAstro:
 				  }
 				}
 				dfd.append(dfdata)
+			print (azimuth)
 		df = pd.DataFrame(dfd)
 		# Use pandas to prepare data for tooltip
 		df["name"] = df["from"].apply(lambda f: f["name"])
@@ -3339,8 +3353,67 @@ class openAstro:
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
 
+
+
 	def makeZenitLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
 		df = self.makeZenitDataFrame(dt, lat, lon)
+		# print (color1)
+		# Define a layer to display on a map
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
+
+	def makeAscDataFrame(self, dt, lat, lon):
+		dfd= []
+		planet_id = 1
+		house_id = 0
+		degree_delta = 2
+		event1 = openAstro.event_dt("ttt", dt, timezone=0, location="ttt", geolat=0, geolon=0)
+		coord_arr=[]
+		for lon in range(-180, 181, 2):  # Longitude ranges from -180 to 180 degrees
+			for lat in range(-80, 80, 2):  # Latitude ranges from -90 to 90 degrees
+				event1["geolat"] = lat
+				event1["geolon"] = lon
+				oa1 = openAstro(event1, type="Radix")
+				oa1.calcAstro()
+				# print(oa1.planets_degree_ut[planet_id], oa1.houses_degree_ut[planet_id], lat, lon)
+				if (oa1.degreeDiff(oa1.houses_degree_ut[house_id], oa1.planets_degree_ut[planet_id]) < degree_delta):
+					print(oa1.planets_degree_ut[house_id], oa1.houses_degree_ut[planet_id], lon, lat)
+					coord_arr.append([lat,lon])
+					# lat_0 = lat
+					break
+
+		for i in range(len(coord_arr)-1):
+				dfdata= {
+				  "from": {
+					"name": " K1 " + str(planet_id) ,
+					"coordinates": [coord_arr[i][0], coord_arr[i][1]]
+				  },
+				  "to": {
+					"name": " K1 " + str(planet_id) ,
+					"coordinates": [coord_arr[i+1][0], coord_arr[i+1][1]]
+				  }
+				}
+				dfd.append(dfdata)
+
+		df = pd.DataFrame(dfd)
+		# Use pandas to prepare data for tooltip
+		df["name"] = df["from"].apply(lambda f: f["name"])
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
+
+	def makeAscLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
+		df = self.makeAscDataFrame(dt, lat, lon)
 		# print (color1)
 		# Define a layer to display on a map
 		layer = pdk.Layer(

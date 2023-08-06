@@ -3388,18 +3388,18 @@ class openAstro:
 				# print(oa1.planets_degree_ut[planet_id], oa1.houses_degree_ut[planet_id], lat, lon)
 				if (oa1.degreeDiff(oa1.houses_degree_ut[house_id], oa1.planets_degree_ut[planet_id]) < degree_delta):
 					print(oa1.planets_degree_ut[house_id], oa1.houses_degree_ut[planet_id], lon, lat)
-					coord_arr.append([lat,lon])
+					coord_arr.append([lon, lat])
 					# lat_0 = lat
 					break
 
 		for i in range(len(coord_arr)-1):
 				dfdata= {
 				  "from": {
-					"name": " K1 " + str(planet_id) ,
+					"name": " K1 " + str(planet_id) + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
 					"coordinates": [coord_arr[i][0], coord_arr[i][1]]
 				  },
 				  "to": {
-					"name": " K1 " + str(planet_id) ,
+					"name": " K1 " + str(planet_id) + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
 					"coordinates": [coord_arr[i+1][0], coord_arr[i+1][1]]
 				  }
 				}

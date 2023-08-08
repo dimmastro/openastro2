@@ -3197,13 +3197,6 @@ class openAstro:
 
 	def makeLocalSpaceSweDataFrame(self, dt, lat, lon):
 
-		# planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
-		# data = load('de421.bsp')
-
-		# earth = data['earth']
-		# ts = load.timescale()
-		# place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
-
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
 		distance2 = 6371*3.1  # Расстояние (в километрах)
@@ -3215,23 +3208,13 @@ class openAstro:
 		for i in range(22):
 			# if self.planets[i]['visible'] == 1:
 			if 1:
-				#list of planets sorted by degree
-				# planets_degut[self.planets_degree_ut[i]]=i
-				# astro = place.at(ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)).observe(planet)
-				# app = astro.apparent()
-				# alt, az, distance = app.altaz()
-				# azimuth = az.degrees
-				# print("Азимут планеты:", azimuth)
-				# print("Истинная высота:", true_altitude)
-				# print("Видимая высота:", apparent_altitude)
-
 				planet_code = i
 				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
 				# lat = planet_pos[0][0]
 				# lon = planet_pos[0][1]
 				# print(lat, lon)
 				# Вычисление азимута планеты
-				azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.EQU2HOR,
+				azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.EQUASC,
 																	  [lat, lat, 287], 0, 0,
 																	  planet_pos[0])
 				# print (self.settings.settings_planet[i]['name'])

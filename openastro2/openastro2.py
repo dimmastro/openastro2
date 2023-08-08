@@ -3200,7 +3200,7 @@ class openAstro:
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
 		distance2 = 6371*3.1  # Расстояние (в километрах)
-
+		# swe.set_sid_mode(swe.SIDM_FAGAN_BRADLEY)
 		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
 		dfd= []
@@ -3209,14 +3209,20 @@ class openAstro:
 			# if self.planets[i]['visible'] == 1:
 			if 1:
 				planet_code = i
+				print (jul_day_UT)
 				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				print (planet_pos)
 				# lat = planet_pos[0][0]
 				# lon = planet_pos[0][1]
-				# print(lat, lon)
+				# planet_pos[0][0] = 0
+				# print(self.settings.settings_planet[i]['name'] , lat, lon)
 				# Вычисление азимута планеты
-				azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.EQUASC,
-																	  [lat, lat, 287], 0, 0,
+				azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+																	  [lon, lat, 287], 0, 0,
 																	  planet_pos[0])
+																	  # [0,0,0,0,0,0])
+				azimuth = azimuth -180
+				print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
 				# print (self.settings.settings_planet[i]['name'])
 				# print("Азимут планеты:", azimuth)
 				# print("Истинная высота:", true_altitude)
@@ -3261,7 +3267,7 @@ class openAstro:
 				  }
 				}
 				dfd.append(dfdata)
-			print (azimuth)
+			# print (azimuth)
 		df = pd.DataFrame(dfd)
 		# Use pandas to prepare data for tooltip
 		df["name"] = df["from"].apply(lambda f: f["name"])
@@ -3300,6 +3306,19 @@ class openAstro:
 				app = astro.apparent()
 				alt, az, distance = app.altaz()
 				azimuth = az.degrees
+
+
+				# ts = load.timescale()
+				# t = ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+				# print (t)
+				# geocentric_planet = planet - earth  # vector from geocenter to sun
+				# planet_subpoint = wgs84.subpoint(geocentric_planet.at(t))  # subpoint method requires a geocentric position
+				# # print('subpoint latitude: ', planet_subpoint.latitude.degrees)
+				# # print('subpoint longitude: ', planet_subpoint.longitude.degrees)
+				# print(planet_names[i], planet_subpoint.latitude.degrees, planet_subpoint.longitude.degrees)
+
+				print(planet_names[i], az.degrees, alt, distance)
+
 
 				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 				# lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
@@ -3340,7 +3359,7 @@ class openAstro:
 				  }
 				}
 				dfd.append(dfdata)
-			print (azimuth)
+			# print (azimuth)
 		df = pd.DataFrame(dfd)
 		# Use pandas to prepare data for tooltip
 		df["name"] = df["from"].apply(lambda f: f["name"])

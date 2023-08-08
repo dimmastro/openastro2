@@ -2507,9 +2507,12 @@ class openAstro:
 								# self.planets_aspects_arr[z][i][x] = 1
 
 								aspect = str(self.aspects[z]['degree'])
-								orb1 = self.planets[i]['planet_orb'][self.type][aspect]
-								orb2 = self.planets[x]['planet_orb'][self.type][aspect]
-								orb = max([orb1, orb2])
+								if ('planet_orb' in self.planets[i] and 'planet_orb' in self.planets[x] ):
+									orb1 = self.planets[i]['planet_orb'][self.type][aspect]
+									orb2 = self.planets[x]['planet_orb'][self.type][aspect]
+									orb = max([orb1, orb2])
+								else:
+									orb = self.aspects[z]['orb']
 
 								self.planets_aspects_arr[z][i][x] = orb-abs(float(self.aspects[z]['degree']) - abs(float(diff)))
 								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
@@ -2572,9 +2575,12 @@ class openAstro:
 												# self.planets_aspects_arr[z][i][x] = 1
 
 												aspect = str(self.aspects[z]['degree'])
-												orb1 = self.planets[i]['planet_orb'][self.type][aspect]
-												orb2 = self.planets[x]['planet_orb'][self.type][aspect]
-												orb = max([orb1, orb2])
+												if ('planet_orb' in self.planets[i] and 'planet_orb' in self.planets[x]):
+													orb1 = self.planets[i]['planet_orb'][self.type][aspect]
+													orb2 = self.planets[x]['planet_orb'][self.type][aspect]
+													orb = max([orb1, orb2])
+												else:
+													orb = self.aspects[z]['orb']
 
 												self.t_planets_aspects_arr[z][i][x] = orb - abs(
 													float(self.aspects[z]['degree']) - abs(float(diff)))

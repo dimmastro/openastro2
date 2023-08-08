@@ -3489,9 +3489,12 @@ class openAstro:
 			event1["geolon"] = lon
 			oa1 = openAstro(event1, type="Radix")
 			oa1.calcAstro()
-			for lon in range(-180, 181, 0.5):  # Longitude ranges from -180 to 180 degrees
-				for lat in range(-60, 60, 0.5):  # Latitude ranges from -90 to 90 degrees
-
+			step = 0.5
+			for i_lon in range(int(-180 / step), int(180 / step) + 1):
+				lon = i_lon * step  # Longitude ranges from -180 to 180 degrees
+				# for lat in range(-60, 60, 1):  # Latitude ranges from -90 to 90 degrees
+				for i_lat in range(int(-60 / step), int(60 / step) + 1):
+					lat = i_lat * step  # Longitude ranges from -180 to 180 degrees
 					# print (jul_day_UT, lat, lon)
 					house = swe.houses(jul_day_UT, lat, lon)
 					# print(house[0][0])

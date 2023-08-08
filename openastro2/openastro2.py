@@ -3477,16 +3477,25 @@ class openAstro:
 		house_id = 0
 		degree_delta = 2
 		event1 = openAstro.event_dt("ttt", dt, timezone=0, location="ttt", geolat=0, geolon=0)
+		event1["geolat"] = lat
+		event1["geolon"] = lon
+		oa1 = openAstro(event1, type="Radix")
+		oa1.calcAstro()
 		coord_arr=[]
-		for lon in range(-180, 181, 2):  # Longitude ranges from -180 to 180 degrees
-			for lat in range(-80, 80, 2):  # Latitude ranges from -90 to 90 degrees
-				event1["geolat"] = lat
-				event1["geolon"] = lon
-				oa1 = openAstro(event1, type="Radix")
-				oa1.calcAstro()
+		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
+		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
+		for lon in range(-180, 181, 1):  # Longitude ranges from -180 to 180 degrees
+			for lat in range(-60, 60, 1):  # Latitude ranges from -90 to 90 degrees
+
+				# print (jul_day_UT, lat, lon)
+				house = swe.houses(jul_day_UT, lat, lon)
+				# print(house[0][0])
+				# print (oa1.houses_degree_ut[house_id])
 				# print(oa1.planets_degree_ut[planet_id], oa1.houses_degree_ut[planet_id], lat, lon)
-				if (oa1.degreeDiff(oa1.houses_degree_ut[house_id], oa1.planets_degree_ut[planet_id]) < degree_delta):
-					print(oa1.planets_degree_ut[house_id], oa1.houses_degree_ut[planet_id], lon, lat)
+				# if (oa1.degreeDiff(oa1.houses_degree_ut[house_id], oa1.planets_degree_ut[planet_id]) < degree_delta):
+				if (abs(oa1.degreeDiff(house[0][0], oa1.planets_degree_ut[planet_id])) < 1):
+					# print(oa1.planets_degree_ut[house_id], oa1.houses_degree_ut[planet_id], lon, lat)
+					print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat)
 					coord_arr.append([lon, lat])
 					# lat_0 = lat
 					break

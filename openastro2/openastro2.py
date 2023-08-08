@@ -3209,9 +3209,9 @@ class openAstro:
 			# if self.planets[i]['visible'] == 1:
 			if 1:
 				planet_code = i
-				print (jul_day_UT)
+				# print (jul_day_UT)
 				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
-				print (planet_pos)
+				# print (planet_pos)
 				# lat = planet_pos[0][0]
 				# lon = planet_pos[0][1]
 				# planet_pos[0][0] = 0
@@ -3222,7 +3222,7 @@ class openAstro:
 																	  planet_pos[0])
 																	  # [0,0,0,0,0,0])
 				azimuth = azimuth -180
-				print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
+				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
 				# print (self.settings.settings_planet[i]['name'])
 				# print("Азимут планеты:", azimuth)
 				# print("Истинная высота:", true_altitude)
@@ -3317,7 +3317,7 @@ class openAstro:
 				# # print('subpoint longitude: ', planet_subpoint.longitude.degrees)
 				# print(planet_names[i], planet_subpoint.latitude.degrees, planet_subpoint.longitude.degrees)
 
-				print(planet_names[i], az.degrees, alt, distance)
+				# print(planet_names[i], az.degrees, alt, distance)
 
 
 				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
@@ -3539,7 +3539,7 @@ class openAstro:
 		)
 		return layer
 
-	def makeLocalSpaceSweLayer(self, dt, lat, lon, color1 =[255, 255, 255], color2=[255, 255, 255]):
+	def makeLocalSpaceSweLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
 		df = self.makeLocalSpaceSweDataFrame(dt, lat, lon)
 		# print (color1)
 		# Define a layer to display on a map

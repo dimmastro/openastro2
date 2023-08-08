@@ -60,6 +60,7 @@ import pandas as pd
 
 import ephem
 
+import swisseph as swe
 
 #debug
 LOCAL=True
@@ -3194,6 +3195,96 @@ class openAstro:
 		return lat2, lon2
 
 
+	def makeLocalSpaceSweDataFrame(self, dt, lat, lon):
+
+		# planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
+		# data = load('de421.bsp')
+
+		# earth = data['earth']
+		# ts = load.timescale()
+		# place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
+
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+
+		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
+		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
+		dfd= []
+		# for i in range(len(self.planets)):
+		for i in range(22):
+			# if self.planets[i]['visible'] == 1:
+			if 1:
+				#list of planets sorted by degree
+				# planets_degut[self.planets_degree_ut[i]]=i
+				# astro = place.at(ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)).observe(planet)
+				# app = astro.apparent()
+				# alt, az, distance = app.altaz()
+				# azimuth = az.degrees
+				# print("Азимут планеты:", azimuth)
+				# print("Истинная высота:", true_altitude)
+				# print("Видимая высота:", apparent_altitude)
+
+				planet_code = i
+				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				# lat = planet_pos[0][0]
+				# lon = planet_pos[0][1]
+				# print(lat, lon)
+				# Вычисление азимута планеты
+				azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.EQU2HOR,
+																	  [lat, lat, 287], 0, 0,
+																	  planet_pos[0])
+				# print (self.settings.settings_planet[i]['name'])
+				# print("Азимут планеты:", azimuth)
+				# print("Истинная высота:", true_altitude)
+				# print("Видимая высота:", apparent_altitude)
+
+				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+				# lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
+				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
+				dfdata= {
+				  "from": {
+					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"coordinates": [
+					  starting_longitude,
+					  starting_latitude
+					]
+				  },
+				  "to": {
+					"name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"coordinates": [
+					  new_longitude,
+					  new_latitude
+					]
+				  }
+				}
+
+				dfd.append(dfdata)
+				dfdata= {
+				  "from": {
+					"name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"coordinates": [
+					  starting_longitude,
+					  starting_latitude
+					]
+				  },
+				  "to": {
+					"name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"coordinates": [
+					  new_longitude2,
+					  new_latitude2
+					]
+				  }
+				}
+				dfd.append(dfdata)
+			print (azimuth)
+		df = pd.DataFrame(dfd)
+		# Use pandas to prepare data for tooltip
+		df["name"] = df["from"].apply(lambda f: f["name"])
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
 	def makeLocalSpaceDataFrame(self, dt, lat, lon):
 
 		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
@@ -3431,6 +3522,23 @@ class openAstro:
 
 	def makeLocalSpaceLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
 		df = self.makeLocalSpaceDataFrame(dt, lat, lon)
+		# print (color1)
+		# Define a layer to display on a map
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
+
+	def makeLocalSpaceSweLayer(self, dt, lat, lon, color1 =[255, 255, 255], color2=[255, 255, 255]):
+		df = self.makeLocalSpaceSweDataFrame(dt, lat, lon)
 		# print (color1)
 		# Define a layer to display on a map
 		layer = pdk.Layer(

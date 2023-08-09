@@ -812,6 +812,34 @@ class openAstro:
 		# print(dt_new)
 		return
 
+
+	def localToGeoZodiac(self, geo_zodiak_delta=0):
+		planet_id = 14 #Earth = 0 Aries
+		dprint("localToGeoZodiac: second Earth %s" % (self.planets_degree_ut[planet_id]))
+		# print (self.planets_degree_ut[planet_id])
+		degree_diff = geo_zodiak_delta - self.planets_degree_ut[planet_id]
+		self.t_hour = self.hour - degree_diff/360*24
+
+		self.t_year = self.year
+		self.t_month = self.month
+		self.t_day = self.day
+		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
+		self.e2_dt_utc = datetime.datetime(self.t_year, self.t_month, self.t_day, self.t_h, self.t_m, self.t_s)
+
+		self.t_name = self.name
+		self.t_location = self.location
+		self.t_timezone = self.timezone
+		self.t_geolon = self.geolon
+		self.t_geolat = self.geolat
+		self.t_altitude = self.altitude
+		self.type = "Transit"
+		# openAstro.charttype="%s (%s-%02d-%02d %02d:%02d:%02d UTC)" % (openAstro.label["solar"],self.s_year,self.s_month,self.s_day,dt_new.hour,dt_new.minute,dt_new.second)
+		openAstro.transit = False
+		# print(dt_new)
+		return
+
+
+
 	def localToAscReturn(self, t_year, t_month, t_day, t_hour, t_geolon,
 					 t_geolat, t_altitude):
 		planet_id = 23
@@ -1021,6 +1049,15 @@ class openAstro:
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											  self.settings.astrocfg)
 
+		elif self.type == "GeoZodiac":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			self.planets_degree_ut = module_data.planets_degree_ut
+			self.localToGeoZodiac(geo_zodiak_delta=0)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
 
 
 		elif self.type == "SecondaryProgression":
@@ -3426,23 +3463,23 @@ class openAstro:
 				  }
 				}
 				dfd.append(dfdata)
-			dfdata = {
-				"from": {
-					"name": self.name + "/" + " K4 " + planet_names[i] + " (" + '{0:.2f}'.format(planet_subpoint.longitude.degrees) + ")",
-					"coordinates": [
-						planet_subpoint.longitude.degrees +180,
-						-80
-					]
-				},
-				"to": {
-					"name": self.name + "/" + " K4 " + planet_names[i] + " (" + '{0:.2f}'.format(planet_subpoint.longitude.degrees) + ")",
-					"coordinates": [
-						planet_subpoint.longitude.degrees +180,
-						80
-					]
+				dfdata = {
+					"from": {
+						"name": self.name + "/" + " K4 " + planet_names[i] + " (" + '{0:.2f}'.format(planet_subpoint.longitude.degrees) + ")",
+						"coordinates": [
+							planet_subpoint.longitude.degrees +180,
+							-80
+						]
+					},
+					"to": {
+						"name": self.name + "/" + " K4 " + planet_names[i] + " (" + '{0:.2f}'.format(planet_subpoint.longitude.degrees) + ")",
+						"coordinates": [
+							planet_subpoint.longitude.degrees +180,
+							80
+						]
+					}
 				}
-			}
-			dfd.append(dfdata)
+				dfd.append(dfdata)
 
 		# dfdata= {
 				#   "from": {
@@ -3571,10 +3608,12 @@ class openAstro:
 				}
 				dfd.append(dfdata)
 
+		# print (dfd)
 		df = pd.DataFrame(dfd)
 		# Use pandas to prepare data for tooltip
 		df["name"] = df["from"].apply(lambda f: f["name"])
 		df["name"] = df["to"].apply(lambda t: t["name"])
+		# print (df)
 		return df
 
 

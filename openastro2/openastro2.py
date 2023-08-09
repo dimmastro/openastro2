@@ -3529,7 +3529,7 @@ class openAstro:
 						coord_arr.append([lon, lat])
 						# lat_0 = lat
 						break
-					if (abs(oa1.degreeDiff(house[0][6], oa1.planets_degree_ut[planet_id])) < 0.5):
+					if (abs(oa1.degreeDiff2(house[0][6], oa1.planets_degree_ut[planet_id])) < 0.5):
 						# print(oa1.planets_degree_ut[house_id], oa1.houses_degree_ut[planet_id], lon, lat)
 						# print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat)
 						# print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat, abs(oa1.degreeDiff(house[0][0], oa1.planets_degree_ut[planet_id])))

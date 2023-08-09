@@ -813,18 +813,56 @@ class openAstro:
 		return
 
 
-	def localToGeoZodiac(self, geo_zodiak_delta=0):
-		planet_id = 14 #Earth = 0 Aries
+	def localToGeoZodiac(self, geo_zodiak_delta=110):
+		geo_zodiak_delta = 0
+		planet_id = 0 #Earth = 0 Aries
+
+		planet_names = {1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran',
+						8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
+		data = load('de421.bsp')
+		earth = data['earth']
+		planet = data[10]
+		geocentric_planet = planet - earth  # vector from geocenter to sun
+		ts = load.timescale()
+		t = ts.utc(self.e1_dt_utc.year, self.e1_dt_utc.month, self.e1_dt_utc.day, self.e1_dt_utc.hour, self.e1_dt_utc.minute, self.e1_dt_utc.second)
+		planet_subpoint = wgs84.subpoint(geocentric_planet.at(t))  # subpoint method requires a geocentric position
+		# print('subpoint latitude: ', planet_subpoint.latitude.degrees)
+		# print('subpoint longitude: ', planet_subpoint.longitude.degrees)
+		lon_geo = planet_subpoint.longitude.degrees
+
+		lon_astro = self.planets_degree_ut[planet_id]
+		lon_geo_zodiak = lon_geo - lon_astro -90
+		if lon_geo_zodiak<0:
+			lon_geo_zodiak = lon_geo_zodiak+360
+		if lon_geo_zodiak>360:
+			lon_geo_zodiak = lon_geo_zodiak-360
+		if lon_geo_zodiak<-360:
+			lon_geo_zodiak = lon_geo_zodiak+360
+
+		print ("lon_geo = ", lon_geo)
+		print ("lon_astro = ", lon_astro)
+		print ("lon_geo_zodiak = ", lon_geo_zodiak)
+
 		dprint("localToGeoZodiac: second Earth %s" % (self.planets_degree_ut[planet_id]))
 		# print (self.planets_degree_ut[planet_id])
-		degree_diff = geo_zodiak_delta - self.planets_degree_ut[planet_id]
+		degree_diff = lon_geo_zodiak - geo_zodiak_delta
 		self.t_hour = self.hour - degree_diff/360*24
+		if self.t_hour<0:
+			self.t_hour = self.t_hour+24
+		if self.t_hour>24:
+			self.t_hour = self.t_hour-24
+		print ("self.planets_degree_ut[planet_id] = ", self.planets_degree_ut[planet_id])
+		print ("degree_diff = ", degree_diff)
+		print ("self.hour = ", self.hour)
+		print ("self.t_hour = ", self.t_hour)
+
 
 		self.t_year = self.year
 		self.t_month = self.month
 		self.t_day = self.day
 		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
 		self.e2_dt_utc = datetime.datetime(self.t_year, self.t_month, self.t_day, self.t_h, self.t_m, self.t_s)
+		print ("self.e2_dt_utc = ", self.e2_dt_utc)
 
 		self.t_name = self.name
 		self.t_location = self.location
@@ -3481,27 +3519,11 @@ class openAstro:
 				}
 				dfd.append(dfdata)
 
-		# dfdata= {
-				#   "from": {
-				# 	"name": self.name + "/ " + planet_names[i],
-				# 	"coordinates": [
-				# 	  0,
-				# 	  planet_subpoint.latitude.degrees
-				# 	]
-				#   },
-				#   "to": {
-				# 	"name": self.name + "/ " + planet_names[i],
-				# 	"coordinates": [
-				# 	  90,
-				# 	  planet_subpoint.latitude.degrees
-				# 	]
-				#   }
-				# }
-				# dfd.append(dfdata)
 		df = pd.DataFrame(dfd)
 		# Use pandas to prepare data for tooltip
 		df["name"] = df["from"].apply(lambda f: f["name"])
 		df["name"] = df["to"].apply(lambda t: t["name"])
+		print (df)
 		return df
 
 

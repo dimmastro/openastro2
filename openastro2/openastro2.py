@@ -1542,6 +1542,21 @@ class openAstro:
 		if out > 180.0:
 			out=360.0-out
 		return out
+	#degree difference
+	def degreeDiff2( self , a , b ):
+		if (self.settings.astrocfg["round_aspects"] == 1):
+			a = int(a)
+			b = int(b)
+		out=float()
+		if a > b:
+			out=a-b
+		if a < b:
+			out=b-a
+		if out > 360.0:
+			out=360.0-out
+		if out < -360.0:
+			out=out+360
+		return out
 
 	#decimal to degrees (a°b'c")
 	def dec2deg( self , dec , type="3"):
@@ -3471,7 +3486,7 @@ class openAstro:
 		)
 		return layer
 
-	def makeAscDataFrame(self, dt, lat, lon):
+	def makeAscDataFrame(self, dt, lat, lon, num_planet=11):
 		dfd= []
 		# planet_id = 3
 		# house_id = 0
@@ -3483,18 +3498,22 @@ class openAstro:
 		coord_arr_7=[]
 		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
-		for i in range(22):
+
+		event1 = openAstro.event_dt("ttt", dt, timezone=0, location="ttt", geolat=0, geolon=0)
+		event1["geolat"] = lat
+		event1["geolon"] = lon
+		oa1 = openAstro(event1, type="Radix")
+		oa1.calcAstro()
+
+		step = 0.5
+		for i in range(num_planet):
+			print (self.settings.settings_planet[i]['name'])
 			coord_arr = []
 			coord_arr_7 = []
 			planet_id = i
-			event1 = openAstro.event_dt("ttt", dt, timezone=0, location="ttt", geolat=0, geolon=0)
-			event1["geolat"] = lat
-			event1["geolon"] = lon
-			oa1 = openAstro(event1, type="Radix")
-			oa1.calcAstro()
-			step = 0.5
 			for i_lon in range(int(-180 / step), int(180 / step) + 1):
 				lon = i_lon * step  # Longitude ranges from -180 to 180 degrees
+				# print (lon)
 				# for lat in range(-60, 60, 1):  # Latitude ranges from -90 to 90 degrees
 				for i_lat in range(int(-60 / step), int(60 / step) + 1):
 					lat = i_lat * step  # Longitude ranges from -180 to 180 degrees
@@ -3504,15 +3523,16 @@ class openAstro:
 					# print (oa1.houses_degree_ut[house_id])
 					# print(oa1.planets_degree_ut[planet_id], oa1.houses_degree_ut[planet_id], lat, lon)
 					# if (oa1.degreeDiff(oa1.houses_degree_ut[house_id], oa1.planets_degree_ut[planet_id]) < degree_delta):
-					if (abs(oa1.degreeDiff(house[0][0], oa1.planets_degree_ut[planet_id])) < 0.5):
+					if (abs(oa1.degreeDiff2(house[0][0], oa1.planets_degree_ut[planet_id])) < 0.5):
 						# print(oa1.planets_degree_ut[house_id], oa1.houses_degree_ut[planet_id], lon, lat)
-						# print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat)
+						# print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat, abs(oa1.degreeDiff(house[0][0], oa1.planets_degree_ut[planet_id])))
 						coord_arr.append([lon, lat])
 						# lat_0 = lat
 						break
 					if (abs(oa1.degreeDiff(house[0][6], oa1.planets_degree_ut[planet_id])) < 0.5):
 						# print(oa1.planets_degree_ut[house_id], oa1.houses_degree_ut[planet_id], lon, lat)
 						# print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat)
+						# print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat, abs(oa1.degreeDiff(house[0][0], oa1.planets_degree_ut[planet_id])))
 						coord_arr_7.append([lon, lat])
 						# lat_0 = lat
 						break
@@ -3558,8 +3578,8 @@ class openAstro:
 		return df
 
 
-	def makeAscLayer(self, dt, lat, lon, color1 =[255, 100, 100], color2=[255, 100, 100]):
-		df = self.makeAscDataFrame(dt, lat, lon)
+	def makeAscLayer(self, dt, lat, lon, color1 =[255, 100, 100], color2=[255, 100, 100], num_planet=11):
+		df = self.makeAscDataFrame(dt, lat, lon, num_planet)
 		# print (color1)
 		# Define a layer to display on a map
 		layer = pdk.Layer(

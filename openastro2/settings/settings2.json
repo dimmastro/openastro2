@@ -1,6 +1,7 @@
 {
 "astrocfg": {"version": "2.0.0", "home_location": "London", "home_geolat": "56.01839", "home_geolon": "0.0", "home_countrycode": "EN", "home_timezonestr": "Asia/Krasnoyarsk", "use_geonames.org": "0", "houses_system": "P", "postype": "geo", "chartview": "european", "zodiactype": "tropical", "siderealmode": "FAGAN_BRADLEY", "language": "en",
-  "round_aspects": 1
+  "round_aspects": 1,
+  "geo_zodiak_start": -17.5833333
 },
 "color_codes": {
   "paper_0": "#000000", "paper_1": "#ffffff",

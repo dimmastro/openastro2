@@ -813,8 +813,9 @@ class openAstro:
 		return
 
 
-	def localToGeoZodiac(self, geo_zodiak_delta=110):
-		geo_zodiak_delta = 0
+	def localToGeoZodiac(self):
+		# geo_zodiak_start = -17.5833333
+		geo_zodiak_start = self.settings.astrocfg["geo_zodiak_start"]
 		planet_id = 0 #Earth = 0 Aries
 
 		planet_names = {1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran',
@@ -847,7 +848,7 @@ class openAstro:
 
 		dprint("localToGeoZodiac: second Earth %s" % (self.planets_degree_ut[planet_id]))
 		# print (self.planets_degree_ut[planet_id])
-		degree_diff = lon_geo_zodiak - geo_zodiak_delta
+		degree_diff = lon_geo_zodiak - geo_zodiak_start
 		self.t_hour = self.hour + degree_diff/360*24
 		if self.t_hour<0:
 			self.t_hour = self.t_hour+24
@@ -1102,7 +1103,7 @@ class openAstro:
 											self.geolat, self.altitude, self.planets, self.zodiac,
 											self.settings.astrocfg)
 			self.planets_degree_ut = module_data.planets_degree_ut
-			self.localToGeoZodiac(geo_zodiak_delta=0)
+			self.localToGeoZodiac()
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											  self.settings.astrocfg)

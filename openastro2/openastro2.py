@@ -822,6 +822,7 @@ class openAstro:
 		data = load('de421.bsp')
 		earth = data['earth']
 		planet = data[10]
+		print (planet_names[10])
 		geocentric_planet = planet - earth  # vector from geocenter to sun
 		ts = load.timescale()
 		t = ts.utc(self.e1_dt_utc.year, self.e1_dt_utc.month, self.e1_dt_utc.day, self.e1_dt_utc.hour, self.e1_dt_utc.minute, self.e1_dt_utc.second)
@@ -831,7 +832,8 @@ class openAstro:
 		lon_geo = planet_subpoint.longitude.degrees
 
 		lon_astro = self.planets_degree_ut[planet_id]
-		lon_geo_zodiak = lon_geo - lon_astro -90
+		lon_geo_zodiak = lon_geo - lon_astro
+		# lon_geo_zodiak = lon_geo
 		if lon_geo_zodiak<0:
 			lon_geo_zodiak = lon_geo_zodiak+360
 		if lon_geo_zodiak>360:
@@ -846,7 +848,7 @@ class openAstro:
 		dprint("localToGeoZodiac: second Earth %s" % (self.planets_degree_ut[planet_id]))
 		# print (self.planets_degree_ut[planet_id])
 		degree_diff = lon_geo_zodiak - geo_zodiak_delta
-		self.t_hour = self.hour - degree_diff/360*24
+		self.t_hour = self.hour + degree_diff/360*24
 		if self.t_hour<0:
 			self.t_hour = self.t_hour+24
 		if self.t_hour>24:
@@ -863,6 +865,14 @@ class openAstro:
 		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
 		self.e2_dt_utc = datetime.datetime(self.t_year, self.t_month, self.t_day, self.t_h, self.t_m, self.t_s)
 		print ("self.e2_dt_utc = ", self.e2_dt_utc)
+
+		t = ts.utc(self.e2_dt_utc.year, self.e2_dt_utc.month, self.e2_dt_utc.day, self.e2_dt_utc.hour, self.e2_dt_utc.minute, self.e2_dt_utc.second)
+		planet_subpoint = wgs84.subpoint(geocentric_planet.at(t))  # subpoint method requires a geocentric position
+		# print('subpoint latitude: ', planet_subpoint.latitude.degrees)
+		# print('subpoint longitude: ', planet_subpoint.longitude.degrees)
+		lon_geo2 = planet_subpoint.longitude.degrees
+		print ("lon_geo2 = ", lon_geo2)
+
 
 		self.t_name = self.name
 		self.t_location = self.location
@@ -3503,14 +3513,14 @@ class openAstro:
 				dfd.append(dfdata)
 				dfdata = {
 					"from": {
-						"name": self.name + "/" + " K4 " + planet_names[i] + " (" + '{0:.2f}'.format(planet_subpoint.longitude.degrees) + ")",
+						"name": self.name + "/" + " K4 " + planet_names[i] + " (" + '{0:.2f}'.format(planet_subpoint.longitude.degrees+180) + ")",
 						"coordinates": [
 							planet_subpoint.longitude.degrees +180,
 							-80
 						]
 					},
 					"to": {
-						"name": self.name + "/" + " K4 " + planet_names[i] + " (" + '{0:.2f}'.format(planet_subpoint.longitude.degrees) + ")",
+						"name": self.name + "/" + " K4 " + planet_names[i] + " (" + '{0:.2f}'.format(planet_subpoint.longitude.degrees+180) + ")",
 						"coordinates": [
 							planet_subpoint.longitude.degrees +180,
 							80

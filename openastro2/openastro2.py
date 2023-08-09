@@ -3473,16 +3473,19 @@ class openAstro:
 
 	def makeAscDataFrame(self, dt, lat, lon):
 		dfd= []
-		planet_id = 3
-		house_id = 0
+		# planet_id = 3
+		# house_id = 0
 		degree_delta = 2
 
 		coord_arr_arr=[]
+		coord_arr_arr_7=[]
 		coord_arr=[]
+		coord_arr_7=[]
 		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
-		for i in range(11):
+		for i in range(22):
 			coord_arr = []
+			coord_arr_7 = []
 			planet_id = i
 			event1 = openAstro.event_dt("ttt", dt, timezone=0, location="ttt", geolat=0, geolon=0)
 			event1["geolat"] = lat
@@ -3503,11 +3506,18 @@ class openAstro:
 					# if (oa1.degreeDiff(oa1.houses_degree_ut[house_id], oa1.planets_degree_ut[planet_id]) < degree_delta):
 					if (abs(oa1.degreeDiff(house[0][0], oa1.planets_degree_ut[planet_id])) < 0.5):
 						# print(oa1.planets_degree_ut[house_id], oa1.houses_degree_ut[planet_id], lon, lat)
-						print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat)
+						# print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat)
 						coord_arr.append([lon, lat])
 						# lat_0 = lat
 						break
+					if (abs(oa1.degreeDiff(house[0][6], oa1.planets_degree_ut[planet_id])) < 0.5):
+						# print(oa1.planets_degree_ut[house_id], oa1.houses_degree_ut[planet_id], lon, lat)
+						# print(house[0][0], oa1.houses_degree_ut[planet_id], lon, lat)
+						coord_arr_7.append([lon, lat])
+						# lat_0 = lat
+						break
 			coord_arr_arr.append(coord_arr)
+			coord_arr_arr_7.append(coord_arr_7)
 
 		for ii in range(len(coord_arr_arr)):
 			planet_id=ii
@@ -3515,11 +3525,27 @@ class openAstro:
 			for i in range(len(coord_arr)-1):
 				dfdata= {
 				  "from": {
-					"name": " K1 " + str(planet_id) + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
+					"name": " K1 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
 					"coordinates": [coord_arr[i][0], coord_arr[i][1]]
 				  },
 				  "to": {
-					"name": " K1 " + str(planet_id) + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
+					"name": " K1 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
+					"coordinates": [coord_arr[i+1][0], coord_arr[i+1][1]]
+				  }
+				}
+				dfd.append(dfdata)
+
+		for ii in range(len(coord_arr_arr_7)):
+			planet_id=ii
+			coord_arr = coord_arr_arr[ii]
+			for i in range(len(coord_arr)-1):
+				dfdata= {
+				  "from": {
+					"name": " K7 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
+					"coordinates": [coord_arr[i][0], coord_arr[i][1]]
+				  },
+				  "to": {
+					"name": " K7 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
 					"coordinates": [coord_arr[i+1][0], coord_arr[i+1][1]]
 				  }
 				}

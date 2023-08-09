@@ -3216,7 +3216,7 @@ class openAstro:
 		return lat2, lon2
 
 
-	def makeLocalSpaceSweDataFrame(self, dt, lat, lon):
+	def makeLocalSpaceSweDataFrame(self, dt, lat, lon, num_planet=11):
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
@@ -3226,7 +3226,7 @@ class openAstro:
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
 		dfd= []
 		# for i in range(len(self.planets)):
-		for i in range(22):
+		for i in range(num_planet):
 			# if self.planets[i]['visible'] == 1:
 			if 1:
 				planet_code = i
@@ -3557,7 +3557,7 @@ class openAstro:
 
 		for ii in range(len(coord_arr_arr_7)):
 			planet_id=ii
-			coord_arr = coord_arr_arr[ii]
+			coord_arr = coord_arr_arr_7[ii]
 			for i in range(len(coord_arr)-1):
 				dfdata= {
 				  "from": {
@@ -3612,8 +3612,8 @@ class openAstro:
 		)
 		return layer
 
-	def makeLocalSpaceSweLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
-		df = self.makeLocalSpaceSweDataFrame(dt, lat, lon)
+	def makeLocalSpaceSweLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150], num_planet=11):
+		df = self.makeLocalSpaceSweDataFrame(dt, lat, lon, num_planet)
 		# print (color1)
 		# Define a layer to display on a map
 		layer = pdk.Layer(

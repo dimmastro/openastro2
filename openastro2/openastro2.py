@@ -842,9 +842,9 @@ class openAstro:
 		if lon_geo_zodiak<-360:
 			lon_geo_zodiak = lon_geo_zodiak+360
 
-		print ("lon_geo = ", lon_geo)
-		print ("lon_astro = ", lon_astro)
-		print ("lon_geo_zodiak = ", lon_geo_zodiak)
+		# print ("lon_geo = ", lon_geo)
+		# print ("lon_astro = ", lon_astro)
+		# print ("lon_geo_zodiak = ", lon_geo_zodiak)
 
 		dprint("localToGeoZodiac: second Earth %s" % (self.planets_degree_ut[planet_id]))
 		# print (self.planets_degree_ut[planet_id])
@@ -854,10 +854,10 @@ class openAstro:
 			self.t_hour = self.t_hour+24
 		if self.t_hour>24:
 			self.t_hour = self.t_hour-24
-		print ("self.planets_degree_ut[planet_id] = ", self.planets_degree_ut[planet_id])
-		print ("degree_diff = ", degree_diff)
-		print ("self.hour = ", self.hour)
-		print ("self.t_hour = ", self.t_hour)
+		# print ("self.planets_degree_ut[planet_id] = ", self.planets_degree_ut[planet_id])
+		# print ("degree_diff = ", degree_diff)
+		# print ("self.hour = ", self.hour)
+		# print ("self.t_hour = ", self.t_hour)
 
 
 		self.t_year = self.year
@@ -872,7 +872,7 @@ class openAstro:
 		# print('subpoint latitude: ', planet_subpoint.latitude.degrees)
 		# print('subpoint longitude: ', planet_subpoint.longitude.degrees)
 		lon_geo2 = planet_subpoint.longitude.degrees
-		print ("lon_geo2 = ", lon_geo2)
+		# print ("lon_geo2 = ", lon_geo2)
 
 
 		self.t_name = self.name
@@ -3667,7 +3667,7 @@ class openAstro:
 		)
 		return layer
 
-	def makeLocalSpaceLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[0, 128, 200]):
+	def makeLocalSpaceLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[64, 255, 0]):
 		df = self.makeLocalSpaceDataFrame(dt, lat, lon)
 		# print (color1)
 		# Define a layer to display on a map

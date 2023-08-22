@@ -3341,14 +3341,15 @@ class openAstro:
 				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) +  " app_alt=" + '{0:.2f}'.format(apparent_altitude) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) +  " app_alt=" + '{0:.2f}'.format(apparent_altitude) + ")",
 					"coordinates": [
 					  new_longitude,
 					  new_latitude
@@ -3359,14 +3360,16 @@ class openAstro:
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) +  " app_alt=" + '{0:.2f}'.format(apparent_altitude) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) +  " app_alt=" + '{0:.2f}'.format(apparent_altitude) + ")",
 					"coordinates": [
 					  new_longitude2,
 					  new_latitude2
@@ -3433,14 +3436,16 @@ class openAstro:
 				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "-" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": self.name + "/" + "-"  +planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					# "name": self.name + "/" + "-"  +planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  new_longitude,
 					  new_latitude
@@ -3451,14 +3456,16 @@ class openAstro:
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					# "name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					"name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					# "name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  new_longitude2,
 					  new_latitude2

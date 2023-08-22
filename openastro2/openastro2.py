@@ -3361,7 +3361,7 @@ class openAstro:
 				dfdata= {
 				  "from": {
 					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(-azimuth) + " alt=" + '{0:.2f}'.format(-true_altitude) + ")",
+					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(-azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
@@ -3369,7 +3369,7 @@ class openAstro:
 				  },
 				  "to": {
 					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(-azimuth) + " alt=" + '{0:.2f}'.format(-true_altitude) + ")",
+					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(-azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
 					"coordinates": [
 					  new_longitude2,
 					  new_latitude2

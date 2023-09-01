@@ -3799,6 +3799,99 @@ class openAstro:
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
 
+	def makeLocalSpaceHouseSkyLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
+		df = self.makeLocalSpaceHouseSkyDataFrame(dt, lat, lon)
+		# print (color1)
+		# Define a layer to display on a map
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
+
+	def makeLocalSpaceHouseSkyDataFrame(self, dt, lat, lon):
+		# print (self.houses_degree_ut)
+		import numpy as np
+		from skyfield import api, framelib
+		from skyfield.positionlib import Apparent
+		from skyfield.api import utc
+
+		𝜏 = api.tau
+		ts = api.load.timescale()
+		eph = api.load('de421.bsp')
+		bluffton = api.Topos(lat, lon)
+		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		# angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
+		angle = - np.array(self.houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
+
+		zero = angle * 0.0
+		f = framelib.ecliptic_frame
+		d = api.Distance([np.sin(angle), np.cos(angle), zero])
+		v = api.Velocity([zero, zero, zero])
+		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
+		p.center = bluffton
+		alt0, az0, distance0 = p.altaz()
+		i = np.argmax(alt0.degrees)  # Which of the 360 points has highest altitude?
+		# print('Altitude of highest point on ecliptic:', alt.degrees[i])
+		# print('Azimuth of highest point on ecliptic:', az.degrees[i])
+		# print(az0.degrees)
+		# print(alt0.degrees)
+		# print(angle)
+
+		earth = eph['earth']
+		ts = load.timescale()
+		place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+
+		dfd= []
+		for i in range(12):
+			if (1):
+				alt = alt0.degrees[i]
+				azimuth = az0.degrees[i]
+				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				dfdata= {
+				  "from": {
+					"name": self.name + "/"  + "house-" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+					"coordinates": [ starting_longitude,  starting_latitude ]
+				  },
+				  "to": {
+					"name": self.name + "/"  + "house-" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+					"coordinates": [ new_longitude, new_latitude ]
+				  }
+				}
+
+				dfd.append(dfdata)
+				# dfdata= {
+				#   "from": {
+				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+				# 	"coordinates": [
+				# 	  starting_longitude,
+				# 	  starting_latitude
+				# 	]
+				#   },
+				#   "to": {
+				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+				# 	"coordinates": [
+				# 	  new_longitude2,
+				# 	  new_latitude2
+				# 	]
+				#   }
+				# }
+				# dfd.append(dfdata)
+		df = pd.DataFrame(dfd)
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
 
 
 	def makeIconLayer(self, df_data):

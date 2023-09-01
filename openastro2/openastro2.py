@@ -3737,7 +3737,7 @@ class openAstro:
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		angle = np.arange(12) / 12.0 * 𝜏
+		angle = np.arange(12) / 12.0 * 𝜏 - 1/4.0 * 𝜏
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame
 		d = api.Distance([np.sin(angle), np.cos(angle), zero])
@@ -3768,11 +3768,11 @@ class openAstro:
 				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+					"name": self.name + "/"  + "zodiak-" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
 					"coordinates": [ starting_longitude,  starting_latitude ]
 				  },
 				  "to": {
-					"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+					"name": self.name + "/"  + "zodiak-" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
 					"coordinates": [ new_longitude, new_latitude ]
 				  }
 				}

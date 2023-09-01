@@ -3769,22 +3769,35 @@ class openAstro:
 				dfdata= {
 				  "from": {
 					"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
-					"coordinates": [starting_longitude, starting_latitude ]
+					"coordinates": [
+					  starting_longitude,
+					  starting_latitude
+					]
 				  },
 				  "to": {
 					"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
-					"coordinates": [starting_longitude2, starting_latitude2 ]
+					"coordinates": [
+					  new_longitude,
+					  new_latitude
+					]
 				  }
 				}
+
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
 					"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
-					"coordinates": [starting_longitude, starting_latitude ]
+					"coordinates": [
+					  starting_longitude,
+					  starting_latitude
+					]
 				  },
 				  "to": {
 					"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
-					"coordinates": [starting_longitude2, starting_latitude2 ]
+					"coordinates": [
+					  new_longitude2,
+					  new_latitude2
+					]
 				  }
 				}
 				dfd.append(dfdata)

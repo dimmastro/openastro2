@@ -62,6 +62,11 @@ import ephem
 
 import swisseph as swe
 
+import numpy as np
+from skyfield import api, framelib
+from skyfield.positionlib import Apparent
+from skyfield.api import utc
+
 #debug
 LOCAL=True
 DEBUG=False
@@ -3727,11 +3732,6 @@ class openAstro:
 
 	def makeLocalSpaceZodiakSkyDataFrame(self, dt, lat, lon):
 
-		import numpy as np
-		from skyfield import api, framelib
-		from skyfield.positionlib import Apparent
-		from skyfield.api import utc
-
 		𝜏 = api.tau
 		ts = api.load.timescale()
 		eph = api.load('de421.bsp')
@@ -3768,11 +3768,11 @@ class openAstro:
 				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "zodiak-" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+					"name": self.name + "/"  + " " + self.zodiac[i] + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
 					"coordinates": [ starting_longitude,  starting_latitude ]
 				  },
 				  "to": {
-					"name": self.name + "/"  + "zodiak-" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+					"name": self.name + "/"  + " " + self.zodiac[i] + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
 					"coordinates": [ new_longitude, new_latitude ]
 				  }
 				}
@@ -3818,10 +3818,7 @@ class openAstro:
 
 	def makeLocalSpaceHouseSkyDataFrame(self, dt, lat, lon):
 		# print (self.houses_degree_ut)
-		import numpy as np
-		from skyfield import api, framelib
-		from skyfield.positionlib import Apparent
-		from skyfield.api import utc
+
 
 		𝜏 = api.tau
 		ts = api.load.timescale()
@@ -3861,11 +3858,11 @@ class openAstro:
 				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "house-" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
 					"coordinates": [ starting_longitude,  starting_latitude ]
 				  },
 				  "to": {
-					"name": self.name + "/"  + "house-" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
+					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.2f}'.format(float(azimuth)) + " alt=" + '{0:.2f}'.format(float(alt)) +")",
 					"coordinates": [ new_longitude, new_latitude ]
 				  }
 				}

@@ -959,9 +959,9 @@ class openAstro:
 		solaryearsecs = 1 * 24 * 60 * 60 / 4 #
 		# dprint("localToSolar: from %s to %s" % (self.year, newyear))
 		h, m, s = self.decHour(self.hour)
-		dt = datetime.datetime(self.year, self.month, self.day, h, m, s)
+		# dt = datetime.datetime(self.year, self.month, self.day, h, m, s)
 		t_h, t_m, t_s = self.decHour(t_hour)
-		# dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
+		dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
 		t_geolon_new = t_geolon
 		# dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_id]))
 		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
@@ -1003,7 +1003,7 @@ class openAstro:
 		self.t_day = t_day
 		self.t_hour = t_hour
 		self.t_h, self.t_m, self.t_s = self.decHour(t_hour)
-		self.e2_dt_utc = dt
+		self.e2_dt_utc = dt_new
 
 		self.t_geolon = t_geolon_new
 		self.t_geolat = self.geolat

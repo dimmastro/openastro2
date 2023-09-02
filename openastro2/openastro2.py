@@ -3528,8 +3528,8 @@ class openAstro:
 		return df
 
 
-	def makeLocalSpaceAspectSweLayer(self, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11):
-		df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet)
+	def makeLocalSpaceAspectSweLayer(self, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11, aspects = [60, 90, 120]):
+		df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet, aspects)
 		layer = pdk.Layer(
 		"GreatCircleLayer",
 		df,
@@ -3542,7 +3542,7 @@ class openAstro:
 		auto_highlight=True,
 		)
 		return layer
-	def makeLocalSpaceAspectSweDataFrame(self, dt, lat, lon, num_planet=11):
+	def makeLocalSpaceAspectSweDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
@@ -3563,7 +3563,7 @@ class openAstro:
 				# print("Азимут планеты:", azimuth)
 				# print("Истинная высота:", true_altitude)
 				# print("Видимая высота:", apparent_altitude)
-				aspects = [60, 90, 120]
+				# aspects = [60, 90, 120]
 
 				for aspect in aspects:
 					azimuth = azimuth0 + aspect

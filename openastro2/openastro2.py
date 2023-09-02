@@ -896,7 +896,7 @@ class openAstro:
 
 	def localToAscReturn(self, t_year, t_month, t_day, t_hour, t_geolon,
 					 t_geolat, t_altitude):
-		planet_id = 23
+		planet_id = 23 #ASC
 		newyear = t_year
 		# solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
 		solaryearsecs = 1 * 24 * 60 * 60 / 4 # 27,3215817 days
@@ -951,6 +951,69 @@ class openAstro:
 		openAstro.transit = False
 		# print(dt_new)
 		return
+
+	def localToEarthReturn(self, t_year, t_month, t_day, t_hour, t_geolon,
+					 t_geolat, t_altitude):
+		planet_id = 23 #ASC
+		# solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		solaryearsecs = 1 * 24 * 60 * 60 / 4 #
+		# dprint("localToSolar: from %s to %s" % (self.year, newyear))
+		h, m, s = self.decHour(self.hour)
+		dt = datetime.datetime(self.year, self.month, self.day, h, m, s)
+		t_h, t_m, t_s = self.decHour(t_hour)
+		# dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
+		t_geolon_new = t_geolon
+		# dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_id]))
+		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude, self.planets,
+								  self.zodiac, self.settings.astrocfg)
+		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_id]))
+		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+		# dprint("localToSolar: sundiff %s" % (sundiff))
+		# sundelta = (sundiff / 360.0) * solaryearsecs
+		# dprint("localToSolar: sundelta %s" % (sundelta))
+		# dt_delta = datetime.timedelta(seconds=int(sundelta))
+		t_geolon_new = t_geolon_new + sundiff
+		mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon_new, t_geolat, t_altitude, self.planets,
+								  self.zodiac, self.settings.astrocfg)
+		# print(sundiff)
+		# dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_id]))
+		# print(dt_new)
+		for i in range(100):
+			# get precise
+			moonyearsecs = 1 * 24 * 60 * 60 /10 # 27,3215817 days
+			step = 360 / moonyearsecs
+			sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+			sundelta = sundiff / 4
+			# dt_delta = datetime.timedelta(seconds=int(sundelta))
+			# dt_new = dt_new + dt_delta
+			t_geolon_new = t_geolon_new + sundelta
+			# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon_new, t_geolat, t_altitude, self.planets,
+								  self.zodiac, self.settings.astrocfg)
+			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
+			# print(dt_new)
+			# print (self.planets_degree_ut[planet_id])
+			# print (mdata.planets_degree_ut[planet_id])
+			# print(sundiff)
+
+
+		self.t_year = t_year
+		self.t_month = t_month
+		self.t_day = t_day
+		self.t_hour = t_hour
+		self.t_h, self.t_m, self.t_s = self.decHour(t_hour)
+		self.e2_dt_utc = dt
+
+		self.t_geolon = t_geolon_new
+		self.t_geolat = self.geolat
+		self.t_altitude = self.altitude
+		self.type = "Transit"
+		# openAstro.charttype="%s (%s-%02d-%02d %02d:%02d:%02d UTC)" % (openAstro.label["solar"],self.s_year,self.s_month,self.s_day,dt_new.hour,dt_new.minute,dt_new.second)
+		openAstro.transit = False
+		# print(dt_new)
+		return
+
 
 	def localToSecondaryProgression(self,dt):
 		
@@ -1098,6 +1161,17 @@ class openAstro:
 											self.settings.astrocfg)
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToAscReturn(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											self.t_geolat, self.t_altitude)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+
+		elif self.type == "EarthReturn":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			self.planets_degree_ut = module_data.planets_degree_ut
+			self.localToEarthReturn(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
@@ -3451,6 +3525,121 @@ class openAstro:
 		df["name"] = df["from"].apply(lambda f: f["name"])
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
+
+
+	def makeLocalSpaceEarthLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[64, 255, 0]):
+		df = self.makeLocalSpaceEarthDataFrame(dt, lat, lon)
+		# print (color1)
+		# Define a layer to display on a map
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
+	def makeLocalSpaceEarthDataFrame(self, dt, lat, lon):
+
+		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
+		data = load('de421.bsp')
+
+		earth = data['earth']
+		ts = load.timescale()
+		place = earth + wgs84.latlon(lat * N, self.t_geolon * E, elevation_m=287)
+
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+
+		dfd= []
+
+		for ip in range(11):
+			# print(ip)
+			if (ip == 0):
+				i=301 # kernel 'de421.bsp' is missing 'JUPITER' - the targets it supports are: 0 SOLAR SYSTEM BARYCENTER, 1 MERCURY BARYCENTER, 2 VENUS BARYCENTER, 3 EARTH BARYCENTER, 4 MARS BARYCENTER, 5 JUPITER BARYCENTER, 6 SATURN BARYCENTER, 7 URANUS BARYCENTER, 8 NEPTUNE BARYCENTER, 9 PLUTO BARYCENTER, 10 SUN, 199 MERCURY, 399 EARTH, 299 VENUS, 301 MOON, 499 MARS
+			else:
+				i=ip
+			if (i != 3):
+				planet = data[i]
+				# print(i)
+				# print(planet)
+				# astro = place.at(ts.utc(oa1.t_year, oa1.t_month, oa1.t_day, oa1.t_h, oa1.t_m, oa1.t_s)).observe(planet)
+				# astro = place.at(ts.utc(oa1.utc_year, oa1.utc_month, oa1.utc_day, oa1.utc_h, oa1.utc_m, oa1.utc_s)).observe(planet)
+				astro = place.at(ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)).observe(planet)
+				# astro = place.at(ts.utc(1980, 3, 18, 23, 47, 00)).observe(planet)
+				app = astro.apparent()
+				alt, az, distance = app.altaz()
+				azimuth = az.degrees
+
+
+				# ts = load.timescale()
+				# t = ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+				# print (t)
+				# geocentric_planet = planet - earth  # vector from geocenter to sun
+				# planet_subpoint = wgs84.subpoint(geocentric_planet.at(t))  # subpoint method requires a geocentric position
+				# # print('subpoint latitude: ', planet_subpoint.latitude.degrees)
+				# # print('subpoint longitude: ', planet_subpoint.longitude.degrees)
+				# print(planet_names[i], planet_subpoint.latitude.degrees, planet_subpoint.longitude.degrees)
+
+				# print(planet_names[i], az.degrees, alt, distance)
+
+
+				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+				# lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
+				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
+				dfdata= {
+				  "from": {
+					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"coordinates": [
+					  starting_longitude,
+					  starting_latitude
+					]
+				  },
+				  "to": {
+					# "name": self.name + "/" + "-"  +planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"coordinates": [
+					  new_longitude,
+					  new_latitude
+					]
+				  }
+				}
+
+				dfd.append(dfdata)
+				dfdata= {
+				  "from": {
+					# "name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"coordinates": [
+					  starting_longitude,
+					  starting_latitude
+					]
+				  },
+				  "to": {
+					# "name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"coordinates": [
+					  new_longitude2,
+					  new_latitude2
+					]
+				  }
+				}
+				dfd.append(dfdata)
+			# print (azimuth)
+		df = pd.DataFrame(dfd)
+		# Use pandas to prepare data for tooltip
+		df["name"] = df["from"].apply(lambda f: f["name"])
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
+
 
 
 	def makeLocalSpaceSweLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150], num_planet=11):

@@ -3468,6 +3468,7 @@ class openAstro:
 																	  planet_pos[0])
 																	  # [0,0,0,0,0,0])
 				# azimuth = azimuth -180
+				azimuth = self.deg_180(azimuth)
 				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
 				# print (self.settings.settings_planet[i]['name'])
 				# print("Азимут планеты:", azimuth)
@@ -3562,13 +3563,13 @@ class openAstro:
 				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az360=" + '{0:.2f}'.format(azimuth) +  " alt=" + '{0:.2f}'.format(true_altitude) + ")",
 					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [starting_longitude, starting_latitude]
 				  },
 				  "to": {
 					# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az360=" + '{0:.2f}'.format(azimuth) +  " alt=" + '{0:.2f}'.format(true_altitude) + ")",
 					"coordinates": [new_longitude, new_latitude]
 				  }
 				}

@@ -3333,7 +3333,7 @@ class openAstro:
 																	  [lon, lat, 287], 0, 0,
 																	  planet_pos[0])
 																	  # [0,0,0,0,0,0])
-				azimuth = azimuth -180
+				# azimuth = azimuth -180
 				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
 				# print (self.settings.settings_planet[i]['name'])
 				# print("Азимут планеты:", azimuth)
@@ -3346,15 +3346,14 @@ class openAstro:
 				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
 					"coordinates": [
 					  new_longitude,
 					  new_latitude
@@ -3366,7 +3365,7 @@ class openAstro:
 				dfdata= {
 				  "from": {
 					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(-azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
@@ -3374,7 +3373,7 @@ class openAstro:
 				  },
 				  "to": {
 					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(-azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
 					"coordinates": [
 					  new_longitude2,
 					  new_latitude2
@@ -3760,8 +3759,8 @@ class openAstro:
 		)
 		return layer
 
-	def makeLocalSpaceAspectSweLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[64, 255, 0]):
-		df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon)
+	def makeLocalSpaceAspectSweLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[64, 255, 0], num_planet=11):
+		df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet=11)
 		layer = pdk.Layer(
 		"GreatCircleLayer",
 		df,

@@ -3468,7 +3468,10 @@ class openAstro:
 																	  planet_pos[0])
 																	  # [0,0,0,0,0,0])
 				# azimuth = azimuth -180
-				azimuth = self.deg_180(azimuth)
+				# azimuth = self.deg_180(azimuth)
+				azimuth = azimuth + 180
+				if(azimuth>360):
+					azimuth = azimuth-360
 				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
 				# print (self.settings.settings_planet[i]['name'])
 				# print("Азимут планеты:", azimuth)

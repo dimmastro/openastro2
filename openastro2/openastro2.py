@@ -3389,6 +3389,68 @@ class openAstro:
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
 
+	def makeLocalSpaceAspectSweDataFrame(self, dt, lat, lon, num_planet=11):
+
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
+		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
+		dfd= []
+		for i in range(num_planet):
+			if 1:
+				planet_code = i
+				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+																	  [lon, lat, 287], 0, 0,
+																	  planet_pos[0])
+				azimuth = azimuth -180
+				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
+				# print (self.settings.settings_planet[i]['name'])
+				# print("Азимут планеты:", azimuth)
+				# print("Истинная высота:", true_altitude)
+				# print("Видимая высота:", apparent_altitude)
+
+				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				dfdata= {
+				  "from": {
+					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"coordinates": [starting_longitude, starting_latitude]
+				  },
+				  "to": {
+					# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"coordinates": [new_longitude, new_latitude]
+				  }
+				}
+
+				dfd.append(dfdata)
+				dfdata= {
+				  "from": {
+					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(-azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"coordinates": [starting_longitude, starting_latitude]
+				  },
+				  "to": {
+					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.2f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.2f}'.format(-azimuth) + " alt=" + '{0:.2f}'.format(true_altitude) + ")",
+					"coordinates": [new_longitude2, new_latitude2]
+				  }
+				}
+				dfd.append(dfdata)
+		df = pd.DataFrame(dfd)
+		# df["name"] = df["from"].apply(lambda f: f["name"])
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
+
+	def deg_180(self, deg):
+		if(deg>180):
+			return 180-deg
+		else:
+			return deg
+
 	def makeLocalSpaceDataFrame(self, dt, lat, lon):
 
 		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
@@ -3442,7 +3504,7 @@ class openAstro:
 				dfdata= {
 				  "from": {
 					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
@@ -3450,7 +3512,7 @@ class openAstro:
 				  },
 				  "to": {
 					# "name": self.name + "/" + "-"  +planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  new_longitude,
 					  new_latitude
@@ -3462,7 +3524,7 @@ class openAstro:
 				dfdata= {
 				  "from": {
 					# "name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
@@ -3470,7 +3532,7 @@ class openAstro:
 				  },
 				  "to": {
 					# "name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az=" + '{0:.2f}'.format(azimuth) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  new_longitude2,
 					  new_latitude2
@@ -3696,6 +3758,21 @@ class openAstro:
 		)
 		return layer
 
+	def makeLocalSpaceAspectSweLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[64, 255, 0]):
+		df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon)
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
+
 	def makeLocalSpaceSweLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150], num_planet=11):
 		df = self.makeLocalSpaceSweDataFrame(dt, lat, lon, num_planet)
 		# print (color1)
@@ -3818,7 +3895,9 @@ class openAstro:
 
 	def makeLocalSpaceHouseSkyDataFrame(self, dt, lat, lon):
 		# print (self.houses_degree_ut)
-
+		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
+		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
+		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 
 		𝜏 = api.tau
 		ts = api.load.timescale()

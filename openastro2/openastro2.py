@@ -3445,11 +3445,12 @@ class openAstro:
 		return df
 
 
+
 	def deg_180(self, deg):
-		if(deg>180):
-			return 180-deg
-		else:
-			return deg
+		return 180-deg
+		return deg
+
+
 
 	def makeLocalSpaceDataFrame(self, dt, lat, lon):
 
@@ -3504,7 +3505,7 @@ class openAstro:
 				dfdata= {
 				  "from": {
 					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format((azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  starting_longitude,
 					  starting_latitude
@@ -3512,7 +3513,7 @@ class openAstro:
 				  },
 				  "to": {
 					# "name": self.name + "/" + "-"  +planet_names[i] + " (" + '{0:.2f}'.format(azimuth) + ")",
-					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az360=" + '{0:.2f}'.format(azimuth) + " az180=" + '{0:.2f}'.format((azimuth)) + " alt=" + '{0:.2f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 					"coordinates": [
 					  new_longitude,
 					  new_latitude

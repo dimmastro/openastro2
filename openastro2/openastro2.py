@@ -3447,7 +3447,7 @@ class openAstro:
 
 
 	def deg_180(self, deg):
-		if (del>180):
+		if (deg>180):
 			return 180-deg
 		else:
 			return -(180+deg)

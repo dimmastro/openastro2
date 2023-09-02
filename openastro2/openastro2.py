@@ -3312,6 +3312,33 @@ class openAstro:
 		else:
 			return -(180+deg)
 
+	def generate_degrees_steps(self, degrees_list):
+		result = []
+		for degrees in degrees_list:
+			current_degree = 0.0
+			while current_degree < 360.0:
+				result.append(current_degree)
+				current_degree += degrees
+		return result
+
+	def merge_and_remove_duplicates(self, *arrays):
+		merged = []
+		for array in arrays:
+			merged.extend(array)
+
+		unique_values = list(set(merged))
+		return unique_values
+
+	def make_aspect_degrees_list(self, degrees_list):
+		degrees_steps = self.generate_degrees_steps(degrees_list)
+		unique_degrees = self.merge_and_remove_duplicates(degrees_steps)
+		exclude_values = [0.0, 180.0, 360.0]
+		if exclude_values is not None:
+			unique_degrees = [d for d in unique_degrees if d not in exclude_values]
+
+		sorted_degrees = sorted(unique_degrees)  # Сортируем по возрастанию
+		return sorted_degrees
+
 
 	def makeLocalSpaceLayer(self, dt, lat, lon, color1 =[64, 255, 0], color2=[64, 255, 0]):
 		df = self.makeLocalSpaceDataFrame(dt, lat, lon)

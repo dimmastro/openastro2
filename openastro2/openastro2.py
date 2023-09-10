@@ -581,6 +581,18 @@ class openAstro:
 		# self.t_altitude = self.altitude
 		# self.type = "Transit"
 		# openAstro.charttype="%s (%s-%02d-%02d %02d:%02d:%02d UTC)" % (openAstro.label["solar"],self.s_year,self.s_month,self.s_day,dt_new.hour,dt_new.minute,dt_new.second)
+
+		self.e2_dt_utc = dt_new
+		self.t_year = dt_new.year
+		self.t_month = dt_new.month
+		self.t_day = dt_new.day
+		self.t_hour = self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second)
+		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
+		self.t_geolon = self.geolon
+		self.t_geolat = self.geolat
+		self.t_altitude = self.altitude
+		self.type = "Transit"
+
 		openAstro.transit=False
 		dprint (dt_new)
 		return mdata

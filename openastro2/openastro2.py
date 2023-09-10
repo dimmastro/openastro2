@@ -597,11 +597,51 @@ class openAstro:
 		dprint (dt_new)
 		return mdata
 
-	def localToDirectionReal(self, t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude):
+	def localToDirectionRealPast(self, t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude):
 
 		# newyear = t_year
-		# solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
-		solaryearsecs = 31556925.51 *(1 + 20/360 ) # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		# solaryearsecs = 31556925.51 *(1 + 20/360 ) # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		# solaryearsecs = 31536000
+		dprint("localToSolar: from %s to %s" %(self.year,t_year))
+		h,m,s = self.decHour(self.hour)
+		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
+		t_h,t_m,t_s = self.decHour(t_hour)
+		# dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
+		dt_new = datetime.datetime(t_year,t_month,t_day,t_h,t_m,t_s)
+		print (dt_original)
+		print (dt_new)
+		dprint("localToSolar: first sun %s" % (self.planets_degree_ut[0]) )
+		dt_direction = dt_new - dt_original
+		print ("dt_direction =  %s" % (dt_direction) )
+		dt_dir_seconds = dt_direction.total_seconds()
+		print ("dt_dir_seconds =  %s" % (dt_dir_seconds) )
+		dt_direction_degree_year = dt_direction / solaryearsecs * (24*60*60)/360
+		print ("dt_direction_degree_year =  %s" % (dt_direction_degree_year) )
+		dt_new = dt_original - dt_direction_degree_year
+
+		print (dt_original)
+		print (dt_new)
+
+		self.e2_dt_utc = dt_new
+		self.t_year = dt_new.year
+		self.t_month = dt_new.month
+		self.t_day = dt_new.day
+		self.t_hour = self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second)
+		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
+		self.t_geolon = self.geolon
+		self.t_geolat = self.geolat
+		self.t_altitude = self.altitude
+		self.type = "Direction"
+
+		openAstro.transit=False
+		dprint (dt_new)
+		return
+	def localToDirectionRealFuture(self, t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude):
+
+		# newyear = t_year
+		solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		# solaryearsecs = 31556925.51 *(1 + 20/360 ) # 365 days, 5 hours, 48 minutes, 45.51 seconds
 		# solaryearsecs = 31536000
 		dprint("localToSolar: from %s to %s" %(self.year,t_year))
 		h,m,s = self.decHour(self.hour)

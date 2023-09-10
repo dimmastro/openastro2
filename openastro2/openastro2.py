@@ -601,7 +601,8 @@ class openAstro:
 
 		# newyear = t_year
 		# solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
-		solaryearsecs = 31536000
+		solaryearsecs = 31556925.51 *(1 - 5/360 ) # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		# solaryearsecs = 31536000
 		dprint("localToSolar: from %s to %s" %(self.year,t_year))
 		h,m,s = self.decHour(self.hour)
 		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)

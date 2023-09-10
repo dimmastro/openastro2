@@ -1307,12 +1307,31 @@ class openAstro:
 			self.t_houses_sign = t_module_data.houses_sign
 			self.t_houses_degree_ut = t_module_data.houses_degree_ut
 		# DirectionReal module data
-		elif self.type == "DirectionReal":
+		elif self.type == "DirectionRealPast":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
 											self.settings.astrocfg)
 			self.planets_degree_ut = module_data.planets_degree_ut
-			self.localToDirectionReal(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+			self.localToDirectionRealPast(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											self.t_geolat, self.t_altitude)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+			# grab transiting module data
+			self.t_planets_sign = t_module_data.planets_sign
+			self.t_planets_degree = t_module_data.planets_degree
+			self.t_planets_degree_ut = t_module_data.planets_degree_ut
+			self.t_planets_retrograde = t_module_data.planets_retrograde
+			self.t_houses_degree = t_module_data.houses_degree
+			self.t_houses_sign = t_module_data.houses_sign
+			self.t_houses_degree_ut = t_module_data.houses_degree_ut
+			self.t_planet_azimuth = t_module_data.planet_azimuth
+		elif self.type == "DirectionRealFutire":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			self.planets_degree_ut = module_data.planets_degree_ut
+			self.localToDirectionRealFuture(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,

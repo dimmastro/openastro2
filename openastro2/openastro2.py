@@ -591,7 +591,7 @@ class openAstro:
 		self.t_geolon = self.geolon
 		self.t_geolat = self.geolat
 		self.t_altitude = self.altitude
-		self.type = "Transit"
+		# self.type = "Transit"
 
 		openAstro.transit=False
 		dprint (dt_new)

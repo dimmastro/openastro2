@@ -600,8 +600,8 @@ class openAstro:
 	def localToDirectionReal(self, t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude):
 
 		# newyear = t_year
-		solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
-		# solaryearsecs = 31536000
+		# solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		solaryearsecs = 31536000
 		dprint("localToSolar: from %s to %s" %(self.year,t_year))
 		h,m,s = self.decHour(self.hour)
 		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)

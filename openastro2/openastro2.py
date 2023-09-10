@@ -597,6 +597,174 @@ class openAstro:
 		dprint (dt_new)
 		return mdata
 
+	def localToDirectionReal(self, t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude):
+
+		# newyear = t_year
+		solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		# solaryearsecs = 31536000
+		dprint("localToSolar: from %s to %s" %(self.year,t_year))
+		h,m,s = self.decHour(self.hour)
+		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
+		t_h,t_m,t_s = self.decHour(t_hour)
+		# dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
+		dt_new = datetime.datetime(t_year,t_month,t_day,t_h,t_m,t_s)
+		print (dt_original)
+		print (dt_new)
+		dprint("localToSolar: first sun %s" % (self.planets_degree_ut[0]) )
+		dt_direction = dt_new - dt_original
+		print ("dt_direction =  %s" % (dt_direction) )
+		dt_dir_seconds = dt_direction.total_seconds()
+		print ("dt_dir_seconds =  %s" % (dt_dir_seconds) )
+		dt_direction_degree_year = dt_direction / solaryearsecs * (24*60*60)/360
+		print ("dt_direction_degree_year =  %s" % (dt_direction_degree_year) )
+		dt_new = dt_original + dt_direction_degree_year
+
+		print (dt_original)
+		print (dt_new)
+
+		self.e2_dt_utc = dt_new
+		self.t_year = dt_new.year
+		self.t_month = dt_new.month
+		self.t_day = dt_new.day
+		self.t_hour = self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second)
+		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
+		self.t_geolon = self.geolon
+		self.t_geolat = self.geolat
+		self.t_altitude = self.altitude
+		self.type = "Direction"
+
+		openAstro.transit=False
+		dprint (dt_new)
+		return
+
+	def localToProgressionReal(self, t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude):
+
+		# # solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		# solaryearsecs = 27.3215817 * 24 * 60 * 60  # 27,3215817 days
+		# dprint("localToSolar: from %s to %s" % (self.year, newyear))
+		# h, m, s = self.decHour(self.hour)
+		# dt_original = datetime.datetime(self.year, self.month, self.day, h, m, s)
+		# t_h, t_m, t_s = self.decHour(t_hour)
+		# # dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
+		# dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
+		# dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_id]))
+		# # mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude, self.planets,
+		# 						  self.zodiac, self.settings.astrocfg)
+		# dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_id]))
+		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+		# dprint("localToSolar: sundiff %s" % (sundiff))
+		# sundelta = (sundiff / 360.0) * solaryearsecs
+		# dprint("localToSolar: sundelta %s" % (sundelta))
+		# dt_delta = datetime.timedelta(seconds=int(sundelta))
+		# dt_new = dt_new + dt_delta
+
+		# newyear = t_year
+		solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		dprint("localToSolar: from %s to %s" %(self.year,t_year))
+		h,m,s = self.decHour(self.hour)
+		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
+		t_h,t_m,t_s = self.decHour(t_hour)
+		# dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
+		dt_new = datetime.datetime(t_year,t_month,t_day,t_h,t_m,t_s)
+		print (dt_original)
+		print (dt_new)
+		dprint("localToSolar: first sun %s" % (self.planets_degree_ut[0]) )
+		dt_direction = dt_new - dt_original
+		print ("dt_direction =  %s" % (dt_direction) )
+		dt_dir_seconds = dt_direction.total_seconds()
+		print ("dt_dir_seconds =  %s" % (dt_dir_seconds) )
+		dt_direction_degree_year = dt_direction / 360
+		print ("dt_direction_degree_year =  %s" % (dt_direction_degree_year) )
+		dt_new = dt_original + dt_direction_degree_year
+
+		print (dt_original)
+		print (dt_new)
+
+		# dt_dir_seconds = dt_direction.total_seconds()
+		# gradus_delta = (dt_dir_seconds / solaryearsecs)
+		# # # mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# # mdata = ephemeris.ephData(t_year,t_month,t_day,t_hour,t_geolon,t_geolat,t_altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# # dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[0]) )
+		# # sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
+		# # dprint("localToSolar: sundiff %s" %(sundiff))
+		# # sundelta = ( sundiff / 360.0 ) * solaryearsecs
+		# # dprint("localToSolar: sundelta %s" % (sundelta))
+		# # dt_delta = datetime.timedelta(seconds=int(sundelta))
+		# # dt_delta = datetime.timedelta(seconds=int(sundelta))
+		# # dt_new = dt_new + dt_delta
+		# # mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# # dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[0]))
+		# # dprint (dt_new)
+		# dprint (self.planets_degree_ut)
+		# mdata = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+		# 									self.geolat, self.altitude, self.planets, self.zodiac,
+		# 									self.settings.astrocfg)
+		# dprint (mdata.planets_degree_ut)
+		# for i in range(0,43):
+		# 	mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
+		# 	while ( mdata.planets_degree_ut[i] < 0 ): mdata.planets_degree_ut[i]+=360.0
+		# 	while ( mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i]-=360.0
+		#
+		# for i in range(len(self.houses_degree_ut)):
+		# 	mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] + gradus_delta
+		# 	if mdata.houses_degree_ut[i] > 360.0:
+		# 		mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] - 360.0
+		# 	elif mdata.houses_degree_ut[i] < 0.0:
+		# 		mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] + 360.0
+		#
+		# # adjust list index 32 and 33
+		# for i in range(0, 43):
+		# 	while (mdata.planets_degree_ut[i] < 0): mdata.planets_degree_ut[i] += 360.0
+		# 	while (mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i] -= 360.0
+		#
+		# 	# get zodiac sign
+		# 	for x in range(12):
+		# 		deg_low = float(x * 30.0)
+		# 		deg_high = float((x + 1.0) * 30.0)
+		# 		if mdata.planets_degree_ut[i] >= deg_low:
+		# 			if mdata.planets_degree_ut[i] <= deg_high:
+		# 				mdata.planets_sign[i] = x
+		# 				mdata.planets_degree[i] = mdata.planets_degree_ut[i] - deg_low
+		# 				mdata.planets_retrograde[i] = False
+		# for i in range(12):
+		# 	for x in range(len(self.zodiac)):
+		# 		deg_low=float(x*30)
+		# 		deg_high=float((x+1)*30)
+		# 		if mdata.houses_degree_ut[i] >= deg_low:
+		# 			if mdata.houses_degree_ut[i] <= deg_high:
+		# 				mdata.houses_sign[i]=x
+		# 				mdata.houses_degree[i] = mdata.houses_degree_ut[i] - deg_low
+		#
+		# dprint (self.planets_degree_ut)
+		# dprint (mdata.planets_degree_ut)
+		# #
+		# # self.t_year = dt_new.year
+		# # self.t_month = dt_new.month
+		# # self.t_day = dt_new.day
+		# # self.t_hour = self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second)
+		# # self.t_geolon = self.geolon
+		# # self.t_geolat = self.geolat
+		# # self.t_altitude = self.altitude
+		# # self.type = "Transit"
+		# # openAstro.charttype="%s (%s-%02d-%02d %02d:%02d:%02d UTC)" % (openAstro.label["solar"],self.s_year,self.s_month,self.s_day,dt_new.hour,dt_new.minute,dt_new.second)
+
+		self.e2_dt_utc = dt_new
+		self.t_year = dt_new.year
+		self.t_month = dt_new.month
+		self.t_day = dt_new.day
+		self.t_hour = self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second)
+		self.t_h, self.t_m, self.t_s = self.decHour(self.t_hour)
+		self.t_geolon = self.geolon
+		self.t_geolat = self.geolat
+		self.t_altitude = self.altitude
+		self.type = "Direction"
+
+		openAstro.transit=False
+		dprint (dt_new)
+		return
+
+
 	def localToSolar(self, t_year, t_month, t_day, t_hour, t_geolon,
 											t_geolat, t_altitude):
 		# OpenAstro1 used UTC time in database
@@ -1097,6 +1265,26 @@ class openAstro:
 			self.t_houses_degree = t_module_data.houses_degree
 			self.t_houses_sign = t_module_data.houses_sign
 			self.t_houses_degree_ut = t_module_data.houses_degree_ut
+		# DirectionReal module data
+		elif self.type == "DirectionReal":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			self.planets_degree_ut = module_data.planets_degree_ut
+			self.localToDirectionReal(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											self.t_geolat, self.t_altitude)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+			# grab transiting module data
+			self.t_planets_sign = t_module_data.planets_sign
+			self.t_planets_degree = t_module_data.planets_degree
+			self.t_planets_degree_ut = t_module_data.planets_degree_ut
+			self.t_planets_retrograde = t_module_data.planets_retrograde
+			self.t_houses_degree = t_module_data.houses_degree
+			self.t_houses_sign = t_module_data.houses_sign
+			self.t_houses_degree_ut = t_module_data.houses_degree_ut
+			self.t_planet_azimuth = t_module_data.planet_azimuth
 		# Solar module data
 		elif self.type == "Solar":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,

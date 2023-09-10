@@ -1326,7 +1326,7 @@ class openAstro:
 			self.t_houses_sign = t_module_data.houses_sign
 			self.t_houses_degree_ut = t_module_data.houses_degree_ut
 			self.t_planet_azimuth = t_module_data.planet_azimuth
-		elif self.type == "DirectionRealFutire":
+		elif self.type == "DirectionRealFuture":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
 											self.settings.astrocfg)

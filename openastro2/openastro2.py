@@ -1244,7 +1244,8 @@ class openAstro:
 		dt_new = ephemeris.years_diff(self.year,self.month,self.day,self.hour,
 			dt_utc.year,dt_utc.month,dt_utc.day,self.decHourJoin(dt_utc.hour,
 			dt_utc.minute,dt_utc.second))
-	
+
+		self.e2_dt_utc = dt_new
 		self.sp_year = dt_new.year
 		self.sp_month = dt_new.month
 		self.sp_day = dt_new.day
@@ -1257,8 +1258,9 @@ class openAstro:
 		dprint("localToSecondaryProgression: got UTC %s-%s-%s %s:%s:%s"%(
 			dt_new.year,dt_new.month,dt_new.day,dt_new.hour,dt_new.minute,dt_new.second))
 			
-		self.type = "SecondaryProgression"
-		openAstro.charttype="%s (%s-%02d-%02d %02d:%02d)" % (openAstro.label["secondary_progressions"],dt.year,dt.month,dt.day,dt.hour,dt.minute)
+		# self.type = "SecondaryProgression"
+		self.type = "Transit"
+		openAstro.charttype="%s (%s-%02d-%02d %02d:%02d)" % ("SecondaryProgression",dt.year,dt.month,dt.day,dt.hour,dt.minute)
 		openAstro.transit=False
 		return
 	
@@ -1449,9 +1451,18 @@ class openAstro:
 
 
 		elif self.type == "SecondaryProgression":
-			module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
-											self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											self.settings.astrocfg, houses_override=self.houses_override)
+			dt	= datetime.datetime(self.t_year, self.t_month, self.t_day, self.t_h, self.t_m, self.t_s)
+			print (dt)
+			self.localToSecondaryProgression(dt)
+			# module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
+			# 								self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
+			# 								self.settings.astrocfg, houses_override=self.houses_override)
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			t_module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
+											  self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg, houses_override=self.houses_override)
 
 		elif self.type == "Transit" or self.type == "Composite":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,

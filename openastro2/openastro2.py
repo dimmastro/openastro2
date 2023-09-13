@@ -4491,9 +4491,8 @@ class openAstro:
 
 	def makeIconLayer2(self, df_data, lat, lon, icon_data = {"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png", "width": 305, "height": 400, "anchorY": 400,}):
 
-		# DATA_URL = "https://raw.githubusercontent.com/ajduberstein/geo_datasets/master/biergartens.json"
-		ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png"
-		icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
+		# ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png"
+		# icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
 
 		# df_data = [{"lat":47.29810329873421,"lon":39.710726380651636,"name":"Цирк"}]
 

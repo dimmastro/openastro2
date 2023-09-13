@@ -67,6 +67,9 @@ from skyfield import api, framelib
 from skyfield.positionlib import Apparent
 from skyfield.api import utc
 
+# from geopy.distance import geodesic
+from geographiclib.geodesic import Geodesic
+
 #debug
 LOCAL=True
 DEBUG=False
@@ -4486,6 +4489,36 @@ class openAstro:
 		)
 		return layer
 
+	def makeIconLayer2(self, df_data, lat, lon, icon_data = {"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png", "width": 305, "height": 400, "anchorY": 400,}):
+
+		# DATA_URL = "https://raw.githubusercontent.com/ajduberstein/geo_datasets/master/biergartens.json"
+		ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png"
+		icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
+
+		# df_data = [{"lat":47.29810329873421,"lon":39.710726380651636,"name":"Цирк"}]
+
+		for i in range(len(df_data)):
+			arr = Geodesic.WGS84.Inverse(lat, lon, df_data[i]["lat"], df_data[i]["lon"])
+			azimuth = arr["azi1"]
+			df_data[i]["name"]= "" + "az=" + '{0:.1f}'.format(float(arr["azi1"])) + " dist=" + '{0:.0f}'.format(float(arr["s12"]/1000))  +"km - " + df_data[i]["name"]
+
+		data = pd.DataFrame(df_data)
+		print (data)
+
+		data["icon_data"] = None
+		for i in data.index:
+		  data["icon_data"][i] = icon_data
+
+		layer = pdk.Layer(
+		  type="IconLayer",
+		  data=data,
+		  get_icon="icon_data",
+		  get_size=4,
+		  size_scale=15,
+		  get_position=["lon", "lat"],
+		  pickable=True,
+		)
+		return layer
 
 
 

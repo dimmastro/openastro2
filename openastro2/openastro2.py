@@ -1236,7 +1236,7 @@ class openAstro:
 		return
 
 
-	def localToSecondaryProgression(self,dt):
+	def localToSProgression(self,dt):
 		
 		#remove timezone
 		dt_utc = dt - datetime.timedelta(seconds=float(self.timezone)*float(3600))
@@ -1255,12 +1255,12 @@ class openAstro:
 		self.sp_altitude = self.altitude
 		self.houses_override = [dt_new.year,dt_new.month,dt_new.day,self.hour]
 
-		dprint("localToSecondaryProgression: got UTC %s-%s-%s %s:%s:%s"%(
+		dprint("localToSProgression: got UTC %s-%s-%s %s:%s:%s"%(
 			dt_new.year,dt_new.month,dt_new.day,dt_new.hour,dt_new.minute,dt_new.second))
 			
-		# self.type = "SecondaryProgression"
+		# self.type = "SProgression"
 		self.type = "Transit"
-		openAstro.charttype="%s (%s-%02d-%02d %02d:%02d)" % ("SecondaryProgression",dt.year,dt.month,dt.day,dt.hour,dt.minute)
+		openAstro.charttype="%s (%s-%02d-%02d %02d:%02d)" % ("SProgression",dt.year,dt.month,dt.day,dt.hour,dt.minute)
 		openAstro.transit=False
 		return
 	
@@ -1450,10 +1450,10 @@ class openAstro:
 											  self.settings.astrocfg)
 
 
-		elif self.type == "SecondaryProgression":
+		elif self.type == "SProgression":
 			dt	= datetime.datetime(self.t_year, self.t_month, self.t_day, self.t_h, self.t_m, self.t_s)
 			print (dt)
-			self.localToSecondaryProgression(dt)
+			self.localToSProgression(dt)
 			# module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 			# 								self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
 			# 								self.settings.astrocfg, houses_override=self.houses_override)
@@ -4552,7 +4552,7 @@ class openAstro:
 # 								('Composite', None, _('Composite Chart'), None, 'Composite Chart...', lambda w: self.openDatabaseSelect(_("Select for Composite"),"Composite") ),
 # 								('Combine', None, _('Combine Chart'), None, 'Combine Chart...', lambda w: self.openDatabaseSelect(_("Select for Combine"),"Combine") ),
 # 								('Solar', None, _('Solar Return'), None, 'Solar Return...', self.specialSolar ),
-# 								('SecondaryProgression', None, _('Secondary Progressions'), None, 'Secondary Progressions...', self.specialSecondaryProgression ),
+# 								('SProgression', None, _('Secondary Progressions'), None, 'Secondary Progressions...', self.specialSProgression ),
 # 								('Tables', None, _('Tables') ),
 # 								('MonthlyTimeline', None, _('Monthly Timeline 1'), None, 'Monthly Timeline 1', self.tableMonthlyTimeline ),
 # 								('MonthlyTimeline2', None, _('Monthly Timeline2'), None, 'Monthly Timeline2', self.tableMonthlyTimeline2 ),
@@ -4889,7 +4889,7 @@ class openAstro:
 # 		self.updateChart()
 # 		return
 #
-# 	def specialSecondaryProgression(self, widget):
+# 	def specialSProgression(self, widget):
 # 		# create a new window
 # 		self.win_SSP = Gtk.Dialog(parent=self.window)
 # 		self.win_SSP.set_icon_from_file(cfg.iconWindow)
@@ -4950,7 +4950,7 @@ class openAstro:
 #
 # 		#ok button
 # 		button = Gtk.Button(stock=Gtk.STOCK_OK)
-# 		button.connect("clicked", self.specialSecondaryProgressionSubmit, entry)
+# 		button.connect("clicked", self.specialSProgressionSubmit, entry)
 # 		button.set_can_default(True)
 # 		self.win_SSP.action_area.pack_start(button, True, True, 0)
 # 		button.grab_default()
@@ -4963,9 +4963,9 @@ class openAstro:
 # 		self.win_SSP.show_all()
 # 		return
 #
-# 	def specialSecondaryProgressionSubmit(self, widget, entry):
+# 	def specialSProgressionSubmit(self, widget, entry):
 # 		dt	= datetime.datetime(int(entry['Y'].get_text()),int(entry['M'].get_text()),int(entry['D'].get_text()),int(entry['h'].get_text()),int(entry['m'].get_text()))
-# 		openAstro.localToSecondaryProgression(dt)
+# 		openAstro.localToSProgression(dt)
 # 		self.win_SSP.destroy()
 # 		self.updateChart()
 # 		return

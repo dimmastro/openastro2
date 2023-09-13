@@ -4489,7 +4489,7 @@ class openAstro:
 		)
 		return layer
 
-	def makeIconLayer2(self, df_data, lat, lon, icon_data = {"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png", "width": 305, "height": 400, "anchorY": 400}):
+	def makeIconLayer2(self, df_data, lat, lon, icon_data = {"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png", "width": 305, "height": 400, "anchorY": 400, "get_size": 4, 'size_scale': 15}):
 
 		# ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Icon_for_my_work.png/640px-Icon_for_my_work.png"
 		# icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
@@ -4513,8 +4513,8 @@ class openAstro:
 		  type="IconLayer",
 		  data=data,
 		  get_icon="icon_data",
-		  get_size=2,
-		  size_scale=15,
+		  get_size=icon_data["get_size"],
+		  size_scale=icon_data["size_scale"],
 		  get_position=["lon", "lat"],
 		  pickable=True,
 		)

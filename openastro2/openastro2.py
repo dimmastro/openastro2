@@ -4412,7 +4412,7 @@ class openAstro:
 		zero = lon_rad * 0.0
 		f = framelib.ecliptic_frame
 		# d = api.Distance([np.cos(lat_rad) * np.cos(lon_rad), np.cos(lat_rad) * np.sin(lon_rad), np.sin(lat_rad)])
-		d = api.Distance([(lon_rad), (lon_rad), zero])
+		d = api.Distance([np.sin(angle), np.cos(angle), zero])
 		v = api.Velocity([zero, zero, zero])
 		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
 		p.center = 399

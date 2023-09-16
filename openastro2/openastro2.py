@@ -4412,11 +4412,12 @@ class openAstro:
 		zero = lon_rad * 0.0
 		f = framelib.ecliptic_frame
 		# d = api.Distance([np.cos(lat_rad) * np.cos(lon_rad), np.cos(lat_rad) * np.sin(lon_rad), np.sin(lat_rad)])
-		d = api.Distance([np.sin(lat_rad), np.cos(lat_rad), zero])
+		d = api.Distance([np.sin(lon_rad), np.cos(lon_rad), zero])
 		v = api.Velocity([zero, zero, zero])
 		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
 		p.center = 399
 		lat, lon = wgs84.latlon_of(p)
+		# print(lon.degrees)
 		return [lat.degrees, lon.degrees]
 
 	def makeLocalSpaceHouseSkyLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
@@ -4528,7 +4529,7 @@ class openAstro:
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		[h_lat, h_lon] = self.eclips_to_geo0(self.houses_degree_ut, self.houses_degree_ut, t)
-		print(h_lat[0])
+		# print(h_lat[0])
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
@@ -4539,8 +4540,9 @@ class openAstro:
 			if (1):
 				alt = alt0.degrees[i]
 				azimuth = az0.degrees[i]
-				# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
-				# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				# print(new_longitude)
 				new_latitude = h_lat[i]
 				new_longitude = h_lon[i]
 				new_latitude2 = -h_lat[i]

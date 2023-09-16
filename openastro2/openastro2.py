@@ -4387,19 +4387,18 @@ class openAstro:
 		auto_highlight=True,
 		)
 		return layer
-	def makeLocalSpaceHouseSkyDataFrame(self, dt, lat, lon):
+	def eclips_to_gorizont(self, eclips_arr, dt, lat, lon):
 		# print (self.houses_degree_ut)
 		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
-
 		𝜏 = api.tau
 		ts = api.load.timescale()
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		# angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		angle = - np.array(self.houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
+		angle = - np.array(eclips_arr)/360 * 𝜏 + 1/4.0 * 𝜏
 
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame
@@ -4408,16 +4407,36 @@ class openAstro:
 		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
 		p.center = bluffton
 		alt0, az0, distance0 = p.altaz()
-		i = np.argmax(alt0.degrees)  # Which of the 360 points has highest altitude?
-		# print('Altitude of highest point on ecliptic:', alt.degrees[i])
-		# print('Azimuth of highest point on ecliptic:', az.degrees[i])
-		# print(az0.degrees)
-		# print(alt0.degrees)
-		# print(angle)
+		return [alt0, az0, distance0]
 
-		earth = eph['earth']
-		ts = load.timescale()
-		place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
+
+	def makeLocalSpaceHouseSkyDataFrame(self, dt, lat, lon):
+		# print (self.houses_degree_ut)
+		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
+		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
+		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
+
+		# 𝜏 = api.tau
+		# ts = api.load.timescale()
+		# eph = api.load('de421.bsp')
+		# bluffton = api.Topos(lat, lon)
+		# t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		# # angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
+		# angle = - np.array(self.houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
+		#
+		# zero = angle * 0.0
+		# f = framelib.ecliptic_frame
+		# d = api.Distance([np.sin(angle), np.cos(angle), zero])
+		# v = api.Velocity([zero, zero, zero])
+		# p = Apparent.from_time_and_frame_vectors(t, f, d, v)
+		# p.center = bluffton
+		# alt0, az0, distance0 = p.altaz()
+		alt0, az0, distance0 = self.eclips_to_gorizont(self.houses_degree_ut, dt, lat, lon)
+
+
+		# earth = eph['earth']
+		# ts = load.timescale()
+		# place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
 		distance2 = 6371*3.1  # Расстояние (в километрах)
@@ -4572,6 +4591,7 @@ class openAstro:
 	def makeLocalSpaceHouseEquatorialSkyDataFrame(self, dt, lat, lon):
 		# print (self.houses_degree_ut)
 		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
+		# https://astronomy.stackexchange.com/questions/41482/how-to-find-the-local-azimuth-of-the-highest-point-of-the-ecliptic
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 
@@ -4597,7 +4617,7 @@ class openAstro:
 		# print(alt0.degrees)
 		# print(angle)
 
-		starting_latitude0 = 90
+		starting_latitude0 = 89.9
 		starting_longitude0 = 0
 
 		earth = eph['earth']
@@ -4605,7 +4625,7 @@ class openAstro:
 		place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
-		distance2 = 6371*3.1/2  # Расстояние (в километрах)
+		distance2 = 6371*3.14/2  # Расстояние (в километрах)
 
 		dfd= []
 		for i in range(12):

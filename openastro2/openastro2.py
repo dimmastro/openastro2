@@ -4597,8 +4597,8 @@ class openAstro:
 		# print(alt0.degrees)
 		# print(angle)
 
-		lat = 90
-		lon = 0
+		starting_latitude0 = 90
+		starting_longitude0 = 0
 
 		earth = eph['earth']
 		ts = load.timescale()
@@ -4617,7 +4617,7 @@ class openAstro:
 				dfdata= {
 				  "from": {
 					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
-					"coordinates": [ starting_longitude,  starting_latitude ]
+					"coordinates": [ starting_longitude0,  starting_latitude0 ]
 				  },
 				  "to": {
 					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",

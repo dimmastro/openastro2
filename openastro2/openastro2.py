@@ -1216,10 +1216,10 @@ class openAstro:
 			mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon_new, t_geolat, t_altitude, self.planets,
 								  self.zodiac, self.settings.astrocfg)
 			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
-			print(t_geolon_new)
+			# print(t_geolon_new)
 			# print (self.planets_degree_ut[planet_id])
 			# print (mdata.planets_degree_ut[planet_id])
-			print(sundiff)
+			# print(sundiff)
 
 
 		self.t_year = t_year

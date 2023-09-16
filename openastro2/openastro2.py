@@ -4370,24 +4370,8 @@ class openAstro:
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
 
-
-	def makeLocalSpaceHouseSkyLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
-		df = self.makeLocalSpaceHouseSkyDataFrame(dt, lat, lon)
-		# print (color1)
-		# Define a layer to display on a map
-		layer = pdk.Layer(
-		"GreatCircleLayer",
-		df,
-		pickable=True,
-		get_stroke_width=12,
-		get_source_position="from.coordinates",
-		get_target_position="to.coordinates",
-		get_source_color=color1,
-		get_target_color=color2,
-		auto_highlight=True,
-		)
-		return layer
 	def eclips_to_gorizont(self, eclips_arr, dt, lat, lon):
+		# we get eclips degrees and return gorizodegrees !!! in dt time !!!
 		# print (self.houses_degree_ut)
 		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
@@ -4408,8 +4392,35 @@ class openAstro:
 		p.center = bluffton
 		alt0, az0, distance0 = p.altaz()
 		return [alt0, az0, distance0]
+	def eclips_to_geo(self, eclips_arr_lon, eclips_arr_lat, t):
+		tau = api.tau
+		lon_rad = - np.array(eclips_arr_lon) / 360 * tau + 1 / 4.0 * tau
+		lat_rad = np.array(eclips_arr_lat) / 360 * tau
+		zero = lon_rad * 0.0
+		f = framelib.ecliptic_frame
+		d = api.Distance([np.cos(lat_rad) * np.cos(lon_rad), np.cos(lat_rad) * np.sin(lon_rad), np.sin(lat_rad)])
+		v = api.Velocity([zero, zero, zero])
+		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
+		p.center = 399
+		lat, lon = wgs84.latlon_of(p)
+		return [lat.degrees, lon.degrees]
 
-
+	def makeLocalSpaceHouseSkyLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
+		df = self.makeLocalSpaceHouseSkyDataFrame(dt, lat, lon)
+		# print (color1)
+		# Define a layer to display on a map
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
 	def makeLocalSpaceHouseSkyDataFrame(self, dt, lat, lon):
 		# print (self.houses_degree_ut)
 		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
@@ -4480,6 +4491,80 @@ class openAstro:
 		df = pd.DataFrame(dfd)
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
+
+	def makeLocalSpaceHouseSky2Layer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
+		df = self.makeLocalSpaceHouseSky2DataFrame(dt, lat, lon)
+		# print (color1)
+		# Define a layer to display on a map
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
+	def makeLocalSpaceHouseSky2DataFrame(self, dt, lat, lon):
+
+		alt0, az0, distance0 = self.eclips_to_gorizont(self.houses_degree_ut, dt, lat, lon)
+		ts = api.load.timescale()
+		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		[h_lat, h_lon] = self.eclips_to_geo(self.houses_degree_ut, self.houses_degree_ut, t)
+		print(h_lat[0])
+
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+
+		dfd= []
+		for i in range(12):
+			if (1):
+				alt = alt0.degrees[i]
+				azimuth = az0.degrees[i]
+				# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+				# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				new_latitude = h_lat[i]
+				new_longitude = h_lon[i]
+				new_latitude2 = -h_lat[i]
+				new_longitude2 = -h_lon[i]
+
+				dfdata= {
+				  "from": {
+					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+					"coordinates": [ starting_longitude,  starting_latitude ]
+				  },
+				  "to": {
+					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+					"coordinates": [ new_longitude, new_latitude ]
+				  }
+				}
+
+				dfd.append(dfdata)
+				# dfdata= {
+				#   "from": {
+				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"coordinates": [
+				# 	  starting_longitude,
+				# 	  starting_latitude
+				# 	]
+				#   },
+				#   "to": {
+				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"coordinates": [
+				# 	  new_longitude2,
+				# 	  new_latitude2
+				# 	]
+				#   }
+				# }
+				# dfd.append(dfdata)
+		df = pd.DataFrame(dfd)
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
 
 	def makeLocalSpaceHouseTransitSkyLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
 		df = self.makeLocalSpaceHouseTransitSkyDataFrame(dt, lat, lon)

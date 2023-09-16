@@ -4513,7 +4513,7 @@ class openAstro:
 		alt0, az0, distance0 = self.eclips_to_gorizont(self.houses_degree_ut, dt, lat, lon)
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		[h_lat, h_lon] = self.eclips_to_geo(self.houses_degree_ut, self.houses_degree_ut, t)
+		[h_lon, h_lat] = self.eclips_to_geo(self.houses_degree_ut, self.houses_degree_ut, t)
 		print(h_lat[0])
 
 		starting_latitude = lat  # Начальная широта

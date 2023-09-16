@@ -4544,7 +4544,7 @@ class openAstro:
 				new_latitude = h_lat[i]
 				new_longitude = h_lon[i]
 				new_latitude2 = -h_lat[i]
-				new_longitude2 = -h_lon[i]
+				new_longitude2 = h_lon[i]
 
 				dfdata= {
 				  "from": {

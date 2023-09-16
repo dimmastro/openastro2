@@ -4605,7 +4605,7 @@ class openAstro:
 		place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
-		distance2 = 6371*3.1  # Расстояние (в километрах)
+		distance2 = 6371*3.1/2  # Расстояние (в километрах)
 
 		dfd= []
 		for i in range(12):

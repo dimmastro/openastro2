@@ -4482,7 +4482,7 @@ class openAstro:
 		return df
 
 	def makeLocalSpaceHouseTransitSkyLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
-		df = self.makeLocalSpaceHouseSkyDataFrame(dt, lat, lon)
+		df = self.makeLocalSpaceHouseTransitSkyDataFrame(dt, lat, lon)
 		# print (color1)
 		# Define a layer to display on a map
 		layer = pdk.Layer(
@@ -4503,31 +4503,32 @@ class openAstro:
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 
-		𝜏 = api.tau
-		ts = api.load.timescale()
-		eph = api.load('de421.bsp')
-		bluffton = api.Topos(lat, lon)
-		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		# angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		angle = - np.array(self.t_houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
-
-		zero = angle * 0.0
-		f = framelib.ecliptic_frame
-		d = api.Distance([np.sin(angle), np.cos(angle), zero])
-		v = api.Velocity([zero, zero, zero])
-		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
-		p.center = bluffton
-		alt0, az0, distance0 = p.altaz()
-		i = np.argmax(alt0.degrees)  # Which of the 360 points has highest altitude?
+		# 𝜏 = api.tau
+		# ts = api.load.timescale()
+		# eph = api.load('de421.bsp')
+		# bluffton = api.Topos(lat, lon)
+		# t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		# # angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
+		# angle = - np.array(self.t_houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
+		#
+		# zero = angle * 0.0
+		# f = framelib.ecliptic_frame
+		# d = api.Distance([np.sin(angle), np.cos(angle), zero])
+		# v = api.Velocity([zero, zero, zero])
+		# p = Apparent.from_time_and_frame_vectors(t, f, d, v)
+		# p.center = bluffton
+		# alt0, az0, distance0 = p.altaz()
+		# i = np.argmax(alt0.degrees)  # Which of the 360 points has highest altitude?
 		# print('Altitude of highest point on ecliptic:', alt.degrees[i])
 		# print('Azimuth of highest point on ecliptic:', az.degrees[i])
 		# print(az0.degrees)
 		# print(alt0.degrees)
 		# print(angle)
+		alt0, az0, distance0 = self.eclips_to_gorizont(self.t_houses_degree_ut, dt, lat, lon)
 
-		earth = eph['earth']
-		ts = load.timescale()
-		place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
+		# earth = eph['earth']
+		# ts = load.timescale()
+		# place = earth + wgs84.latlon(lat * N, lon * E, elevation_m=287)
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
 		distance2 = 6371*3.1  # Расстояние (в километрах)

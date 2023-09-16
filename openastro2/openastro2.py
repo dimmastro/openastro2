@@ -4405,6 +4405,20 @@ class openAstro:
 		lat, lon = wgs84.latlon_of(p)
 		return [lat.degrees, lon.degrees]
 
+	def eclips_to_geo0(self, eclips_arr_lon, eclips_arr_lat, t):
+		tau = api.tau
+		lon_rad = - np.array(eclips_arr_lon) / 360 * tau + 1 / 4.0 * tau
+		lat_rad = np.array(eclips_arr_lat) / 360 * tau
+		zero = lon_rad * 0.0
+		f = framelib.ecliptic_frame
+		# d = api.Distance([np.cos(lat_rad) * np.cos(lon_rad), np.cos(lat_rad) * np.sin(lon_rad), np.sin(lat_rad)])
+		d = api.Distance([(lon_rad), (lon_rad), zero])
+		v = api.Velocity([zero, zero, zero])
+		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
+		p.center = 399
+		lat, lon = wgs84.latlon_of(p)
+		return [lat.degrees, lon.degrees]
+
 	def makeLocalSpaceHouseSkyLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
 		df = self.makeLocalSpaceHouseSkyDataFrame(dt, lat, lon)
 		# print (color1)
@@ -4513,7 +4527,7 @@ class openAstro:
 		alt0, az0, distance0 = self.eclips_to_gorizont(self.houses_degree_ut, dt, lat, lon)
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		[h_lon, h_lat] = self.eclips_to_geo(self.houses_degree_ut, self.houses_degree_ut, t)
+		[h_lat, h_lon] = self.eclips_to_geo0(self.houses_degree_ut, self.houses_degree_ut, t)
 		print(h_lat[0])
 
 		starting_latitude = lat  # Начальная широта

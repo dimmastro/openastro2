@@ -4128,11 +4128,6 @@ class openAstro:
 		# [h_lat, h_lon] = self.eclips_to_geo0(self.planet_longitude, self.planet_latitude, t)
 		# print(h_lat[0])
 
-		starting_latitude = lat  # Начальная широта
-		starting_longitude = lon  # Начальная долгота
-		distance2 = 6371*3.1  # Расстояние (в километрах)
-
-
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
@@ -4144,17 +4139,6 @@ class openAstro:
 		for i in range(num_planet):
 			if (1):
 				planet_code = i
-				# alt = alt0.degrees[i]
-				# azimuth0 = az0.degrees[i]
-				# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude,
-				# 															 azimuth, distance2)
-				# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude,
-				# 															   azimuth, -distance2)
-				# print(new_longitude)
-				# new_latitude = h_lat[i]
-				# new_longitude = h_lon[i]
-				# new_latitude2 = -h_lat[i]
-				# new_longitude2 = h_lon[i]
 				true_altitude = self.planet_latitude[i]
 		# dfd= []
 		# for i in range(num_planet):
@@ -4173,7 +4157,7 @@ class openAstro:
 				# aspects = [60, 90, 120]
 
 				for aspect in aspects:
-					[h_lat, h_lon] = self.eclips_to_geo([self.planet_longitude[i] + aspect], [self.planet_latitude[i]], t)
+					[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [self.planet_latitude[i]], t)
 					alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], dt, lat, lon)
 					azimuth = az0.degrees[0]
 					# azimuth = azimuth0 + aspect

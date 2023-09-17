@@ -4183,8 +4183,8 @@ class openAstro:
 					# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 					new_latitude = h_lat[0]
 					new_longitude = h_lon[0]
-					new_latitude2 = -h_lat[0]
-					new_longitude2 = h_lon[0]
+					new_latitude2 = h_lat[0]
+					new_longitude2 = -h_lon[0]
 					dfdata= {
 					  "from": {
 						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
@@ -4669,8 +4669,8 @@ class openAstro:
 				# print(new_longitude)
 				new_latitude = h_lat[i]
 				new_longitude = h_lon[i]
-				new_latitude2 = -h_lat[i]
-				new_longitude2 = h_lon[i]
+				# new_latitude2 = h_lat[i]
+				# new_longitude2 = -h_lon[i]
 
 				dfdata= {
 				  "from": {

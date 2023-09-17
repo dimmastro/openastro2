@@ -4173,7 +4173,7 @@ class openAstro:
 				# aspects = [60, 90, 120]
 
 				for aspect in aspects:
-					[h_lat, h_lon] = self.eclips_to_geo0([self.planet_longitude[i] + aspect], [self.planet_latitude[i]], t)
+					[h_lat, h_lon] = self.eclips_to_geo([self.planet_longitude[i] + aspect], [self.planet_latitude[i]], t)
 					alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], dt, lat, lon)
 					azimuth = az0.degrees[0]
 					# azimuth = azimuth0 + aspect

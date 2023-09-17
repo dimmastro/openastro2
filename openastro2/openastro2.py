@@ -1247,7 +1247,7 @@ class openAstro:
 		dt_new = ephemeris.years_diff(self.year,self.month,self.day,self.hour,
 			dt_utc.year,dt_utc.month,dt_utc.day,self.decHourJoin(dt_utc.hour,
 			dt_utc.minute,dt_utc.second))
-		print(dt_new)
+		# print(dt_new)
 		self.e2_dt_utc = dt_new
 		self.sp_year = dt_new.year
 		self.sp_month = dt_new.month
@@ -1286,6 +1286,9 @@ class openAstro:
 			module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											self.settings.astrocfg)
+			h, m, s = self.decHour(self.t_hour)
+			dt_original = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
+			self.e2_dt_utc = dt_new
 
 		# Direction module data
 		elif self.type == "Direction":
@@ -1473,7 +1476,9 @@ class openAstro:
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											  self.settings.astrocfg)
-
+			h, m, s = self.decHour(self.t_hour)
+			dt_original = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
+			self.e2_dt_utc = dt_new
 		else:
 			# make calculations
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,

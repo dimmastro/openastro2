@@ -4157,7 +4157,7 @@ class openAstro:
 				# aspects = [60, 90, 120]
 
 				for aspect in aspects:
-					[h_lat, h_lon] = self.eclips_to_geo0([self.planets_degree_ut[i] + aspect], [self.planet_latitude[i]], t)
+					[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [self.planet_latitude[i]], t)
 					alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], dt, lat, lon)
 					azimuth = az0.degrees[0]
 					# azimuth = azimuth0 + aspect
@@ -4500,9 +4500,11 @@ class openAstro:
 		p.center = bluffton
 		alt0, az0, distance0 = p.altaz()
 		return [alt0, az0, distance0]
+
 	def eclips_to_geo(self, eclips_arr_lon, eclips_arr_lat, t):
 		tau = api.tau
-		lon_rad = - np.array(eclips_arr_lon) / 360 * tau + 1 / 4.0 * tau
+		# lon_rad = - np.array(eclips_arr_lon) / 360 * tau + 1 / 4.0 * tau
+		lon_rad = np.array(eclips_arr_lon) / 360 * tau
 		lat_rad = np.array(eclips_arr_lat) / 360 * tau
 		zero = lon_rad * 0.0
 		f = framelib.ecliptic_frame

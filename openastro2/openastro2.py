@@ -69,6 +69,7 @@ from skyfield.api import utc
 
 # from geopy.distance import geodesic
 from geographiclib.geodesic import Geodesic
+import copy
 
 #debug
 LOCAL=True
@@ -4910,13 +4911,13 @@ class openAstro:
 		# icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
 
 		# df_data = [{"lat":47.29810329873421,"lon":39.710726380651636,"name":"Цирк"}]
-		df_data_t = df_data
+		df_data_t = copy.deepcopy(df_data)
 		for i in range(len(df_data)):
 			arr = Geodesic.WGS84.Inverse(lat, lon, df_data[i]["lat"], df_data[i]["lon"])
 			azimuth = arr["azi1"]
 			if(azimuth<0): azimuth = azimuth + 360
 			# txt = df_data_t[i]["name"]
-			df_data_t[i]["name"]= " - " + "az=" + '{0:.1f}'.format(float(azimuth)) + " dist=" + '{0:.0f}'.format(float(arr["s12"]/1000))  +"km - " + df_data_t[i]["name"]
+			df_data_t[i]["name"]= " " + "az=" + '{0:.1f}'.format(float(azimuth)) + " dist=" + '{0:.0f}'.format(float(arr["s12"]/1000))  +"km - " + df_data_t[i]["name"]
 			df_data_t[i]["icon_data"]= icon_data
 		data = pd.DataFrame(df_data_t)
 		# print (data)

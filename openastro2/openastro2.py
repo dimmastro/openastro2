@@ -4211,7 +4211,7 @@ class openAstro:
 						"coordinates": [new_longitude2, new_latitude2]
 					  }
 					}
-					dfd.append(dfdata)
+					# dfd.append(dfdata)
 		df = pd.DataFrame(dfd)
 		# df["name"] = df["from"].apply(lambda f: f["name"])
 		df["name"] = df["to"].apply(lambda t: t["name"])

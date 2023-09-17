@@ -4157,18 +4157,18 @@ class openAstro:
 				# aspects = [60, 90, 120]
 
 				for aspect in aspects:
-					[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [self.planet_latitude[i]], t)
+					[h_lat, h_lon] = self.eclips_to_geo0([self.planets_degree_ut[i] + aspect], [self.planet_latitude[i]], t)
 					alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], dt, lat, lon)
 					azimuth = az0.degrees[0]
 					# azimuth = azimuth0 + aspect
 					# if (azimuth > 360):
 					# 	azimuth = azimuth - 360
-					new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
-					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
-					# new_latitude = h_lat[0]
-					# new_longitude = h_lon[0]
-					# new_latitude2 = h_lat[0]
-					# new_longitude2 = -h_lon[0]
+					# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+					# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+					new_latitude = h_lat[0]
+					new_longitude = h_lon[0]
+					new_latitude2 = h_lat[0]
+					new_longitude2 = -h_lon[0]
 					dfdata= {
 					  "from": {
 						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",

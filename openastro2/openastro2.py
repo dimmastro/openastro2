@@ -4102,9 +4102,9 @@ class openAstro:
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
 
-	def makeLocalSpaceAspectLayer(self, type, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11, aspects = [60, 90, 120]):
+	def makeLocalSpaceAspectLayer(self, type, type_tr, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11, aspects = [60, 90, 120]):
 		if(type == "Sky"):
-			df = self.makeLocalSpaceAspectSkyDataFrame(dt, lat, lon, num_planet, aspects)
+			df = self.makeLocalSpaceAspectSkyDataFrame(type_tr, dt, lat, lon, num_planet, aspects)
 		elif(type == "Swe"):
 			df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet, aspects)
 		layer = pdk.Layer(
@@ -4120,14 +4120,10 @@ class openAstro:
 		)
 		return layer
 
-	def makeLocalSpaceAspectSkyDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
+	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
 
-		# alt0, az0, distance0 = self.eclips_to_gorizont(self.planets_degree_ut, dt, lat, lon)
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		# [h_lat, h_lon] = self.eclips_to_geo0(self.planet_longitude, self.planet_latitude, t)
-		# print(h_lat[0])
-
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
@@ -4140,29 +4136,16 @@ class openAstro:
 			if (1):
 				planet_code = i
 				true_altitude = self.planet_latitude[i]
-		# dfd= []
-		# for i in range(num_planet):
-		# 	if 1:
-		# 		planet_code = i
-		# 		planet_pos = swe.calc_ut(jul_day_UT, planet_code)
-		# 		azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
-		# 															  [lon, lat, 287], 0, 0,
-		# 															  planet_pos[0])
-				# azimuth = azimuth -180
-				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
-				# print (self.settings.settings_planet[i]['name'])
-				# print("Азимут планеты:", azimuth)
-				# print("Истинная высота:", true_altitude)
-				# print("Видимая высота:", apparent_altitude)
-				# aspects = [60, 90, 120]
 
 				for aspect in aspects:
-					[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [self.planet_latitude[i]], t)
-					alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], dt, lat, lon)
+					if (type_tr == "Radix"):
+						[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [self.planet_latitude[i]], t)
+						alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], dt, lat, lon)
+					elif (type_tr == "Transit"):
+						[h_lat, h_lon] = self.eclips_to_geo([self.t_planets_degree_ut[i] + aspect], [self.t_planet_latitude[i]], t)
+						alt0, az0, distance0 = self.eclips_to_gorizont([self.t_planets_degree_ut[i] + aspect], dt, lat, lon)
+
 					azimuth = az0.degrees[0]
-					# azimuth = azimuth0 + aspect
-					# if (azimuth > 360):
-					# 	azimuth = azimuth - 360
 					# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 					# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 					new_latitude = h_lat[0]
@@ -4529,6 +4512,20 @@ class openAstro:
 		lat, lon = wgs84.latlon_of(p)
 		# print(lon.degrees)
 		return [lat.degrees, lon.degrees]
+	def eclips_to_geo0_house(self, eclips_arr_lon, eclips_arr_lat, t):
+		tau = api.tau
+		lon_rad = - np.array(eclips_arr_lon) / 360 * tau + 1 / 4.0 * tau
+		lat_rad = np.array(eclips_arr_lat) / 360 * tau
+		zero = lon_rad * 0.0
+		f = framelib.ecliptic_frame
+		# d = api.Distance([np.cos(lat_rad) * np.cos(lon_rad), np.cos(lat_rad) * np.sin(lon_rad), np.sin(lat_rad)])
+		d = api.Distance([np.sin(lon_rad), np.cos(lon_rad), zero])
+		v = api.Velocity([zero, zero, zero])
+		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
+		p.center = 399
+		lat, lon = wgs84.latlon_of(p)
+		# print(lon.degrees)
+		return [lat.degrees, lon.degrees]
 
 	def makeLocalSpaceHouseSkyLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150]):
 		df = self.makeLocalSpaceHouseSkyDataFrame(dt, lat, lon)
@@ -4638,7 +4635,7 @@ class openAstro:
 		alt0, az0, distance0 = self.eclips_to_gorizont(self.houses_degree_ut, dt, lat, lon)
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		[h_lat, h_lon] = self.eclips_to_geo0(self.houses_degree_ut, self.houses_degree_ut, t)
+		[h_lat, h_lon] = self.eclips_to_geo0_house(self.houses_degree_ut, self.houses_degree_ut, t)
 		# print(h_lat[0])
 
 		starting_latitude = lat  # Начальная широта

@@ -3688,9 +3688,9 @@ class openAstro:
 	def make_aspect_degrees_list(self, degrees_list):
 		degrees_steps = self.generate_degrees_steps(degrees_list)
 		unique_degrees = self.merge_and_remove_duplicates(degrees_steps)
-		exclude_values = [0.0, 180.0, 360.0]
-		if exclude_values is not None:
-			unique_degrees = [d for d in unique_degrees if d not in exclude_values]
+		# exclude_values = [0.0, 180.0, 360.0]
+		# if exclude_values is not None:
+		# 	unique_degrees = [d for d in unique_degrees if d not in exclude_values]
 
 		sorted_degrees = sorted(unique_degrees)  # Сортируем по возрастанию
 		return sorted_degrees

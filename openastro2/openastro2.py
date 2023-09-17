@@ -4040,6 +4040,7 @@ class openAstro:
 		auto_highlight=True,
 		)
 		return layer
+
 	def makeLocalSpaceAspectSweDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
 
 		starting_latitude = lat  # Начальная широта
@@ -4069,6 +4070,118 @@ class openAstro:
 						azimuth = azimuth - 360
 					new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+					dfdata= {
+					  "from": {
+						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+						"coordinates": [starting_longitude, starting_latitude]
+					  },
+					  "to": {
+						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"coordinates": [new_longitude, new_latitude]
+					  }
+					}
+
+					dfd.append(dfdata)
+					dfdata= {
+					  "from": {
+						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"coordinates": [starting_longitude, starting_latitude]
+					  },
+					  "to": {
+						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"coordinates": [new_longitude2, new_latitude2]
+					  }
+					}
+					dfd.append(dfdata)
+		df = pd.DataFrame(dfd)
+		# df["name"] = df["from"].apply(lambda f: f["name"])
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
+	def makeLocalSpaceAspectLayer(self, type, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11, aspects = [60, 90, 120]):
+		if(type == "Sky"):
+			df = self.makeLocalSpaceAspectSkyDataFrame(dt, lat, lon, num_planet, aspects)
+		elif(type == "Swe"):
+			df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet, aspects)
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.coordinates",
+		get_target_position="to.coordinates",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
+
+	def makeLocalSpaceAspectSkyDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
+
+		alt0, az0, distance0 = self.eclips_to_gorizont(self.planets_degree_ut, dt, lat, lon)
+		ts = api.load.timescale()
+		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		[h_lat, h_lon] = self.eclips_to_geo0(self.planet_longitude, self.planet_latitude, t)
+		# print(h_lat[0])
+
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+
+
+
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
+		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
+
+		dfd = []
+		for i in range(12):
+			if (1):
+				planet_code = i
+				alt = alt0.degrees[i]
+				azimuth0 = az0.degrees[i]
+				# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude,
+				# 															 azimuth, distance2)
+				# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude,
+				# 															   azimuth, -distance2)
+				# print(new_longitude)
+				new_latitude = h_lat[i]
+				new_longitude = h_lon[i]
+				new_latitude2 = -h_lat[i]
+				new_longitude2 = h_lon[i]
+				true_altitude = self.planet_latitude[i]
+		# dfd= []
+		# for i in range(num_planet):
+		# 	if 1:
+		# 		planet_code = i
+		# 		planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+		# 		azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+		# 															  [lon, lat, 287], 0, 0,
+		# 															  planet_pos[0])
+				# azimuth = azimuth -180
+				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
+				# print (self.settings.settings_planet[i]['name'])
+				# print("Азимут планеты:", azimuth)
+				# print("Истинная высота:", true_altitude)
+				# print("Видимая высота:", apparent_altitude)
+				# aspects = [60, 90, 120]
+
+				for aspect in aspects:
+					azimuth = azimuth0 + aspect
+					if (azimuth > 360):
+						azimuth = azimuth - 360
+					# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+					# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+					new_latitude = h_lat[i]
+					new_longitude = h_lon[i]
+					new_latitude2 = -h_lat[i]
+					new_longitude2 = h_lon[i]
 					dfdata= {
 					  "from": {
 						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",

@@ -4917,7 +4917,7 @@ class openAstro:
 			if(azimuth<0): azimuth = azimuth + 360
 			# txt = df_data_t[i]["name"]
 			df_data_t[i]["name"]= " - " + "az=" + '{0:.1f}'.format(float(azimuth)) + " dist=" + '{0:.0f}'.format(float(arr["s12"]/1000))  +"km - " + df_data_t[i]["name"]
-			df_data_t[i]["name"]= icon_data
+			df_data_t[i]["icon_data"]= icon_data
 		data = pd.DataFrame(df_data_t)
 		# print (data)
 

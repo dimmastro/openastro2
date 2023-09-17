@@ -4122,10 +4122,10 @@ class openAstro:
 
 	def makeLocalSpaceAspectSkyDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
 
-		alt0, az0, distance0 = self.eclips_to_gorizont(self.planets_degree_ut, dt, lat, lon)
+		# alt0, az0, distance0 = self.eclips_to_gorizont(self.planets_degree_ut, dt, lat, lon)
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		[h_lat, h_lon] = self.eclips_to_geo0(self.planet_longitude, self.planet_latitude, t)
+		# [h_lat, h_lon] = self.eclips_to_geo0(self.planet_longitude, self.planet_latitude, t)
 		# print(h_lat[0])
 
 		starting_latitude = lat  # Начальная широта
@@ -4141,20 +4141,20 @@ class openAstro:
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
 
 		dfd = []
-		for i in range(12):
+		for i in range(num_planet):
 			if (1):
 				planet_code = i
-				alt = alt0.degrees[i]
-				azimuth0 = az0.degrees[i]
+				# alt = alt0.degrees[i]
+				# azimuth0 = az0.degrees[i]
 				# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude,
 				# 															 azimuth, distance2)
 				# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude,
 				# 															   azimuth, -distance2)
 				# print(new_longitude)
-				new_latitude = h_lat[i]
-				new_longitude = h_lon[i]
-				new_latitude2 = -h_lat[i]
-				new_longitude2 = h_lon[i]
+				# new_latitude = h_lat[i]
+				# new_longitude = h_lon[i]
+				# new_latitude2 = -h_lat[i]
+				# new_longitude2 = h_lon[i]
 				true_altitude = self.planet_latitude[i]
 		# dfd= []
 		# for i in range(num_planet):
@@ -4173,15 +4173,18 @@ class openAstro:
 				# aspects = [60, 90, 120]
 
 				for aspect in aspects:
-					azimuth = azimuth0 + aspect
-					if (azimuth > 360):
-						azimuth = azimuth - 360
+					[h_lat, h_lon] = self.eclips_to_geo0([self.planet_longitude[i] + aspect], [self.planet_latitude[i]], t)
+					alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], dt, lat, lon)
+					azimuth = az0.degrees[0]
+					# azimuth = azimuth0 + aspect
+					# if (azimuth > 360):
+					# 	azimuth = azimuth - 360
 					# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 					# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
-					new_latitude = h_lat[i]
-					new_longitude = h_lon[i]
-					new_latitude2 = -h_lat[i]
-					new_longitude2 = h_lon[i]
+					new_latitude = h_lat
+					new_longitude = h_lon
+					new_latitude2 = -h_lat
+					new_longitude2 = h_lon
 					dfdata= {
 					  "from": {
 						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",

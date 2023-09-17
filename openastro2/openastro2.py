@@ -1248,7 +1248,6 @@ class openAstro:
 			dt_utc.year,dt_utc.month,dt_utc.day,self.decHourJoin(dt_utc.hour,
 			dt_utc.minute,dt_utc.second))
 		# print(dt_new)
-		self.e2_dt_utc = dt_new
 		self.sp_year = dt_new.year
 		self.sp_month = dt_new.month
 		self.sp_day = dt_new.day
@@ -1257,6 +1256,10 @@ class openAstro:
 		self.sp_geolat = self.geolat
 		self.sp_altitude = self.altitude
 		self.houses_override = [dt_new.year,dt_new.month,dt_new.day,self.hour]
+		h,m,s = self.decHour(self.hour)
+		self.e2_dt_utc = datetime.datetime(dt_new.year,dt_new.month,dt_new.day, t_h, t_m, t_s)
+		self.e2_dt_utc_as_transit = dt_new
+		self.e2_dt_utc_as_sprogression = self.e2_dt_utc
 
 		dprint("localToSProgression: got UTC %s-%s-%s %s:%s:%s"%(
 			dt_new.year,dt_new.month,dt_new.day,dt_new.hour,dt_new.minute,dt_new.second))

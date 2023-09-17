@@ -4915,7 +4915,7 @@ class openAstro:
 			arr = Geodesic.WGS84.Inverse(lat, lon, df_data[i]["lat"], df_data[i]["lon"])
 			azimuth = arr["azi1"]
 			if(azimuth<0): azimuth = azimuth + 360
-			df_data[i]["name"]= "" + "az=" + '{0:.1f}'.format(float(azimuth)) + " dist=" + '{0:.0f}'.format(float(arr["s12"]/1000))  +"km - " + df_data[i]["name"]
+			df_data[i]["name"]= str(i) + " - " + "az=" + '{0:.1f}'.format(float(azimuth)) + " dist=" + '{0:.0f}'.format(float(arr["s12"]/1000))  +"km - " + df_data[i]["name"]
 
 		data = pd.DataFrame(df_data)
 		print (data)

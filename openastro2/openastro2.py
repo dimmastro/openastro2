@@ -1287,7 +1287,7 @@ class openAstro:
 											self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											self.settings.astrocfg)
 			h, m, s = self.decHour(self.t_hour)
-			dt_original = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
+			dt_new = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
 			self.e2_dt_utc = dt_new
 
 		# Direction module data
@@ -1477,7 +1477,7 @@ class openAstro:
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											  self.settings.astrocfg)
 			h, m, s = self.decHour(self.t_hour)
-			dt_original = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
+			dt_new = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
 			self.e2_dt_utc = dt_new
 		else:
 			# make calculations

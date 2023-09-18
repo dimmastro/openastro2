@@ -4105,11 +4105,16 @@ class openAstro:
 				true_altitude = self.planet_latitude[i]
 
 				for aspect in aspects:
+					if(aspect<=180):
+						lat_angle =  self.planet_latitude[i] * (90-aspect)/90.0
+					if(aspect>180):
+						lat_angle =  self.planet_latitude[i] * (aspect-90-180)/90.0
+
 					if (type_tr == "Radix"):
-						[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [self.planet_latitude[i]], t)
+						[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [lat_angle], t)
 						alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], dt, lat, lon)
 					elif (type_tr == "Transit"):
-						[h_lat, h_lon] = self.eclips_to_geo([self.t_planets_degree_ut[i] + aspect], [self.t_planet_latitude[i]], t)
+						[h_lat, h_lon] = self.eclips_to_geo([self.t_planets_degree_ut[i] + aspect], [lat_angle], t)
 						alt0, az0, distance0 = self.eclips_to_gorizont([self.t_planets_degree_ut[i] + aspect], dt, lat, lon)
 
 					azimuth = az0.degrees[0]

@@ -4105,8 +4105,10 @@ class openAstro:
 
 				if (type_tr == "Radix"):
 					lat_angle0 = self.planet_latitude[i]
+					lon_angle0 = self.planets_degree_ut[i]
 				elif (type_tr == "Transit"):
 					lat_angle0 = self.t_planet_latitude[i]
+					lon_angle0 = self.t_planets_degree_ut[i]
 
 				for aspect in aspects:
 					if(aspect<=180):
@@ -4114,21 +4116,24 @@ class openAstro:
 					if(aspect>180):
 						lat_angle =  lat_angle0 * (aspect-90-180)/90.0
 					true_altitude = lat_angle
+					lon_angle = lon_angle0 + aspect
 
-					if (type_tr == "Radix"):
-						[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [lat_angle], t)
-						alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], [lat_angle], dt, lat, lon)
-					elif (type_tr == "Transit"):
-						[h_lat, h_lon] = self.eclips_to_geo([self.t_planets_degree_ut[i] + aspect], [lat_angle], t)
-						alt0, az0, distance0 = self.eclips_to_gorizont([self.t_planets_degree_ut[i] + aspect], [lat_angle], dt, lat, lon)
+					[h_lat, h_lon] = self.eclips_to_geo([lon_angle], [lat_angle], t)
+					alt0, az0, distance0 = self.eclips_to_gorizont([lon_angle], [lat_angle], dt, lat, lon)
+					# if (type_tr == "Radix"):
+					# 	[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [lat_angle], t)
+					# 	alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], [lat_angle], dt, lat, lon)
+					# elif (type_tr == "Transit"):
+					# 	[h_lat, h_lon] = self.eclips_to_geo([self.t_planets_degree_ut[i] + aspect], [lat_angle], t)
+					# 	alt0, az0, distance0 = self.eclips_to_gorizont([self.t_planets_degree_ut[i] + aspect], [lat_angle], dt, lat, lon)
 
 					azimuth = az0.degrees[0]
 					# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 					# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 					new_latitude = h_lat[0]
 					new_longitude = h_lon[0]
-					new_latitude2 = h_lat[0]
-					new_longitude2 = -h_lon[0]
+					# new_latitude2 = h_lat[0]
+					# new_longitude2 = -h_lon[0]
 					dfdata= {
 					  "from": {
 						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
@@ -4147,15 +4152,15 @@ class openAstro:
 					  "from": {
 						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
 						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"coordinates": [starting_longitude, starting_latitude]
+						"coordinates": [-starting_longitude, -starting_latitude]
 					  },
 					  "to": {
 						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
 						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"coordinates": [new_longitude2, new_latitude2]
+						"coordinates": [new_longitude, new_latitude]
 					  }
 					}
-					# dfd.append(dfdata)
+					dfd.append(dfdata)
 		df = pd.DataFrame(dfd)
 		# df["name"] = df["from"].apply(lambda f: f["name"])
 		df["name"] = df["to"].apply(lambda t: t["name"])
@@ -4460,7 +4465,6 @@ class openAstro:
 		p.center = bluffton
 		alt0, az0, distance0 = p.altaz()
 		return [alt0, az0, distance0]
-
 	def eclips_to_gorizont(self, eclips_arr_lon, eclips_arr_lat, dt, lat, lon):
 		# we get eclips degrees and return gorizodegrees !!! in dt time !!!
 		# print (self.houses_degree_ut)
@@ -4472,10 +4476,7 @@ class openAstro:
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		# angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		# lon_rad = - np.array(eclips_arr_lon)/360 * tau + 1/4.0 * tau
 		lon_rad = np.array(eclips_arr_lon)/360 * tau
-		# lon_rad = np.array(eclips_arr_lon) / 360 * tau
 		lat_rad = np.array(eclips_arr_lat) / 360 * tau
 
 		zero = lon_rad * 0.0
@@ -4500,7 +4501,6 @@ class openAstro:
 		p.center = 399
 		lat, lon = wgs84.latlon_of(p)
 		return [lat.degrees, lon.degrees]
-
 	def eclips_to_geo0(self, eclips_arr_lon, eclips_arr_lat, t):
 		tau = api.tau
 		lon_rad = - np.array(eclips_arr_lon) / 360 * tau + 1 / 4.0 * tau

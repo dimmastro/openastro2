@@ -4273,11 +4273,11 @@ class openAstro:
 
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"name": self.name + "/"  + " K" + str(i+1) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
 					"coordinates": [ starting_longitude,  starting_latitude ]
 				  },
 				  "to": {
-					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"name": self.name + "/"  + " K" + str(i+1) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
 					"coordinates": [ new_longitude, new_latitude ]
 				  }
 				}
@@ -4285,11 +4285,11 @@ class openAstro:
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "K" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"name": self.name + "/"  + "K" + str(i) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
 					"coordinates": [starting_longitude-180, -starting_latitude]
 				  },
 				  "to": {
-					"name": self.name + "/"  + "K" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"name": self.name + "/"  + "K" + str(i) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
 					"coordinates": [ new_longitude, new_latitude ]
 				  }
 				}

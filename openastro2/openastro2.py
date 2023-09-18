@@ -4152,7 +4152,7 @@ class openAstro:
 					  "from": {
 						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
 						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"coordinates": [-starting_longitude, -starting_latitude]
+						"coordinates": [starting_longitude-180, -starting_latitude]
 					  },
 					  "to": {
 						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",

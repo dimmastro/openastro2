@@ -4072,6 +4072,8 @@ class openAstro:
 	def makeLocalSpaceAspectLayer(self, type, type_tr, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11, aspects = [60, 90, 120]):
 		if(type == "Sky"):
 			df = self.makeLocalSpaceAspectSkyDataFrame(type_tr, dt, lat, lon, num_planet, aspects)
+		elif (type == "SkyHouse"):
+			df = self.makeLocalSpaceAspectSkyHouseDataFrame(type_tr, dt, lat, lon, aspects)
 		elif(type == "Swe"):
 			df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet, aspects)
 		layer = pdk.Layer(
@@ -4087,85 +4089,216 @@ class openAstro:
 		)
 		return layer
 
-	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
+	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [0, 60, 90, 120, 180, 240, 270, 300]):
 
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
-		distance2 = 6371*3.1  # Расстояние (в километрах)
-		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
-		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
+		# distance2 = 6371*3.1  # Расстояние (в километрах)
+		# sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
+		# jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
 
 		dfd = []
 		for i in range(num_planet):
-			if (1):
-				planet_code = i
 
-				if (type_tr == "Radix"):
-					lat_angle0 = self.planet_latitude[i]
-					lon_angle0 = self.planets_degree_ut[i]
-				elif (type_tr == "Transit"):
-					lat_angle0 = self.t_planet_latitude[i]
-					lon_angle0 = self.t_planets_degree_ut[i]
+			planet_code = i
 
-				for aspect in aspects:
-					if(aspect<=180):
-						lat_angle =  lat_angle0 * (90-aspect)/90.0
-					if(aspect>180):
-						lat_angle =  lat_angle0 * (aspect-90-180)/90.0
-					true_altitude = lat_angle
-					lon_angle = lon_angle0 + aspect
+			if (type_tr == "Radix"):
+				lat_angle0 = self.planet_latitude[i]
+				lon_angle0 = self.planets_degree_ut[i]
+			elif (type_tr == "Transit"):
+				lat_angle0 = self.t_planet_latitude[i]
+				lon_angle0 = self.t_planets_degree_ut[i]
 
-					[h_lat, h_lon] = self.eclips_to_geo([lon_angle], [lat_angle], t)
-					alt0, az0, distance0 = self.eclips_to_gorizont([lon_angle], [lat_angle], dt, lat, lon)
-					# if (type_tr == "Radix"):
-					# 	[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [lat_angle], t)
-					# 	alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], [lat_angle], dt, lat, lon)
-					# elif (type_tr == "Transit"):
-					# 	[h_lat, h_lon] = self.eclips_to_geo([self.t_planets_degree_ut[i] + aspect], [lat_angle], t)
-					# 	alt0, az0, distance0 = self.eclips_to_gorizont([self.t_planets_degree_ut[i] + aspect], [lat_angle], dt, lat, lon)
+			for aspect in aspects:
+				if(aspect<=180):
+					lat_angle =  lat_angle0 * (90-aspect)/90.0
+				if(aspect>180):
+					lat_angle =  lat_angle0 * (aspect-90-180)/90.0
+				true_altitude = lat_angle
+				lon_angle = lon_angle0 + aspect
 
-					azimuth = az0.degrees[0]
-					# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
-					# new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
-					new_latitude = h_lat[0]
-					new_longitude = h_lon[0]
-					# new_latitude2 = h_lat[0]
-					# new_longitude2 = -h_lon[0]
-					dfdata= {
-					  "from": {
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-						"coordinates": [starting_longitude, starting_latitude]
-					  },
-					  "to": {
-						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"coordinates": [new_longitude, new_latitude]
-					  }
-					}
+				[h_lat, h_lon] = self.eclips_to_geo([lon_angle], [lat_angle], t)
+				alt0, az0, distance0 = self.eclips_to_gorizont([lon_angle], [lat_angle], dt, lat, lon)
+				azimuth = az0.degrees[0]
+				new_latitude = h_lat[0]
+				new_longitude = h_lon[0]
+				dfdata= {
+				  "from": {
+					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+					"coordinates": [starting_longitude, starting_latitude]
+				  },
+				  "to": {
+					# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+					"coordinates": [new_longitude, new_latitude]
+				  }
+				}
 
-					dfd.append(dfdata)
-					dfdata= {
-					  "from": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"coordinates": [starting_longitude-180, -starting_latitude]
-					  },
-					  "to": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"coordinates": [new_longitude, new_latitude]
-					  }
-					}
-					dfd.append(dfdata)
+				dfd.append(dfdata)
+				dfdata= {
+				  "from": {
+					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+					"coordinates": [starting_longitude-180, -starting_latitude]
+				  },
+				  "to": {
+					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+					"coordinates": [new_longitude, new_latitude]
+				  }
+				}
+				dfd.append(dfdata)
 		df = pd.DataFrame(dfd)
 		# df["name"] = df["from"].apply(lambda f: f["name"])
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
+	def makeLocalSpaceAspectSkyHouseDataFrame(self, type_tr, dt, lat, lon, aspects = [0, 60, 90, 120, 180, 240, 270, 300]):
+		#
+		# alt0, az0, distance0 = self.eclips_to_gorizont0(self.houses_degree_ut, dt, lat, lon)
+		# ts = api.load.timescale()
+		# t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		# [h_lat, h_lon] = self.eclips_to_geo0_house(self.houses_degree_ut, self.houses_degree_ut, t)
+		# # print(h_lat[0])
+		#
+		# starting_latitude = lat  # Начальная широта
+		# starting_longitude = lon  # Начальная долгота
+		# distance2 = 6371*3.1  # Расстояние (в километрах)
+		#
+		# dfd= []
+		# for i in range(12):
+		# 	if (1):
+		# 		alt = alt0.degrees[i]
+		# 		azimuth = az0.degrees[i]
+		# 		new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+		# 		new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+		# 		# print(new_longitude)
+		# 		new_latitude = h_lat[i]
+		# 		new_longitude = h_lon[i]
+		# 		# new_latitude2 = h_lat[i]
+		# 		# new_longitude2 = -h_lon[i]
+		#
+		# 		dfdata= {
+		# 		  "from": {
+		# 			"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+		# 			"coordinates": [ starting_longitude,  starting_latitude ]
+		# 		  },
+		# 		  "to": {
+		# 			"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+		# 			"coordinates": [ new_longitude, new_latitude ]
+		# 		  }
+		# 		}
+		#
+		# 		dfd.append(dfdata)
+		# 		# dfdata= {
+		# 		#   "from": {
+		# 		# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+		# 		# 	"coordinates": [
+		# 		# 	  starting_longitude,
+		# 		# 	  starting_latitude
+		# 		# 	]
+		# 		#   },
+		# 		#   "to": {
+		# 		# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+		# 		# 	"coordinates": [
+		# 		# 	  new_longitude2,
+		# 		# 	  new_latitude2
+		# 		# 	]
+		# 		#   }
+		# 		# }
+		# 		# dfd.append(dfdata)
+		# df = pd.DataFrame(dfd)
+		# df["name"] = df["to"].apply(lambda t: t["name"])
+		# return df
 
+		ts = api.load.timescale()
+		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+
+		dfd = []
+		for i in range(len(self.houses_degree_ut)):
+			planet_code = i
+			if (type_tr == "Radix"):
+				lat_angle0 = 0
+				lon_angle0 = self.houses_degree_ut[i]
+			elif (type_tr == "Transit"):
+				lat_angle0 = 0
+				lon_angle0 = self.t_houses_degree_ut[i]
+
+			for aspect in aspects:
+				if(aspect<=180):
+					lat_angle =  lat_angle0 * (90-aspect)/90.0
+				if(aspect>180):
+					lat_angle =  lat_angle0 * (aspect-90-180)/90.0
+				true_altitude = lat_angle
+				lon_angle = lon_angle0 + aspect
+
+				# [h_lat, h_lon] = self.eclips_to_geo([lon_angle], [lat_angle], t)
+				[h_lat, h_lon] = self.eclips_to_geo0_house([lon_angle], [lat_angle], t)
+				alt0, az0, distance0 = self.eclips_to_gorizont([lon_angle], [lat_angle], dt, lat, lon)
+				azimuth = az0.degrees[0]
+				new_latitude = h_lat[0]
+				new_longitude = h_lon[0]
+				# dfdata= {
+				#   "from": {
+				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+				# 	# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az360=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+				# 	"coordinates": [starting_longitude, starting_latitude]
+				#   },
+				#   "to": {
+				# 	# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az360=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+				# 	"coordinates": [new_longitude, new_latitude]
+				#   }
+				# }
+				#
+				# dfd.append(dfdata)
+				# dfdata= {
+				#   "from": {
+				# 	# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+				# 	"coordinates": [starting_longitude-180, -starting_latitude]
+				#   },
+				#   "to": {
+				# 	# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+				# 	"coordinates": [new_longitude, new_latitude]
+				#   }
+				# }
+				# dfd.append(dfdata)
+
+				dfdata= {
+				  "from": {
+					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"coordinates": [ starting_longitude,  starting_latitude ]
+				  },
+				  "to": {
+					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"coordinates": [ new_longitude, new_latitude ]
+				  }
+				}
+
+				dfd.append(dfdata)
+				dfdata= {
+				  "from": {
+					"name": self.name + "/"  + "K" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"coordinates": [starting_longitude-180, -starting_latitude]
+				  },
+				  "to": {
+					"name": self.name + "/"  + "K" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"coordinates": [ new_longitude, new_latitude ]
+				  }
+				}
+				dfd.append(dfdata)
+
+		df = pd.DataFrame(dfd)
+		# df["name"] = df["from"].apply(lambda f: f["name"])
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
 
 	def makeZenitDataFrame(self, dt, lat, lon):
 

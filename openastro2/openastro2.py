@@ -4473,7 +4473,8 @@ class openAstro:
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		# angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		lon_rad = - np.array(eclips_arr_lon)/360 * tau + 1/4.0 * tau
+		# lon_rad = - np.array(eclips_arr_lon)/360 * tau + 1/4.0 * tau
+		lon_rad = np.array(eclips_arr_lon)/360 * tau
 		# lon_rad = np.array(eclips_arr_lon) / 360 * tau
 		lat_rad = np.array(eclips_arr_lat) / 360 * tau
 

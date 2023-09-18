@@ -4102,20 +4102,25 @@ class openAstro:
 		for i in range(num_planet):
 			if (1):
 				planet_code = i
-				true_altitude = self.planet_latitude[i]
+
+				if (type_tr == "Radix"):
+					lat_angle0 = self.planet_latitude[i]
+				elif (type_tr == "Transit"):
+					lat_angle0 = self.t_planet_latitude[i]
 
 				for aspect in aspects:
 					if(aspect<=180):
-						lat_angle =  self.planet_latitude[i] * (90-aspect)/90.0
+						lat_angle =  lat_angle0 * (90-aspect)/90.0
 					if(aspect>180):
-						lat_angle =  self.planet_latitude[i] * (aspect-90-180)/90.0
+						lat_angle =  lat_angle0 * (aspect-90-180)/90.0
+					true_altitude = lat_angle
 
 					if (type_tr == "Radix"):
 						[h_lat, h_lon] = self.eclips_to_geo([self.planets_degree_ut[i] + aspect], [lat_angle], t)
-						alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], dt, lat, lon)
+						alt0, az0, distance0 = self.eclips_to_gorizont([self.planets_degree_ut[i] + aspect], [lat_angle], dt, lat, lon)
 					elif (type_tr == "Transit"):
 						[h_lat, h_lon] = self.eclips_to_geo([self.t_planets_degree_ut[i] + aspect], [lat_angle], t)
-						alt0, az0, distance0 = self.eclips_to_gorizont([self.t_planets_degree_ut[i] + aspect], dt, lat, lon)
+						alt0, az0, distance0 = self.eclips_to_gorizont([self.t_planets_degree_ut[i] + aspect], [lat_angle], dt, lat, lon)
 
 					azimuth = az0.degrees[0]
 					# new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
@@ -4433,7 +4438,7 @@ class openAstro:
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
 
-	def eclips_to_gorizont(self, eclips_arr, dt, lat, lon):
+	def eclips_to_gorizont0(self, eclips_arr, dt, lat, lon):
 		# we get eclips degrees and return gorizodegrees !!! in dt time !!!
 		# print (self.houses_degree_ut)
 		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
@@ -4450,6 +4455,31 @@ class openAstro:
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame
 		d = api.Distance([np.sin(angle), np.cos(angle), zero])
+		v = api.Velocity([zero, zero, zero])
+		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
+		p.center = bluffton
+		alt0, az0, distance0 = p.altaz()
+		return [alt0, az0, distance0]
+
+	def eclips_to_gorizont(self, eclips_arr_lon, eclips_arr_lat, dt, lat, lon):
+		# we get eclips degrees and return gorizodegrees !!! in dt time !!!
+		# print (self.houses_degree_ut)
+		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
+		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
+		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
+		tau = api.tau
+		ts = api.load.timescale()
+		eph = api.load('de421.bsp')
+		bluffton = api.Topos(lat, lon)
+		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		# angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
+		lon_rad = - np.array(eclips_arr_lon)/360 * tau + 1/4.0 * tau
+		# lon_rad = np.array(eclips_arr_lon) / 360 * tau
+		lat_rad = np.array(eclips_arr_lat) / 360 * tau
+
+		zero = lon_rad * 0.0
+		f = framelib.ecliptic_frame
+		d = api.Distance([np.cos(lat_rad) * np.cos(lon_rad), np.cos(lat_rad) * np.sin(lon_rad), np.sin(lat_rad)])
 		v = api.Velocity([zero, zero, zero])
 		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
 		p.center = bluffton
@@ -4536,7 +4566,7 @@ class openAstro:
 		# p = Apparent.from_time_and_frame_vectors(t, f, d, v)
 		# p.center = bluffton
 		# alt0, az0, distance0 = p.altaz()
-		alt0, az0, distance0 = self.eclips_to_gorizont(self.houses_degree_ut, dt, lat, lon)
+		alt0, az0, distance0 = self.eclips_to_gorizont0(self.houses_degree_ut, dt, lat, lon)
 
 
 		# earth = eph['earth']
@@ -4604,7 +4634,7 @@ class openAstro:
 		return layer
 	def makeLocalSpaceHouseSky2DataFrame(self, dt, lat, lon):
 
-		alt0, az0, distance0 = self.eclips_to_gorizont(self.houses_degree_ut, dt, lat, lon)
+		alt0, az0, distance0 = self.eclips_to_gorizont0(self.houses_degree_ut, dt, lat, lon)
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		[h_lat, h_lon] = self.eclips_to_geo0_house(self.houses_degree_ut, self.houses_degree_ut, t)
@@ -4704,7 +4734,7 @@ class openAstro:
 		# print(az0.degrees)
 		# print(alt0.degrees)
 		# print(angle)
-		alt0, az0, distance0 = self.eclips_to_gorizont(self.t_houses_degree_ut, dt, lat, lon)
+		alt0, az0, distance0 = self.eclips_to_gorizont0(self.t_houses_degree_ut, dt, lat, lon)
 
 		# earth = eph['earth']
 		# ts = load.timescale()

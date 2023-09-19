@@ -4115,7 +4115,7 @@ class openAstro:
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
-		distance2 = 6371*3.1  # Расстояние (в километрах)
+		distance2 = 6371*3.1/2  # Расстояние (в километрах)
 		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
 		dfd= []

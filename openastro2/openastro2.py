@@ -1542,7 +1542,16 @@ class openAstro:
 			t_module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 											  self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
 											  self.settings.astrocfg, houses_override=self.houses_override)
-
+			self.t_planets_sign = t_module_data.planets_sign
+			self.t_planets_degree = t_module_data.planets_degree
+			self.t_planets_degree_ut = t_module_data.planets_degree_ut
+			self.t_planets_retrograde = t_module_data.planets_retrograde
+			self.t_houses_degree = t_module_data.houses_degree
+			self.t_houses_sign = t_module_data.houses_sign
+			self.t_houses_degree_ut = t_module_data.houses_degree_ut
+			self.t_planet_azimuth = t_module_data.planet_azimuth
+			self.t_planet_latitude = t_module_data.planet_latitude
+			self.t_planet_longitude = t_module_data.planet_longitude
 		elif self.type == "Transit" or self.type == "Composite":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)

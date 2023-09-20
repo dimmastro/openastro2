@@ -1279,6 +1279,7 @@ class openAstro:
 		dt_new = ephemeris.years_diff(self.year,self.month,self.day,self.hour,
 			dt_utc.year,dt_utc.month,dt_utc.day,self.decHourJoin(dt_utc.hour,
 			dt_utc.minute,dt_utc.second))
+		# print ("localToSProgression")
 		# print(dt_new)
 		self.sp_year = dt_new.year
 		self.sp_month = dt_new.month
@@ -1303,33 +1304,34 @@ class openAstro:
 		return
 
 	def localToSProgressionPast(self, dt):
-
-		# remove timezone
-		dt_utc = dt - datetime.timedelta(seconds=float(self.timezone) * float(3600))
-		h, m, s = self.decHour(self.hour)
-		dt_new = ephemeris.years_diff(dt_utc.year, dt_utc.month, dt_utc.day, self.decHourJoin(dt_utc.hour, dt_utc.minute, dt_utc.second), self.year, self.month, self.day, self.hour)
+		#
+		# # remove timezone
+		# dt_utc = dt - datetime.timedelta(seconds=float(self.timezone) * float(3600))
+		# h, m, s = self.decHour(self.hour)
+		# dt_new = ephemeris.years_diff(dt_utc.year, dt_utc.month, dt_utc.day, self.decHourJoin(dt_utc.hour, dt_utc.minute, dt_utc.second), self.year, self.month, self.day, self.hour)
+		# print ("localToSProgressionPast")
 		# print(dt_new)
-		self.sp_year = dt_new.year
-		self.sp_month = dt_new.month
-		self.sp_day = dt_new.day
-		self.sp_hour = self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second)
-		self.sp_geolon = self.geolon
-		self.sp_geolat = self.geolat
-		self.sp_altitude = self.altitude
-		self.houses_override = [dt_new.year, dt_new.month, dt_new.day, self.hour]
-		h, m, s = self.decHour(self.hour)
-		self.e2_dt_utc = datetime.datetime(dt_new.year, dt_new.month, dt_new.day, h, m, s)
-		self.e2_dt_utc_as_transit = dt_new
-		self.e2_dt_utc_as_sprogression = self.e2_dt_utc
-
-		dprint("localToSProgression: got UTC %s-%s-%s %s:%s:%s" % (
-			dt_new.year, dt_new.month, dt_new.day, dt_new.hour, dt_new.minute, dt_new.second))
-
-		# self.type = "SProgression"
-		self.type = "Transit"
-		openAstro.charttype = "%s (%s-%02d-%02d %02d:%02d)" % (
-		"SProgression", dt.year, dt.month, dt.day, dt.hour, dt.minute)
-		openAstro.transit = False
+		# self.sp_year = dt_new.year
+		# self.sp_month = dt_new.month
+		# self.sp_day = dt_new.day
+		# self.sp_hour = self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second)
+		# self.sp_geolon = self.geolon
+		# self.sp_geolat = self.geolat
+		# self.sp_altitude = self.altitude
+		# self.houses_override = [dt_new.year, dt_new.month, dt_new.day, self.hour]
+		# h, m, s = self.decHour(self.hour)
+		# self.e2_dt_utc = datetime.datetime(dt_new.year, dt_new.month, dt_new.day, h, m, s)
+		# self.e2_dt_utc_as_transit = dt_new
+		# self.e2_dt_utc_as_sprogression = self.e2_dt_utc
+		#
+		# dprint("localToSProgression: got UTC %s-%s-%s %s:%s:%s" % (
+		# 	dt_new.year, dt_new.month, dt_new.day, dt_new.hour, dt_new.minute, dt_new.second))
+		#
+		# # self.type = "SProgression"
+		# self.type = "Transit"
+		# openAstro.charttype = "%s (%s-%02d-%02d %02d:%02d)" % (
+		# "SProgression", dt.year, dt.month, dt.day, dt.hour, dt.minute)
+		# openAstro.transit = False
 		return
 	def calcAstro( self ):
 		# empty element points

@@ -1301,7 +1301,36 @@ class openAstro:
 		openAstro.charttype="%s (%s-%02d-%02d %02d:%02d)" % ("SProgression",dt.year,dt.month,dt.day,dt.hour,dt.minute)
 		openAstro.transit=False
 		return
-	
+
+	def localToSProgressionPast(self, dt):
+
+		# remove timezone
+		dt_utc = dt - datetime.timedelta(seconds=float(self.timezone) * float(3600))
+		h, m, s = self.decHour(self.hour)
+		dt_new = ephemeris.years_diff(dt_utc.year, dt_utc.month, dt_utc.day, self.decHourJoin(dt_utc.hour, dt_utc.minute, dt_utc.second), self.year, self.month, self.day, self.hour)
+		# print(dt_new)
+		self.sp_year = dt_new.year
+		self.sp_month = dt_new.month
+		self.sp_day = dt_new.day
+		self.sp_hour = self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second)
+		self.sp_geolon = self.geolon
+		self.sp_geolat = self.geolat
+		self.sp_altitude = self.altitude
+		self.houses_override = [dt_new.year, dt_new.month, dt_new.day, self.hour]
+		h, m, s = self.decHour(self.hour)
+		self.e2_dt_utc = datetime.datetime(dt_new.year, dt_new.month, dt_new.day, h, m, s)
+		self.e2_dt_utc_as_transit = dt_new
+		self.e2_dt_utc_as_sprogression = self.e2_dt_utc
+
+		dprint("localToSProgression: got UTC %s-%s-%s %s:%s:%s" % (
+			dt_new.year, dt_new.month, dt_new.day, dt_new.hour, dt_new.minute, dt_new.second))
+
+		# self.type = "SProgression"
+		self.type = "Transit"
+		openAstro.charttype = "%s (%s-%02d-%02d %02d:%02d)" % (
+		"SProgression", dt.year, dt.month, dt.day, dt.hour, dt.minute)
+		openAstro.transit = False
+		return
 	def calcAstro( self ):
 		# empty element points
 		self.fire = 0.0
@@ -1552,6 +1581,30 @@ class openAstro:
 			self.t_planet_azimuth = t_module_data.planet_azimuth
 			self.t_planet_latitude = t_module_data.planet_latitude
 			self.t_planet_longitude = t_module_data.planet_longitude
+		elif self.type == "SProgressionPast":
+			dt	= datetime.datetime(self.t_year, self.t_month, self.t_day, self.t_h, self.t_m, self.t_s)
+			print (dt)
+			self.localToSProgressionPast(dt)
+			# module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
+			# 								self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
+			# 								self.settings.astrocfg, houses_override=self.houses_override)
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			t_module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
+											  self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg, houses_override=self.houses_override)
+			self.t_planets_sign = t_module_data.planets_sign
+			self.t_planets_degree = t_module_data.planets_degree
+			self.t_planets_degree_ut = t_module_data.planets_degree_ut
+			self.t_planets_retrograde = t_module_data.planets_retrograde
+			self.t_houses_degree = t_module_data.houses_degree
+			self.t_houses_sign = t_module_data.houses_sign
+			self.t_houses_degree_ut = t_module_data.houses_degree_ut
+			self.t_planet_azimuth = t_module_data.planet_azimuth
+			self.t_planet_latitude = t_module_data.planet_latitude
+			self.t_planet_longitude = t_module_data.planet_longitude
+
 		elif self.type == "Transit" or self.type == "Composite":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)

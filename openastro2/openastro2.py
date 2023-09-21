@@ -4277,7 +4277,7 @@ class openAstro:
 																	  [lon, lat, 287], 0, 0,
 																	  planet_pos[0])
 				for aspect in aspects:
-					azimuth = aspect * (azimuth0 - 90 - aries) + 90
+					azimuth = aspect * (azimuth0 - aries + 90) - 90
 					if (azimuth > 360):
 						azimuth = azimuth - 360
 

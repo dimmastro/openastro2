@@ -4252,11 +4252,89 @@ class openAstro:
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
 
+	def makeLocalSpaceAntisZodiacDataFrame(self, type_tr, dt, lat, lon, num_planet=11):
+		aspects = [+1, -1]
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
+		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
+		dfd= []
+		for i in range(num_planet):
+			if 1:
+				planet_code = i
+				if (type_tr == "Radix"):
+					lat_angle0 = self.planet_latitude[i]
+					lon_angle0 = self.planets_degree_ut[i]
+				elif (type_tr == "Transit"):
+					lat_angle0 = self.t_planet_latitude[i]
+					lon_angle0 = self.t_planets_degree_ut[i]
+
+				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+																	  [lon, lat, 287], 0, 0,
+																	  planet_pos[0])
+				for aspect in aspects:
+					azimuth = aspect * (azimuth0 - 90) + 90
+					if (azimuth > 360):
+						azimuth = azimuth - 360
+
+					# if (aspect <= 180):
+					# 	lat_angle = lat_angle0 * (90 - aspect) / 90.0
+					# if (aspect > 180):
+					# 	lat_angle = lat_angle0 * (aspect - 90 - 180) / 90.0
+					# true_altitude = lat_angle
+					# lon_angle = lon_angle0 + aspect
+
+					# [h_lat, h_lon] = self.eclips_to_geo([lon_angle], [lat_angle], t)
+					# [h_lat, h_lon] = self.eclips_to_geo0_house([lon_angle], [lat_angle], t)
+					# alt0, az0, distance0 = self.eclips_to_gorizont([lon_angle], [lat_angle], dt, lat, lon)
+
+					new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+					dfdata= {
+					  "from": {
+						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+						"coordinates": [starting_longitude, starting_latitude]
+					  },
+					  "to": {
+						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						"coordinates": [new_longitude, new_latitude]
+					  }
+					}
+
+					dfd.append(dfdata)
+					dfdata= {
+					  "from": {
+						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						"coordinates": [starting_longitude, starting_latitude]
+					  },
+					  "to": {
+						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						"coordinates": [new_longitude2, new_latitude2]
+					  }
+					}
+					dfd.append(dfdata)
+		df = pd.DataFrame(dfd)
+		# df["name"] = df["from"].apply(lambda f: f["name"])
+		df["name"] = df["to"].apply(lambda t: t["name"])
+		return df
+
 	def makeLocalSpaceAspectLayer(self, type, type_tr, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11, aspects = [60, 90, 120]):
 		if(type == "Sky"):
 			df = self.makeLocalSpaceAspectSkyDataFrame(type_tr, dt, lat, lon, num_planet, aspects)
 		elif (type == "SkyHouse"):
 			df = self.makeLocalSpaceAspectSkyHouseDataFrame(type_tr, dt, lat, lon, aspects)
+		elif (type == "AntisZodiac"):
+			df = self.makeLocalSpaceAntisZodiacDataFrame(type_tr, dt, lat, lon)
 		elif(type == "Swe"):
 			df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet, aspects)
 		layer = pdk.Layer(

@@ -4270,14 +4270,14 @@ class openAstro:
 				elif (type_tr == "Transit"):
 					lat_angle0 = self.t_planet_latitude[i]
 					lon_angle0 = self.t_planets_degree_ut[i]
-					aries = self.t_planets_degree_ut[14]
+
+				aries_planet_pos = swe.calc_ut(jul_day_UT, 14)
+				aries_azimuth0, aries_true_altitude, aries_apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR, [lon, lat, 287], 0, 0, aries_planet_pos[0])
 
 				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
-				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
-																	  [lon, lat, 287], 0, 0,
-																	  planet_pos[0])
+				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,  [lon, lat, 287], 0, 0, planet_pos[0])
 				for aspect in aspects:
-					azimuth = aspect * (azimuth0 - aries ) +  aries
+					azimuth = aspect * (azimuth0 - (aries_azimuth0+90) ) + (aries_azimuth0+90)
 					if (azimuth > 360):
 						azimuth = azimuth - 360
 

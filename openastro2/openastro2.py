@@ -4266,16 +4266,18 @@ class openAstro:
 				if (type_tr == "Radix"):
 					lat_angle0 = self.planet_latitude[i]
 					lon_angle0 = self.planets_degree_ut[i]
+					aries = self.planets_degree_ut[14]
 				elif (type_tr == "Transit"):
 					lat_angle0 = self.t_planet_latitude[i]
 					lon_angle0 = self.t_planets_degree_ut[i]
+					aries = self.t_planets_degree_ut[14]
 
 				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
 				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
 																	  [lon, lat, 287], 0, 0,
 																	  planet_pos[0])
 				for aspect in aspects:
-					azimuth = aspect * (azimuth0 - 90) + 90
+					azimuth = aspect * (azimuth0 - 90 - aries) + 90 + aries
 					if (azimuth > 360):
 						azimuth = azimuth - 360
 

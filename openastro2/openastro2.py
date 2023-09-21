@@ -4253,7 +4253,7 @@ class openAstro:
 		return df
 
 	def makeLocalSpaceAntisZodiacDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1]):
-		aspects = [+1, -1]
+		# aspects = [+1, -1]
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
 		distance2 = 6371*3.1  # Расстояние (в километрах)

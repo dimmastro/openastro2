@@ -4411,9 +4411,9 @@ class openAstro:
 		elif (type == "SkyHouse"):
 			df = self.makeLocalSpaceAspectSkyHouseDataFrame(type_tr, dt, lat, lon, aspects)
 		elif (type == "AntisZodiac"):
-			df = self.makeLocalSpaceAntisZodiacDataFrame(type_tr, dt, lat, lon, num_planet)
+			df = self.makeLocalSpaceAntisZodiacDataFrame(type_tr, dt, lat, lon, num_planet, aspects)
 		elif (type == "AntisHouse"):
-			df = self.makeLocalSpaceAntisHouseDataFrame(type_tr, dt, lat, lon, num_planet)
+			df = self.makeLocalSpaceAntisHouseDataFrame(type_tr, dt, lat, lon, num_planet, aspects)
 		elif(type == "Swe"):
 			df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet, aspects)
 		layer = pdk.Layer(

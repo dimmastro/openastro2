@@ -4254,6 +4254,23 @@ class openAstro:
 
 	def makeLocalSpaceAntisZodiacDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1]):
 		# aspects = [+1, -1]
+
+		𝜏 = api.tau
+		ts = api.load.timescale()
+		eph = api.load('de421.bsp')
+		bluffton = api.Topos(lat, lon)
+		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
+		zero = angle * 0.0
+		f = framelib.ecliptic_frame
+		d = api.Distance([np.sin(angle), np.cos(angle), zero])
+		v = api.Velocity([zero, zero, zero])
+		p = Apparent.from_time_and_frame_vectors(t, f, d, v)
+		p.center = bluffton
+		alt0, az0, distance0 = p.altaz()
+		cancer_az = az0.degrees[3]
+
+
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
 		distance2 = 6371*3.1  # Расстояние (в километрах)
@@ -4266,7 +4283,6 @@ class openAstro:
 				if (type_tr == "Radix"):
 					lat_angle0 = self.planet_latitude[i]
 					lon_angle0 = self.planets_degree_ut[i]
-					aries = self.planets_degree_ut[14]
 				elif (type_tr == "Transit"):
 					lat_angle0 = self.t_planet_latitude[i]
 					lon_angle0 = self.t_planets_degree_ut[i]
@@ -4277,7 +4293,8 @@ class openAstro:
 				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
 				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,  [lon, lat, 287], 0, 0, planet_pos[0])
 				for aspect in aspects:
-					azimuth = aspect * (azimuth0 - (aries_azimuth0+90) ) + (aries_azimuth0+90)
+					# azimuth = aspect * (azimuth0 - (aries_azimuth0+90) ) + (aries_azimuth0+90)
+					azimuth = aspect * (azimuth0 - (cancer_az+90) ) + (cancer_az+90)
 					if (azimuth > 360):
 						azimuth = azimuth - 360
 

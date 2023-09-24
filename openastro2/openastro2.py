@@ -1632,7 +1632,8 @@ class openAstro:
 			self.t_houses_sign = t_module_data.houses_sign
 			self.t_houses_degree_ut = t_module_data.houses_degree_ut
 			self.t_planet_azimuth = t_module_data.planet_azimuth
-
+			self.t_planet_latitude = t_module_data.planet_latitude
+			self.t_planet_longitude = t_module_data.planet_longitude
 		# grab normal module data
 		self.planets_sign = module_data.planets_sign
 		self.planets_degree = module_data.planets_degree

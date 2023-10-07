@@ -5460,6 +5460,14 @@ class openAstro:
 			df_data.append(data_entry)
 		return df_data
 
+	def make_df_data2(self, data):
+		df_data = []
+		for item in data:
+			id, lat, lon, dt_str, name = item
+			data_entry = {"lat": lat, "lon": lon, "dt_str":dt_str, "name": name, "id": id}
+			df_data.append(data_entry)
+		return df_data
+
 
 
 ##############

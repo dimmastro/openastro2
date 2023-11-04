@@ -4173,7 +4173,7 @@ class openAstro:
 		return df
 
 	def makeLocalSpaceSweApiLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150], num_planet=11):
-		dfd = self.makeLocalSpaceSweDataFrame(dt, lat, lon, num_planet)
+		dfd = self.makeLocalSpaceSweApiDataFrame(dt, lat, lon, num_planet)
 		df = pd.DataFrame(dfd)
 		# print (color1)
 		# Define a layer to display on a map

@@ -4172,6 +4172,74 @@ class openAstro:
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
 
+	def makeLocalSpaceSweApiLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150], num_planet=11):
+		dfd = self.makeLocalSpaceSweDataFrame(dt, lat, lon, num_planet)
+		df = pd.DataFrame(dfd)
+		# print (color1)
+		# Define a layer to display on a map
+		layer = pdk.Layer(
+		"GreatCircleLayer",
+		df,
+		pickable=True,
+		get_stroke_width=12,
+		get_source_position="from.lonlat",
+		get_target_position="to.lonlat",
+		get_source_color=color1,
+		get_target_color=color2,
+		auto_highlight=True,
+		)
+		return layer
+
+	def makeLocalSpaceSweApiDataFrame(self, dt, lat, lon, num_planet=11):
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371*3.1  # Расстояние (в километрах)
+		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
+		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
+		dfd= []
+
+		for i in range(num_planet):
+			if 1:
+				planet_code = i
+				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+																	  [lon, lat, 287], 0, 0,
+																	  planet_pos[0])
+				azimuth = azimuth + 180
+				if(azimuth>360):
+					azimuth = azimuth-360
+
+				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
+				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
+				dfdata= {
+				  "from": {
+					"lonlat": [starting_longitude,starting_latitude]
+				  },
+				  "to": {
+					"lonlat": [new_longitude,new_latitude]
+				  },
+					"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+				}
+
+				dfd.append(dfdata)
+				dfdata= {
+				  "from": {
+					"lonlat": [starting_longitude,starting_latitude]
+				  },
+				  "to": {
+					"lonlat": [new_longitude2,new_latitude2]
+				  },
+					"name": self.name + "/" + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+				}
+				dfd.append(dfdata)
+			# print (azimuth)
+		# df = pd.DataFrame(dfd)
+		# # Use pandas to prepare data for tooltip
+		# df["name"] = df["from"].apply(lambda f: f["name"])
+		# df["name"] = df["to"].apply(lambda t: t["name"])
+		return dfd
+
+
 
 	def makeLocalSpaceAspectSweLayer(self, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11, aspects = [60, 90, 120]):
 		df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet, aspects)

@@ -52,6 +52,9 @@ class ephData:
 		self.planet_latitude = list(range(len(planets)))
 		self.planet_hour_angle = list(range(len(planets)))
 		self.planet_azimuth = list(range(len(planets)))
+		self.planet_true_altitude = list(range(len(planets)))
+		self.planet_apparent_altitude = list(range(len(planets)))
+
 
 		#iflag
 		"""
@@ -122,6 +125,8 @@ class ephData:
 																			  [planet_pos[0][0], planet_pos[0][1], planet_pos[0][2], planet_pos[0][3], planet_pos[0][4], planet_pos[0][5]])
 
 						self.planet_azimuth[i] = azimuth
+						self.planet_true_altitude[i] = true_altitude
+						self.planet_apparent_altitude[i] = apparent_altitude
 		#available house systems:
 		"""
 		hsys= 		‘P’     Placidus

@@ -1648,7 +1648,7 @@ class openAstro:
 		self.planet_hour_angle = module_data.planet_hour_angle
 		self.planet_azimuth = module_data.planet_azimuth
 		self.planet_true_altitude = module_data.planet_true_altitude
-		self.planet_apparent_altitudeh = module_data.planet_apparent_altitudeh
+		self.planet_apparent_altitude = module_data.planet_apparent_altitude
 
 		# make composite averages
 		if self.type == "Composite":

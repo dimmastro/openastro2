@@ -19,4 +19,14 @@ if __name__ == '__main__':
     # print(openAstro.planets_degree)
     print(openAstro.planets_degree_ut)
     print(openAstro.t_planets_degree_ut)
+    print(openAstro.planets_sign)
+    binary_list = [int(value) for value in openAstro.planets_retrograde]
+    print(openAstro.planets_retrograde)
+    print(binary_list)
+    print(openAstro.lunar_phase)
+    print(openAstro.lunar_phase["degrees"])
+    print(openAstro.lunar_phase["moon_phase"])
+    print(openAstro.lunar_phase["sun_phase"])
+    print(openAstro.t_planets_degree_ut)
+    print(openAstro.t_planets_degree_ut)
 

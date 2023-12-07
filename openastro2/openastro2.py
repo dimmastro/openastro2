@@ -18,7 +18,7 @@
 """
 
 #basics
-import math, sys, os.path, socket, gettext, codecs, webbrowser, datetime
+import math, sys, os.path, gettext, codecs, datetime
 
 # from icalendar import Calendar, Event
 import pytz
@@ -26,7 +26,6 @@ import pytz
 
 
 #copyfile
-from shutil import copyfile
 
 #pysqlite
 import sqlite3
@@ -36,7 +35,6 @@ sqlite3.dbapi2.register_adapter(str, lambda s:s)
 from string import Template
 
 #minidom parser
-from xml.dom.minidom import parseString
 
 #GTK, cairo to display svg
 # from gi import require_version
@@ -51,10 +49,10 @@ from pathlib import Path
 #internal openastro modules
 sys.path.append("/usr/lib/python3.5/dist-packages") #trying to 'fix' some problems importing openastromod on some distros
 sys.path.append("/usr/lib/python3.5/site-packages") #trying to 'fix' some problems importing openastromod on some distros
-from openastromod import zonetab, geoname, importfile, dignities, swiss as ephemeris
+from openastromod import zonetab, geoname, importfile, swiss as ephemeris
 
 
-from skyfield.api import N,S,E,W, wgs84, Topos, load
+from skyfield.api import N, E, wgs84, load
 import pydeck as pdk
 import pandas as pd
 
@@ -65,11 +63,12 @@ import swisseph as swe
 import numpy as np
 from skyfield import api, framelib
 from skyfield.positionlib import Apparent
-from skyfield.api import utc
 
 # from geopy.distance import geodesic
 from geographiclib.geodesic import Geodesic
 import copy
+
+# from openastro2.openastromod.fixar import get_fixar_ecliptic_latlon_arr
 
 #debug
 LOCAL=True
@@ -1606,6 +1605,45 @@ class openAstro:
 			self.t_planet_azimuth = t_module_data.planet_azimuth
 			self.t_planet_latitude = t_module_data.planet_latitude
 			self.t_planet_longitude = t_module_data.planet_longitude
+
+		elif self.type == "Fixar":
+			module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
+											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
+			self.module_data = module_data
+			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+			# 								  self.settings.astrocfg)
+			self.type = "Radix"
+		elif self.type == "FixarRadix":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
+											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			self.module_data = module_data
+			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+			# 								  self.settings.astrocfg)
+			t_module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
+											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
+			self.type = "Transit"
+
+		elif self.type == "FixarTransit":
+			module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
+											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
+			self.module_data = module_data
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+			self.type = "Transit"
+
+		elif self.type == "FixarEarthTransit":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
+											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			self.module_data = module_data
+			t_module_data = ephemeris.ephData.ephData_fixar_earth(self, self.year, self.month, self.day, self.hour, self.t_year,
+														  self.t_month, self.t_day, self.t_hour, self.geolon,
+														  self.geolat,
+														  self.altitude, self.planets, self.zodiac,
+														  self.settings.astrocfg, None)
+			self.type = "Transit"
 
 		elif self.type == "Transit" or self.type == "Composite":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,

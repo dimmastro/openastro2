@@ -1606,26 +1606,20 @@ class openAstro:
 			self.t_planet_latitude = t_module_data.planet_latitude
 			self.t_planet_longitude = t_module_data.planet_longitude
 
-		elif self.type == "Fixar":
+		elif self.type == "FixarPlanet":
 			module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
 			self.module_data = module_data
-			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
-			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-			# 								  self.settings.astrocfg)
 			self.type = "Radix"
-		elif self.type == "FixarRadix":
+		elif self.type == "FixarPlanetRadix":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
 			self.module_data = module_data
-			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
-			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-			# 								  self.settings.astrocfg)
 			t_module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
 			self.type = "Transit"
 
-		elif self.type == "FixarTransit":
+		elif self.type == "FixarPlanetTransit":
 			module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
 			self.module_data = module_data

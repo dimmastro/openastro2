@@ -881,6 +881,8 @@ class openAstro:
 			solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
 			step = 360 / solaryearsecs
 			sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+			if(sundiff>180):
+				sundiff = sundiff - 360
 			sundelta = sundiff / step
 			dt_delta = datetime.timedelta(seconds=int(sundelta))
 			dt_new = dt_new + dt_delta

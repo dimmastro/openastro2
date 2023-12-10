@@ -1670,7 +1670,7 @@ class openAstro:
 			self.t_planet_latitude = t_module_data.planet_latitude
 			self.t_planet_longitude = t_module_data.planet_longitude
 
-		elif self.type == "FixarPlanet":
+		elif self.type == "FixarPlanetMoment":
 			module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
 			self.module_data = module_data
@@ -1692,14 +1692,14 @@ class openAstro:
 											  self.settings.astrocfg)
 			self.type = "Transit"
 
-		elif self.type == "FixarEarthTransit1":
+		elif self.type == "FixarEarthMoment":
 			module_data = ephemeris.ephData.ephData_fixar_earth(self, self.year, self.month, self.day, self.hour, self.t_year,
 														  self.t_month, self.t_day, self.t_hour, self.geolon,
 														  self.geolat,
 														  self.altitude, self.planets, self.zodiac,
 														  self.settings.astrocfg, None)
 			self.type = "Radix"
-		elif self.type == "FixarEarthTransit2":
+		elif self.type == "FixarEarthTransit":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
 			self.module_data = module_data

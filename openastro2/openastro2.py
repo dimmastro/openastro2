@@ -904,7 +904,39 @@ class openAstro:
 		dprint (dt_new)
 		return
 
+	def localToSolarNext(self, t_year, t_month, t_day, t_hour, t_geolon,
+											t_geolat, t_altitude):
+		return self.localToSolar(t_year+1, t_month, t_day, t_hour, t_geolon,
+											t_geolat, t_altitude)
 
+	def localToSolarPrev(self, t_year, t_month, t_day, t_hour, t_geolon,
+											t_geolat, t_altitude):
+		return self.localToSolar(t_year-1, t_month, t_day, t_hour, t_geolon,
+											t_geolat, t_altitude)
+
+	def localToSolarNear(self, t_year, t_month, t_day, t_hour, t_geolon,
+											t_geolat, t_altitude):
+		solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
+		# dprint("localToSolar: from %s to %s" %(self.year,newyear))
+		h,m,s = self.decHour(self.hour)
+		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
+		t_h,t_m,t_s = self.decHour(t_hour)
+		dt_new = datetime.datetime(t_year,t_month,t_day,t_h,t_m,t_s)
+		dprint("localToSolar: first sun %s" % (self.planets_degree_ut[0]) )
+		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		mdata = ephemeris.ephData(t_year,t_month,t_day,t_hour,t_geolon,t_geolat,t_altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[0]) )
+		sundiff = -360 + self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
+		dprint("localToSolar: sundiff %s" %(sundiff))
+		sundelta = ( sundiff / 360.0 ) * solaryearsecs
+		dprint("localToSolar: sundelta %s" % (sundelta))
+		dt_delta = datetime.timedelta(seconds=int(sundelta))
+		if(sundelta > 180):
+			return self.localToSolar(t_year + 1, t_month, t_day, t_hour, t_geolon,
+									 t_geolat, t_altitude)
+		else:
+			return self.localToSolar(t_year - 1, t_month, t_day, t_hour, t_geolon,
+									 t_geolat, t_altitude)
 
 	def localToNewMoonNext(self, t_year, t_month, t_day, t_hour, t_geolon,
 											t_geolat, t_altitude):
@@ -1465,6 +1497,36 @@ class openAstro:
 											self.settings.astrocfg)
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToSolar(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											self.t_geolat, self.t_altitude)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+		elif self.type == "SolarNext":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			self.planets_degree_ut = module_data.planets_degree_ut
+			self.localToSolarNext(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											self.t_geolat, self.t_altitude)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+		elif self.type == "SolarPrev":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			self.planets_degree_ut = module_data.planets_degree_ut
+			self.localToSolarPrev(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											self.t_geolat, self.t_altitude)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+		elif self.type == "SolarNear":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
+											self.geolat, self.altitude, self.planets, self.zodiac,
+											self.settings.astrocfg)
+			self.planets_degree_ut = module_data.planets_degree_ut
+			self.localToSolarNear(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,

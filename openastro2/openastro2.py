@@ -865,7 +865,10 @@ class openAstro:
 		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		mdata = ephemeris.ephData(t_year,t_month,t_day,t_hour,t_geolon,t_geolat,t_altitude,self.planets,self.zodiac,self.settings.astrocfg)
 		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[0]) )
-		sundiff = -360 + self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
+		# sundiff = -360 + self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
+		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
+		if(sundiff > 0):
+			sundiff = sundiff - 360
 		dprint("localToSolar: sundiff %s" %(sundiff))
 		sundelta = ( sundiff / 360.0 ) * solaryearsecs
 		dprint("localToSolar: sundelta %s" % (sundelta))
@@ -916,26 +919,19 @@ class openAstro:
 
 	def localToSolarNear(self, t_year, t_month, t_day, t_hour, t_geolon,
 											t_geolat, t_altitude):
-		solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
-		# dprint("localToSolar: from %s to %s" %(self.year,newyear))
 		h,m,s = self.decHour(self.hour)
 		dt_original = datetime.datetime(self.year,self.month,self.day,h,m,s)
 		t_h,t_m,t_s = self.decHour(t_hour)
-		dt_new = datetime.datetime(t_year,t_month,t_day,t_h,t_m,t_s)
-		dprint("localToSolar: first sun %s" % (self.planets_degree_ut[0]) )
-		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		mdata = ephemeris.ephData(t_year,t_month,t_day,t_hour,t_geolon,t_geolat,t_altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[0]) )
-		sundiff = -360 + self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
-		dprint("localToSolar: sundiff %s" %(sundiff))
-		sundelta = ( sundiff / 360.0 ) * solaryearsecs
-		dprint("localToSolar: sundelta %s" % (sundelta))
-		dt_delta = datetime.timedelta(seconds=int(sundelta))
-		if(sundelta > 180):
+		dt_new_year = datetime.datetime(self.year,t_month,t_day,t_h,t_m,t_s)
+		dt_delta = dt_original - dt_new_year
+		if(datetime.timedelta(days=0) < dt_delta and dt_delta < datetime.timedelta(days=90)): # dr-t >0 t->dr
 			return self.localToSolar(t_year + 1, t_month, t_day, t_hour, t_geolon,
 									 t_geolat, t_altitude)
-		else:
+		elif(datetime.timedelta(days=-90) < dt_delta and dt_delta < datetime.timedelta(days=0)): # dr-t < 0 dr->t
 			return self.localToSolar(t_year - 1, t_month, t_day, t_hour, t_geolon,
+									 t_geolat, t_altitude)
+		else:
+			return self.localToSolar(t_year, t_month, t_day, t_hour, t_geolon,
 									 t_geolat, t_altitude)
 
 	def localToNewMoonNext(self, t_year, t_month, t_day, t_hour, t_geolon,

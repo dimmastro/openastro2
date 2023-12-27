@@ -1500,22 +1500,38 @@ class openAstro:
 			dt_end = datetime.datetime.strptime(self.args['dateEndStr'], "%Y-%m-%d %H:%M:%S")
 			dt_direction = dt_end - dt_original
 			dt_dir_seconds = dt_direction.total_seconds()
-			# 90 to IC
-			# delta_degr = (module_data.houses_degree_ut[3] - module_data.houses_degree_ut[0])
-			# if(delta_degr < 0):
-			# 	delta_degr = 360 + delta_degr
-			# solaryearsecs = (dt_dir_seconds / delta_degr)
-			# 270 to MC
-			delta_degr = (module_data.houses_degree_ut[9] - module_data.houses_degree_ut[0])
-			if(delta_degr < 0):
-				delta_degr = 360 + delta_degr
-			solaryearsecs = (dt_dir_seconds / delta_degr)
-			# -90 to MC
-			# delta_degr = -(360 -(module_data.houses_degree_ut[9] - module_data.houses_degree_ut[0]))
-			# if(delta_degr > 0):
-			# 	delta_degr = -360 + delta_degr
-			# solaryearsecs = (dt_dir_seconds / delta_degr)
-
+			if self.args['DirectionToEndType'] == "to_ic":
+				# 90 to IC
+				delta_degr = (module_data.houses_degree_ut[3] - module_data.houses_degree_ut[0])
+				if(delta_degr < 0):
+					delta_degr = 360 + delta_degr
+				solaryearsecs = (dt_dir_seconds / delta_degr)
+			if self.args['DirectionToEndType'] == "to_ic_back":
+				# 90 to IC
+				delta_degr = (module_data.houses_degree_ut[3] - module_data.houses_degree_ut[0])
+				if(delta_degr > 0):
+					delta_degr = delta_degr - 360
+				solaryearsecs = (dt_dir_seconds / delta_degr)
+			elif self.args['DirectionToEndType'] == "to_mc_forward":
+				# 270 to MC
+				delta_degr = (module_data.houses_degree_ut[9] - module_data.houses_degree_ut[0])
+				if(delta_degr < 0):
+					delta_degr = 360 + delta_degr
+				solaryearsecs = (dt_dir_seconds / delta_degr)
+			elif self.args['DirectionToEndType'] == "to_mc_back":
+				# -90 to MC
+				delta_degr = (module_data.houses_degree_ut[9] - module_data.houses_degree_ut[0])
+				if(delta_degr > 0):
+					delta_degr = delta_degr - 360
+				solaryearsecs = (dt_dir_seconds / delta_degr)
+			elif self.args['DirectionToEndType'] == "360":
+				solaryearsecs = 31556925.51/4  # 365 days, 5 hours, 48 minutes, 45.51 seconds
+			elif self.args['DirectionToEndType'] == "to_360":
+				solaryearsecs =  dt_dir_seconds / 360
+			elif self.args['DirectionToEndType'] == "to_90":
+				solaryearsecs = dt_dir_seconds / 90
+			elif self.args['DirectionToEndType'] == "90":
+				solaryearsecs = 31556925.51  # 365 days, 5 hours, 48 minutes, 45.51 seconds
 
 			self.planets_sign = module_data.planets_sign
 			self.planets_degree = module_data.planets_degree
@@ -1967,6 +1983,9 @@ class openAstro:
 		self.planets_name = []
 		for i in range(len(self.settings.settings_planet)):
 			self.planets_name.append(self.settings.settings_planet[i]['name'])
+
+	# def makeTableRecti(self, dt1, dt2):
+	# 	dt_end = datetime.datetime.strptime(self.args['dateEndStr'], "%Y-%m-%d %H:%M:%S")
 
 	def makeSVG2(self, printing=None):
 		self.calcAstro()

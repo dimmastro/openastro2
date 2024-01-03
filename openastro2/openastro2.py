@@ -68,6 +68,9 @@ from skyfield.positionlib import Apparent
 from geographiclib.geodesic import Geodesic
 import copy
 
+import svgwrite
+
+
 # from openastro2.openastromod.fixar import get_fixar_ecliptic_latlon_arr
 
 #debug
@@ -1984,8 +1987,90 @@ class openAstro:
 		for i in range(len(self.settings.settings_planet)):
 			self.planets_name.append(self.settings.settings_planet[i]['name'])
 
-	# def makeTableRecti(self, dt1, dt2):
-	# 	dt_end = datetime.datetime.strptime(self.args['dateEndStr'], "%Y-%m-%d %H:%M:%S")
+	def makeTableRecti(self, dt1_str, dt2_str):
+		dt1 = datetime.datetime.strptime(dt1_str, "%Y-%m-%d %H:%M:%S")
+		dt2 = datetime.datetime.strptime(dt2_str, "%Y-%m-%d %H:%M:%S")
+		aspects_id_arr = []
+		aspects_dic = []
+		dt_str_arr = []
+
+		dt = dt1
+		i=0
+		doc = svgwrite.Drawing(filename="table.svg")
+		while dt <= dt2:
+			# aspects_id_arr.append([])
+			print(dt.strftime("%Y-%m-%d %H:%M:%S"))
+			dt += datetime.timedelta(minutes=1)
+			event1 = self.event_dt_str("tmp", dt_str=dt.strftime("%Y-%m-%d %H:%M:%S"), timezone=3, location="СПб",
+											geolat=59.871391, geolon=30.332604)
+			args = {}
+			args['DirectionToEndType'] = "360"
+			args['dateEndStr'] = "1990-08-15 09:40:00"
+			oa2 = openAstro(event1, self.event2, type="DirectionWithEnd", args=args)
+			oa2.calcAstro()
+			r = self.settings.settings_svg["r"]
+			self.c3 = 120
+			oa2.makeAspectsTransit(r, (r - self.c3))
+			aspects_id_arr.append(oa2.t_planets_aspects_id_arr)
+			# print (oa2.t_planets_aspects_id_dic)
+			aspects_dic.append(oa2.t_planets_aspects_id_dic)
+
+			# dt_str_arr.append(dt.strftime("%Y-%m-%d %H:%M:%S"))
+			dt_str_arr.append(dt.strftime("%H:%M"))
+			# print(oa2.planets_degree_ut)
+			# print(oa2.t_planets_aspects_arr)
+			# print(oa2.t_planets_aspects_id_arr)
+			i=i+1
+		# print(aspects_id_arr)
+		width = 2000
+		height = 4000
+		row_height = height / (len(aspects_id_arr[0])+1)
+		col_width = width / (len(aspects_id_arr)+1)
+		doc.add(doc.rect(insert=(0, 0), size=(width, height),  fill="white"))
+		# for t in range(len(aspects_id_arr)):
+		# 	for i in range(len(aspects_id_arr[0])):
+		# 		for j in range(len(aspects_id_arr[0][i])):
+		# 			print(aspects_id_arr[t][i][j])
+		l = 0
+		for t in range(len(aspects_id_arr)):
+			x = (t + 1) * col_width
+			doc.add(doc.text(dt_str_arr[t], insert=(x + col_width / 2, 0 + row_height / 2)))
+
+		for i in range(len(aspects_id_arr[0])):
+			for j in range(len(aspects_id_arr[0][i])):
+				y = (l+1) * row_height
+				# print(aspects_id_arr[t][i][j])
+				flag_asp = False
+				for t in range(len(aspects_id_arr)):
+					if(aspects_id_arr[t][i][j] != ""):
+						flag_asp = True
+						# print (self.settings.settings["settings_aspect_dic"][aspects_id_arr[t][i][j]]['name'])
+						aspect_id = self.settings.settings["settings_aspect_dic"][aspects_id_arr[t][i][j]]['id']
+						is_major = self.settings.settings["settings_aspect_dic"][aspects_id_arr[t][i][j]]['is_major']
+				if(flag_asp and y<2000 and is_major):
+					# str = self.settings.settings_planet[i]['label_short'] + " " + aspects_id_arr[t][i][j] + " " + self.settings.settings_planet[j]['label_short']
+					str = self.settings.settings_planet[i]['label_short'] + " " + aspect_id + " " + self.settings.settings_planet[j]['label_short']
+					doc.add(doc.text(str, insert=(0 + col_width / 2, y + row_height / 2)))
+					l = l + 1
+					for t in range(len(aspects_id_arr)):
+						x = (t+1) * col_width
+						# doc.add(doc.text(aspects_id_arr[t][i][j], insert=(x + col_width / 2, y + row_height / 2)))
+						# print (aspects_arr[t][i][j]['delta'])
+						# print (t)
+						# print (i)
+						# print (j)
+						# print (aspects_dic[t][i][j])
+						doc.add(doc.text(aspects_dic[t][i][j]['delta'], insert=(x + col_width / 2, y + row_height / 2)))
+				# doc.rect(x, y, col_width, row_height, fill="white", stroke="black")
+				# doc.text(str(aspects_id_arr[t][i]), x + col_width / 2, y + row_height / 2)
+				# dwg = svgwrite.Drawing('test.svg', profile='tiny')
+				# dwg.add(dwg.line((0, 0), (10, 0), stroke=svgwrite.rgb(10, 10, 16, '%')))
+				# dwg.add(dwg.text('Test', insert=(0, 0.2)))
+
+				# for j in range(len(aspects_id_arr[t][i])):
+				# 	print(aspects_id_arr[t][i][j])
+
+		doc.save()
 
 	def makeSVG2(self, printing=None):
 		self.calcAstro()
@@ -3368,11 +3453,20 @@ class openAstro:
 	def makeAspectsTransit( self , r , ar ):
 		out = ""
 		self.atgrid=[]
+		self.t_planets_aspects_id_arr = []
+		self.t_planets_aspects_id_dic = []
+		aspect_arr = {}
 		self.t_planets_aspects_arr = [[[0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
 		self.t_planets_aspects_arr_diff = [[[0.0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
 		for i in range(len(self.planets)):
+			self.t_planets_aspects_id_arr.append([])
+			self.t_planets_aspects_id_dic.append([])
 			start=self.planets_degree_ut[i]
 			for x in range(len(self.planets)):
+				self.t_planets_aspects_id_arr[i].append("")
+				aspect_arr['id'] = ""
+				aspect_arr['delta'] = ""
+				self.t_planets_aspects_id_dic[i].append({'id':"", 'delta':""})
 				end=self.t_planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs
@@ -3431,14 +3525,23 @@ class openAstro:
 													float(self.aspects[z]['degree']) - abs(float(diff)))
 												# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
 												out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.aspects[z]['color'] )
+												# self.t_planets_aspects_id_arr[z][i] = 1
+												self.t_planets_aspects_id_arr[i][x] = self.aspects[z]['id']
+												# aspect_arr['id'] = self.aspects[z]['id']
+												# aspect_arr['delta'] = self.t_planets_aspects_arr[z][i][x]
+												# print(aspect_arr['delta'])
+												# self.t_planets_aspects_id_dic[i][x] = aspect_arr
+												self.t_planets_aspects_id_dic[i][x] = {'id':self.aspects[z]['id'], 'delta':self.t_planets_aspects_arr[z][i][x]}
+												# print(self.t_planets_aspects_id_dic[i][x])
 
 											#aspect grid dictionary
 											if self.aspects[z]['visible_grid'] == 1:
 												self.atgrid.append({})
-												self.atgrid[-1]['p1']=i
-												self.atgrid[-1]['p2']=x
-												self.atgrid[-1]['aid']=z
-												self.atgrid[-1]['diff']=diff
+												# self.atgrid[-1]['p1']=i
+												# self.atgrid[-1]['p2']=x
+												# self.atgrid[-1]['aid']=z
+												# self.atgrid[-1]['diff']=diff
+										# self.t_planets_aspects_id_dic[i][x] = aspect_arr
 		return out
 	
 	def makeAspectTransitGrid( self , r ):

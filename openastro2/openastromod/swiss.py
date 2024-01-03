@@ -95,7 +95,10 @@ class ephData:
 
 		#compute a planet (longitude,latitude,distance,long.speed,lat.speed,speed)
 		for i in range(23):
-			ret_flag = swe.calc_ut(self.jul_day_UT,i,iflag)
+			if(i==15 and ( self.jul_day_UT < 1967601.5 or 3419437.5 < self.jul_day_UT )): # Chiron limit
+				ret_flag = swe.calc_ut(1967601.5, i, iflag)
+			else:
+				ret_flag = swe.calc_ut(self.jul_day_UT,i,iflag)
 			for x in range(len(zodiac)):
 				deg_low=float(x*30)
 				deg_high=float((x+1)*30)

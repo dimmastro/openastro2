@@ -2,3 +2,4 @@ skyfield
 pydeck
 pandas
 ephem
+svgwrite

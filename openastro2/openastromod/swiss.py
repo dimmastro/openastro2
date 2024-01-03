@@ -336,7 +336,8 @@ class ephData:
 		#list index 28 is night pars
 		self.planets_degree_ut[36] = asc + (sun - moon)
 		#list index 29 is South Node
-		self.planets_degree_ut[37] = self.planets_degree_ut[10] - 180.0
+		# self.planets_degree_ut[37] = self.planets_degree_ut[10] - 180.0
+		self.planets_degree_ut[37] = self.planets_degree_ut[11] - 180.0
 		#list index 30 is marriage pars
 		self.planets_degree_ut[38] = (asc+dsc)-venus
 		#list index 31 is black sun
@@ -716,7 +717,8 @@ class ephData:
 		# list index 28 is night pars
 		self.planets_degree_ut[36] = asc + (sun - moon)
 		# list index 29 is South Node
-		self.planets_degree_ut[37] = self.planets_degree_ut[10] - 180.0
+		# self.planets_degree_ut[37] = self.planets_degree_ut[10] - 180.0
+		self.planets_degree_ut[37] = self.planets_degree_ut[11] - 180.0
 		# list index 30 is marriage pars
 		self.planets_degree_ut[38] = (asc + dsc) - venus
 		# list index 31 is black sun
@@ -1099,7 +1101,8 @@ class ephData:
 		# list index 28 is night pars
 		self.planets_degree_ut[36] = asc + (sun - moon)
 		# list index 29 is South Node
-		self.planets_degree_ut[37] = self.planets_degree_ut[10] - 180.0
+		# self.planets_degree_ut[37] = self.planets_degree_ut[10] - 180.0
+		self.planets_degree_ut[37] = self.planets_degree_ut[11] - 180.0
 		# list index 30 is marriage pars
 		self.planets_degree_ut[38] = (asc + dsc) - venus
 		# list index 31 is black sun

@@ -4531,28 +4531,10 @@ class openAstro:
 				i=ip
 			if (i != 3):
 				planet = data[i]
-				# print(i)
-				# print(planet)
-				# astro = place.at(ts.utc(oa1.t_year, oa1.t_month, oa1.t_day, oa1.t_h, oa1.t_m, oa1.t_s)).observe(planet)
-				# astro = place.at(ts.utc(oa1.utc_year, oa1.utc_month, oa1.utc_day, oa1.utc_h, oa1.utc_m, oa1.utc_s)).observe(planet)
 				astro = place.at(ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)).observe(planet)
-				# astro = place.at(ts.utc(1980, 3, 18, 23, 47, 00)).observe(planet)
 				app = astro.apparent()
 				alt, az, distance = app.altaz()
 				azimuth = az.degrees
-
-
-				# ts = load.timescale()
-				# t = ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
-				# print (t)
-				# geocentric_planet = planet - earth  # vector from geocenter to sun
-				# planet_subpoint = wgs84.subpoint(geocentric_planet.at(t))  # subpoint method requires a geocentric position
-				# # print('subpoint latitude: ', planet_subpoint.latitude.degrees)
-				# # print('subpoint longitude: ', planet_subpoint.longitude.degrees)
-				# print(planet_names[i], planet_subpoint.latitude.degrees, planet_subpoint.longitude.degrees)
-
-				# print(planet_names[i], az.degrees, alt, distance)
-
 
 				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 				# lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
@@ -4560,45 +4542,35 @@ class openAstro:
 				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				dfdata= {
 				  "from": {
-					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + "+" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " alt=" +  ")",
-					"coordinates": [
+					"lonlat": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					# "name": self.name + "/" + "-"  +planet_names[i] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + "+" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-					"name": self.name + "/"  + "+" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-					"coordinates": [
+					"lonlat": [
 					  new_longitude,
 					  new_latitude
 					]
-				  }
+				  },
+					"name": self.name + "/" + "+" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " alt=" + ")",
 				}
 
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					# "name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-					"coordinates": [
+					"lonlat": [
 					  starting_longitude,
 					  starting_latitude
 					]
 				  },
 				  "to": {
-					# "name": self.name + "/ " + "+" + planet_names[i] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-					"name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-					"coordinates": [
+					"lonlat": [
 					  new_longitude2,
 					  new_latitude2
 					]
-				  }
+				  },
+					"name": self.name + "/" + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 				}
 				dfd.append(dfdata)
 		return dfd

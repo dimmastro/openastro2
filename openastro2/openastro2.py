@@ -4854,33 +4854,26 @@ class openAstro:
 					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-						"coordinates": [starting_longitude, starting_latitude]
+						"lonlat": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-						"coordinates": [new_longitude, new_latitude]
-					  }
+						"lonlat": [new_longitude, new_latitude]
+					  },
+						"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + "-" + str(
+							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 					}
 
 					dfd.append(dfdata)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
-						"coordinates": [starting_longitude, starting_latitude]
+						"lonlat": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
-						"coordinates": [new_longitude2, new_latitude2]
-					  }
+						"lonlat": [new_longitude2, new_latitude2]
+					  },
+						"name": self.name + "/" + "-" + self.settings.settings_planet[i]['name'] + "-" + str(
+							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(
+							self.deg_180(azimuth)) + ")",
 					}
 					dfd.append(dfdata)
 		return dfd
@@ -5352,33 +5345,26 @@ class openAstro:
 				new_longitude = h_lon[0]
 				dfdata= {
 				  "from": {
-					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-					"coordinates": [starting_longitude, starting_latitude]
+					"lonlat": [starting_longitude, starting_latitude]
 				  },
 				  "to": {
-					# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-					"coordinates": [new_longitude, new_latitude]
-				  }
+					"lonlat": [new_longitude, new_latitude]
+				  },
+					"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+						aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 				}
 
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
-					"coordinates": [starting_longitude-180, -starting_latitude]
+					"lonlat": [starting_longitude-180, -starting_latitude]
 				  },
 				  "to": {
-					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
-					"coordinates": [new_longitude, new_latitude]
-				  }
+					"lonlat": [new_longitude, new_latitude]
+				  },
+					"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+						aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(
+						self.deg_180(azimuth)) + ")",
 				}
 				dfd.append(dfdata)
 		return dfd
@@ -5556,33 +5542,6 @@ class openAstro:
 				azimuth = az0.degrees[0]
 				new_latitude = h_lat[0]
 				new_longitude = h_lon[0]
-				# dfdata= {
-				#   "from": {
-				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-				# 	# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-				# 	"coordinates": [starting_longitude, starting_latitude]
-				#   },
-				#   "to": {
-				# 	# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-				# 	"coordinates": [new_longitude, new_latitude]
-				#   }
-				# }
-				#
-				# dfd.append(dfdata)
-				# dfdata= {
-				#   "from": {
-				# 	# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-				# 	"coordinates": [starting_longitude-180, -starting_latitude]
-				#   },
-				#   "to": {
-				# 	# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-				# 	"coordinates": [new_longitude, new_latitude]
-				#   }
-				# }
-				# dfd.append(dfdata)
 
 				dfdata= {
 				  "from": {

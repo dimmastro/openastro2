@@ -3445,6 +3445,8 @@ class openAstro:
 									orb = self.aspects[z]['orb']
 
 								self.planets_aspects_arr[z][i][x] = orb-abs(float(self.aspects[z]['degree']) - abs(float(diff)))
+								if(i==x):
+									self.planets_aspects_arr[z][i][x] = 0
 								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
 								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.aspects[z]['color'] )
 
@@ -4570,6 +4572,7 @@ class openAstro:
 					"lonlat": [new_longitude,new_latitude]
 				  },
 					"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+					"azimuth": azimuth,
 				}
 
 				dfd.append(dfdata)
@@ -4581,6 +4584,7 @@ class openAstro:
 					"lonlat": [new_longitude2,new_latitude2]
 				  },
 					"name": self.name + "/" + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+					"azimuth": self.deg_180(azimuth),
 				}
 				dfd.append(dfdata)
 			# print (azimuth)

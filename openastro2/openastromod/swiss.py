@@ -125,10 +125,14 @@ class ephData:
 
 						# swe.set_sid_mode(swe.SIDM_FAGAN_BRADLEY)
 						planet_pos = ret_flag
-						azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.EQU2HOR,
+						# azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.EQU2HOR,
+						azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.ECL2HOR,
 																			  [observer_longitude, observer_latitude, 287], 0, 0,
 																			  [planet_pos[0][0], planet_pos[0][1], planet_pos[0][2], planet_pos[0][3], planet_pos[0][4], planet_pos[0][5]])
 
+						azimuth = azimuth + 180
+						if (azimuth > 360):
+							azimuth = azimuth - 360
 						self.planet_azimuth[i] = azimuth
 						self.planet_true_altitude[i] = true_altitude
 						self.planet_apparent_altitude[i] = apparent_altitude
@@ -498,13 +502,17 @@ class ephData:
 
 						# swe.set_sid_mode(swe.SIDM_FAGAN_BRADLEY)
 						planet_pos = ret_flag
-						azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.EQU2HOR,
+						# azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.EQU2HOR,
+						azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.ECL2HOR,
 																			  [observer_longitude, observer_latitude,
 																			   287], 0, 0,
 																			  [planet_pos[0][0], planet_pos[0][1],
 																			   planet_pos[0][2], planet_pos[0][3],
 																			   planet_pos[0][4], planet_pos[0][5]])
 
+						azimuth = azimuth + 180
+						if (azimuth > 360):
+							azimuth = azimuth - 360
 						self.planet_azimuth[i] = azimuth
 						self.planet_true_altitude[i] = true_altitude
 						self.planet_apparent_altitude[i] = apparent_altitude
@@ -882,13 +890,16 @@ class ephData:
 
 						# swe.set_sid_mode(swe.SIDM_FAGAN_BRADLEY)
 						planet_pos = ret_flag
-						azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.EQU2HOR,
+						# azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.EQU2HOR,
+						azimuth, true_altitude, apparent_altitude = swe.azalt(self.jul_day_UT, swe.ECL2HOR,
 																			  [observer_longitude, observer_latitude,
 																			   287], 0, 0,
 																			  [planet_pos[0][0], planet_pos[0][1],
 																			   planet_pos[0][2], planet_pos[0][3],
 																			   planet_pos[0][4], planet_pos[0][5]])
-
+						azimuth = azimuth + 180
+						if (azimuth > 360):
+							azimuth = azimuth - 360
 						self.planet_azimuth[i] = azimuth
 						self.planet_true_altitude[i] = true_altitude
 						self.planet_apparent_altitude[i] = apparent_altitude

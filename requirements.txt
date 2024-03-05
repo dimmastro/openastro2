@@ -3,3 +3,4 @@ pydeck
 pandas
 ephem
 svgwrite
+certifi

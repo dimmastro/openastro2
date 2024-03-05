@@ -4,3 +4,4 @@ pandas
 ephem
 svgwrite
 certifi
+svgwrite

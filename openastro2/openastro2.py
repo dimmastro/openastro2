@@ -2328,17 +2328,17 @@ class openAstro:
 		f.close()
 
 		# write template
-		if printing:
-			# f = open(cfg.tempfilenameprint, "w")
-			f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
-			dprint("Printing SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
-		else:
-			# f = open(self.settings.tempfilename, "w")
-			f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
-			dprint("Creating SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
-
-		f.write(template)
-		f.close()
+		# if printing:
+		# 	# f = open(cfg.tempfilenameprint, "w")
+		# 	f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
+		# 	dprint("Printing SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
+		# else:
+		# 	# f = open(self.settings.tempfilename, "w")
+		# 	f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
+		# 	dprint("Creating SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
+		#
+		# f.write(template)
+		# f.close()
 
 		# #return filename
 		# return self.settings.tempfilename

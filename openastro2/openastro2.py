@@ -339,8 +339,10 @@ class openAstro:
 
 		# self.screen_width = 1920
 		# self.screen_height = 1080
-		self.screen_width = 1024
-		self.screen_height = 576
+		# self.screen_width = 1024
+		# self.screen_height = 576
+		self.screen_width = self.settings.settings_svg["screen_width"]
+		self.screen_height = self.settings.settings_svg["screen_height"]
 
 		self.name = self.event1["name"]
 		self.charttype = self.type
@@ -433,7 +435,7 @@ class openAstro:
 		
 		#configuration
 		#ZOOM 1 = 100%
-		self.zoom=1
+		self.zoom = self.settings.settings_svg["zoom"]
 		# self.type="Radix"
 
 
@@ -1183,8 +1185,8 @@ class openAstro:
 
 
 	def localToGeoZodiac(self):
-		# geo_zodiak_start = -17.5833333
-		geo_zodiak_start = self.settings.astrocfg["geo_zodiak_start"]
+		# geo_zodiac_start = -17.5833333
+		geo_zodiac_start = self.settings.astrocfg["geo_zodiac_start"]
 		planet_id = 0 #Earth = 0 Aries
 
 		planet_names = {1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran',
@@ -1202,22 +1204,22 @@ class openAstro:
 		lon_geo = planet_subpoint.longitude.degrees
 
 		lon_astro = self.planets_degree_ut[planet_id]
-		lon_geo_zodiak = lon_geo - lon_astro
-		# lon_geo_zodiak = lon_geo
-		if lon_geo_zodiak<0:
-			lon_geo_zodiak = lon_geo_zodiak+360
-		if lon_geo_zodiak>360:
-			lon_geo_zodiak = lon_geo_zodiak-360
-		if lon_geo_zodiak<-360:
-			lon_geo_zodiak = lon_geo_zodiak+360
+		lon_geo_zodiac = lon_geo - lon_astro
+		# lon_geo_zodiac = lon_geo
+		if lon_geo_zodiac<0:
+			lon_geo_zodiac = lon_geo_zodiac+360
+		if lon_geo_zodiac>360:
+			lon_geo_zodiac = lon_geo_zodiac-360
+		if lon_geo_zodiac<-360:
+			lon_geo_zodiac = lon_geo_zodiac+360
 
 		# print ("lon_geo = ", lon_geo)
 		# print ("lon_astro = ", lon_astro)
-		# print ("lon_geo_zodiak = ", lon_geo_zodiak)
+		# print ("lon_geo_zodiac = ", lon_geo_zodiac)
 
 		dprint("localToGeoZodiac: second Earth %s" % (self.planets_degree_ut[planet_id]))
 		# print (self.planets_degree_ut[planet_id])
-		degree_diff = lon_geo_zodiak - geo_zodiak_start
+		degree_diff = lon_geo_zodiac - geo_zodiac_start
 		self.t_hour = self.hour + degree_diff/360*24
 		if self.t_hour<0:
 			self.t_hour = self.t_hour+24
@@ -2092,14 +2094,15 @@ class openAstro:
 			rotate = "0"
 			translate = "0"
 			# viewbox = '0 0 772.2 546.0'  # 297mm * 2.6 + 210mm * 2.6
-			viewbox = '0 0 970.7 546.0'  # 297mm * 2.6 + 210mm * 2.6
+			viewbox = f'0 0 {svgWidth} {svgHeight}'  # 297mm * 2.6 + 210mm * 2.6
 		else:
-			sizeX = 546.0
-			sizeY = 970.7
+			# sizeX = 546.0
+			# sizeY = 970.7
 			svgWidth = printing['width']
 			svgHeight = printing['height']
 			rotate = "0"
-			viewbox = '0 0 970.7 546.0'
+			# viewbox = '0 0 970.7 546.0'
+			viewbox = f'0 0 {svgWidth} {svgHeight}'  # 297mm * 2.6 + 210mm * 2.6
 			translate = "0"
 
 		# template dictionary
@@ -2130,8 +2133,10 @@ class openAstro:
 			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px' % (
 			self.colors['paper_1'], self.colors['zodiac_transit_ring_0'])
 			td['makeAspects'] = self.makeAspectsTransit(r, (r - self.c3))
-			# td['makeAspectGrid'] = self.makeAspectTransitGrid(r)
-			td['makeAspectGrid'] = self.makeAspectGrid(r)
+
+			td['makeAspectGrid'] = ""
+			if self.settings.settings_svg["printAspectGrid"] == 1:
+				td['makeAspectGrid'] = self.makeAspectGrid(r)
 			td['makePatterns'] = ''
 		else:
 			td['transitRing'] = ""
@@ -2147,7 +2152,11 @@ class openAstro:
 			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 0.5px' % (
 			self.colors['paper_1'], self.colors['zodiac_radix_ring_0'])
 			td['makeAspects'] = self.makeAspects(r, (r - self.c3))
-			td['makeAspectGrid'] = self.makeAspectGrid(r)
+
+			td['makeAspectGrid'] = ""
+			if self.settings.settings_svg["printAspectGrid"] == 1:
+				td['makeAspectGrid'] = self.makeAspectGrid(r)
+
 			td['makePatterns'] = self.makePatterns()
 
 		td['circleX'] = str(self.settings.settings_svg["circleX"])
@@ -2155,13 +2164,67 @@ class openAstro:
 		td['svgWidth'] = str(svgWidth)
 		td['svgHeight'] = str(svgHeight)
 		td['viewbox'] = viewbox
-		td['stringTitle'] = self.name
-		td['stringName'] = self.charttype
-		td['t_stringTitle'] = ""
 
+
+		td['stringTitle'] = ""
+		td['chartType'] = ""
+		td['t_stringTitle'] = ""
+		td['stringDateTime'] = ""
+		td['t_stringDateTime'] = ""
+		td['stringLocation'] = ""
+		td['stringLat'] = ""
+		td['stringLon'] = ""
+		td['t_stringLocation'] = ""
+		td['t_stringLat'] = ""
+		td['t_stringLon'] = ""
+		td['stringLat'] = ""
+		td['stringLon'] = ""
+		td['stringPosition'] = ""
+
+		if self.settings.settings_svg["printChartType"] == 1:
+			td['chartType'] = self.charttype
+
+		# Print Radix Chart description
+		if self.settings.settings_svg["printDescriptionRadix"] == 1:
+			td['stringTitle'] = self.name
+			# td['chartType'] = self.charttype
+			td['stringDateTime'] = str(self.year_loc) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+				'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
+				'#5': self.second_loc}
+			# stringlocation
+			if len(self.location) > 35:
+				split = self.location.split(",")
+				if len(split) > 1:
+					td['stringLocation'] = split[0] + ", " + split[-1]
+					if len(td['stringLocation']) > 35:
+						td['stringLocation'] = td['stringLocation'][:35] + "..."
+				else:
+					td['stringLocation'] = self.location[:35] + "..."
+			else:
+				td['stringLocation'] = self.location
+			td['stringLocation'] = td['stringLocation'] + " " + self.decTzStr(self.timezone)
+
+			td['stringLat'] = "%s" % (self.lat2str(self.geolat))
+			td['stringLon'] = "%s" % (self.lon2str(self.geolon))
+			postype = {"geo": self.label["apparent_geocentric"], "truegeo": self.label["true_geocentric"],
+					   "topo": self.label["topocentric"], "helio": self.label["heliocentric"]}
+			# td['stringPosition'] = postype[self.settings.astrocfg['postype']]
+			td['stringPosition'] = self.settings.astrocfg['postype']
+
+		# Print Douuble-Chart description
 		if self.type == "Transit" or self.type == "Direction":
-			td['stringName'] = self.charttype
-			td['t_stringTitle'] = self.t_name
+			if self.settings.settings_svg["printDescriptionDouble"] == 1:
+				# td['chartType'] = self.charttype
+				td['t_stringTitle'] = self.t_name
+				td['t_stringDateTime'] = str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+					'#1': self.t_month, '#2': self.t_day, '#3': self.t_h, '#4': self.t_m,
+					'#5': self.t_s}
+				# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
+				td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
+				# td['t_stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.t_geolat))
+				# td['t_stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.t_geolon))
+				td['t_stringLat'] = "%s" % (self.lat2str(self.t_geolat))
+				td['t_stringLon'] = "%s" % (self.lon2str(self.t_geolon))
 
 		# bottom left
 		siderealmode_chartview = {
@@ -2238,48 +2301,48 @@ class openAstro:
 		# rotation based on latitude
 		td['lunar_phase_rotate'] = "%s" % (-90.0 - self.geolat)
 
-		td['stringDateTime'] = str(self.year_loc) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
-			'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
-			'#5': self.second_loc}
-		td['t_stringDateTime'] = ""
-		if self.type == "Transit" or self.type == "Direction":
-			td['t_stringDateTime'] = str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
-				'#1': self.t_month, '#2': self.t_day, '#3': self.t_h, '#4': self.t_m,
-				'#5': self.t_s}
+		# td['stringDateTime'] = str(self.year_loc) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+		# 	'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
+		# 	'#5': self.second_loc}
+		# td['t_stringDateTime'] = ""
+		# if self.type == "Transit" or self.type == "Direction":
+		# 	td['t_stringDateTime'] = str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+		# 		'#1': self.t_month, '#2': self.t_day, '#3': self.t_h, '#4': self.t_m,
+		# 		'#5': self.t_s}
 
-		# stringlocation
-		if len(self.location) > 35:
-			split = self.location.split(",")
-			if len(split) > 1:
-				td['stringLocation'] = split[0] + ", " + split[-1]
-				if len(td['stringLocation']) > 35:
-					td['stringLocation'] = td['stringLocation'][:35] + "..."
-			else:
-				td['stringLocation'] = self.location[:35] + "..."
-		else:
-			td['stringLocation'] = self.location
-		td['stringLocation'] = td['stringLocation'] + " " + self.decTzStr(self.timezone)
-
-		td['t_stringLocation'] = ""
-		td['t_stringLat'] = ""
-		td['t_stringLon'] = ""
-		# stringlocation
-		if self.type == "Transit" or self.type == "Direction":
-			# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
-			td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
-			# td['t_stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.t_geolat))
-			# td['t_stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.t_geolon))
-			td['t_stringLat'] = "%s" % (self.lat2str(self.t_geolat))
-			td['t_stringLon'] = "%s" % (self.lon2str(self.t_geolon))
-
-		# td['stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.geolat))
-		# td['stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.geolon))
-		td['stringLat'] = "%s" % ( self.lat2str(self.geolat))
-		td['stringLon'] = "%s" % (self.lon2str(self.geolon))
-		postype = {"geo": self.label["apparent_geocentric"], "truegeo": self.label["true_geocentric"],
-				   "topo": self.label["topocentric"], "helio": self.label["heliocentric"]}
-		# td['stringPosition'] = postype[self.settings.astrocfg['postype']]
-		td['stringPosition'] = self.settings.astrocfg['postype']
+		# # stringlocation
+		# if len(self.location) > 35:
+		# 	split = self.location.split(",")
+		# 	if len(split) > 1:
+		# 		td['stringLocation'] = split[0] + ", " + split[-1]
+		# 		if len(td['stringLocation']) > 35:
+		# 			td['stringLocation'] = td['stringLocation'][:35] + "..."
+		# 	else:
+		# 		td['stringLocation'] = self.location[:35] + "..."
+		# else:
+		# 	td['stringLocation'] = self.location
+		# td['stringLocation'] = td['stringLocation'] + " " + self.decTzStr(self.timezone)
+		#
+		# td['t_stringLocation'] = ""
+		# td['t_stringLat'] = ""
+		# td['t_stringLon'] = ""
+		# # stringlocation
+		# if self.type == "Transit" or self.type == "Direction":
+		# 	# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
+		# 	td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
+		# 	# td['t_stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.t_geolat))
+		# 	# td['t_stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.t_geolon))
+		# 	td['t_stringLat'] = "%s" % (self.lat2str(self.t_geolat))
+		# 	td['t_stringLon'] = "%s" % (self.lon2str(self.t_geolon))
+		#
+		# # td['stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.geolat))
+		# # td['stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.geolon))
+		# td['stringLat'] = "%s" % ( self.lat2str(self.geolat))
+		# td['stringLon'] = "%s" % (self.lon2str(self.geolon))
+		# postype = {"geo": self.label["apparent_geocentric"], "truegeo": self.label["true_geocentric"],
+		# 		   "topo": self.label["topocentric"], "helio": self.label["heliocentric"]}
+		# # td['stringPosition'] = postype[self.settings.astrocfg['postype']]
+		# td['stringPosition'] = self.settings.astrocfg['postype']
 
 		# paper_color_X
 		td['paper_color_0'] = self.colors["paper_0"]
@@ -2310,16 +2373,24 @@ class openAstro:
 		td['makeHouses'] = self.makeHouses(r)
 		td['makePlanets'] = self.makePlanets(r)
 		td['makeElements'] = self.makeElements(r)
-		td['makePlanetGrid'] = self.makePlanetGrid()
-		td['makeHousesGrid'] = self.makeHousesGrid()
+
+		td['makePlanetGrid'] = ""
+		if self.settings.settings_svg["printPlanetGrid"] == 1:
+			td['makePlanetGrid'] = self.makePlanetGrid()
+
+		td['makeHousesGrid'] = ""
+		if self.settings.settings_svg["printHousesGrid"] == 1:
+			td['makeHousesGrid'] = self.makeHousesGrid()
 
 		self.makePlanetNames()
+
+		td['makePlanetGrid_t'] = ""
+		td['makeHousesGrid_t'] = ""
 		if self.type == "Transit" or self.type == "Direction":
-			td['makePlanetGrid_t'] = self.makePlanetGrid_t()
-			td['makeHousesGrid_t'] = self.makeHousesGrid_t()
-		else:
-			td['makePlanetGrid_t'] = ""
-			td['makeHousesGrid_t'] = ""
+			if self.settings.settings_svg["printPlanetGrid_t"] == 1:
+				td['makePlanetGrid_t'] = self.makePlanetGrid_t()
+			if self.settings.settings_svg["printHousesGrid_t"] == 1:
+				td['makeHousesGrid_t'] = self.makeHousesGrid_t()
 
 		# read template
 		# f=open(self.settings.xml_svg)
@@ -2327,18 +2398,18 @@ class openAstro:
 		template = Template(f.read()).substitute(td)
 		f.close()
 
-		# write template
-		# if printing:
-		# 	# f = open(cfg.tempfilenameprint, "w")
-		# 	f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
-		# 	dprint("Printing SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
-		# else:
-		# 	# f = open(self.settings.tempfilename, "w")
-		# 	f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
-		# 	dprint("Creating SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
-		#
-		# f.write(template)
-		# f.close()
+		if self.settings.settings_svg["saveSwgFile"] == 1:
+			# write template
+			if printing:
+				# f = open(cfg.tempfilenameprint, "w")
+				f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
+				dprint("Printing SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
+			else:
+				# f = open(self.settings.tempfilename, "w")
+				f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
+				dprint("Creating SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
+			f.write(template)
+			f.close()
 
 		# #return filename
 		# return self.settings.tempfilename
@@ -3769,7 +3840,7 @@ class openAstro:
 		out = ''
 		# loop over all planets
 		li = 10
-		offset = 0
+		offset = 10
 		for i in range(len(self.planets)):
 			# if i == 27:
 			# 	li = 10
@@ -3805,7 +3876,7 @@ class openAstro:
 		out = ''
 		# loop over all planets
 		li = 10
-		offset = 0
+		offset = 10
 		for i in range(len(self.planets)):
 			# if i == 27:
 			# 	li = 10
@@ -3840,12 +3911,14 @@ class openAstro:
 	def makeHousesGrid( self ):
 		out = ''
 		li=10
+		offset=10
 		for i in range(12):
 			if i < 9:
 				cusp = '&#160;&#160;'+str(i+1)
 			else:
 				cusp = str(i+1)
-			out += '<g transform="translate(0,'+str(li)+')">'
+			# out += '<g transform="translate(0,'+str(li)+')">'
+			out = out + '<g transform="translate(%s,%s)">' % (offset, li)
 			# out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s %s:</text>' % (self.colors['paper_0'],self.label['cusp'],cusp)
 			out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s:</text>' % (self.colors['paper_0'],cusp)
 			out += '<g transform="translate(40,-8)"><use transform="scale(0.3)" xlink:href="#'+self.zodiac[self.houses_sign[i]]+'" /></g>'
@@ -3857,12 +3930,14 @@ class openAstro:
 	def makeHousesGrid_t( self ):
 		out = ''
 		li=10
+		offset=10
 		for i in range(12):
 			if i < 9:
 				cusp = '&#160;&#160;'+str(i+1)
 			else:
 				cusp = str(i+1)
-			out += '<g transform="translate(0,'+str(li)+')">'
+			# out += '<g transform="translate(0,'+str(li)+')">'
+			out = out + '<g transform="translate(%s,%s)">' % (offset, li)
 			# out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s %s:</text>' % (self.colors['paper_0'],self.label['cusp'],cusp)
 			out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s:</text>' % (self.colors['paper_0'],cusp)
 			out += '<g transform="translate(40,-8)"><use transform="scale(0.3)" xlink:href="#'+self.zodiac[self.t_houses_sign[i]]+'" /></g>'
@@ -5412,14 +5487,14 @@ class openAstro:
 		# 		dfd.append(dfdata)
 		# 		# dfdata= {
 		# 		#   "from": {
-		# 		# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+		# 		# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 		# 		# 	"coordinates": [
 		# 		# 	  starting_longitude,
 		# 		# 	  starting_latitude
 		# 		# 	]
 		# 		#   },
 		# 		#   "to": {
-		# 		# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+		# 		# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 		# 		# 	"coordinates": [
 		# 		# 	  new_longitude2,
 		# 		# 	  new_latitude2
@@ -5973,14 +6048,14 @@ class openAstro:
 				dfd.append(dfdata)
 				# dfdata= {
 				#   "from": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  starting_longitude,
 				# 	  starting_latitude
 				# 	]
 				#   },
 				#   "to": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  new_longitude2,
 				# 	  new_latitude2
@@ -6200,14 +6275,14 @@ class openAstro:
 				dfd.append(dfdata)
 				# dfdata= {
 				#   "from": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  starting_longitude,
 				# 	  starting_latitude
 				# 	]
 				#   },
 				#   "to": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  new_longitude2,
 				# 	  new_latitude2
@@ -6329,14 +6404,14 @@ class openAstro:
 				dfd.append(dfdata)
 				# dfdata= {
 				#   "from": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  starting_longitude,
 				# 	  starting_latitude
 				# 	]
 				#   },
 				#   "to": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  new_longitude2,
 				# 	  new_latitude2
@@ -6464,14 +6539,14 @@ class openAstro:
 				dfd.append(dfdata)
 				# dfdata= {
 				#   "from": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  starting_longitude,
 				# 	  starting_latitude
 				# 	]
 				#   },
 				#   "to": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  new_longitude2,
 				# 	  new_latitude2
@@ -6590,14 +6665,14 @@ class openAstro:
 				dfd.append(dfdata)
 				# dfdata= {
 				#   "from": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  starting_longitude,
 				# 	  starting_latitude
 				# 	]
 				#   },
 				#   "to": {
-				# 	"name": self.name + "/"  + "zodiak-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
+				# 	"name": self.name + "/"  + "zodiac-" + str(i) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 				# 	"coordinates": [
 				# 	  new_longitude2,
 				# 	  new_latitude2

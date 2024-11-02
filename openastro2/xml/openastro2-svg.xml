@@ -15,22 +15,21 @@
 <g transform="translate($cfgTranslate)">
 <g transform="rotate($cfgRotate)">
 <g transform="scale($cfgZoom)">
-<!--<rect x="0" y="0" width="772.2" height="546.0" style="fill: $paper_color_1;" />-->
-<rect x="0" y="0" width="970.7" height="546.0" style="fill: $paper_color_1;" />
+<rect x="0" y="0" width="$svgWidth" height="$svgHeight" style="fill: $paper_color_1;" />
 <text x="10" y="20" style="fill: $paper_color_0; font-size: 14px">$stringTitle</text>
 <text x="10" y="32" style="fill: $paper_color_0; font-size: 10px">$stringDateTime</text>
 <text x="10" y="44" style="fill: $paper_color_0; font-size: 10px">$stringLocation</text>
 <text x="10" y="56" style="fill: $paper_color_0; font-size: 10px">$stringLat</text>
 <text x="10" y="68" style="fill: $paper_color_0; font-size: 10px">$stringLon</text>
 <text x="10" y="80" style="fill: $paper_color_0; font-size: 10px">$stringPosition</text>
+<text x="10" y="96" style="fill: $paper_color_0; font-size: 14px">$chartType</text>
 
 
-<text x="550" y="20" text-anchor="end" style="fill: $paper_color_0; font-size: 14px">$t_stringTitle</text>
-<text x="550" y="32" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringDateTime</text>
-<text x="550" y="44" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLocation</text>
-<text x="550" y="56" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLat</text>
-<text x="550" y="68" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLon</text>
-<text x="550" y="92" text-anchor="end" style="fill: $paper_color_0; font-size: 14px">$stringName</text>
+<text x="560" y="20" text-anchor="end" style="fill: $paper_color_0; font-size: 14px">$t_stringTitle</text>
+<text x="560" y="32" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringDateTime</text>
+<text x="560" y="44" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLocation</text>
+<text x="560" y="56" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLat</text>
+<text x="560" y="68" text-anchor="end" style="fill: $paper_color_0; font-size: 10px">$t_stringLon</text>
 
 
 <!--<text x="20" y="480" style="fill: $paper_color_0; font-size: 10px">$bottomLeft1</text>-->
@@ -647,17 +646,7 @@
 	</g>
 
 </g>
-<!-- testing printer
-<rect x="0" y="0" width="772.2" height="546.0" style="fill: $paper_color_1; stroke-width: 1px; stroke:red;" />
-<line x1="0" y1="0" x2="772.2" y2="546.0" style="fill:none; stroke-width: 1px; stroke:red;" />
-<line x1="772.2" y1="0" x2="0" y2="546.0" style="fill:none; stroke-width: 1px; stroke:red;" />
--->
 </g>
 </g>
 </g>
-<!-- testing printer
-<rect x="0" y="0" width="$svgWidth" height="$svgHeight" style="fill:none; stroke-width: 1px; stroke:blue;" />
-<line x1="0" y1="0" x2="$svgWidth" y2="$svgHeight" style="fill:none; stroke-width: 1px; stroke:blue;" />
-<line x1="$svgWidth" y1="0" x2="0" y2="$svgHeight" style="fill:none; stroke-width: 1px; stroke:blue;" />
--->
 </svg>

@@ -1996,15 +1996,25 @@ class openAstro:
 	def makePlanetDict(self):
 		self.planets_dict = {}
 		self.houses_dict = {}
+		self.planets_all_str = ""
+		self.houses_all_str = ""
 		i=0
 		hi =0
 		# Цикл для заполнения словаря
 		for name, sign, degree, degree_ut, retrograde in zip(self.planets_name, self.planets_sign, self.planets_degree, self.planets_degree_ut, self.planets_retrograde):
+			retrograde_str = ' retrograde' if self.planets_retrograde[i] else ''
+			planets_houses = self.get_house_for_planet(degree_ut)
+			# foreach h in planets_houses:
+			houses_names = [self.planets_name[i+23] for i in planets_houses]
+			house_str = ', '.join(houses_names)
+			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]} {house_str}{retrograde_str}"
 			self.planets_dict[name] = {
 				'planets_name': name,
+				'planets_position_str': planets_position_str,
 				'planets_sign': sign,
 				'planets_degree': degree,
 				'planets_degree_ut': degree_ut,
+				'planets_houses': planets_houses,
 				'planets_retrograde': retrograde,
 				'planets_zodiac': self.zodiac[self.planets_sign[i]],
 				'planets_zodiac_short': self.zodiac_short[self.planets_sign[i]],
@@ -2013,11 +2023,14 @@ class openAstro:
 				'planets_zodiac_drywet': self.zodiac_drywet[self.planets_sign[i]],
 				'planets_zodiac_yinyang': self.zodiac_yinyang[self.planets_sign[i]],
 				'planets_zodiac_attention': self.zodiac_attention[self.planets_sign[i]],
-                'planets_id': i,
-            }
+				'planets_id': i,
+			}
+
 			if 22 < i and i < 35:
+				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]}"
 				self.houses_dict[name] = {
 					'houses_name': name,
+					'houses_position_str': houses_position_str,
 					'houses_sign': sign,
 					'houses_degree': degree,
 					'houses_degree_ut': degree_ut,
@@ -2031,10 +2044,61 @@ class openAstro:
 					'houses_zodiac_attention': self.zodiac_attention[self.planets_sign[i]],
 					'houses_id': hi,
 				}
-				hi+=1
+				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
+					self.houses_all_str = self.houses_all_str + '\n' + houses_position_str
+				hi += 1
+			else:
+				# Don't add houses to planets_all_str
+				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
+					self.planets_all_str = self.planets_all_str + '\n' + planets_position_str
 			i+=1
-		# print(self.planets_dict)
 		return self.planets_dict
+
+	def get_house_for_planet(self, planet_degree):
+		"""
+        Определяет номер дома для планеты по её координатам.
+
+        :param planet_degree: Координата планеты (от 0 до 360 градусов).
+        :param houses_degree_ut: Список координат домов (12 элементов).
+        :return: Номер дома (1-12).
+        """
+		houses=[]
+		# Дополняем список домов, чтобы удобно обработать переход через 360/0
+		extended_houses = self.houses_degree_ut + [self.houses_degree_ut[0] + 360]
+
+		# Определяем дом
+		for i in range(12):
+			# if extended_houses[i] <= planet_degree < extended_houses[i + 1]:
+			if self.is_coordinate_within_arc(planet_degree, extended_houses[i], extended_houses[i + 1]):
+				if i not in houses:
+					houses.append(i)
+			# Add orb 5 degree
+			if self.is_coordinate_within_arc((planet_degree + 5)%360 , extended_houses[i], extended_houses[i + 1]):
+				if i not in houses:
+					houses.append(i)
+		return houses
+
+
+	def is_coordinate_within_arc(self, degree, start_angle, end_angle):
+		"""
+		Chech that planet is into shotter arc
+		:param degree:
+		:param start_angle:
+		:param end_angle:
+		:return:
+		"""
+		# Normalize all angles to be within 0-360 range
+		degree = degree % 360
+		start_angle = start_angle % 360
+		end_angle = end_angle % 360
+
+		# Ensure start_angle is less than or equal to end_angle
+		if start_angle > end_angle:
+			# If the arc spans across 0 degrees, adjust the comparison
+			return (degree >= start_angle) or (degree <= end_angle)
+		else:
+			# If the arc does not span across 0 degrees, perform a simple range check
+			return start_angle <= degree <= end_angle
 
 
 	def makePlanetNames(self):
@@ -2613,7 +2677,25 @@ class openAstro:
 		elif type == "0":
 			out = '%(#1)2d' % {'#1': a}
 		return str(out)
-	
+
+	# decimal to degrees (a°b'c")
+	def dec2deg_str(self, dec, type="3"):
+		dec = float(dec)
+		a = int(dec)
+		a_new = (dec - float(a)) * 60.0
+		b_rounded = int(round(a_new))
+		b = int(a_new)
+		c = int(round((a_new - float(b)) * 60.0))
+		if type == "3":
+			out = '%(#1)°%(#2)`%(#3)``' % {'#1': a, '#2': b, '#3': c}
+		elif type == "2":
+			out = f'{a}°{b_rounded}`'
+		elif type == "1":
+			out = '%(#1)°' % {'#1': a}
+		elif type == "0":
+			out = '%(#1)2d' % {'#1': a}
+		return str(out)
+
 	#draw svg aspects: ring, aspect ring, degreeA degreeB
 	def drawAspect( self , r , ar , degA , degB , color):
 			offset = (int(self.houses_degree_ut[6]) / -1) + int(degA)
@@ -3773,6 +3855,7 @@ class openAstro:
 
 
 			# Make self.planets_aspects_list and add aspects in self.planets_dict, self.houses_dict
+			self.aspect_all_str=""
 			revr=list(range(len(self.planets)))
 			i=0
 			hi=0
@@ -3789,8 +3872,9 @@ class openAstro:
 							diff=self.degreeDiff(start,end)
 							for z in range(len(self.aspects)):
 								if(self.planetsInAspect(diff, z, a, b)):
+									aspects_degree_id = self.aspects[z]['id']
 									asp_orb = round(abs(float(diff - float(self.aspects[z]['degree']))),1)
-									asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']}"
+									asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']} orb={self.dec2deg_str( asp_orb , type='2')}"
 									asp_dict = {
 										'aspects_str': asp_str,
 										'planets_name1': self.planets[a]['name'],
@@ -3801,6 +3885,11 @@ class openAstro:
 									}
 
 									self.planets_aspects_list.append(asp_dict)
+
+									if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
+										if ('visible_json' in self.planets[b] and self.planets[b]['visible_json'] == 1):
+											if ('visible_json' in self.settings.settings["settings_aspect_dic"][aspects_degree_id] and self.settings.settings["settings_aspect_dic"][aspects_degree_id]['visible_json'] == 1):
+												self.aspect_all_str = self.aspect_all_str + asp_str + '\n'
 
 									if 'aspects' not in self.planets_dict[self.planets[a]['name']]:
 										self.planets_dict[self.planets[a]['name']]['aspects'] = {}

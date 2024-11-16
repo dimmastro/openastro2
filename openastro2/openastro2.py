@@ -2045,12 +2045,14 @@ class openAstro:
 					'houses_id': hi,
 				}
 				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
-					self.houses_all_str = self.houses_all_str + '\n' + houses_position_str
+					self.houses_all_str = self.houses_all_str + houses_position_str + """
+"""
 				hi += 1
 			else:
 				# Don't add houses to planets_all_str
 				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
-					self.planets_all_str = self.planets_all_str + '\n' + planets_position_str
+					self.planets_all_str = self.planets_all_str  + planets_position_str + """
+"""
 			i+=1
 		return self.planets_dict
 
@@ -2689,7 +2691,7 @@ class openAstro:
 		if type == "3":
 			out = '%(#1)°%(#2)`%(#3)``' % {'#1': a, '#2': b, '#3': c}
 		elif type == "2":
-			out = f'{a}°{b_rounded}`'
+			out = f"{a}°{b_rounded}'"
 		elif type == "1":
 			out = '%(#1)°' % {'#1': a}
 		elif type == "0":
@@ -3873,8 +3875,9 @@ class openAstro:
 							for z in range(len(self.aspects)):
 								if(self.planetsInAspect(diff, z, a, b)):
 									aspects_degree_id = self.aspects[z]['id']
-									asp_orb = round(abs(float(diff - float(self.aspects[z]['degree']))),1)
-									asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']} orb={self.dec2deg_str( asp_orb , type='2')}"
+									asp_orb = abs(float(diff - float(self.aspects[z]['degree'])))
+									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
+									asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']} orb={asp_orb_deg}"
 									asp_dict = {
 										'aspects_str': asp_str,
 										'planets_name1': self.planets[a]['name'],
@@ -3882,6 +3885,7 @@ class openAstro:
 										'aspects_degree': self.aspects[z]['degree'],
 										'aspects_diff': diff,
 										'aspects_orbis': asp_orb,
+										'aspects_orbis_deg': asp_orb_deg,
 									}
 
 									self.planets_aspects_list.append(asp_dict)
@@ -3889,7 +3893,8 @@ class openAstro:
 									if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
 										if ('visible_json' in self.planets[b] and self.planets[b]['visible_json'] == 1):
 											if ('visible_json' in self.settings.settings["settings_aspect_dic"][aspects_degree_id] and self.settings.settings["settings_aspect_dic"][aspects_degree_id]['visible_json'] == 1):
-												self.aspect_all_str = self.aspect_all_str + asp_str + '\n'
+												self.aspect_all_str = self.aspect_all_str + asp_str + """
+"""
 
 									if 'aspects' not in self.planets_dict[self.planets[a]['name']]:
 										self.planets_dict[self.planets[a]['name']]['aspects'] = {}

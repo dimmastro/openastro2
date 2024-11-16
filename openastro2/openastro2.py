@@ -2033,7 +2033,7 @@ class openAstro:
 				}
 				hi+=1
 			i+=1
-		print(self.planets_dict)
+		# print(self.planets_dict)
 		return self.planets_dict
 
 

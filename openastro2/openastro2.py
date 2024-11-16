@@ -3805,6 +3805,9 @@ class openAstro:
 									if 'aspects' not in self.planets_dict[self.planets[a]['name']]:
 										self.planets_dict[self.planets[a]['name']]['aspects'] = {}
 									self.planets_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict
+									if 'aspects' not in self.planets_dict[self.planets[b]['name']]:
+										self.planets_dict[self.planets[b]['name']]['aspects'] = {}
+									self.planets_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict
 
 									# Houses aspects
 									if (22 < a and a < 35):

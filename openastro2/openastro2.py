@@ -444,6 +444,11 @@ class openAstro:
 		self.zodiac_short = ['Ari','Tau','Gem','Cnc','Leo','Vir','Lib','Sco','Sgr','Cap','Aqr','Psc']
 		self.zodiac_color = ['#482900','#6b3d00','#5995e7','#2b4972','#c54100','#2b286f','#69acf1','#ffd237','#ff7200','#863c00','#4f0377','#6cbfff']
 		self.zodiac_element = ['fire','earth','air','water','fire','earth','air','water','fire','earth','air','water']
+		self.zodiac_hotcold = ['hot','cold', 'hot','cold', 'hot','cold', 'hot','cold', 'hot','cold', 'hot','cold']
+		self.zodiac_drywet = ['dry','dry', 'wet','wet', 'dry','dry', 'wet','wet', 'dry','dry', 'wet','wet']
+		self.zodiac_quality = ['сardinal','fixed','mutable', 'сardinal','fixed','mutable', 'сardinal','fixed','mutable', 'сardinal','fixed','mutable']
+		self.zodiac_yinyang = ['yang','ying', 'yang','ying', 'yang','ying', 'yang','ying', 'yang','ying', 'yang','ying']
+		self.zodiac_attention = ['outer','outer', 'inner','inner', 'outer','outer', 'inner','inner', 'outer','outer', 'inner','inner']
 
 		#get color configuration
 		self.colors = self.settings.getColors()
@@ -1869,6 +1874,8 @@ class openAstro:
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
 
+		self.makePlanetNames()
+
 		# Transit module data
 		if self.type == "Transit" or self.type == "Composite":
 			# grab transiting module data
@@ -1897,6 +1904,8 @@ class openAstro:
 		self.planet_azimuth = module_data.planet_azimuth
 		self.planet_true_altitude = module_data.planet_true_altitude
 		self.planet_apparent_altitude = module_data.planet_apparent_altitude
+
+		self.makePlanetDict()
 
 		# make composite averages
 		if self.type == "Composite":
@@ -1982,6 +1991,50 @@ class openAstro:
 							self.planets_sign[i] = x
 							self.planets_degree[i] = self.planets_degree_ut[i] - deg_low
 							self.planets_retrograde[i] = False
+
+
+	def makePlanetDict(self):
+		self.planets_dict = {}
+		self.houses_dict = {}
+		i=0
+		hi =0
+		# Цикл для заполнения словаря
+		for name, sign, degree, degree_ut, retrograde in zip(self.planets_name, self.planets_sign, self.planets_degree, self.planets_degree_ut, self.planets_retrograde):
+			self.planets_dict[name] = {
+				'planets_name': name,
+				'planets_sign': sign,
+				'planets_degree': degree,
+				'planets_degree_ut': degree_ut,
+				'planets_retrograde': retrograde,
+				'planets_zodiac': self.zodiac[self.planets_sign[i]],
+				'planets_zodiac_short': self.zodiac_short[self.planets_sign[i]],
+				'planets_zodiac_quality': self.zodiac_quality[self.planets_sign[i]],
+				'planets_zodiac_hotcold': self.zodiac_hotcold[self.planets_sign[i]],
+				'planets_zodiac_drywet': self.zodiac_drywet[self.planets_sign[i]],
+				'planets_zodiac_yinyang': self.zodiac_yinyang[self.planets_sign[i]],
+				'planets_zodiac_attention': self.zodiac_attention[self.planets_sign[i]],
+                'planets_id': i,
+            }
+			if 22 < i and i < 35:
+				self.houses_dict[name] = {
+					'houses_name': name,
+					'houses_sign': sign,
+					'houses_degree': degree,
+					'houses_degree_ut': degree_ut,
+					'houses_retrograde': retrograde,
+					'houses_zodiac': self.zodiac[self.planets_sign[i]],
+					'houses_zodiac_short': self.zodiac_short[self.planets_sign[i]],
+					'houses_zodiac_quality': self.zodiac_quality[self.planets_sign[i]],
+					'houses_zodiac_hotcold': self.zodiac_hotcold[self.planets_sign[i]],
+					'houses_zodiac_drywet': self.zodiac_drywet[self.planets_sign[i]],
+					'houses_zodiac_yinyang': self.zodiac_yinyang[self.planets_sign[i]],
+					'houses_zodiac_attention': self.zodiac_attention[self.planets_sign[i]],
+					'houses_id': hi,
+				}
+				hi+=1
+			i+=1
+		print(self.planets_dict)
+		return self.planets_dict
 
 
 	def makePlanetNames(self):
@@ -2382,7 +2435,6 @@ class openAstro:
 		if self.settings.settings_svg["printHousesGrid"] == 1:
 			td['makeHousesGrid'] = self.makeHousesGrid()
 
-		self.makePlanetNames()
 
 		td['makePlanetGrid_t'] = ""
 		td['makeHousesGrid_t'] = ""
@@ -3652,6 +3704,7 @@ class openAstro:
 		return out
 	
 	def makeAspectGrid( self , r ):
+		self.planets_aspects_list = []
 		out=""
 		style='stroke:%s; stroke-width: 0.25px; stroke-opacity:.6; fill:none' % (self.colors['paper_0'])
 
@@ -3712,7 +3765,58 @@ class openAstro:
 								# 		float(self.aspects[z]['degree']) + orb):
 								if(self.planetsInAspect(diff, z, a, b)):
 								# if	( float(self.aspects[z]['degree']) - float(self.aspects[z]['orb']) ) <= diff <= ( float(self.aspects[z]['degree']) + float(self.aspects[z]['orb']) ) and self.aspects[z]['visible_grid'] == 1:
-										out = out + '<use  x="'+str(xorb-box+1)+'" y="'+str(yorb+1)+'" xlink:href="#orb'+str(self.aspects[z]['degree'])+'" />\n'
+									out = out + '<use  x="'+str(xorb-box+1)+'" y="'+str(yorb+1)+'" xlink:href="#orb'+str(self.aspects[z]['degree'])+'" />\n'
+									# asp_orb = round(abs(float(diff - float(self.aspects[z]['degree']))),1)
+									# asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']} (orbis: {asp_orb})"
+									# self.planets_aspects_list.append(asp_str)
+
+
+
+			# Make self.planets_aspects_list and add aspects in self.planets_dict, self.houses_dict
+			revr=list(range(len(self.planets)))
+			i=0
+			hi=0
+			# revr.reverse()
+			for a in revr:
+				if self.planets[a]['visible_aspect_grid'] == 1:
+					start=self.planets_degree_ut[a]
+					#first planet
+					revr2=list(range(a+1, len(revr)))
+					# revr2.reverse()
+					for b in revr2:
+						if self.planets[b]['visible_aspect_grid'] == 1:
+							end=self.planets_degree_ut[b]
+							diff=self.degreeDiff(start,end)
+							for z in range(len(self.aspects)):
+								if(self.planetsInAspect(diff, z, a, b)):
+									asp_orb = round(abs(float(diff - float(self.aspects[z]['degree']))),1)
+									asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']}"
+									asp_dict = {
+										'aspects_str': asp_str,
+										'planets_name1': self.planets[a]['name'],
+										'planets_name2': self.planets[b]['name'],
+										'aspects_degree': self.aspects[z]['degree'],
+										'aspects_diff': diff,
+										'aspects_orbis': asp_orb,
+									}
+
+									self.planets_aspects_list.append(asp_dict)
+
+									if 'aspects' not in self.planets_dict[self.planets[a]['name']]:
+										self.planets_dict[self.planets[a]['name']]['aspects'] = {}
+									self.planets_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict
+
+									# Houses aspects
+									if (22 < a and a < 35):
+										if 'aspects' not in self.houses_dict[self.planets[a]['name']]:
+											self.houses_dict[self.planets[a]['name']]['aspects'] = {}
+										self.houses_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict
+									# Houses aspects
+									if (22 < b and b < 35):
+										if 'aspects' not in self.houses_dict[self.planets[b]['name']]:
+											self.houses_dict[self.planets[b]['name']]['aspects'] = {}
+										self.houses_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict
+
 		if self.type == "Transit" or self.type == "Direction":
 			box = 12
 			xstart = 500
@@ -7321,14 +7425,14 @@ def dprint(str):
 #     Gtk.main()
 #     return 0
 
-#start the whole bunch
-
-if __name__ == "__main__":
-	cfg = openAstroCfg()
-	db = openAstroSqlite()
-	openAstro = openAstroInstance(db)
-	mainWindow()
-	main()
+# #start the whole bunch
+#
+# if __name__ == "__main__":
+# 	cfg = openAstroCfg()
+# 	db = openAstroSqlite()
+# 	openAstro = openAstroInstance(db)
+# 	mainWindow()
+# 	main()
 
 
 

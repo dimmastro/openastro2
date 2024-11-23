@@ -198,7 +198,7 @@ class openAstroSettings:
 			for key, value in dict2.items():
 				if isinstance(value, dict):
 					# Если значение является словарем, рекурсивно вызываем функцию merge_dicts
-					merge_dicts(dict1.get(key, {}), value)
+					dict1[key] = merge_dicts(dict1.get(key, {}), value)
 				else:
 					# Иначе перезаписываем значение ключа в dict1 значением из dict2
 					dict1[key] = value
@@ -1860,6 +1860,17 @@ class openAstro:
 														  self.settings.astrocfg, None)
 			self.type = "Transit"
 
+		elif self.type == "Zemletochki":
+			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
+											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
+											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
+											  self.settings.astrocfg)
+			h, m, s = self.decHour(self.t_hour)
+			dt_new = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
+			self.e2_dt_utc = dt_new
+			self.type = "Transit"
+
 		elif self.type == "Transit" or self.type == "Composite":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
@@ -2830,9 +2841,10 @@ class openAstro:
 					0, (r - dropin), t_text_offset) + dropin  # was 132
 				# if i == 0:
 				# 	xtext = xtext - 6
-				path = path + '<line x1="' + str(t_x1) + '" y1="' + str(t_y1) + '" x2="' + str(t_x2) + '" y2="' + str(t_y2) + '" style="stroke: ' + t_linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
-				path = path + '<text style="fill: ' + t_linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
-				path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(self.t_houses_degree[(i)]+1, type="0") + '</text>'
+				if ('t_visible' in self.planets[i] and self.planets[i]['t_visible'] == 1) or ('t_visible' not in self.planets[i] and self.planets[i]['visible'] == 1) :
+					path = path + '<line x1="' + str(t_x1) + '" y1="' + str(t_y1) + '" x2="' + str(t_x2) + '" y2="' + str(t_y2) + '" style="stroke: ' + t_linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
+					path = path + '<text style="fill: ' + t_linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
+					path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(self.t_houses_degree[(i)]+1, type="0") + '</text>'
 
 			#if transit			
 			if self.type == "Transit" or self.type == "Direction":
@@ -3160,8 +3172,13 @@ class openAstro:
 			t_planets_degut={}
 			for i in range(len(self.planets)):
 				group_offset[i]=0
-				if self.planets[i]['visible'] == 1:
-					t_planets_degut[self.t_planets_degree_ut[i]]=i
+				# if self.planets[i]['visible'] == 1:
+				if 't_visible' in self.planets[i]:
+					if self.planets[i]['t_visible'] == 1:
+						t_planets_degut[self.t_planets_degree_ut[i]]=i
+				elif self.planets[i]['visible'] == 1:
+					t_planets_degut[self.t_planets_degree_ut[i]] = i
+
 			# t_keys = list(t_planets_degut.keys())
 			# t_keys.sort()
 			t_planets_delta = self.getPlanetsDelta(self.t_planets_degree_ut)
@@ -3339,6 +3356,7 @@ class openAstro:
 			if self.planets[i]['visible'] == 1:
 				#list of planets sorted by degree
 				planets_degut[temp_planets_degree_ut[i]]=i
+
 		keys = list(planets_degut.keys())
 		keys.sort()
 		switch = 0
@@ -3679,7 +3697,7 @@ class openAstro:
 				end=self.t_planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs
-				if (self.planets[i]['visible'] == 1) & (self.planets[x]['visible'] == 1):
+				if (self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1):
 					if ('planet_orb' in self.planets[x]):
 						if (self.type in self.planets[x]['planet_orb']):
 							if (not("visible2" in self.planets[x]['planet_orb'][self.type] and self.planets[x]['planet_orb'][self.type]["visible2"] == 0)):

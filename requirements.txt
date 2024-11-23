@@ -1,7 +1,6 @@
-skyfield
-pydeck
-pandas
-ephem
-svgwrite
-certifi
-svgwrite
+skyfield==1.46
+pydeck==0.8.0
+pandas==2.0.2
+certifi==2023.11.17
+svgwrite==1.4.3
+requests==2.31.0

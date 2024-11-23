@@ -16,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with OpenAstro.org.  If not, see <http://www.gnu.org/licenses/>.
 """
+import importlib
 import os.path, sys, datetime, math
 from pathlib import Path
 from skyfield.api import load, wgs84
@@ -37,6 +38,17 @@ from openastromod.fixar import get_fixar_ecliptic_latlon_arr, get_fixar_earth_ec
 
 class ephData:
 	def __init__(self,year,month,day,hour,geolon,geolat,altitude,planets,zodiac,openastrocfg,houses_override=None):
+		self.year = year
+		self.month = month
+		self.day = day
+		self.hour = hour
+		self.geolon = geolon
+		self.geolat = geolat
+		self.altitude = altitude
+		h, m, s = self.decHour(self.hour)
+		self.h = h
+		self.m = m
+		self.s = s
 		#ephemeris path (default "/usr/share/swisseph:/usr/local/share/swisseph")
 		swe.set_ephe_path(ephe_path)
 		# print (ephe_path)
@@ -56,6 +68,12 @@ class ephData:
 		self.planet_azimuth = list(range(len(planets)))
 		self.planet_true_altitude = list(range(len(planets)))
 		self.planet_apparent_altitude = list(range(len(planets)))
+		self.planet_apparent_altitude = list(range(len(planets)))
+		self.planet_lat_speed = list(range(len(planets)))
+		self.planet_lon_speed = list(range(len(planets)))
+		self.planet_distance = list(range(len(planets)))
+
+		self.openastrocfg = openastrocfg
 
 
 		#iflag
@@ -93,12 +111,42 @@ class ephData:
 			mode="SIDM_"+openastrocfg['siderealmode']
 			swe.set_sid_mode(getattr(swe,mode))
 
+		len_planets = 43
+
+		planet_pos_list = self.modules_append_data_in_lists(year=year, month=month, day=day, hour=hour, h=h, m=m, s=s, geolon=geolon, geolat=geolat, altitude=altitude, openastrocfg=openastrocfg)
+		print(planet_pos_list)
+		len_planets_from_modules = len(planet_pos_list)
+		if len_planets_from_modules > 0:
+			len_planets_total = len_planets + len_planets_from_modules
+			self.planets_sign = list(range(len_planets_total))
+			self.planets_degree = list(range(len_planets_total))
+			self.planets_degree_ut = list(range(len_planets_total))
+			self.planets_info_string = list(range(len_planets_total))
+			self.planets_retrograde = list(range(len_planets_total))
+			self.planet_longitude = list(range(len_planets_total))
+			self.planet_latitude = list(range(len_planets_total))
+			self.planet_hour_angle = list(range(len_planets_total))
+			self.planet_azimuth = list(range(len_planets_total))
+			self.planet_true_altitude = list(range(len_planets_total))
+			self.planet_apparent_altitude = list(range(len_planets_total))
+			self.planet_apparent_altitude = list(range(len_planets_total))
+			self.planet_lat_speed = list(range(len_planets_total))
+			self.planet_lon_speed = list(range(len_planets_total))
+			self.planet_distance = list(range(len_planets_total))
+
+
+		print(planet_pos_list)
 		#compute a planet (longitude,latitude,distance,long.speed,lat.speed,speed)
-		for i in range(23):
-			if(i==15 and ( self.jul_day_UT < 1967601.5 or 3419437.5 < self.jul_day_UT )): # Chiron limit
-				ret_flag = swe.calc_ut(1967601.5, i, iflag)
+		for i in range(len_planets_total):
+			if 22 < i and i < len_planets:
+				continue
+			if i >= len_planets:
+				ret_flag = planet_pos_list[i-len_planets-1]
 			else:
-				ret_flag = swe.calc_ut(self.jul_day_UT,i,iflag)
+				if(i==15 and ( self.jul_day_UT < 1967601.5 or 3419437.5 < self.jul_day_UT )): # Chiron limit
+					ret_flag = swe.calc_ut(1967601.5, i, iflag)
+				else:
+					ret_flag = swe.calc_ut(self.jul_day_UT,i,iflag)
 			for x in range(len(zodiac)):
 				deg_low=float(x*30)
 				deg_high=float((x+1)*30)
@@ -107,6 +155,9 @@ class ephData:
 						self.planets_sign[i]=x
 						self.planets_degree[i] = ret_flag[0][0] - deg_low
 						self.planets_degree_ut[i] = ret_flag[0][0]
+						self.planet_distance[i] = ret_flag[0][2] # distance
+						self.planet_lon_speed[i] = ret_flag[0][3] # ???
+						self.planet_lat_speed[i] = ret_flag[0][4] # ???
 						#if latitude speed is negative, there is retrograde
 						if ret_flag[0][3] < 0:
 							self.planets_retrograde[i] = True
@@ -394,6 +445,65 @@ class ephData:
 		
 		#close swiss ephemeris
 		swe.close()
+
+	def modules_append_data_in_lists(self, *args, **kwargs):
+		year = kwargs['year']
+		month = kwargs['month']
+		day = kwargs['day']
+		hour = kwargs['hour']
+		h = kwargs['h']
+		m = kwargs['m']
+		s = kwargs['s']
+		geolat = kwargs['geolat']
+		geolon = kwargs['geolon']
+		altitude = kwargs['altitude']
+		openastrocfg = kwargs['openastrocfg']
+		ret_flag_list = []
+		results = self.load_modules(year=year, month = month, day=day, hour=hour, h=h, m=m, s=s, geolon=geolon, geolat=geolat, altitude=altitude, openastrocfg=openastrocfg)
+		for module_name, planet_pos_list in results.items():
+			# len = len(results[module_name])
+			for ret_flag in planet_pos_list:
+				ret_flag_list.append(ret_flag)
+		return ret_flag_list
+
+
+
+
+
+
+	def load_modules(self, *args, **kwargs):
+		year = kwargs['year']
+		month = kwargs['month']
+		day = kwargs['day']
+		hour = kwargs['hour']
+		h = kwargs['h']
+		m = kwargs['m']
+		s = kwargs['s']
+		geolat = kwargs['geolat']
+		geolon = kwargs['geolon']
+		altitude = kwargs['altitude']
+		openastrocfg = kwargs['openastrocfg']
+		results = {}
+		planet_pos_list = []
+		for module_name, module_config in self.openastrocfg["modules"]["object"].items():
+			if module_config["enabled"]:
+				# module_path = f"openastro2.modules.object.{module_name}.{module_name}"
+				module_path = f"modules.object.{module_name}.{module_name}"
+				try:
+					# Динамически импортируем модуль
+					module = importlib.import_module(module_path)
+					# Инициализируем класс с аргументами из конфигурации
+					module_class = getattr(module, module_name.capitalize())
+					module_instance = module_class(**module_config["params"])
+					# Вызываем метод `process` и сохраняем результат
+					# planet_pos_list = module_instance.process(self.year,self.month,self.day,self.hour,h,m,s,self.geolon,self.geolat,self.altitude,self.openastrocfg)
+					results[module_name] = module_instance.process(year=year, month = month, day=day, hour=hour, h=h, m=m, s=s, geolon=geolon, geolat=geolat, altitude=altitude, openastrocfg=openastrocfg)
+					# print('results=',results)
+				except ImportError as e:
+					print(f"Can't load module {module_name}: {e}")
+				except AttributeError as e:
+					print(f"Class {module_name.capitalize()} not found in module {module_name}: {e}")
+		return results
 
 	def ephData_fixar(self, year, month, day, hour, t_year, t_month, t_day, t_hour, geolon, geolat, altitude, planets, zodiac, openastrocfg,
 				 houses_override=None):

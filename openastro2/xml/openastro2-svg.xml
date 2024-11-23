@@ -370,6 +370,20 @@
 </g>
 </symbol>
 
+<symbol id="zemleyavnost">
+	<text y="20" style="font-size:18px; fill: $planets_color_26;">ZY</text>
+</symbol>
+<symbol id="zemlecel">
+	<text y="20" style="font-size:18px; fill: $planets_color_26;">ZC</text>
+</symbol>
+<symbol id="zemletyl">
+	<text y="20" style="font-size:18px; fill: $planets_color_26;">ZT</text>
+</symbol>
+<symbol id="zemlebaza">
+	<text y="20" style="font-size:18px; fill: $planets_color_26;">ZB</text>
+</symbol>
+
+
 <!-- Zodiac -->
 
 <symbol id="aries">

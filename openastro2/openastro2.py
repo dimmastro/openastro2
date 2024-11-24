@@ -336,6 +336,8 @@ class openAstro:
 		self.event1 = event1
 		self.event2 = event2
 		self.type = type
+		self.settings.type = type
+		self.settings.astrocfg['type'] = type
 
 		# self.screen_width = 1920
 		# self.screen_height = 1080
@@ -1860,7 +1862,7 @@ class openAstro:
 														  self.settings.astrocfg, None)
 			self.type = "Transit"
 
-		elif self.type == "Zemletochki":
+		elif self.type == "Zemletochki" or self.type == "ZemletochkiG" or self.type == "Sefarial":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
@@ -2551,12 +2553,25 @@ class openAstro:
 		# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:0.7; stroke: %s; stroke-width: 1px; stroke-opacity: .6;"/>' % (r,r,r,self.colors['paper_1'] ,self.colors['zodiac_transit_ring_3'])
 		# return out
 		return
-	
+
+	def get_chart_start_point(self):
+		"""
+		Get first point to drow natal chart.
+		(Right point of chart = 7th house or zemletyl of zemletochki)
+		:return:
+		"""
+		if self.settings.type == "Zemletochki" or self.settings.type == "ZemletochkiG" or self.settings.type == "Sefarial":
+			return self.t_planets_degree_ut[46]
+			# return self.houses_degree_ut[6]
+		else:
+			return self.houses_degree_ut[6]
+
 	#draw degree ring
 	def degreeRing( self , r ):
 		out=''
 		for i in range(72):
-			offset = float(i*5) - self.houses_degree_ut[6]
+			# offset = float(i*5) - self.houses_degree_ut[6]
+			offset = float(i*5) - self.get_chart_start_point()
 			if offset < 0:
 				offset = offset + 360.0
 			elif offset > 360:
@@ -2573,6 +2588,7 @@ class openAstro:
 		out=''
 		# for i in range(72):
 		# 	offset = float(i*5) - self.houses_degree_ut[6]
+		# 	offset = float(i*5) - self.get_chart_start_point()
 		# 	if offset < 0:
 		# 		offset = offset + 360.0
 		# 	elif offset > 360:
@@ -2711,10 +2727,12 @@ class openAstro:
 
 	#draw svg aspects: ring, aspect ring, degreeA degreeB
 	def drawAspect( self , r , ar , degA , degB , color):
-			offset = (int(self.houses_degree_ut[6]) / -1) + int(degA)
+			# offset = (int(self.houses_degree_ut[6]) / -1) + int(degA)
+			offset = (int(self.get_chart_start_point()) / -1) + int(degA)
 			x1 = self.sliceToX( 0 , ar , offset ) + (r-ar)
 			y1 = self.sliceToY( 0 , ar , offset ) + (r-ar)
-			offset = (int(self.houses_degree_ut[6]) / -1) + int(degB)
+			# offset = (int(self.houses_degree_ut[6]) / -1) + int(degB)
+			offset = (int(self.get_chart_start_point()) / -1) + int(degB)
 			x2 = self.sliceToX( 0 , ar , offset ) + (r-ar)
 			y2 = self.sliceToY( 0 , ar , offset ) + (r-ar)
 			out = '			<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+color+'; stroke-width: 1.0; stroke-opacity: .5;"/>\n'
@@ -2735,7 +2753,9 @@ class openAstro:
 		if self.settings.astrocfg["houses_system"] == "G":
 			offset = 360 - self.houses_degree_ut[18]
 		else:
-			offset = 360 - self.houses_degree_ut[6]
+			# offset = 360 - self.houses_degree_ut[6]
+			offset = 360 - self.get_chart_start_point()
+			# offset = 180
 		#check transit
 		if self.type == "Transit" or self.type == "Direction":
 			dropin=0
@@ -2781,7 +2801,9 @@ class openAstro:
 				roff=self.c1-self.settings.settings_svg['roff']
 				
 			#offset is negative desc houses_degree_ut[6]
-			offset = (int(self.houses_degree_ut[int(xr/2)]) / -1) + int(self.houses_degree_ut[i])
+			# offset = (int(self.houses_degree_ut[int(xr/2)]) / -1) + int(self.houses_degree_ut[i])
+			offset = (int(self.get_chart_start_point()) / -1) + int(self.houses_degree_ut[i])
+			# offset = 0
 			x1 = self.sliceToX( 0 , (r-dropin) , offset ) + dropin
 			y1 = self.sliceToY( 0 , (r-dropin) , offset ) + dropin
 			x2 = self.sliceToX( 0 , r-roff , offset ) + roff
@@ -2810,7 +2832,9 @@ class openAstro:
 			#transit houses lines
 			if self.type == "Transit" or self.type == "Direction":
 				#degrees for point zero
-				zeropoint = 360 - self.houses_degree_ut[6]
+				# zeropoint = 360 - self.houses_degree_ut[6]
+				zeropoint = 360 - self.get_chart_start_point()
+				# zeropoint = 0
 				t_offset = zeropoint + self.t_houses_degree_ut[i]
 				t_offset = zeropoint + self.t_houses_degree_ut[i]
 				if t_offset > 360:
@@ -3071,10 +3095,13 @@ class openAstro:
 			# rtext=45
 			if self.settings.astrocfg['houses_system'] == "G":
 				offset = (int(self.houses_degree_ut[18]) / -1) + int(self.planets_degree_ut[i])
-				trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])
+				# trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])
+				trueoffset = (int(self.get_chart_start_point()) / -1) + int(self.planets_degree_ut[i])
 			else:
-				offset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i]+planets_delta[e])
-				trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])
+				# offset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i]+planets_delta[e])
+				offset = (int(self.get_chart_start_point()) / -1) + int(self.planets_degree_ut[i]+planets_delta[e])
+				# trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])
+				trueoffset = (int(self.get_chart_start_point()) / -1) + int(self.planets_degree_ut[i])
 			planet_x = self.sliceToX( 0 , (r-rplanet) , offset ) + rplanet
 			planet_y = self.sliceToY( 0 , (r-rplanet) , offset ) + rplanet
 
@@ -3235,7 +3262,8 @@ class openAstro:
 					rplanet=self.c1 - 15
 					switch = 1
 
-				zeropoint = 360 - self.houses_degree_ut[6]
+				# zeropoint = 360 - self.houses_degree_ut[6]
+				zeropoint = 360 - self.get_chart_start_point()
 				t_offset = zeropoint + self.t_planets_degree_ut[i]
 				# if t_offset > 360:
 				# 	t_offset = t_offset - 360

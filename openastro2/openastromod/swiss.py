@@ -114,7 +114,7 @@ class ephData:
 		len_planets = 43
 
 		planet_pos_list = self.modules_append_data_in_lists(year=year, month=month, day=day, hour=hour, h=h, m=m, s=s, geolon=geolon, geolat=geolat, altitude=altitude, openastrocfg=openastrocfg)
-		print(planet_pos_list)
+		# print(planet_pos_list)
 		len_planets_from_modules = len(planet_pos_list)
 		if len_planets_from_modules > 0:
 			len_planets_total = len_planets + len_planets_from_modules
@@ -135,13 +135,15 @@ class ephData:
 			self.planet_distance = list(range(len_planets_total))
 
 
-		print(planet_pos_list)
+		# print(planet_pos_list)
 		#compute a planet (longitude,latitude,distance,long.speed,lat.speed,speed)
 		for i in range(len_planets_total):
 			if 22 < i and i < len_planets:
 				continue
 			if i >= len_planets:
-				ret_flag = planet_pos_list[i-len_planets-1]
+				ret_flag = planet_pos_list[i-len_planets]
+				# print (i-len_planets)
+				# print(ret_flag)
 			else:
 				if(i==15 and ( self.jul_day_UT < 1967601.5 or 3419437.5 < self.jul_day_UT )): # Chiron limit
 					ret_flag = swe.calc_ut(1967601.5, i, iflag)
@@ -447,6 +449,12 @@ class ephData:
 		swe.close()
 
 	def modules_append_data_in_lists(self, *args, **kwargs):
+		"""
+		Add data from planet_pos_list from all modules to one list ret_flag_list
+		:param args:
+		:param kwargs:
+		:return:
+		"""
 		year = kwargs['year']
 		month = kwargs['month']
 		day = kwargs['day']
@@ -472,6 +480,13 @@ class ephData:
 
 
 	def load_modules(self, *args, **kwargs):
+		"""
+		Run all modules and add data to dict
+
+		:param args:
+		:param kwargs:
+		:return:
+		"""
 		year = kwargs['year']
 		month = kwargs['month']
 		day = kwargs['day']

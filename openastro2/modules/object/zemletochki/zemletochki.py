@@ -7,6 +7,13 @@ from requests.auth import HTTPBasicAuth
 
 
 class Zemletochki:
+    """
+    Модуль Теории землеточек Дмитрия Мирцева
+    Вычисляет фиксированную проекцию неба на землю по методам:
+    - Землеточки
+    - Землеточки от Гринвича
+    - Сефариал
+    """
     def __init__(self, server_url, user, password, x_token, zt_type):
         self.server_url = server_url
         self.user = user
@@ -27,12 +34,19 @@ class Zemletochki:
         s = kwargs['s']
         geolat = kwargs['geolat']
         geolon = kwargs['geolon']
+        openastrocfg = kwargs['openastrocfg']
+        if openastrocfg['type'] == "Zemletochki": # Землеточки
+            zt_type = 1
+        elif openastrocfg['type'] == "ZemletochkiG": # Землеточки от Гринвича
+            zt_type = 2
+        if openastrocfg['type'] == "Sefarial": # Сефариал
+            zt_type = 3
 
         planets_degree_ut = 0
         planet_latitude = 0
         try:
             planet_pos=[]
-            zt_degree_ut = self.zt_request(year, month, day, h, m, s, geolat, geolon)
+            zt_degree_ut = self.zt_request(year, month, day, h, m, s, geolat, geolon, zt_type)
             planet_pos.append(((zt_degree_ut[0], 0, 0, 0, 0, 0),0))
             planet_pos.append(((zt_degree_ut[1], 0, 0, 0, 0, 0),0))
             planet_pos.append(((zt_degree_ut[2], 0, 0, 0, 0, 0),0))
@@ -45,8 +59,8 @@ class Zemletochki:
         return planet_pos
 
 
-    def zt_request(self, year, month, day, h, m, s, geolat, geolon):
-        print (geolat, geolon)
+    def zt_request(self, year, month, day, h, m, s, geolat, geolon, zt_type):
+        # print (geolat, geolon)
         dt = datetime(year, month, day, h, m, s)
         dt_str = dt.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -54,7 +68,7 @@ class Zemletochki:
             "dt_str": dt_str,
             "geolat": geolat,
             "geolon": geolon,
-            "type": 3,
+            "type": zt_type,
         }
         headers = {
             'X-Token': '123321456654789987',  # Replace 'your_x_token_value' with the actual token
@@ -66,5 +80,5 @@ class Zemletochki:
         # server_url_dev = "http://0.0.0.0:8068/api/v1/get_sefarial"
         response = requests.get(server_url_dev, auth=auth, headers=headers, params=request_payload)
         result = response.json()
-        print(result)
+        # print(result)
         return result

@@ -1919,6 +1919,7 @@ class openAstro:
 		self.planet_apparent_altitude = module_data.planet_apparent_altitude
 
 		self.makePlanetDict()
+		self.t_makePlanetDict()
 
 		# make composite averages
 		if self.type == "Composite":
@@ -2007,6 +2008,11 @@ class openAstro:
 
 
 	def makePlanetDict(self):
+		"""
+		Make self.planets_dict for all planets
+		And self.houses_dict for all houses
+		:return:
+		"""
 		self.planets_dict = {}
 		self.houses_dict = {}
 		self.planets_all_str = ""
@@ -2068,6 +2074,80 @@ class openAstro:
 """
 			i+=1
 		return self.planets_dict
+
+	def t_makePlanetDict(self):
+		"""
+		Make self.planets_dict for all planets
+		And self.houses_dict for all houses
+		self.t_planets_all_str
+		self.t_houses_all_str
+
+		:return:
+		"""
+		self.t_planets_dict = {}
+		self.t_houses_dict = {}
+		self.t_planets_all_str = ""
+		self.t_houses_all_str = ""
+		i = 0
+		hi = 0
+		# Цикл для заполнения словаря
+		for name, sign, degree, degree_ut, retrograde in zip(self.planets_name, self.t_planets_sign,
+															 self.t_planets_degree, self.t_planets_degree_ut,
+															 self.t_planets_retrograde):
+			retrograde_str = ' retrograde' if self.t_planets_retrograde[i] else ''
+			planets_houses = self.get_house_for_planet(degree_ut)
+			# foreach h in planets_houses:
+			houses_names = [self.planets_name[i + 23] for i in planets_houses]
+			house_str = ', '.join(houses_names)
+			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]} {house_str}{retrograde_str}"
+			self.t_planets_dict[name] = {
+				'planets_name': name,
+				'planets_position_str': planets_position_str,
+				'planets_sign': sign,
+				'planets_degree': degree,
+				'planets_degree_ut': degree_ut,
+				'planets_houses': planets_houses,
+				'planets_retrograde': retrograde,
+				'planets_zodiac': self.zodiac[self.t_planets_sign[i]],
+				'planets_zodiac_short': self.zodiac_short[self.t_planets_sign[i]],
+				'planets_zodiac_quality': self.zodiac_quality[self.t_planets_sign[i]],
+				'planets_zodiac_hotcold': self.zodiac_hotcold[self.t_planets_sign[i]],
+				'planets_zodiac_drywet': self.zodiac_drywet[self.t_planets_sign[i]],
+				'planets_zodiac_yinyang': self.zodiac_yinyang[self.t_planets_sign[i]],
+				'planets_zodiac_attention': self.zodiac_attention[self.t_planets_sign[i]],
+				'planets_id': i,
+			}
+
+			if 22 < i and i < 35:
+				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]}"
+				self.t_houses_dict[name] = {
+					'houses_name': name,
+					'houses_position_str': houses_position_str,
+					'houses_sign': sign,
+					'houses_degree': degree,
+					'houses_degree_ut': degree_ut,
+					'houses_retrograde': retrograde,
+					'houses_zodiac': self.zodiac[self.t_planets_sign[i]],
+					'houses_zodiac_short': self.zodiac_short[self.t_planets_sign[i]],
+					'houses_zodiac_quality': self.zodiac_quality[self.t_planets_sign[i]],
+					'houses_zodiac_hotcold': self.zodiac_hotcold[self.t_planets_sign[i]],
+					'houses_zodiac_drywet': self.zodiac_drywet[self.t_planets_sign[i]],
+					'houses_zodiac_yinyang': self.zodiac_yinyang[self.t_planets_sign[i]],
+					'houses_zodiac_attention': self.zodiac_attention[self.t_planets_sign[i]],
+					'houses_id': hi,
+				}
+				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
+					self.t_houses_all_str = self.t_houses_all_str + houses_position_str + """
+"""
+				hi += 1
+			else:
+				# Don't add houses to planets_all_str
+				if ('t_visible_json' in self.planets[i] and self.planets[i]['t_visible_json'] == 1):
+					self.t_planets_all_str = self.t_planets_all_str + planets_position_str + """
+"""
+			i += 1
+		return self.t_planets_dict
+
 
 	def get_house_for_planet(self, planet_degree):
 		"""
@@ -3969,6 +4049,9 @@ class openAstro:
 			revr = list(range(len(self.planets)))
 			# revr.reverse()
 			ii=0
+			# Make self.planets_aspects_list and add aspects in self.planets_dict, self.houses_dict
+			self.t_aspect_all_str=""
+			self.t_planets_aspects_list=[]
 			for a in revr:
 				if self.planets[a]['visible_aspect_grid'] == 1:
 					ii=ii+1
@@ -4030,6 +4113,30 @@ class openAstro:
 								if(self.planetsInAspect(diff, z, a, b)):
 									out = out + '<use  x="' + str(xorb - box + 1) + '" y="' + str(
 										yorb + 1) + '" xlink:href="#orb' + str(self.aspects[z]['degree']) + '" />\n'
+
+									aspects_degree_id = self.aspects[z]['id']
+									asp_orb = abs(float(diff - float(self.aspects[z]['degree'])))
+									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
+									asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']} orb={asp_orb_deg}"
+									asp_dict = {
+										'aspects_str': asp_str,
+										'planets_name1': self.planets[a]['name'],
+										'planets_name2': self.planets[b]['name'],
+										'aspects_degree': self.aspects[z]['degree'],
+										'aspects_diff': diff,
+										'aspects_orbis': asp_orb,
+										'aspects_orbis_deg': asp_orb_deg,
+									}
+
+									self.t_planets_aspects_list.append(asp_dict)
+									if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
+										if ('t_visible_json' in self.planets[b] and self.planets[b]['t_visible_json'] == 1):
+											if ('visible_json' in self.settings.settings["settings_aspect_dic"][
+												aspects_degree_id] and
+													self.settings.settings["settings_aspect_dic"][aspects_degree_id][
+														'visible_json'] == 1):
+												self.t_aspect_all_str = self.t_aspect_all_str + asp_str + """
+"""
 
 		return out
 

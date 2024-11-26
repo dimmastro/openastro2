@@ -3805,7 +3805,7 @@ class openAstro:
 				end=self.t_planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs
-				if (self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1):
+				if (self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1) or (self.planets[i]['visible'] == 1) & ('t_visible' not in self.planets[x]):
 					if ('planet_orb' in self.planets[x]):
 						if (self.type in self.planets[x]['planet_orb']):
 							if (not("visible2" in self.planets[x]['planet_orb'][self.type] and self.planets[x]['planet_orb'][self.type]["visible2"] == 0)):

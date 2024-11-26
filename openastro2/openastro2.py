@@ -1902,6 +1902,8 @@ class openAstro:
 			self.t_planet_azimuth = t_module_data.planet_azimuth
 			self.t_planet_latitude = t_module_data.planet_latitude
 			self.t_planet_longitude = t_module_data.planet_longitude
+			self.t_makePlanetDict()
+
 		# grab normal module data
 		self.planets_sign = module_data.planets_sign
 		self.planets_degree = module_data.planets_degree
@@ -1917,9 +1919,7 @@ class openAstro:
 		self.planet_azimuth = module_data.planet_azimuth
 		self.planet_true_altitude = module_data.planet_true_altitude
 		self.planet_apparent_altitude = module_data.planet_apparent_altitude
-
 		self.makePlanetDict()
-		self.t_makePlanetDict()
 
 		# make composite averages
 		if self.type == "Composite":
@@ -2022,7 +2022,7 @@ class openAstro:
 		# Цикл для заполнения словаря
 		for name, sign, degree, degree_ut, retrograde in zip(self.planets_name, self.planets_sign, self.planets_degree, self.planets_degree_ut, self.planets_retrograde):
 			retrograde_str = ' retrograde' if self.planets_retrograde[i] else ''
-			planets_houses = self.get_house_for_planet(degree_ut)
+			planets_houses = self.get_house_for_planet(degree_ut, self.houses_degree_ut)
 			# foreach h in planets_houses:
 			houses_names = [self.planets_name[i+23] for i in planets_houses]
 			house_str = ', '.join(houses_names)
@@ -2095,7 +2095,7 @@ class openAstro:
 															 self.t_planets_degree, self.t_planets_degree_ut,
 															 self.t_planets_retrograde):
 			retrograde_str = ' retrograde' if self.t_planets_retrograde[i] else ''
-			planets_houses = self.get_house_for_planet(degree_ut)
+			planets_houses = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut)
 			# foreach h in planets_houses:
 			houses_names = [self.planets_name[i + 23] for i in planets_houses]
 			house_str = ', '.join(houses_names)
@@ -2149,7 +2149,7 @@ class openAstro:
 		return self.t_planets_dict
 
 
-	def get_house_for_planet(self, planet_degree):
+	def get_house_for_planet(self, planet_degree, houses_degree_ut):
 		"""
         Определяет номер дома для планеты по её координатам.
 
@@ -2159,7 +2159,7 @@ class openAstro:
         """
 		houses=[]
 		# Дополняем список домов, чтобы удобно обработать переход через 360/0
-		extended_houses = self.houses_degree_ut + [self.houses_degree_ut[0] + 360]
+		extended_houses = houses_degree_ut + [houses_degree_ut[0] + 360]
 
 		# Определяем дом
 		for i in range(12):

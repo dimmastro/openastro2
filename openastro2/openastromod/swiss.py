@@ -116,8 +116,8 @@ class ephData:
 		planet_pos_list = self.modules_append_data_in_lists(year=year, month=month, day=day, hour=hour, h=h, m=m, s=s, geolon=geolon, geolat=geolat, altitude=altitude, openastrocfg=openastrocfg)
 		# print(planet_pos_list)
 		len_planets_from_modules = len(planet_pos_list)
+		len_planets_total = len_planets + len_planets_from_modules
 		if len_planets_from_modules > 0:
-			len_planets_total = len_planets + len_planets_from_modules
 			self.planets_sign = list(range(len_planets_total))
 			self.planets_degree = list(range(len_planets_total))
 			self.planets_degree_ut = list(range(len_planets_total))
@@ -500,24 +500,25 @@ class ephData:
 		openastrocfg = kwargs['openastrocfg']
 		results = {}
 		planet_pos_list = []
-		for module_name, module_config in self.openastrocfg["modules"]["object"].items():
-			if module_config["enabled"]:
-				# module_path = f"openastro2.modules.object.{module_name}.{module_name}"
-				module_path = f"modules.object.{module_name}.{module_name}"
-				try:
-					# Динамически импортируем модуль
-					module = importlib.import_module(module_path)
-					# Инициализируем класс с аргументами из конфигурации
-					module_class = getattr(module, module_name.capitalize())
-					module_instance = module_class(**module_config["params"])
-					# Вызываем метод `process` и сохраняем результат
-					# planet_pos_list = module_instance.process(self.year,self.month,self.day,self.hour,h,m,s,self.geolon,self.geolat,self.altitude,self.openastrocfg)
-					results[module_name] = module_instance.process(year=year, month = month, day=day, hour=hour, h=h, m=m, s=s, geolon=geolon, geolat=geolat, altitude=altitude, openastrocfg=openastrocfg)
-					# print('results=',results)
-				except ImportError as e:
-					print(f"Can't load module {module_name}: {e}")
-				except AttributeError as e:
-					print(f"Class {module_name.capitalize()} not found in module {module_name}: {e}")
+		if "modules" in self.openastrocfg:
+			for module_name, module_config in self.openastrocfg["modules"]["object"].items():
+				if module_config["enabled"]:
+					# module_path = f"openastro2.modules.object.{module_name}.{module_name}"
+					module_path = f"modules.object.{module_name}.{module_name}"
+					try:
+						# Динамически импортируем модуль
+						module = importlib.import_module(module_path)
+						# Инициализируем класс с аргументами из конфигурации
+						module_class = getattr(module, module_name.capitalize())
+						module_instance = module_class(**module_config["params"])
+						# Вызываем метод `process` и сохраняем результат
+						# planet_pos_list = module_instance.process(self.year,self.month,self.day,self.hour,h,m,s,self.geolon,self.geolat,self.altitude,self.openastrocfg)
+						results[module_name] = module_instance.process(year=year, month = month, day=day, hour=hour, h=h, m=m, s=s, geolon=geolon, geolat=geolat, altitude=altitude, openastrocfg=openastrocfg)
+						# print('results=',results)
+					except ImportError as e:
+						print(f"Can't load module {module_name}: {e}")
+					except AttributeError as e:
+						print(f"Class {module_name.capitalize()} not found in module {module_name}: {e}")
 		return results
 
 	def ephData_fixar(self, year, month, day, hour, t_year, t_month, t_day, t_hour, geolon, geolat, altitude, planets, zodiac, openastrocfg,

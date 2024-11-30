@@ -4003,7 +4003,7 @@ class openAstro:
 									aspects_degree_id = self.aspects[z]['id']
 									asp_orb = abs(float(diff - float(self.aspects[z]['degree'])))
 									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
-									asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']} orb={asp_orb_deg}"
+									asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']} orb={asp_orb_deg}"
 									asp_dict = {
 										'aspects_str': asp_str,
 										'planets_name1': self.planets[a]['name'],

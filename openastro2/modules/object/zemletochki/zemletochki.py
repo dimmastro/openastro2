@@ -35,11 +35,12 @@ class Zemletochki:
         geolat = kwargs['geolat']
         geolon = kwargs['geolon']
         openastrocfg = kwargs['openastrocfg']
+        zt_type = 1
         if openastrocfg['type'] == "Zemletochki": # Землеточки
             zt_type = 1
         elif openastrocfg['type'] == "ZemletochkiG": # Землеточки от Гринвича
             zt_type = 2
-        if openastrocfg['type'] == "Sefarial": # Сефариал
+        elif openastrocfg['type'] == "Sefarial": # Сефариал
             zt_type = 3
 
         planets_degree_ut = 0

@@ -14,8 +14,9 @@ class Zemletochki:
     - Землеточки от Гринвича
     - Сефариал
     """
-    def __init__(self, server_url, user, password, x_token, zt_type):
+    def __init__(self, server_url, server_endpoint, user, password, x_token, zt_type):
         self.server_url = server_url
+        self.server_endpoint = server_endpoint
         self.user = user
         self.password = password
         self.x_token = x_token
@@ -23,8 +24,6 @@ class Zemletochki:
 
     # def process(self, year,month,day,hour,h,m,s,geolon,geolat,altitude,openastrocfg,):
     def process(self, *args, **kwargs):
-        # Здесь можно добавить основную логику модуля
-        # result = f"Zemletochki processed with {self.arg1} and {self.arg2}"
         year = kwargs['year']
         month = kwargs['month']
         day = kwargs['day']
@@ -43,8 +42,6 @@ class Zemletochki:
         elif openastrocfg['type'] == "Sefarial": # Сефариал
             zt_type = 3
 
-        planets_degree_ut = 0
-        planet_latitude = 0
         try:
             planet_pos=[]
             zt_degree_ut = self.zt_request(year, month, day, h, m, s, geolat, geolon, zt_type)
@@ -56,12 +53,10 @@ class Zemletochki:
         except Exception as _ex:
             print(_ex)
             planet_pos = []
-        # planet_pos = ((planets_degree_ut, planet_latitude, 0, 0, 0, 0),0)
         return planet_pos
 
 
     def zt_request(self, year, month, day, h, m, s, geolat, geolon, zt_type):
-        # print (geolat, geolon)
         dt = datetime(year, month, day, h, m, s)
         dt_str = dt.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -72,14 +67,12 @@ class Zemletochki:
             "type": zt_type,
         }
         headers = {
-            'X-Token': '123321456654789987',  # Replace 'your_x_token_value' with the actual token
+            'X-Token': self.x_token,  # Replace 'your_x_token_value' with the actual token
             'Content-Type': 'application/json'
         }
-        auth = HTTPBasicAuth('astroapi', 'A5hy72cs7b')
+        auth = HTTPBasicAuth(self.user, self.password)
 
-        server_url_dev = "http://cc85056373a8.vps.myjino.ru/api/v1/get_sefarial"
-        # server_url_dev = "http://0.0.0.0:8068/api/v1/get_sefarial"
-        response = requests.get(server_url_dev, auth=auth, headers=headers, params=request_payload)
+        server_url = self.server_url + self.server_endpoint
+        response = requests.get(server_url, auth=auth, headers=headers, params=request_payload)
         result = response.json()
-        # print(result)
         return result

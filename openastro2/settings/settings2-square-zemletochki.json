@@ -9,10 +9,11 @@
         "enabled": true,
         "params": {
           "server_url": "",
+          "server_endpoint": "",
           "user": "",
           "password": "",
           "x_token": "",
-          "zt_type": 3
+          "zt_type": 1
         }
       }
     }

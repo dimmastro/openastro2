@@ -2945,7 +2945,8 @@ class openAstro:
 					0, (r - dropin), t_text_offset) + dropin  # was 132
 				# if i == 0:
 				# 	xtext = xtext - 6
-				if ('t_visible' in self.planets[i] and self.planets[i]['t_visible'] == 1) or ('t_visible' not in self.planets[i] and self.planets[i]['visible'] == 1) :
+				ih = i+23
+				if ('t_visible' in self.planets[ih] and self.planets[ih]['t_visible'] == 1) or ('t_visible' not in self.planets[ih] and self.planets[ih]['visible'] == 1) :
 					path = path + '<line x1="' + str(t_x1) + '" y1="' + str(t_y1) + '" x2="' + str(t_x2) + '" y2="' + str(t_y2) + '" style="stroke: ' + t_linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
 					path = path + '<text style="fill: ' + t_linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
 					path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(self.t_houses_degree[(i)]+1, type="0") + '</text>'

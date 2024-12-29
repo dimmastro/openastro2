@@ -2985,6 +2985,7 @@ class openAstro:
 				0, (r - dropin), text_offset) + dropin  # was 132
 			# if i == 0:
 			# 	xtext = xtext - 6
+			# Natal houses lines
 			path = path + '<line x1="' + str(x1) + '" y1="' + str(y1) + '" x2="' + str(x2) + '" y2="' + str(y2) + '" style="stroke: ' + linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
 			path = path + '<text style="fill: ' + linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
 			path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + linecolor + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)]+1, type="0") + '</text>'
@@ -2998,8 +2999,9 @@ class openAstro:
 		diff=range(len(self.planets))
 		for i in range(len(self.planets)):
 			if self.planets[i]['visible'] == 1:
-				#list of planets sorted by degree				
-				planets_degut[self.planets_degree_ut[i]]=i
+				if not (22 < i and i < 35): # exclude houses
+					#list of planets sorted by degree
+					planets_degut[self.planets_degree_ut[i]]=i
 			
 			#element: get extra points if planet is in own zodiac
 			pz = self.planets[i]['zodiac_relation']
@@ -3281,11 +3283,12 @@ class openAstro:
 			for i in range(len(self.planets)):
 				group_offset[i]=0
 				# if self.planets[i]['visible'] == 1:
-				if 't_visible' in self.planets[i]:
-					if self.planets[i]['t_visible'] == 1:
-						t_planets_degut[self.t_planets_degree_ut[i]]=i
-				elif self.planets[i]['visible'] == 1:
-					t_planets_degut[self.t_planets_degree_ut[i]] = i
+				if not (22 < i and i < 35): # exclude houses
+					if 't_visible' in self.planets[i]:
+						if self.planets[i]['t_visible'] == 1:
+							t_planets_degut[self.t_planets_degree_ut[i]]=i
+					elif self.planets[i]['visible'] == 1:
+						t_planets_degut[self.t_planets_degree_ut[i]] = i
 
 			# t_keys = list(t_planets_degut.keys())
 			# t_keys.sort()
@@ -3452,6 +3455,7 @@ class openAstro:
 					y1=self.sliceToY( 0 , (r-rplanet-14) , t_offset ) + rplanet + 14
 					x2=self.sliceToX( 0 , (r-rplanet-8) , offset ) + rplanet + 8
 					y2=self.sliceToY( 0 , (r-rplanet-8) , offset ) + rplanet + 8
+					# Transit planets lines
 					output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.2;"/>\n' % (x1,y1,x2,y2,self.colors["color_transit_2"])
 
 
@@ -3463,8 +3467,10 @@ class openAstro:
 		diff=range(len(self.planets))
 		for i in range(len(self.planets)):
 			if self.planets[i]['visible'] == 1:
-				#list of planets sorted by degree
-				planets_degut[temp_planets_degree_ut[i]]=i
+				if not (22 < i and i < 35): # exclude houses
+					#list of planets sorted by degree
+					planets_degut[temp_planets_degree_ut[i]]=i
+			# planets_degut[temp_planets_degree_ut[i]]=i
 
 		keys = list(planets_degut.keys())
 		keys.sort()

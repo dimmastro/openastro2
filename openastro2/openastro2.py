@@ -3253,7 +3253,6 @@ class openAstro:
 				if self.planets_retrograde[i]:
 					output = output + '<text text-anchor="start" x="' + str(xtext + 2) + '" y="' + str(
 						ytext + 10) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: 7px;">' + 'r' + '</text>'
-					output = output + '<g transform="translate(76,-6)"><use transform="scale(.5)" xlink:href="#retrograde" />R</g>'
 				output = output + ''
 
 		#make transit degut and display planets
@@ -3289,14 +3288,20 @@ class openAstro:
 				# if self.planets[i]['visible'] == 1:
 				if not (22 < i and i < 35): # exclude houses
 					if 't_visible' in self.planets[i]:
-						if self.planets[i]['t_visible'] == 1:
+						# if self.planets[i]['t_visible'] == 1:
+						if (not ("visible2" in self.planets[1]['planet_orb'][self.type] and
+								 self.planets[1]['planet_orb'][self.type]["visible2"] == 0)) or self.planets[i]['t_visible'] == 1:
 							t_planets_degut[self.t_planets_degree_ut[i]]=i
 					elif self.planets[i]['visible'] == 1:
 						t_planets_degut[self.t_planets_degree_ut[i]] = i
 
 			# t_keys = list(t_planets_degut.keys())
 			# t_keys.sort()
-			t_planets_delta = self.getPlanetsDelta(self.t_planets_degree_ut)
+			t_planets_delta = self.getPlanetsDelta(self.t_planets_degree_ut, flag_transit="Transit")
+
+
+
+
 			t_keys = list(t_planets_degut.keys())
 			t_keys.sort()
 
@@ -3395,7 +3400,6 @@ class openAstro:
 						output = output + '<text text-anchor="start" x="' + str(xtext + 2) + '" y="' + str(
 							ytext + 10) + '"  style="fill:' + self.colors[
 									 'paper_0'] + '; font-size: 7px;">' + 'r' + '</text>'
-						output = output + '<g transform="translate(76,-6)"><use transform="scale(.5)" xlink:href="#retrograde" />R</g>'
 					output = output + ''
 
 					# #transit planet line
@@ -3470,15 +3474,23 @@ class openAstro:
 
 		return output
 
-	def getPlanetsDelta(self, temp_planets_degree_ut):
+	def getPlanetsDelta(self, temp_planets_degree_ut, flag_transit="Radix"):
 		planets_degut={}
 
 		diff=range(len(self.planets))
 		for i in range(len(self.planets)):
-			if self.planets[i]['visible'] == 1:
-				if not (22 < i and i < 35): # exclude houses
-					#list of planets sorted by degree
-					planets_degut[temp_planets_degree_ut[i]]=i
+			if flag_transit=="Transit":
+				if self.planets[i]['visible'] == 1:
+					if (not("visible2" in self.planets[1]['planet_orb'][self.type] and self.planets[1]['planet_orb'][self.type]["visible2"] == 0)):
+						if not (22 < i and i < 35): # exclude houses
+							#list of planets sorted by degree
+							planets_degut[temp_planets_degree_ut[i]]=i
+			else:
+				if self.planets[i]['visible'] == 1:
+					if not (22 < i and i < 35): # exclude houses
+						#list of planets sorted by degree
+						planets_degut[temp_planets_degree_ut[i]]=i
+
 			# planets_degut[temp_planets_degree_ut[i]]=i
 
 		keys = list(planets_degut.keys())

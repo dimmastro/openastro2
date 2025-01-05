@@ -2022,10 +2022,15 @@ class openAstro:
 		# Цикл для заполнения словаря
 		for name, sign, degree, degree_ut, retrograde in zip(self.planets_name, self.planets_sign, self.planets_degree, self.planets_degree_ut, self.planets_retrograde):
 			retrograde_str = ' retrograde' if self.planets_retrograde[i] else ''
-			planets_houses = self.get_house_for_planet(degree_ut, self.houses_degree_ut)
+			planets_house = self.get_house_for_planet(degree_ut, self.houses_degree_ut, one_house=True)
+			planets_houses = self.get_house_for_planet(degree_ut, self.houses_degree_ut, one_house=False)
 			# foreach h in planets_houses:
-			houses_names = [self.planets_name[i+23] for i in planets_houses]
-			house_str = ', '.join(houses_names)
+			if ("planet_in_one_house" in self.settings.astrocfg and self.settings.astrocfg["planet_in_one_house"] == 1):
+				house_name = [self.planets_name[i + 23] for i in planets_house]
+				house_str = ', '.join(house_name)
+			else:
+				houses_names = [self.planets_name[i + 23] for i in planets_houses]
+				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]} {house_str}{retrograde_str}"
 			self.planets_dict[name] = {
 				'planets_name': name,
@@ -2033,6 +2038,7 @@ class openAstro:
 				'planets_sign': sign,
 				'planets_degree': degree,
 				'planets_degree_ut': degree_ut,
+				'planets_house': planets_house,
 				'planets_houses': planets_houses,
 				'planets_retrograde': retrograde,
 				'planets_zodiac': self.zodiac[self.planets_sign[i]],
@@ -2095,10 +2101,15 @@ class openAstro:
 															 self.t_planets_degree, self.t_planets_degree_ut,
 															 self.t_planets_retrograde):
 			retrograde_str = ' retrograde' if self.t_planets_retrograde[i] else ''
-			planets_houses = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut)
+			planets_house = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut, one_house=True)
+			planets_houses = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut, one_house=False)
 			# foreach h in planets_houses:
-			houses_names = [self.planets_name[i + 23] for i in planets_houses]
-			house_str = ', '.join(houses_names)
+			if ("planet_in_one_house" in self.settings.astrocfg and self.settings.astrocfg["planet_in_one_house"] == 1):
+				house_name = [self.planets_name[i + 23] for i in planets_house]
+				house_str = ', '.join(house_name)
+			else:
+				houses_names = [self.planets_name[i + 23] for i in planets_houses]
+				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]} {house_str}{retrograde_str}"
 			self.t_planets_dict[name] = {
 				'planets_name': name,
@@ -2106,6 +2117,7 @@ class openAstro:
 				'planets_sign': sign,
 				'planets_degree': degree,
 				'planets_degree_ut': degree_ut,
+				'planets_house': planets_house,
 				'planets_houses': planets_houses,
 				'planets_retrograde': retrograde,
 				'planets_zodiac': self.zodiac[self.t_planets_sign[i]],
@@ -2149,12 +2161,13 @@ class openAstro:
 		return self.t_planets_dict
 
 
-	def get_house_for_planet(self, planet_degree, houses_degree_ut):
+	def get_house_for_planet(self, planet_degree, houses_degree_ut, one_house=True):
 		"""
         Определяет номер дома для планеты по её координатам.
 
         :param planet_degree: Координата планеты (от 0 до 360 градусов).
         :param houses_degree_ut: Список координат домов (12 элементов).
+        :param one_house: Get only one house.
         :return: Номер дома (1-12).
         """
 		houses=[]
@@ -2168,9 +2181,10 @@ class openAstro:
 				if i not in houses:
 					houses.append(i)
 			# Add orb 5 degree
-			if self.is_coordinate_within_arc((planet_degree + 5)%360 , extended_houses[i], extended_houses[i + 1]):
-				if i not in houses:
-					houses.append(i)
+			if (one_house==False):
+				if self.is_coordinate_within_arc((planet_degree + 5)%360 , extended_houses[i], extended_houses[i + 1]):
+					if i not in houses:
+						houses.append(i)
 		return houses
 
 

@@ -3410,7 +3410,7 @@ class openAstro:
 					output = output + '<text text-anchor="start" x="' + str(xtext + 0) + '" y="' + str(
 						ytext - 0) + '"  style="fill:' + self.colors["color_transit_2"] + '; font-size: 7px;">' + self.dec2deg(
 						self.t_planets_degree[(i)]+1, type="0") + '</text>'
-					if self.planets_retrograde[i]:
+					if self.t_planets_retrograde[i]:
 						output = output + '<text text-anchor="start" x="' + str(xtext + 2) + '" y="' + str(
 							ytext + 10) + '"  style="fill:' + self.colors[
 									 'paper_0'] + '; font-size: 7px;">' + 'r' + '</text>'

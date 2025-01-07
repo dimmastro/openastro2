@@ -3202,11 +3202,12 @@ class openAstro:
 			planet_x = self.sliceToX( 0 , (r-rplanet) , offset ) + rplanet
 			planet_y = self.sliceToY( 0 , (r-rplanet) , offset ) + rplanet
 
-
+			# Paint inner radix planets for Transit
 			if self.type == "Transit" or self.type == "Direction":
-				1
-				scale=0.6
-				scale=0.6
+				if "t_planet_symbol_scale_1" in self.settings.settings_svg:
+					scale = self.settings.settings_svg["t_planet_symbol_scale_1"]
+				else:
+					scale = 0.6
 				#line1
 				x1=self.sliceToX( 0 , (r-self.c3) , trueoffset ) + self.c3
 				y1=self.sliceToY( 0 , (r-self.c3) , trueoffset ) + self.c3
@@ -3228,7 +3229,10 @@ class openAstro:
 					x1, y1, 1.5, self.colors['paper_1'], self.colors['color_transit_1'])
 
 			elif self.settings.astrocfg["chartview"] == "european":
-				scale=0.6
+				if "planet_symbol_scale" in self.settings.settings_svg:
+					scale = self.settings.settings_svg["planet_symbol_scale"]
+				else:
+					scale = 0.6
 				#line1
 				x1=self.sliceToX( 0 , (r-self.c3) , trueoffset ) + self.c3
 				y1=self.sliceToY( 0 , (r-self.c3) , trueoffset ) + self.c3
@@ -3247,7 +3251,10 @@ class openAstro:
 					output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
 						x1, y1, 1.5, self.colors['paper_1'], self.colors['color_radix'])
 			else:
-				scale=1
+				if "planet_symbol_scale" in self.settings.settings_svg:
+					scale = self.settings.settings_svg["planet_symbol_scale"]
+				else:
+					scale = 1
 
 			if (not (23 <= i and i <= 34)):
 				#output planet
@@ -3263,17 +3270,20 @@ class openAstro:
 				dropin = rplanet
 				xtext = self.sliceToX(0, (r - dropin), text_offset) + dropin  + self.settings.settings_svg["offset_degree_planet_x"]
 				ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin  + self.settings.settings_svg["offset_degree_planet_y"]
-				output = output + '<text text-anchor="start" x="' + str(xtext + 0) + '" y="' + str(ytext - 0) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: 7px;">' + self.dec2deg(self.planets_degree[(i)]+1, type="0") + '</text>'
+				output = output + '<text text-anchor="start" x="' + str(xtext + 2 * scale / 0.6) + '" y="' + str(ytext - 0) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + self.dec2deg(self.planets_degree[(i)]+1, type="0") + '</text>'
 				if self.planets_retrograde[i]:
-					output = output + '<text text-anchor="start" x="' + str(xtext + 2) + '" y="' + str(
-						ytext + 10) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: 7px;">' + 'r' + '</text>'
+					output = output + '<text text-anchor="start" x="' + str(xtext + 2 * scale / 0.6) + '" y="' + str(
+						ytext + 10 * scale / 0.6) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + 'r' + '</text>'
 				output = output + ''
 
+		# Paint outer transit planets for Transit
 		#make transit degut and display planets
 		if self.type == "Transit" or self.type == "Direction":
 
-			scale = 0.6
-			scale = 0.6
+			if "t_planet_symbol_scale_2" in self.settings.settings_svg:
+				scale = self.settings.settings_svg["t_planet_symbol_scale_2"]
+			else:
+				scale = 0.99
 			# line1
 			x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
 			y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
@@ -3398,7 +3408,11 @@ class openAstro:
 
 					planet_x = self.sliceToX(0, (r - rplanet), offset) + rplanet
 					planet_y = self.sliceToY(0, (r - rplanet), offset) + rplanet
-					output = output + '<g transform="translate(-6,-6)"><g transform="scale(0.5)"><use x="' + str(planet_x*2) + '" y="' + str(planet_y*2) + '" xlink:href="#' + self.planets[i]['name'] + '" /></g></g>\n'
+					# output = output + '<g transform="translate(-6,-6)"><g transform="scale(0.5)"><use x="' + str(planet_x*2) + '" y="' + str(planet_y*2) + '" xlink:href="#' + self.planets[i]['name'] + '" /></g></g>\n'
+					output = output + '<g transform="translate(-' + str(12 * scale) + ',-' + str(
+						12 * scale) + ')"><g transform="scale(' + str(scale) + ')"><use x="' + str(
+						planet_x * (1 / scale)) + '" y="' + str(planet_y * (1 / scale)) + '" xlink:href="#' + \
+							 self.planets[i]['name'] + '" /></g></g>\n'
 
 					text_offset = offset
 					# text_offset = 10
@@ -3407,13 +3421,13 @@ class openAstro:
 						"offset_degree_planet_x"]
 					ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin + self.settings.settings_svg[
 						"offset_degree_planet_y"]
-					output = output + '<text text-anchor="start" x="' + str(xtext + 0) + '" y="' + str(
-						ytext - 0) + '"  style="fill:' + self.colors["color_transit_2"] + '; font-size: 7px;">' + self.dec2deg(
+					output = output + '<text text-anchor="start" x="' + str(xtext + 2 * scale / 0.6) + '" y="' + str(
+						ytext - 0) + '"  style="fill:' + self.colors["color_transit_2"] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + self.dec2deg(
 						self.t_planets_degree[(i)]+1, type="0") + '</text>'
 					if self.t_planets_retrograde[i]:
-						output = output + '<text text-anchor="start" x="' + str(xtext + 2) + '" y="' + str(
-							ytext + 10) + '"  style="fill:' + self.colors[
-									 'paper_0'] + '; font-size: 7px;">' + 'r' + '</text>'
+						output = output + '<text text-anchor="start" x="' + str(xtext + 2 * scale / 0.6) + '" y="' + str(
+							ytext + 10 * scale / 0.6) + '"  style="fill:' + self.colors[
+									 'paper_0'] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + 'r' + '</text>'
 					output = output + ''
 
 					# #transit planet line
@@ -3514,7 +3528,10 @@ class openAstro:
 		planets_degrouped = {}
 		groups = []
 		planets_by_pos = list(range(len(planets_degut)))
-		planet_drange = 3.4
+		if "planet_drange" in self.settings.settings_svg:
+			planet_drange = self.settings.settings_svg["planet_drange"]
+		else:
+			planet_drange = 3.4
 		# get groups closely together
 		group_open = False
 		for e in range(len(keys)):
@@ -3523,6 +3540,7 @@ class openAstro:
 			if e == 0:
 				prev = temp_planets_degree_ut[planets_degut[keys[-1]]]
 				next = temp_planets_degree_ut[planets_degut[keys[1]]]
+				# next = temp_planets_degree_ut[planets_degut[keys[0]]]
 			elif e == (len(keys) - 1):
 				prev = temp_planets_degree_ut[planets_degut[keys[e - 1]]]
 				next = temp_planets_degree_ut[planets_degut[keys[0]]]
@@ -3533,6 +3551,14 @@ class openAstro:
 			diffb = self.degreeDiff(next, temp_planets_degree_ut[i])
 			planets_by_pos[e] = [i, diffa, diffb]
 			# dprint "%s %s %s" % (self.planets[i]['label'],diffa,diffb)
+
+			# TODO if group in 359-1 degr (need to work):
+			# if (diffa < planet_drange):
+			# 	if not group_open:
+			# 		group_open = True
+			# 		groups.append([])
+			# 		groups[-1].append([e, diffa, diffb, self.planets[planets_degut[keys[e]]]["label"]])
+
 			if (diffb < planet_drange):
 				if group_open:
 					groups[-1].append([e, diffa, diffb, self.planets[planets_degut[keys[e]]]["label"]])

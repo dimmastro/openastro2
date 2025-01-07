@@ -309,6 +309,10 @@
   "printPlanetGrid_t": 1,
   "printHousesGrid": 1,
   "printHousesGrid_t": 1,
-  "saveSwgFile": 0
+  "saveSwgFile": 0,
+  "planet_drange": 6,
+  "planet_symbol_scale": 1,
+  "t_planet_symbol_scale_1": 1,
+  "t_planet_symbol_scale_2": 1
   }
 }

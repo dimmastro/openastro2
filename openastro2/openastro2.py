@@ -2822,14 +2822,19 @@ class openAstro:
 	#draw svg aspects: ring, aspect ring, degreeA degreeB
 	def drawAspect( self , r , ar , degA , degB , color):
 			# offset = (int(self.houses_degree_ut[6]) / -1) + int(degA)
-			offset = (int(self.get_chart_start_point()) / -1) + int(degA)
+			offset = (float(self.get_chart_start_point()) / -1) + float(degA)
 			x1 = self.sliceToX( 0 , ar , offset ) + (r-ar)
 			y1 = self.sliceToY( 0 , ar , offset ) + (r-ar)
 			# offset = (int(self.houses_degree_ut[6]) / -1) + int(degB)
-			offset = (int(self.get_chart_start_point()) / -1) + int(degB)
+			offset = (float(self.get_chart_start_point()) / -1) + float(degB)
+			# print("offset=",offset)
 			x2 = self.sliceToX( 0 , ar , offset ) + (r-ar)
 			y2 = self.sliceToY( 0 , ar , offset ) + (r-ar)
 			out = '			<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+color+'; stroke-width: 1.0; stroke-opacity: .5;"/>\n'
+			# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
+			# 	x1, y1, 3.5, self.colors['paper_1'], self.colors["color_transit_2"])
+			# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
+			# 	x2, y2, 0.50, self.colors['paper_1'], self.colors["color_transit_2"])
 			return out
 	
 	def sliceToX( self , slice , r, offset):
@@ -2896,7 +2901,7 @@ class openAstro:
 				
 			#offset is negative desc houses_degree_ut[6]
 			# offset = (int(self.houses_degree_ut[int(xr/2)]) / -1) + int(self.houses_degree_ut[i])
-			offset = (int(self.get_chart_start_point()) / -1) + int(self.houses_degree_ut[i])
+			offset = (float(self.get_chart_start_point()) / -1) + float(self.houses_degree_ut[i])
 			# offset = 0
 			x1 = self.sliceToX( 0 , (r-dropin) , offset ) + dropin
 			y1 = self.sliceToY( 0 , (r-dropin) , offset ) + dropin
@@ -3005,17 +3010,55 @@ class openAstro:
 			path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + linecolor + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)]+1, type="0") + '</text>'
 
 		return path
-	
+
+
+	def getPlanetsDegut(self, temp_planets_degree_ut, flag_transit="Radix"):
+		"""
+		Get planets dict for visible planets.
+		Key = degree_ut[i]
+		Value = i
+		#list of planets sorted by degree
+
+		:param temp_planets_degree_ut:
+		:param flag_transit:
+		:return:
+		"""
+		planets_degut={}
+
+		diff=range(len(self.planets))
+		for i in range(len(self.planets)):
+			if not (22 < i and i < 35):  # exclude houses
+				if flag_transit=="Transit":
+					# if 't_visible' in self.planets[i] and self.planets[i]['t_visible'] == 1:
+					# 	# if "visible2" exist and == 0 than pass
+					# 	if ("planet_orb" in self.planets[i]
+					# 			and "visible2" in self.planets[i]['planet_orb'][self.type]
+					# 			and self.planets[i]['planet_orb'][self.type]["visible2"] == 0):
+					# 		pass
+					# 	else:
+					# 		planets_degut[temp_planets_degree_ut[i]]=i
+					if (self.ifShowPlanetInTransit(i)):
+						planets_degut[temp_planets_degree_ut[i]] = i
+
+				else:
+					if self.planets[i]['visible'] == 1:
+						planets_degut[temp_planets_degree_ut[i]]=i
+		return planets_degut
+
+
 	def makePlanets( self , r ):
 		
 		planets_degut={}
 
 		diff=range(len(self.planets))
+
+		planets_degut = self.getPlanetsDegut(self.planets_degree_ut, flag_transit="Radix")
+
 		for i in range(len(self.planets)):
-			if self.planets[i]['visible'] == 1:
-				if not (22 < i and i < 35): # exclude houses
-					#list of planets sorted by degree
-					planets_degut[self.planets_degree_ut[i]]=i
+			# if self.planets[i]['visible'] == 1:
+			# 	if not (22 < i and i < 35): # exclude houses
+			# 		#list of planets sorted by degree
+			# 		planets_degut[self.planets_degree_ut[i]]=i
 			
 			#element: get extra points if planet is in own zodiac
 			pz = self.planets[i]['zodiac_relation']
@@ -3040,119 +3083,7 @@ class openAstro:
 				self.water = self.water + self.planets[i]['element_points'] + extrapoints
 				
 		output = ""	
-		# keys = list(planets_degut.keys())
-		# keys.sort()
-		# switch=0
-		#
-		# planets_degrouped = {}
-		# groups = []
-		# planets_by_pos = list(range(len(planets_degut)))
-		# planet_drange = 3.4
-		# #get groups closely together
-		# group_open=False
-		# for e in range(len(keys)):
-		# 	i=planets_degut[keys[e]]
-		# 	#get distances between planets
-		# 	if e == 0:
-		# 		prev = self.planets_degree_ut[planets_degut[keys[-1]]]
-		# 		next = self.planets_degree_ut[planets_degut[keys[1]]]
-		# 	elif e == (len(keys)-1):
-		# 		prev = self.planets_degree_ut[planets_degut[keys[e-1]]]
-		# 		next = self.planets_degree_ut[planets_degut[keys[0]]]
-		# 	else:
-		# 		prev = self.planets_degree_ut[planets_degut[keys[e-1]]]
-		# 		next = self.planets_degree_ut[planets_degut[keys[e+1]]]
-		# 	diffa=self.degreeDiff(prev,self.planets_degree_ut[i])
-		# 	diffb=self.degreeDiff(next,self.planets_degree_ut[i])
-		# 	planets_by_pos[e]=[i,diffa,diffb]
-		# 	#print "%s %s %s" % (self.planets[i]['label'],diffa,diffb)
-		# 	if (diffb < planet_drange):
-		# 		if group_open:
-		# 			groups[-1].append([e,diffa,diffb,self.planets[planets_degut[keys[e]]]["label"]])
-		# 		else:
-		# 			group_open=True
-		# 			groups.append([])
-		# 			groups[-1].append([e,diffa,diffb,self.planets[planets_degut[keys[e]]]["label"]])
-		# 	else:
-		# 		if group_open:
-		# 			groups[-1].append([e,diffa,diffb,self.planets[planets_degut[keys[e]]]["label"]])
-		# 		group_open=False
-		#
-		# def zero(x): return 0
-		# planets_delta = list(map(zero,range(len(self.planets))))
-		#
-		# # dprint (groups)
-		# #print planets_by_pos
-		# for a in range(len(groups)):
-		# 	#Two grouped planets
-		# 	if len(groups[a]) == 2:
-		# 		next_to_a = groups[a][0][0]-1
-		# 		if groups[a][1][0] == (len(planets_by_pos)-1):
-		# 			next_to_b = 0
-		# 		else:
-		# 			next_to_b = groups[a][1][0]+1
-		# 		#if both planets have room
-		# 		if (groups[a][0][1] > (2*planet_drange))&(groups[a][1][2] > (2*planet_drange)):
-		# 			planets_delta[groups[a][0][0]]=-(planet_drange-groups[a][0][2])/2
-		# 			planets_delta[groups[a][1][0]]=+(planet_drange-groups[a][0][2])/2
-		# 		#if planet a has room
-		# 		elif (groups[a][0][1] > (2*planet_drange)):
-		# 			planets_delta[groups[a][0][0]]=-planet_drange
-		# 		#if planet b has room
-		# 		elif (groups[a][1][2] > (2*planet_drange)):
-		# 			planets_delta[groups[a][1][0]]=+planet_drange
-		#
-		# 		#if planets next to a and b have room move them
-		# 		elif (planets_by_pos[next_to_a][1] > (2.4*planet_drange))&(planets_by_pos[next_to_b][2] > (2.4*planet_drange)):
-		# 			planets_delta[(next_to_a)]=(groups[a][0][1]-planet_drange*2)
-		# 			planets_delta[groups[a][0][0]]=-planet_drange*.5
-		# 			planets_delta[next_to_b]=-(groups[a][1][2]-planet_drange*2)
-		# 			planets_delta[groups[a][1][0]]=+planet_drange*.5
-		#
-		# 		#if planet next to a has room move them
-		# 		elif (planets_by_pos[next_to_a][1] > (2*planet_drange)):
-		# 			planets_delta[(next_to_a)]=(groups[a][0][1]-planet_drange*2.5)
-		# 			planets_delta[groups[a][0][0]]=-planet_drange*1.2
-		#
-		# 		#if planet next to b has room move them
-		# 		elif (planets_by_pos[next_to_b][2] > (2*planet_drange)):
-		# 			planets_delta[next_to_b]=-(groups[a][1][2]-planet_drange*2.5)
-		# 			planets_delta[groups[a][1][0]]=+planet_drange*1.2
-		#
-		# 	#Three grouped planets or more
-		# 	xl=len(groups[a])
-		# 	if xl >= 3:
-		#
-		# 		available = groups[a][0][1]
-		# 		for f in range(xl):
-		# 			available += groups[a][f][2]
-		# 		need = (3*planet_drange)+(1.2*(xl-1)*planet_drange)
-		# 		leftover = available - need
-		# 		xa=groups[a][0][1]
-		# 		xb=groups[a][(xl-1)][2]
-		#
-		# 		#center
-		# 		if (xa > (need*.5)) & (xb > (need*.5)):
-		# 			startA = xa - (need*.5)
-		# 		#position relative to next planets
-		# 		else:
-		# 			startA=(leftover/(xa+xb))*xa
-		# 			startB=(leftover/(xa+xb))*xb
-		#
-		# 		if available > need:
-		# 			planets_delta[groups[a][0][0]]=startA-groups[a][0][1]+(1.5*planet_drange)
-		# 			for f in range(xl-1):
-		# 				planets_delta[groups[a][(f+1)][0]]=1.2*planet_drange+planets_delta[groups[a][f][0]]-groups[a][f][2]
-		# planets_degut={}
-		#
-		# diff=range(len(self.planets))
-		# for i in range(len(self.planets)):
-		# 	if self.planets[i]['visible'] == 1:
-		# 		#list of planets sorted by degree
-		# 		planets_degut[self.planets_degree_ut[i]]=i
-		# keys = list(planets_degut.keys())
-		# keys.sort()
-		# switch = 0
+
 
 		planets_delta = self.getPlanetsDelta(self.planets_degree_ut)
 		keys = list(planets_degut.keys())
@@ -3191,14 +3122,14 @@ class openAstro:
 				
 			# rtext=45
 			if self.settings.astrocfg['houses_system'] == "G":
-				offset = (int(self.houses_degree_ut[18]) / -1) + int(self.planets_degree_ut[i])
+				offset = (int(self.houses_degree_ut[18]) / -1) + float(self.planets_degree_ut[i])
 				# trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])
-				trueoffset = (int(self.get_chart_start_point()) / -1) + int(self.planets_degree_ut[i])
+				trueoffset = (float(self.get_chart_start_point()) / -1) + float(self.planets_degree_ut[i])
 			else:
 				# offset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i]+planets_delta[e])
-				offset = (int(self.get_chart_start_point()) / -1) + int(self.planets_degree_ut[i]+planets_delta[e])
+				offset = (float(self.get_chart_start_point()) / -1) + float(self.planets_degree_ut[i]+planets_delta[e])
 				# trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])
-				trueoffset = (int(self.get_chart_start_point()) / -1) + int(self.planets_degree_ut[i])
+				trueoffset = (float(self.get_chart_start_point()) / -1) + float(self.planets_degree_ut[i])
 			planet_x = self.sliceToX( 0 , (r-rplanet) , offset ) + rplanet
 			planet_y = self.sliceToY( 0 , (r-rplanet) , offset ) + rplanet
 
@@ -3308,8 +3239,8 @@ class openAstro:
 			y1 = self.sliceToY(0, (r - rplanet - 20), trueoffset) + rplanet + 20
 			x2 = self.sliceToX(0, (r - rplanet - 10), offset) + rplanet + 10
 			y2 = self.sliceToY(0, (r - rplanet - 10), offset) + rplanet + 10
-			output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:0.2;"/>\n' % (
-			x1, y1, x2, y2, color)
+			# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:0.2;"/>\n' % (
+			# x1, y1, x2, y2, color)
 
 			x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
 			y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
@@ -3324,11 +3255,16 @@ class openAstro:
 				if not (22 < i and i < 35): # exclude houses
 					if 't_visible' in self.planets[i]:
 						# if self.planets[i]['t_visible'] == 1:
-						if (not ("visible2" in self.planets[1]['planet_orb'][self.type] and
-								 self.planets[1]['planet_orb'][self.type]["visible2"] == 0)) or self.planets[i]['t_visible'] == 1:
+						# if ( (('planet_orb' in self.planets[i]
+						# 	   and "visible2" in self.planets[i]['planet_orb'][self.type]
+						# 	   and self.planets[i]['planet_orb'][self.type]["visible2"] == 1))
+						# 		or self.planets[i]['t_visible'] == 1):
+						if (self.ifShowPlanetInTransit(i)):
 							t_planets_degut[self.t_planets_degree_ut[i]]=i
 					elif self.planets[i]['visible'] == 1:
 						t_planets_degut[self.t_planets_degree_ut[i]] = i
+
+			t_planets_degut = self.getPlanetsDegut(self.t_planets_degree_ut, flag_transit="Transit")
 
 			# t_keys = list(t_planets_degut.keys())
 			# t_keys.sort()
@@ -3340,43 +3276,6 @@ class openAstro:
 			t_keys = list(t_planets_degut.keys())
 			t_keys.sort()
 
-			#grab closely grouped planets
-			# groups=[]
-			# in_group=False
-			# for e in range(len(t_keys)):
-			# 	i_a=t_planets_degut[t_keys[e]]
-			# 	if e == (len(t_keys)-1):
-			# 		i_b=t_planets_degut[t_keys[0]]
-			# 	else:
-			# 		i_b=t_planets_degut[t_keys[e+1]]
-			#
-			# 	a=self.t_planets_degree_ut[i_a]
-			# 	b=self.t_planets_degree_ut[i_b]
-			# 	diff = self.degreeDiff(a,b)
-			# 	if diff <= 2.5:
-			# 		if in_group:
-			# 			groups[-1].append(i_b)
-			# 		else:
-			# 			groups.append([i_a])
-			# 			groups[-1].append(i_b)
-			# 			in_group=True
-			# 	else:
-			# 		in_group=False
-			# #loop groups and set degrees display adjustment
-			# for i in range(len(groups)):
-			# 	if len(groups[i]) == 2:
-			# 		group_offset[groups[i][0]]=-1.0
-			# 		group_offset[groups[i][1]]=1.0
-			# 	elif len(groups[i]) == 3:
-			# 		group_offset[groups[i][0]]=-1.5
-			# 		group_offset[groups[i][1]]=0
-			# 		group_offset[groups[i][2]]=1.5
-			# 	elif len(groups[i]) == 4:
-			# 		group_offset[groups[i][0]]=-2.0
-			# 		group_offset[groups[i][1]]=-1.0
-			# 		group_offset[groups[i][2]]=1.0
-			# 		group_offset[groups[i][3]]=2.0
-			
 			switch=0
 			for e in range(len(t_keys)):
 				i=t_planets_degut[t_keys[e]]
@@ -3390,6 +3289,8 @@ class openAstro:
 					rplanet=self.c1 - 15
 					switch = 1
 
+				# print(self.planets[i]['name'] )
+				# print("self.t_planets_degree_ut[i]=",self.t_planets_degree_ut[i])
 				# zeropoint = 360 - self.houses_degree_ut[6]
 				zeropoint = 360 - self.get_chart_start_point()
 				t_offset = zeropoint + self.t_planets_degree_ut[i]
@@ -3398,12 +3299,13 @@ class openAstro:
 				# planet_x = self.sliceToX( 0 , (r-rplanet) , t_offset ) + rplanet
 				# planet_y = self.sliceToY( 0 , (r-rplanet) , t_offset ) + rplanet
 				if self.settings.astrocfg['houses_system'] == "G":
-					t_offset = (int(self.t_houses_degree_ut[18]) / -1) + int(self.t_planets_degree_ut[i])
-					trueoffset = (int(self.t_houses_degree_ut[6]) / -1) + int(self.t_planets_degree_ut[i])
+					t_offset = (float(self.t_houses_degree_ut[18]) / -1) + float(self.t_planets_degree_ut[i])
+					trueoffset = (float(self.t_houses_degree_ut[6]) / -1) + float(self.t_planets_degree_ut[i])
 				else:
 					offset = zeropoint + self.t_planets_degree_ut[i] + t_planets_delta[e]
-					trueoffset = (int(self.t_houses_degree_ut[6]) / -1) + int(self.t_planets_degree_ut[i])
+					trueoffset = (float(self.t_houses_degree_ut[6]) / -1) + float(self.t_planets_degree_ut[i])
 
+				# print(t_offset-360)
 				x1 = self.sliceToX(0, (r - self.c3), t_offset) + self.c3
 				y1 = self.sliceToY(0, (r - self.c3), t_offset) + self.c3
 				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
@@ -3456,24 +3358,30 @@ class openAstro:
 
 		return output
 
+
+
 	def getPlanetsDelta(self, temp_planets_degree_ut, flag_transit="Radix"):
-		planets_degut={}
+		# planets_degut={}
+		#
+		# diff=range(len(self.planets))
+		# for i in range(len(self.planets)):
+		# 	if flag_transit=="Transit":
+		# 		if 't_visible' in self.planets[i] and self.planets[i]['t_visible'] == 1:
+		# 			if ("planet_orb" in self.planets[i]
+		# 					and "visible2" in self.planets[i]['planet_orb'][self.type]
+		# 					and self.planets[i]['planet_orb'][self.type]["visible2"] == 1):
+		# 				if not (22 < i and i < 35): # exclude houses
+		# 					#list of planets sorted by degree
+		# 					planets_degut[temp_planets_degree_ut[i]]=i
+		# 	else:
+		# 		if self.planets[i]['visible'] == 1:
+		# 			if not (22 < i and i < 35): # exclude houses
+		# 				#list of planets sorted by degree
+		# 				planets_degut[temp_planets_degree_ut[i]]=i
+		#
+		# 	# planets_degut[temp_planets_degree_ut[i]]=i
 
-		diff=range(len(self.planets))
-		for i in range(len(self.planets)):
-			if flag_transit=="Transit":
-				if self.planets[i]['visible'] == 1:
-					if (not("visible2" in self.planets[1]['planet_orb'][self.type] and self.planets[1]['planet_orb'][self.type]["visible2"] == 0)):
-						if not (22 < i and i < 35): # exclude houses
-							#list of planets sorted by degree
-							planets_degut[temp_planets_degree_ut[i]]=i
-			else:
-				if self.planets[i]['visible'] == 1:
-					if not (22 < i and i < 35): # exclude houses
-						#list of planets sorted by degree
-						planets_degut[temp_planets_degree_ut[i]]=i
-
-			# planets_degut[temp_planets_degree_ut[i]]=i
+		planets_degut = self.getPlanetsDegut(temp_planets_degree_ut, flag_transit=flag_transit)
 
 		keys = list(planets_degut.keys())
 		keys.sort()
@@ -3519,6 +3427,7 @@ class openAstro:
 				else:
 					group_open = True
 					groups.append([])
+					# e = index in planets_degut
 					groups[-1].append([e, diffa, diffb, self.planets[planets_degut[keys[e]]]["label"]])
 			else:
 				if group_open:
@@ -3541,7 +3450,8 @@ class openAstro:
 				else:
 					next_to_b = groups[a][1][0] + 1
 				# if both planets have room
-				if (groups[a][0][1] > (2 * planet_drange)) & (groups[a][1][2] > (2 * planet_drange)):
+				# if (groups[a][0][1] > (2 * planet_drange)) & (groups[a][1][2] > (2 * planet_drange)):
+				if (groups[a][0][1] > (1 * planet_drange)) & (groups[a][1][2] > (1 * planet_drange)):
 					planets_delta[groups[a][0][0]] = -(planet_drange - groups[a][0][2]) / 2
 					planets_delta[groups[a][1][0]] = +(planet_drange - groups[a][0][2]) / 2
 				# if planet a has room
@@ -3806,7 +3716,17 @@ class openAstro:
 								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.aspects[z]['color'] )
 
 		return out
-	
+
+	def ifShowPlanetInTransit(self, i):
+		if 't_visible' in self.planets[i]:
+			if self.planets[i]['t_visible'] == 1:
+				if ((('planet_orb' in self.planets[i]
+					  and "visible2" in self.planets[i]['planet_orb'][self.type]
+					  and self.planets[i]['planet_orb'][self.type]["visible2"] == 1))
+						or self.planets[i]['t_visible'] == 1):
+					return True
+		return False
+
 	def makeAspectsTransit( self , r , ar ):
 		out = ""
 		self.atgrid=[]
@@ -3830,7 +3750,8 @@ class openAstro:
 				if (self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1) or (self.planets[i]['visible'] == 1) & ('t_visible' not in self.planets[x]):
 					if ('planet_orb' in self.planets[x]):
 						if (self.type in self.planets[x]['planet_orb']):
-							if (not("visible2" in self.planets[x]['planet_orb'][self.type] and self.planets[x]['planet_orb'][self.type]["visible2"] == 0)):
+							# if (("visible2" in self.planets[x]['planet_orb'][self.type] and self.planets[x]['planet_orb'][self.type]["visible2"] == 1)):
+							if (self.ifShowPlanetInTransit(x)):
 								if (1):
 									for z in range(len(self.aspects)):
 										#check for personal planets and determine orb
@@ -3880,8 +3801,10 @@ class openAstro:
 
 												self.t_planets_aspects_arr[z][i][x] = orb - abs(
 													float(self.aspects[z]['degree']) - abs(float(diff)))
+												# print(self.planets[x]['name'])
 												# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
 												out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.aspects[z]['color'] )
+
 												# self.t_planets_aspects_id_arr[z][i] = 1
 												self.t_planets_aspects_id_arr[i][x] = self.aspects[z]['id']
 												# aspect_arr['id'] = self.aspects[z]['id']

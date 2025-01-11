@@ -3161,7 +3161,7 @@ class openAstro:
 		for e in range(len(keys)):
 			i=planets_degut[keys[e]]
 
-			#coordinates			
+			#coordinates
 			if self.type == "Transit" or self.type == "Direction":
 				if 22 < i < 27:
 					rplanet = self.c2 - (self.c2-self.c3)/2
@@ -3209,16 +3209,17 @@ class openAstro:
 				else:
 					scale = 0.6
 				#line1
-				x1=self.sliceToX( 0 , (r-self.c3) , trueoffset ) + self.c3
-				y1=self.sliceToY( 0 , (r-self.c3) , trueoffset ) + self.c3
-				x2=self.sliceToX( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
-				y2=self.sliceToY( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
+				# x1=self.sliceToX( 0 , (r-self.c3) , trueoffset ) + self.c3
+				# y1=self.sliceToY( 0 , (r-self.c3) , trueoffset ) + self.c3
+				# x2=self.sliceToX( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
+				# y2=self.sliceToY( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
 				# color=self.planets[i]["color"]
 				color=self.colors["color_transit_1"]
 				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
 				#line2
-				x1=self.sliceToX( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
-				y1=self.sliceToY( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
+				line_shift_start = self.c3 - 60 + 10
+				x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
+				y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
 				x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 				y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 				output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:0.5;"/>\n' % (x1,y1,x2,y2,color)
@@ -3242,8 +3243,10 @@ class openAstro:
 				color=self.colors["color_radix"]
 				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
 				#line2
-				x1=self.sliceToX( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
-				y1=self.sliceToY( 0 , (r-rplanet-20) , trueoffset ) + rplanet + 20
+				rplanet = self.c2 - (self.c2 - self.c3) / 2
+
+				x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
+				y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
 				x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 				y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 				if (not (23 <= i and i <= 34)):
@@ -3258,7 +3261,15 @@ class openAstro:
 
 			if (not (23 <= i and i <= 34)):
 				#output planet
-				output = output + '<g transform="translate(-'+str(12*scale)+',-'+str(12*scale)+')"><g transform="scale('+str(scale)+')"><use x="' + str(planet_x*(1/scale)) + '" y="' + str(planet_y*(1/scale)) + '" xlink:href="#' + self.planets[i]['name'] + '" /></g></g>\n'
+				# output = output + '<g transform="translate(-'+str(12*scale)+',-'+str(12*scale)+')"><g transform="scale('+str(scale)+')"><use x="' + str(planet_x*(1/scale)) + '" y="' + str(planet_y*(1/scale)) + '" xlink:href="#' + self.planets[i]['name'] + '" /></g></g>\n'
+				rplanet = self.c2 - (self.c2 - self.c3) / 2
+				planet_x = self.sliceToX(0, (r - rplanet), offset) + rplanet
+				planet_y = self.sliceToY(0, (r - rplanet), offset) + rplanet
+				# output = output + '<g transform="translate(-6,-6)"><g transform="scale(0.5)"><use x="' + str(planet_x*2) + '" y="' + str(planet_y*2) + '" xlink:href="#' + self.planets[i]['name'] + '" /></g></g>\n'
+				output = output + '<g transform="translate(-' + str(12 * scale) + ',-' + str(
+					12 * scale) + ')"><g transform="scale(' + str(scale) + ')"><use x="' + str(
+					planet_x * (1 / scale)) + '" y="' + str(planet_y * (1 / scale)) + '" xlink:href="#' + \
+						 self.planets[i]['name'] + '" /></g></g>\n'
 
 				# if i < (xr-1):
 				# 	text_offset = offset + int(self.degreeDiff( self.houses_degree_ut[(i)], self.houses_degree_ut[i] ) / 1 )
@@ -3405,7 +3416,11 @@ class openAstro:
 
 
 				if (not (23 <= i and i <= 34)):
-
+					if "t_rplanet" in self.settings.settings_svg:
+						t_rplanet = self.settings.settings_svg["t_rplanet"]
+					else:
+						t_rplanet = 20
+					rplanet = self.c1 - t_rplanet
 					planet_x = self.sliceToX(0, (r - rplanet), offset) + rplanet
 					planet_y = self.sliceToY(0, (r - rplanet), offset) + rplanet
 					# output = output + '<g transform="translate(-6,-6)"><g transform="scale(0.5)"><use x="' + str(planet_x*2) + '" y="' + str(planet_y*2) + '" xlink:href="#' + self.planets[i]['name'] + '" /></g></g>\n'
@@ -3430,72 +3445,11 @@ class openAstro:
 									 'paper_0'] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + 'r' + '</text>'
 					output = output + ''
 
-					# #transit planet line
-					# x1 = self.sliceToX( 0 , r+3 , t_offset ) - 3
-					# y1 = self.sliceToY( 0 , r+3 , t_offset ) - 3
-					# x2 = self.sliceToX( 0 , r-3 , t_offset ) + 3
-					# y2 = self.sliceToY( 0 , r-3 , t_offset ) + 3
-					# output = output + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+self.planets[i]['color']+'; stroke-width: 1px; stroke-opacity:.8;"/>\n'
-					# # transit planet line
-					# # dropin = rplanet
-					# delta = 2
-					#
-					# x1 = self.sliceToX(0, r + delta - self.c3, t_offset) - delta + self.c3
-					# y1 = self.sliceToY(0, r + delta - self.c3, t_offset) - delta + self.c3
-					# x2 = self.sliceToX(0, r - delta - self.c3, t_offset) + delta + self.c3
-					# y2 = self.sliceToY(0, r - delta - self.c3, t_offset) + delta + self.c3
-					# output = output + '<line x1="' + str(x1) + '" y1="' + str(y1) + '" x2="' + str(x2) + '" y2="' + str(
-					# 	y2) + '" style="stroke: ' + self.planets[i]['color'] + '; stroke-width: 1px; stroke-opacity:.8;"/>\n'
-
-
-				# #transit planet degree text
-					# rotate = self.houses_degree_ut[0] - self.t_planets_degree_ut[i]
-					# textanchor="end"
-					# t_offset += group_offset[i]
-					# rtext=-3.0
-					#
-					# if -90 > rotate > -270:
-					# 	rotate = rotate + 180.0
-					# 	textanchor="start"
-					# if 270 > rotate > 90:
-					# 	rotate = rotate - 180.0
-					# 	textanchor="start"
-					#
-					#
-					# if textanchor == "end":
-					# 	xo=1
-					# else:
-					# 	xo=-1
-					# deg_x = self.sliceToX( 0 , (r-rtext) , t_offset + xo ) + rtext
-					# deg_y = self.sliceToY( 0 , (r-rtext) , t_offset + xo ) + rtext
-					# degree=int(t_offset)
-					# output += '<g transform="translate(%s,%s)">' % (deg_x,deg_y)
-					# output += '<text transform="rotate(%s)" text-anchor="%s' % (rotate,textanchor)
-					# output += '" style="fill: '+self.planets[i]['color']+'; font-size: 10px;">'+self.dec2deg(self.t_planets_degree[i],type="1")
-					# output += '</text></g>\n'
-
-					#check transit
-					# dropin=0
-					# #planet line
-					# x1 = self.sliceToX( 0 , r-(dropin+3) , offset ) + (dropin+3)
-					# y1 = self.sliceToY( 0 , r-(dropin+3) , offset ) + (dropin+3)
-					# x2 = self.sliceToX( 0 , (r-(dropin-3)) , offset ) + (dropin-3)
-					# y2 = self.sliceToY( 0 , (r-(dropin-3)) , offset ) + (dropin-3)
-					# # output = output + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+self.planets[i]['color']+'; stroke-width: 2px; stroke-opacity:.6;"/>\n'
-					#
-					#
-					# dropin=160
-					# x1 = self.sliceToX( 0 , r-dropin , offset ) + dropin
-					# y1 = self.sliceToY( 0 , r-dropin , offset ) + dropin
-					# x2 = self.sliceToX( 0 , (r-(dropin-3)) , offset ) + (dropin-3)
-					# y2 = self.sliceToY( 0 , (r-(dropin-3)) , offset ) + (dropin-3)
-					# # output = output + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+self.planets[i]['color']+'; stroke-width: 2px; stroke-opacity:.6;"/>\n'
-
 					#line2
-					x1=self.sliceToX( 0 , (r-rplanet-14) , t_offset ) + rplanet + 14
-					y1=self.sliceToY( 0 , (r-rplanet-14) , t_offset ) + rplanet + 14
-					x2=self.sliceToX( 0 , (r-rplanet-8) , offset ) + rplanet + 8
-					y2=self.sliceToY( 0 , (r-rplanet-8) , offset ) + rplanet + 8
+					x1 = self.sliceToX(0, (r - self.c1), t_offset) + self.c1
+					y1 = self.sliceToY(0, (r - self.c1), t_offset) + self.c1
+					x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
+					y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 					# Transit planets lines
 					output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.2;"/>\n' % (x1,y1,x2,y2,self.colors["color_transit_2"])
 

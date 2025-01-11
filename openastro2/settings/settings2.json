@@ -297,6 +297,7 @@
   {"id": 42, "name": "true lilith own", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "South Node", "label_short": "SNode", "visible_aspect_line": 0, "visible_aspect_grid": 0, "visible_json": 0}
 ],
 "settings_svg": {"c1": 0, "c2": 20, "c3": 60, "r": 237, "roff": 5, "t_roff": 15, "roff_deg": 15, "t_roff_deg": 25, "circleX": 0, "circleY": 0, "offset_degree_planet_x": 4, "offset_degree_planet_y": -4,
+  "t_rplanet": 20,
   "screen_width": 1920,
   "screen_height": 1152,
   "zoom": 2,
@@ -311,8 +312,8 @@
   "printHousesGrid_t": 1,
   "saveSwgFile": 0,
   "planet_drange": 6,
-  "planet_symbol_scale": 1,
-  "t_planet_symbol_scale_1": 1,
-  "t_planet_symbol_scale_2": 1
+  "planet_symbol_scale": 0.6,
+  "t_planet_symbol_scale_1": 0.6,
+  "t_planet_symbol_scale_2": 0.6
   }
 }

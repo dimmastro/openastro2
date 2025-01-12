@@ -4114,6 +4114,11 @@ class openAstro:
 		# orb = max([orb1, orb2]) + min([orb1, orb2])/2
 		# orb = (orb1 + orb2)/2
 
+		# if orb == -1 False
+		if orb1 < 0 or orb2 < 0:
+			# orb = -1
+			return False
+
 		# check if we want to display this aspect
 		# if	( float(self.aspects[z]['degree']) - orb_before ) <= diff <= ( float(self.aspects[z]['degree']) + 1.0 ):
 		if (float(self.aspects[z]['degree']) - orb) <= diff <= (float(self.aspects[z]['degree']) + orb):

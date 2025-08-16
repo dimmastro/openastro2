@@ -70,6 +70,7 @@ import copy
 
 import svgwrite
 
+from gettext import gettext as _
 
 # from openastro2.openastromod.fixar import get_fixar_ecliptic_latlon_arr
 
@@ -110,12 +111,12 @@ LANGUAGES_LABEL={
 			"it":"Italiano",
 			"ja":"日本",
 			"nds":"Plattdüütsch",
-			"nb":"Bokmål",
-			"pl":"język polski",
+			# "nb":"Bokmål",
+			# "pl":"język polski",
 			"rom":"rromani ćhib",
 			"ru":"Русский",
 			"es":"Español",
-			"sv":"svenska",
+			# "sv":"svenska",
             "uk":"українська мова",
             "zh_TW":"正體字"
 		}
@@ -4295,217 +4296,217 @@ class openAstro:
 		f.close()
 		dprint("exporting OAC: %s" % filename)
 		return
+	#
+	# def importOAC(self, filename):
+	# 	r=importfile.getOAC(filename)[0]
+	# 	dt = datetime.datetime.strptime(r['datetime'],"%Y-%m-%d %H:%M:%S")
+	# 	self.name=r['name']
+	# 	self.countrycode=r['countrycode']
+	# 	self.altitude=int(r['altitude'])
+	# 	self.geolat=float(r['latitude'])
+	# 	self.geolon=float(r['longitude'])
+	# 	self.timezone=float(r['timezone'])
+	# 	self.geonameid=r['geonameid']
+	# 	if "timezonestr" in r:
+	# 		self.timezonestr=r['timezonestr']
+	# 	else:
+	# 		self.timezonestr=db.gnearest(self.geolat,self.geolon)['timezonestr']
+	# 	self.location=r['location']
+	# 	self.year=dt.year
+	# 	self.month=dt.month
+	# 	self.day=dt.day
+	# 	self.hour=self.decHourJoin(dt.hour,dt.minute,dt.second)
+	# 	#Make locals
+	# 	self.utcToLocal()
+	# 	#debug dprint
+	# 	dprint('importOAC: %s' % filename)
+	# 	return
 	
-	def importOAC(self, filename):
-		r=importfile.getOAC(filename)[0]
-		dt = datetime.datetime.strptime(r['datetime'],"%Y-%m-%d %H:%M:%S")
-		self.name=r['name']
-		self.countrycode=r['countrycode']
-		self.altitude=int(r['altitude'])
-		self.geolat=float(r['latitude'])
-		self.geolon=float(r['longitude'])
-		self.timezone=float(r['timezone'])
-		self.geonameid=r['geonameid']
-		if "timezonestr" in r:
-			self.timezonestr=r['timezonestr']
-		else:
-			self.timezonestr=db.gnearest(self.geolat,self.geolon)['timezonestr']
-		self.location=r['location']
-		self.year=dt.year
-		self.month=dt.month
-		self.day=dt.day
-		self.hour=self.decHourJoin(dt.hour,dt.minute,dt.second)
-		#Make locals
-		self.utcToLocal()
-		#debug dprint
-		dprint('importOAC: %s' % filename)
-		return
+	# def importOroboros(self, filename):
+	# 	r=importfile.getOroboros(filename)[0]
+	# 	#naive local datetime
+	# 	naive = datetime.datetime.strptime(r['datetime'],"%Y-%m-%d %H:%M:%S")
+	# 	#aware datetime object
+	# 	dt_input = datetime.datetime(naive.year, naive.month, naive.day, naive.hour, naive.minute, naive.second)
+	# 	dt = pytz.timezone(r['zoneinfo']).localize(dt_input)
+	# 	#naive utc datetime object
+	# 	dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
+	#
+	# 	#process latitude/longitude
+	# 	deg,type,min,sec = r['latitude'].split(":")
+	# 	lat = float(deg)+( float(min) / 60.0 )+( float(sec) / 3600.0 )
+	# 	if type == "S":
+	# 		lat = decimal / -1.0
+	# 	deg,type,min,sec = r['longitude'].split(":")
+	# 	lon = float(deg)+( float(min) / 60.0 )+( float(sec) / 3600.0 )
+	# 	if type == "W":
+	# 		lon = decimal / -1.0
+	#
+	# 	geon = db.gnearest(float(lat),float(lon))
+	# 	self.timezonestr=geon['timezonestr']
+	# 	self.geonameid=geon['geonameid']
+	# 	self.name=r['name']
+	# 	self.countrycode=''
+	# 	self.altitude=int(r['altitude'])
+	# 	self.geolat=lat
+	# 	self.geolon=lon
+	# 	self.timezone=self.offsetToTz(dt.utcoffset())
+	# 	self.location='%s, %s' % (r['location'],r['countryname'])
+	# 	self.year=dt_utc.year
+	# 	self.month=dt_utc.month
+	# 	self.day=dt_utc.day
+	# 	self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
+	# 	#Make locals
+	# 	self.utcToLocal()
+	# 	#debug dprint
+	# 	dprint('importOroboros: UTC: %s file: %s' % (dt_utc,filename))
+	# 	return
 	
-	def importOroboros(self, filename):
-		r=importfile.getOroboros(filename)[0]
-		#naive local datetime
-		naive = datetime.datetime.strptime(r['datetime'],"%Y-%m-%d %H:%M:%S")
-		#aware datetime object
-		dt_input = datetime.datetime(naive.year, naive.month, naive.day, naive.hour, naive.minute, naive.second)
-		dt = pytz.timezone(r['zoneinfo']).localize(dt_input)
-		#naive utc datetime object
-		dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-		
-		#process latitude/longitude
-		deg,type,min,sec = r['latitude'].split(":")
-		lat = float(deg)+( float(min) / 60.0 )+( float(sec) / 3600.0 )
-		if type == "S":
-			lat = decimal / -1.0
-		deg,type,min,sec = r['longitude'].split(":")
-		lon = float(deg)+( float(min) / 60.0 )+( float(sec) / 3600.0 )
-		if type == "W":
-			lon = decimal / -1.0			
-		
-		geon = db.gnearest(float(lat),float(lon))
-		self.timezonestr=geon['timezonestr']
-		self.geonameid=geon['geonameid']		
-		self.name=r['name']
-		self.countrycode=''
-		self.altitude=int(r['altitude'])
-		self.geolat=lat
-		self.geolon=lon
-		self.timezone=self.offsetToTz(dt.utcoffset())
-		self.location='%s, %s' % (r['location'],r['countryname'])
-		self.year=dt_utc.year
-		self.month=dt_utc.month
-		self.day=dt_utc.day
-		self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-		#Make locals
-		self.utcToLocal()
-		#debug dprint
-		dprint('importOroboros: UTC: %s file: %s' % (dt_utc,filename))
-		return
+	# def importSkylendar(self, filename):
+	# 	r = importfile.getSkylendar(filename)[0]
+	#
+	# 	#naive local datetime
+	# 	naive = datetime.datetime(int(r['year']),int(r['month']),int(r['day']),int(r['hour']),int(r['minute']))
+	# 	#aware datetime object
+	# 	dt_input = datetime.datetime(naive.year, naive.month, naive.day, naive.hour, naive.minute, naive.second)
+	# 	dt = pytz.timezone(r['zoneinfofile']).localize(dt_input)
+	# 	#naive utc datetime object
+	# 	dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
+	#
+	# 	geon = db.gnearest(float(r['latitude']),float(r['longitude']))
+	# 	self.timezonestr=geon['timezonestr']
+	# 	self.geonameid=geon['geonameid']
+	# 	self.name=r['name']
+	# 	self.countrycode=''
+	# 	self.altitude=25
+	# 	self.geolat=float(r['latitude'])
+	# 	self.geolon=float(r['longitude'])
+	# 	self.timezone=float(r['timezone'])
+	# 	self.location='%s, %s' % (r['location'],r['countryname'])
+	# 	self.year=dt_utc.year
+	# 	self.month=dt_utc.month
+	# 	self.day=dt_utc.day
+	# 	self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
+	# 	#Make locals
+	# 	self.utcToLocal()
+	# 	return
+
+	# def importAstrolog32(self, filename):
+	# 	r = importfile.getAstrolog32(filename)[0]
+	#
+	# 	#timezone string
+	# 	timezone_str = zonetab.nearest_tz(float(r['latitude']),float(r['longitude']),zonetab.timezones())[2]
+	# 	#naive local datetime
+	# 	naive = datetime.datetime(int(r['year']),int(r['month']),int(r['day']),int(r['hour']),int(r['minute']),int(r['second']))
+	# 	#aware datetime object
+	# 	dt_input = datetime.datetime(naive.year, naive.month, naive.day, naive.hour, naive.minute, naive.second)
+	# 	dt = pytz.timezone(timezone_str).localize(dt_input)
+	# 	#naive utc datetime object
+	# 	dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
+	#
+	# 	geon = db.gnearest(float(r['latitude']),float(r['longitude']))
+	# 	self.timezonestr=geon['timezonestr']
+	# 	self.geonameid=geon['geonameid']
+	# 	self.name=r['name']
+	# 	self.countrycode=''
+	# 	self.altitude=25
+	# 	self.geolat=float(r['latitude'])
+	# 	self.geolon=float(r['longitude'])
+	# 	self.timezone=self.offsetToTz(dt.utcoffset())
+	# 	self.location=r['location']
+	# 	self.year=dt_utc.year
+	# 	self.month=dt_utc.month
+	# 	self.day=dt_utc.day
+	# 	self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
+	# 	#Make locals
+	# 	self.utcToLocal()
+	# 	return
 	
-	def importSkylendar(self, filename):
-		r = importfile.getSkylendar(filename)[0]
-		
-		#naive local datetime
-		naive = datetime.datetime(int(r['year']),int(r['month']),int(r['day']),int(r['hour']),int(r['minute']))
-		#aware datetime object
-		dt_input = datetime.datetime(naive.year, naive.month, naive.day, naive.hour, naive.minute, naive.second)
-		dt = pytz.timezone(r['zoneinfofile']).localize(dt_input)
-		#naive utc datetime object
-		dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-
-		geon = db.gnearest(float(r['latitude']),float(r['longitude']))
-		self.timezonestr=geon['timezonestr']
-		self.geonameid=geon['geonameid']				
-		self.name=r['name']
-		self.countrycode=''
-		self.altitude=25
-		self.geolat=float(r['latitude'])
-		self.geolon=float(r['longitude'])
-		self.timezone=float(r['timezone'])
-		self.location='%s, %s' % (r['location'],r['countryname'])
-		self.year=dt_utc.year
-		self.month=dt_utc.month
-		self.day=dt_utc.day
-		self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-		#Make locals
-		self.utcToLocal()		
-		return	
-
-	def importAstrolog32(self, filename):
-		r = importfile.getAstrolog32(filename)[0]
-
-		#timezone string
-		timezone_str = zonetab.nearest_tz(float(r['latitude']),float(r['longitude']),zonetab.timezones())[2]
-		#naive local datetime
-		naive = datetime.datetime(int(r['year']),int(r['month']),int(r['day']),int(r['hour']),int(r['minute']),int(r['second']))
-		#aware datetime object
-		dt_input = datetime.datetime(naive.year, naive.month, naive.day, naive.hour, naive.minute, naive.second)
-		dt = pytz.timezone(timezone_str).localize(dt_input)
-		#naive utc datetime object
-		dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-
-		geon = db.gnearest(float(r['latitude']),float(r['longitude']))
-		self.timezonestr=geon['timezonestr']
-		self.geonameid=geon['geonameid']		
-		self.name=r['name']
-		self.countrycode=''
-		self.altitude=25
-		self.geolat=float(r['latitude'])
-		self.geolon=float(r['longitude'])
-		self.timezone=self.offsetToTz(dt.utcoffset())
-		self.location=r['location']
-		self.year=dt_utc.year
-		self.month=dt_utc.month
-		self.day=dt_utc.day
-		self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-		#Make locals
-		self.utcToLocal()		
-		return
-	
-	def importZet8(self, filename):
-		h=open(filename)
-		f=codecs.EncodedFile(h,"utf-8","latin-1")
-		data=[]
-		for line in f.readlines():
-			s=line.split(";")
-			if s[0] == line:
-				continue
-			
-			data.append({})
-			data[-1]['name']=s[0].strip()
-			day=int( s[1].strip().split('.')[0] )
-			month=int( s[1].strip().split('.')[1] )
-			year=int( s[1].strip().split('.')[2] )
-			hour=int(  s[2].strip().split(':')[0] )
-			minute=int( s[2].strip().split(':')[1] )
-			if len(s[3].strip()) > 3:
-				data[-1]['timezone']=float( s[3].strip().split(":")[0] )
-				if data[-1]['timezone'] < 0:
-					data[-1]['timezone']-= float( s[3].strip().split(":")[1] ) / 60.0
-				else:
-					data[-1]['timezone']+= float( s[3].strip().split(":")[1] ) / 60.0
-			elif len(s[3].strip()) > 0:
-				data[-1]['timezone']=int(s[3].strip())
-			else:
-				data[-1]['timezone']=0
-				
-			#substract timezone from date
-			dt = datetime.datetime(year,month,day,hour,minute)
-			dt = dt - datetime.timedelta(seconds=float(data[-1]['timezone'])*float(3600))
-			data[-1]['year'] = dt.year
-			data[-1]['month'] = dt.month
-			data[-1]['day'] = dt.day
-			data[-1]['hour'] =  float(dt.hour) + float(dt.minute/60.0)
-			data[-1]['location']=s[4].strip()
-
-			#latitude
-			p=s[5].strip()
-			if p.find("°") != -1:
-				#later version of zet8
-				if p.find("S") == -1:
-					deg=p.split("°")[0] #\xc2
-					min=p[p.find("°")+2:p.find("'")]
-					sec=p[p.find("'")+1:p.find('"')]
-					data[-1]['latitude']=float(deg)+(float(min)/60.0)
-				else:
-					deg=p.split("°")[0] #\xc2
-					min=p[p.find("°")+2:p.find("'")]
-					sec=p[p.find("'")+1:p.find('"')]
-					data[-1]['latitude']=( float(deg)+(float(min)/60.0) ) / -1.0				
-			else:
-				#earlier version of zet8
-				if p.find("s") == -1:
-					i=p.find("n")
-					data[-1]['latitude']=float(p[:i])+(float(p[i+1:])/60.0)
-				else:
-					i=p.find("s")
-					data[-1]['latitude']=( float(p[:i])+(float(p[i+1:])/60.0) ) / -1.0
-			#longitude
-			p=s[6].strip()
-			if p.find("°") != -1:
-				#later version of zet8
-				if p.find("W") == -1:
-					deg=p.split("°")[0] #\xc2
-					min=p[p.find("°")+2:p.find("'")]
-					sec=p[p.find("'")+1:p.find('"')]
-					data[-1]['longitude']=float(deg)+(float(min)/60.0)
-				else:
-					deg=p.split("°")[0] #\xc2
-					min=p[p.find("°")+2:p.find("'")]
-					sec=p[p.find("'")+1:p.find('"')]
-					data[-1]['longitude']=( float(deg)+(float(min)/60.0) ) / -1.0				
-			else:
-				#earlier version of zet8
-				if p.find("w") == -1:
-					i=p.find("e")
-					data[-1]['longitude']=float(p[:i])+(float(p[i+1:])/60.0)
-				else:
-					i=p.find("w")
-					data[-1]['longitude']=( float(p[:i])+(float(p[i+1:])/60.0) ) / -1.0
-		
-		db.importZet8( cfg.peopledb , data )
-		dprint('importZet8: database with %s entries: %s' % (len(data),filename))
-		f.close()
-		return
+	# def importZet8(self, filename):
+	# 	h=open(filename)
+	# 	f=codecs.EncodedFile(h,"utf-8","latin-1")
+	# 	data=[]
+	# 	for line in f.readlines():
+	# 		s=line.split(";")
+	# 		if s[0] == line:
+	# 			continue
+	#
+	# 		data.append({})
+	# 		data[-1]['name']=s[0].strip()
+	# 		day=int( s[1].strip().split('.')[0] )
+	# 		month=int( s[1].strip().split('.')[1] )
+	# 		year=int( s[1].strip().split('.')[2] )
+	# 		hour=int(  s[2].strip().split(':')[0] )
+	# 		minute=int( s[2].strip().split(':')[1] )
+	# 		if len(s[3].strip()) > 3:
+	# 			data[-1]['timezone']=float( s[3].strip().split(":")[0] )
+	# 			if data[-1]['timezone'] < 0:
+	# 				data[-1]['timezone']-= float( s[3].strip().split(":")[1] ) / 60.0
+	# 			else:
+	# 				data[-1]['timezone']+= float( s[3].strip().split(":")[1] ) / 60.0
+	# 		elif len(s[3].strip()) > 0:
+	# 			data[-1]['timezone']=int(s[3].strip())
+	# 		else:
+	# 			data[-1]['timezone']=0
+	#
+	# 		#substract timezone from date
+	# 		dt = datetime.datetime(year,month,day,hour,minute)
+	# 		dt = dt - datetime.timedelta(seconds=float(data[-1]['timezone'])*float(3600))
+	# 		data[-1]['year'] = dt.year
+	# 		data[-1]['month'] = dt.month
+	# 		data[-1]['day'] = dt.day
+	# 		data[-1]['hour'] =  float(dt.hour) + float(dt.minute/60.0)
+	# 		data[-1]['location']=s[4].strip()
+	#
+	# 		#latitude
+	# 		p=s[5].strip()
+	# 		if p.find("°") != -1:
+	# 			#later version of zet8
+	# 			if p.find("S") == -1:
+	# 				deg=p.split("°")[0] #\xc2
+	# 				min=p[p.find("°")+2:p.find("'")]
+	# 				sec=p[p.find("'")+1:p.find('"')]
+	# 				data[-1]['latitude']=float(deg)+(float(min)/60.0)
+	# 			else:
+	# 				deg=p.split("°")[0] #\xc2
+	# 				min=p[p.find("°")+2:p.find("'")]
+	# 				sec=p[p.find("'")+1:p.find('"')]
+	# 				data[-1]['latitude']=( float(deg)+(float(min)/60.0) ) / -1.0
+	# 		else:
+	# 			#earlier version of zet8
+	# 			if p.find("s") == -1:
+	# 				i=p.find("n")
+	# 				data[-1]['latitude']=float(p[:i])+(float(p[i+1:])/60.0)
+	# 			else:
+	# 				i=p.find("s")
+	# 				data[-1]['latitude']=( float(p[:i])+(float(p[i+1:])/60.0) ) / -1.0
+	# 		#longitude
+	# 		p=s[6].strip()
+	# 		if p.find("°") != -1:
+	# 			#later version of zet8
+	# 			if p.find("W") == -1:
+	# 				deg=p.split("°")[0] #\xc2
+	# 				min=p[p.find("°")+2:p.find("'")]
+	# 				sec=p[p.find("'")+1:p.find('"')]
+	# 				data[-1]['longitude']=float(deg)+(float(min)/60.0)
+	# 			else:
+	# 				deg=p.split("°")[0] #\xc2
+	# 				min=p[p.find("°")+2:p.find("'")]
+	# 				sec=p[p.find("'")+1:p.find('"')]
+	# 				data[-1]['longitude']=( float(deg)+(float(min)/60.0) ) / -1.0
+	# 		else:
+	# 			#earlier version of zet8
+	# 			if p.find("w") == -1:
+	# 				i=p.find("e")
+	# 				data[-1]['longitude']=float(p[:i])+(float(p[i+1:])/60.0)
+	# 			else:
+	# 				i=p.find("w")
+	# 				data[-1]['longitude']=( float(p[:i])+(float(p[i+1:])/60.0) ) / -1.0
+	#
+	# 	db.importZet8( cfg.peopledb , data )
+	# 	dprint('importZet8: database with %s entries: %s' % (len(data),filename))
+	# 	f.close()
+	# 	return
 
 
 
@@ -5264,12 +5265,12 @@ class openAstro:
 	def makeLocalSpaceAntisZodiacDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1]):
 		# aspects = [+1, -1]
 
-		𝜏 = api.tau
+		tau = api.tau
 		ts = api.load.timescale()
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
+		angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame
 		d = api.Distance([np.sin(angle), np.cos(angle), zero])
@@ -5358,12 +5359,12 @@ class openAstro:
 	def makeLocalSpaceAntisZodiacApiDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1]):
 		# aspects = [+1, -1]
 
-		𝜏 = api.tau
+		tau = api.tau
 		ts = api.load.timescale()
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
+		angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame
 		d = api.Distance([np.sin(angle), np.cos(angle), zero])
@@ -6302,12 +6303,12 @@ class openAstro:
 		return layer
 	def makeLocalSpaceZodiakSkyDataFrame(self, dt, lat, lon):
 
-		𝜏 = api.tau
+		tau = api.tau
 		ts = api.load.timescale()
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
+		angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame
 		d = api.Distance([np.sin(angle), np.cos(angle), zero])
@@ -6372,12 +6373,12 @@ class openAstro:
 		return df
 	def makeLocalSpaceZodiakSkyApiDataFrame(self, dt, lat, lon):
 
-		𝜏 = api.tau
+		tau = api.tau
 		ts = api.load.timescale()
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
+		angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame
 		d = api.Distance([np.sin(angle), np.cos(angle), zero])
@@ -6428,13 +6429,13 @@ class openAstro:
 		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
-		𝜏 = api.tau
+		tau = api.tau
 		ts = api.load.timescale()
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		# angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		angle = - np.array(eclips_arr)/360 * 𝜏 + 1/4.0 * 𝜏
+		# angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
+		angle = - np.array(eclips_arr)/360 * tau + 1/4.0 * tau
 
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame
@@ -6531,13 +6532,13 @@ class openAstro:
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 
-		# 𝜏 = api.tau
+		# tau = api.tau
 		# ts = api.load.timescale()
 		# eph = api.load('de421.bsp')
 		# bluffton = api.Topos(lat, lon)
 		# t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		# # angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		# angle = - np.array(self.houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
+		# # angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
+		# angle = - np.array(self.houses_degree_ut)/360 * tau + 1/4.0 * tau
 		#
 		# zero = angle * 0.0
 		# f = framelib.ecliptic_frame
@@ -6603,13 +6604,13 @@ class openAstro:
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 
-		# 𝜏 = api.tau
+		# tau = api.tau
 		# ts = api.load.timescale()
 		# eph = api.load('de421.bsp')
 		# bluffton = api.Topos(lat, lon)
 		# t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		# # angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		# angle = - np.array(self.houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
+		# # angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
+		# angle = - np.array(self.houses_degree_ut)/360 * tau + 1/4.0 * tau
 		#
 		# zero = angle * 0.0
 		# f = framelib.ecliptic_frame
@@ -6790,13 +6791,13 @@ class openAstro:
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 
-		# 𝜏 = api.tau
+		# tau = api.tau
 		# ts = api.load.timescale()
 		# eph = api.load('de421.bsp')
 		# bluffton = api.Topos(lat, lon)
 		# t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		# # angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		# angle = - np.array(self.t_houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
+		# # angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
+		# angle = - np.array(self.t_houses_degree_ut)/360 * tau + 1/4.0 * tau
 		#
 		# zero = angle * 0.0
 		# f = framelib.ecliptic_frame
@@ -6914,13 +6915,13 @@ class openAstro:
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 
-		𝜏 = api.tau
+		tau = api.tau
 		ts = api.load.timescale()
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		# angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		angle = - np.array(self.houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
+		# angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
+		angle = - np.array(self.houses_degree_ut)/360 * tau + 1/4.0 * tau
 
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame
@@ -6994,13 +6995,13 @@ class openAstro:
 		# https: // rhodesmill.org / skyfield / api - position.html  # skyfield.positionlib.ICRF.from_time_and_frame_vectorshttps://rhodesmill.org/skyfield/api-position.html#skyfield.positionlib.ICRF.from_time_and_frame_vectors
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 
-		𝜏 = api.tau
+		tau = api.tau
 		ts = api.load.timescale()
 		eph = api.load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
-		# angle = - np.arange(12) / 12.0 * 𝜏 + 1/4.0 * 𝜏
-		angle = - np.array(self.houses_degree_ut)/360 * 𝜏 + 1/4.0 * 𝜏
+		# angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
+		angle = - np.array(self.houses_degree_ut)/360 * tau + 1/4.0 * tau
 
 		zero = angle * 0.0
 		f = framelib.ecliptic_frame

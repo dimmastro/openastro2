@@ -211,11 +211,17 @@ class ephData:
 			self.jul_day_UT = swe.julday(houses_override[0],houses_override[1],houses_override[2],houses_override[3])
 			
 		if geolat > 66.0:
-			geolat = 66.0
-			# print("polar circle override for houses, using 66 degrees")
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
+			else:
+				geolat = 66.0
+				# print("polar circle override for houses, using 66 degrees")
 		elif geolat < -66.0:
-			geolat = -66.0
-			# print("polar circle override for houses, using -66 degrees")
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
+			else:
+				geolat = -66.0
+				# print("polar circle override for houses, using -66 degrees")
 
 		#sidereal houses
 		if(openastrocfg['zodiactype']=="sidereal"):
@@ -664,11 +670,17 @@ class ephData:
 			self.jul_day_UT = swe.julday(houses_override[0], houses_override[1], houses_override[2], houses_override[3])
 
 		if geolat > 66.0:
-			geolat = 66.0
-		# print("polar circle override for houses, using 66 degrees")
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
+			else:
+				geolat = 66.0
+				# print("polar circle override for houses, using 66 degrees")
 		elif geolat < -66.0:
-			geolat = -66.0
-		# print("polar circle override for houses, using -66 degrees")
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
+			else:
+				geolat = -66.0
+				# print("polar circle override for houses, using -66 degrees")
 
 		# sidereal houses
 		if (openastrocfg['zodiactype'] == "sidereal"):
@@ -1051,11 +1063,17 @@ class ephData:
 			self.jul_day_UT = swe.julday(houses_override[0], houses_override[1], houses_override[2], houses_override[3])
 
 		if geolat > 66.0:
-			geolat = 66.0
-		# print("polar circle override for houses, using 66 degrees")
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
+			else:
+				geolat = 66.0
+				# print("polar circle override for houses, using 66 degrees")
 		elif geolat < -66.0:
-			geolat = -66.0
-		# print("polar circle override for houses, using -66 degrees")
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
+			else:
+				geolat = -66.0
+				# print("polar circle override for houses, using -66 degrees")
 
 		# sidereal houses
 		if (openastrocfg['zodiactype'] == "sidereal"):

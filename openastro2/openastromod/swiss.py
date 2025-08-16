@@ -96,6 +96,49 @@ class ephData:
 		#define SEFLG_TOPOCTR      (32*1024L)     // topocentric positions
 		#define SEFLG_SIDEREAL     (64*1024L)     // sidereal positions 		
 		"""
+
+		self.houses_system_polar_list = ['A', 'D', 'E', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']
+		"""
+		    https://www.astro.com/faq/fq_fh_owhouse_e.htm
+		    https://www.astro.com/swisseph/swisseph.htm#_Toc112511764
+
+		    https://www.astro.com/swisseph/swephprg.htm#_Toc112949022
+		    The complete list of house methods in alphabetical order is:
+
+		hsys =   ‘B’        Alcabitus
+		        ‘Y’        APC houses
+		        ‘X’        Axial rotation system / Meridian system / Zariel
+		        ‘H’        Azimuthal or horizontal system
+		        ‘C’        Campanus
+		        ‘F’        Carter "Poli-Equatorial"
+		        ‘A’ or ‘E’ Equal (cusp 1 is Ascendant)
+		        ‘D’        Equal MC (cusp 10 is MC)
+		        ‘N’        Equal/1=Aries
+		        ‘G’        Gauquelin sector
+		                   Goelzer -> Krusinski
+		                   Horizontal system -> Azimuthal system
+		        ‘I’        Sunshine (Makransky, solution Treindl)
+		        ‘i’        Sunshine (Makransky, solution Makransky)
+		        ‘K’        Koch
+		        ‘U’        Krusinski-Pisa-Goelzer
+		                   Meridian system -> axial rotation
+		        ‘M’        Morinus
+		                   Neo-Porphyry -> Pullen SD
+		                   Pisa -> Krusinski
+		        ‘P’        Placidus
+		                   Poli-Equatorial -> Carter
+		        ‘T’        Polich/Page (“topocentric” system)
+		        ‘O’        Porphyrius
+		        ‘L’        Pullen SD (sinusoidal delta) – ex Neo-Porphyry
+		        ‘Q’        Pullen SR (sinusoidal ratio)
+		        ‘R’        Regiomontanus
+		        ‘S’        Sripati
+		                   “Topocentric” system -> Polich/Page
+		        ‘V’        Vehlow equal (Asc. in middle of house 1)
+		        ‘W’        Whole sign
+		                   Zariel -> Axial rotation system
+		    """
+
 		#check for apparent geocentric (default), true geocentric, topocentric or heliocentric
 		iflag=swe.FLG_SWIEPH+swe.FLG_SPEED
 		if(openastrocfg['postype']=="truegeo"):
@@ -211,13 +254,13 @@ class ephData:
 			self.jul_day_UT = swe.julday(houses_override[0],houses_override[1],houses_override[2],houses_override[3])
 			
 		if geolat > 66.0:
-			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in self.houses_system_polar_list:
 				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
 			else:
 				geolat = 66.0
 				# print("polar circle override for houses, using 66 degrees")
 		elif geolat < -66.0:
-			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in self.houses_system_polar_list:
 				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
 			else:
 				geolat = -66.0
@@ -670,13 +713,13 @@ class ephData:
 			self.jul_day_UT = swe.julday(houses_override[0], houses_override[1], houses_override[2], houses_override[3])
 
 		if geolat > 66.0:
-			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in self.houses_system_polar_list:
 				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
 			else:
 				geolat = 66.0
 				# print("polar circle override for houses, using 66 degrees")
 		elif geolat < -66.0:
-			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in self.houses_system_polar_list:
 				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
 			else:
 				geolat = -66.0
@@ -1063,13 +1106,13 @@ class ephData:
 			self.jul_day_UT = swe.julday(houses_override[0], houses_override[1], houses_override[2], houses_override[3])
 
 		if geolat > 66.0:
-			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in self.houses_system_polar_list:
 				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
 			else:
 				geolat = 66.0
 				# print("polar circle override for houses, using 66 degrees")
 		elif geolat < -66.0:
-			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in ['A', 'H', 'M', 'N', 'O', 'U', 'V', 'W', 'X']:
+			if 'houses_system_polar' in openastrocfg and openastrocfg['houses_system_polar'] in self.houses_system_polar_list:
 				openastrocfg['houses_system'] = openastrocfg['houses_system_polar']
 			else:
 				geolat = -66.0

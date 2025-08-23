@@ -2439,9 +2439,9 @@ class openAstro:
 			if self.settings.settings_svg["printDescriptionDouble"] == 1:
 				# td['chartType'] = self.charttype
 				td['t_stringTitle'] = self.t_name
-				td['t_stringDateTime'] = str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
-					'#1': self.t_month, '#2': self.t_day, '#3': self.t_h, '#4': self.t_m,
-					'#5': self.t_s}
+				td['t_stringDateTime'] = str(self.event2["year"]) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
+					'#1': self.event2["month"], '#2': self.event2["day"], '#3': self.event2["hour"], '#4': self.event2["minute"],
+					'#5': self.event2["second"]}
 				# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
 				td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
 				# td['t_stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.t_geolat))

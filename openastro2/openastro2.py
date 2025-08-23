@@ -29,6 +29,9 @@ import pytz
 
 #pysqlite
 import sqlite3
+
+from openastromod.utils import utc_to_local, local_to_utc
+
 sqlite3.dbapi2.register_adapter(str, lambda s:s)
 
 #template processing
@@ -378,9 +381,9 @@ class openAstro:
 			self.t_year = self.event2["year"]
 			self.t_month = self.event2["month"]
 			self.t_day = self.event2["day"]
-			self.t_h = self.event2["hour"]
-			self.t_m = self.event2["minute"]
-			self.t_s = self.event2["second"]
+			# self.t_h = self.event2["hour"]
+			# self.t_m = self.event2["minute"]
+			# self.t_s = self.event2["second"]
 			self.t_hour = self.decHourJoin(self.event2["hour"], self.event2["minute"], self.event2["second"])
 			self.t_timezone = self.event2["timezone"]
 			self.t_altitude = self.event2["altitude"]
@@ -406,6 +409,11 @@ class openAstro:
 			self.t_utc_h = utc_loc.hour
 			self.t_utc_m = utc_loc.minute
 			self.t_utc_s = utc_loc.second
+
+			self.t_h = utc_loc.hour
+			self.t_m = utc_loc.minute
+			self.t_s = utc_loc.second
+
 			self.dt2_utc = utc_loc
 
 
@@ -464,23 +472,18 @@ class openAstro:
 
 	def utcToLocal(self):
 		#make local time variables from global UTC
-		h, m, s = self.decHour(self.hour)
-		utc = datetime.datetime(self.year, self.month, self.day, h, m, s)
-		tz = datetime.timedelta(seconds=float(self.timezone)*float(3600))
-		loc = utc + tz
-		# loc = utc - tz
-		self.year_loc = loc.year
-		self.month_loc = loc.month
-		self.day_loc = loc.day
-		self.hour_loc = loc.hour
-		self.minute_loc = loc.minute
-		self.second_loc = loc.second
-		#print some info
-		dprint('utcToLocal: '+str(utc)+' => '+str(loc)+self.decTzStr(self.timezone))
+		self.year_loc, self.month_loc, self.day_loc, self.hour_loc, self.minute_loc, self.second_loc \
+			= utc_to_local(self.year, self.month, self.day, self.hour, self.timezone)
+
+
 
 	def localToUtc(self):
 		# OpenAstro1 used UTC time in database
 		# make global UTC time variables from local
+
+		self.utc_year, self.utc_month, self.utc_day, self.utc_h, self.utc_m, self.utc_s \
+			= local_to_utc(self.year, self.month, self.day, self.hour, self.timezone)
+
 		h, m, s = self.decHour(self.hour)
 		utc = datetime.datetime(self.year, self.month, self.day, h, m, s)
 		tz = datetime.timedelta(seconds=float(self.timezone) * float(3600))
@@ -489,14 +492,7 @@ class openAstro:
 		self.month = utc_loc.month
 		self.day = utc_loc.day
 		self.hour = self.decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
-		self.utc_year = utc_loc.year
-		self.utc_month = utc_loc.month
-		self.utc_day = utc_loc.day
-		self.utc_h = utc_loc.hour
-		self.utc_m = utc_loc.minute
-		self.utc_s = utc_loc.second
-		# dprint some info
-		dprint('localToUtc: ' + str(utc) + ' => ' + str(utc_loc) + self.decTzStr(self.timezone))
+
 
 	def localToDirection(self, t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude):
 

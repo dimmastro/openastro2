@@ -458,7 +458,7 @@ class ephData:
 		#self.planets_degree_ut[34] = swe.nod_aps_ut(self.jul_day_UT,1,swe.NODBIT_OSCU,swe.FLG_SWIEPH)[3][0]
 
 		#adjust list index 32 and 33
-		for i in range(23,43):
+		for i in range(23,len_planets_total):
 			while ( self.planets_degree_ut[i] < 0 ): self.planets_degree_ut[i]+=360.0
 			while ( self.planets_degree_ut[i] > 360.0): self.planets_degree_ut[i]-=360.0
 	

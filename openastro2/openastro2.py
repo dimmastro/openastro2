@@ -143,7 +143,7 @@ except IOError as err:
 
 class openAstroSettings:
 
-	def __init__(self, settings=[]):
+	def __init__(self, settings={}):
 		self.version = VERSION
 		dprint("-------------------------------")
 		dprint('  OpenAstro2 ' + str(self.version))
@@ -222,6 +222,23 @@ class openAstroSettings:
 		self.color_codes = self.settings["color_codes"]
 		self.settings_planet = self.settings["settings_planet"]
 		return
+
+
+	def read_settings(self, settings_path):
+		try:
+			DATADIR = Path(__file__).parent
+			json_path = DATADIR / settings_path
+			with open(f'{json_path}', 'r') as file:
+				json_data = json.load(file)
+			return json_data
+		except FileNotFoundError:
+			print(f"File not found: {settings_path}")
+			return None
+		except json.JSONDecodeError:
+			print(f"JSON decoding error in file: {settings_path}")
+			return None
+
+
 	def setLanguage(self, lang=None):
 		if lang == None or lang == "default":
 			TRANSLATION["default"].install()

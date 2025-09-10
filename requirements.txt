@@ -6,8 +6,10 @@ svgwrite==1.4.3
 requests==2.31.0
 numpy==1.26.4
 openpyxl==3.1.5
-pytest==8.3.5
 pyswisseph==2.10.3.2
 ephem==4.2
 geographiclib==2.0
 scipy==1.15.3
+
+pytest==8.3.5
+pytest-regressions==2.8.3

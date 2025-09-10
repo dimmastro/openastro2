@@ -5616,7 +5616,19 @@ class openAstro:
 		)
 		return layer
 
-	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [0, 60, 90, 120, 180, 240, 270, 300]):
+	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [0, 60, 90, 120, 180, 240, 270, 300], local_aspects=False):
+		"""
+		Calculates Local Space directions via the scipy library.
+
+		:param type_tr: Radix or Transit
+		:param dt: date and time
+		:param lat: latitude
+		:param lon: longitude
+		:param num_planet: number of planets
+		:param aspects: list of aspects
+		:param local_aspects: True - use local aspects by azimuths. False - aspects on the ecliptic
+		:return: Dataframe with geographic coordinates of the planets and azimuths.
+		"""
 
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
@@ -5639,6 +5651,7 @@ class openAstro:
 				lat_angle0 = self.t_planet_latitude[i]
 				lon_angle0 = self.t_planets_degree_ut[i]
 
+			azimuth0 = False
 			for aspect in aspects:
 				if(aspect<=180):
 					lat_angle =  lat_angle0 * (90-aspect)/90.0
@@ -5652,6 +5665,11 @@ class openAstro:
 				azimuth = az0.degrees[0]
 				new_latitude = h_lat[0]
 				new_longitude = h_lon[0]
+				if aspect == 0:
+					azimuth0 = azimuth
+				if local_aspects == True and azimuth0:
+					azimuth = azimuth0+aspect
+
 				dfdata= {
 				  "from": {
 					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
@@ -5664,7 +5682,8 @@ class openAstro:
 					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 					"coordinates": [new_longitude, new_latitude]
-				  }
+				  },
+					"azimuth":azimuth
 				}
 
 				dfd.append(dfdata)
@@ -5680,7 +5699,9 @@ class openAstro:
 					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 					"coordinates": [new_longitude, new_latitude]
-				  }
+				  },
+					# "azimuth": self.deg_180(azimuth)
+					"azimuth": azimuth
 				}
 				dfd.append(dfdata)
 		df = pd.DataFrame(dfd)
@@ -6570,7 +6591,8 @@ class openAstro:
 					# "name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + " alt=" + '{0:.1f}'.format(float(alt)) +")",
 					"name": self.name + "/"  + " K" + str(i+1) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
 					"coordinates": [ new_longitude, new_latitude ]
-				  }
+				  },
+				"azimuth": azimuth
 				}
 
 				dfd.append(dfdata)

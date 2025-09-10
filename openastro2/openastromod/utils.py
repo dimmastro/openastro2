@@ -64,14 +64,21 @@ def local_to_utc(year, month, day, hour_decimal, timezone):
         utc_dt.second
     )
 
-def decHour(dec_hour):
-    """Convert decimal hour to hours, minutes, seconds."""
-    h = int(dec_hour)
-    m = int((dec_hour - h) * 60)
-    s = int(((dec_hour - h) * 60 - m) * 60)
-    return h, m, s
+
+# decimal hour to minutes and seconds
+def decHour(input):
+    hours = int(input)
+    mands = (input - hours) * 60.0
+    mands = round(mands, 5)
+    minutes = int(mands)
+    seconds = int(round((mands - minutes) * 60))
+    return [hours, minutes, seconds]
 
 
-def decHourJoin(h, m, s):
-    """Convert hour, minute, second to decimal hour."""
-    return h + m / 60.0 + s / 3600.0
+# join hour, minutes, seconds, timezone integere to hour float
+def decHourJoin(inH, inM, inS):
+    dh = float(inH)
+    dm = float(inM) / 60
+    ds = float(inS) / 3600
+    output = dh + dm + ds
+    return output

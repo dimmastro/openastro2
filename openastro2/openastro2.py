@@ -1991,13 +1991,7 @@ class openAstro:
 					self.houses_degree_ut[i] = self.houses_degree_ut[i] - 360.0
 
 				# new house sign
-				for x in range(len(self.zodiac)):
-					deg_low = float(x * 30)
-					deg_high = float((x + 1) * 30)
-					if self.houses_degree_ut[i] >= deg_low:
-						if self.houses_degree_ut[i] <= deg_high:
-							self.houses_sign[i] = x
-							self.houses_degree[i] = self.houses_degree_ut[i] - deg_low
+				self.houses_sign[i], self.houses_degree[i] = get_zodiac_sign(self.houses_degree_ut[i])
 
 			# new planets
 			for i in range(23):
@@ -2030,14 +2024,8 @@ class openAstro:
 
 			# new planet signs
 			for i in range(27):
-				for x in range(len(self.zodiac)):
-					deg_low = float(x * 30)
-					deg_high = float((x + 1) * 30)
-					if self.planets_degree_ut[i] >= deg_low:
-						if self.planets_degree_ut[i] <= deg_high:
-							self.planets_sign[i] = x
-							self.planets_degree[i] = self.planets_degree_ut[i] - deg_low
-							self.planets_retrograde[i] = False
+				self.planets_sign[i], self.planets_degree[i] = get_zodiac_sign(self.planets_degree_ut[i])
+				self.planets_retrograde[i] = False
 
 
 	def makePlanetDict(self):

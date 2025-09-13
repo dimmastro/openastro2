@@ -1,5 +1,6 @@
 from typing import Tuple, List, Union, Optional
 import datetime
+import math
 
 
 def utc_to_local(year: int, month: int, day: int, hour_decimal: float, timezone: float) -> Tuple[int, int, int, int, int, int]:
@@ -175,3 +176,80 @@ def dec2deg_str(dec: float, type: str = "3") -> str:
     elif type == "0":
         out = '%(#1)2d' % {'#1': a}
     return str(out)
+
+
+# NEW UTILITY FUNCTIONS - Extracted from duplicated code
+
+# Normalize degree value to 0-360 range
+def normalize_degree(degree: float) -> float:
+    """Normalize degree value to 0-360 range."""
+    while degree < 0:
+        degree += 360.0
+    while degree >= 360.0:
+        degree -= 360.0
+    return degree
+
+
+# Calculate zodiac sign from degree
+def get_zodiac_sign(degree_ut: float) -> Tuple[int, float]:
+    """Calculate zodiac sign and degree within sign from absolute degree.
+    
+    :param degree_ut: Absolute degree (0-360)
+    :return: Tuple of (zodiac_sign_index, degree_within_sign)
+    """
+    normalized_degree = normalize_degree(degree_ut)
+    
+    for x in range(12):
+        deg_low = float(x * 30)
+        deg_high = float((x + 1) * 30)
+        if normalized_degree >= deg_low and normalized_degree < deg_high:
+            return x, normalized_degree - deg_low
+    
+    # Handle the special case where degree is exactly 360 (= 0)
+    if normalized_degree == 0:
+        return 0, 0.0
+    
+    # Fallback for edge cases
+    return 0, normalized_degree
+
+
+# Convert coordinates to X position in polar coordinates
+def sliceToX(slice_num: int, radius: float, offset: float) -> float:
+    """Convert slice number and offset to X coordinate in polar system."""
+    plus = (math.pi * offset) / 180
+    radial = ((math.pi / 6) * slice_num) + plus
+    return radius * (math.cos(radial) + 1)
+
+
+# Convert coordinates to Y position in polar coordinates  
+def sliceToY(slice_num: int, radius: float, offset: float) -> float:
+    """Convert slice number and offset to Y coordinate in polar system."""
+    plus = (math.pi * offset) / 180
+    radial = ((math.pi / 6) * slice_num) + plus
+    return radius * ((math.sin(radial) / -1) + 1)
+
+
+# Format latitude coordinate as string
+def lat2str(coord: float, north_label: str = "N", south_label: str = "S") -> str:
+    """Convert floating latitude to formatted string (DD°MM'SS" N/S)."""
+    sign = north_label
+    if coord < 0.0:
+        sign = south_label
+        coord = abs(coord)
+    deg = int(coord)
+    min_val = int((float(coord) - deg) * 60)
+    sec = int(round(float(((float(coord) - deg) * 60) - min_val) * 60.0))
+    return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': min_val, '#3': sec, '#4': sign}
+
+
+# Format longitude coordinate as string
+def lon2str(coord: float, east_label: str = "E", west_label: str = "W") -> str:
+    """Convert floating longitude to formatted string (DD°MM'SS" E/W)."""
+    sign = east_label
+    if coord < 0.0:
+        sign = west_label
+        coord = abs(coord)
+    deg = int(coord)
+    min_val = int((float(coord) - deg) * 60)
+    sec = int(round(float(((float(coord) - deg) * 60) - min_val) * 60.0))
+    return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': min_val, '#3': sec, '#4': sign}

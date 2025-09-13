@@ -1,4 +1,5 @@
 # openastro2/modules/object/zemletochki/zemletochki.py
+from typing import List, Tuple, Dict, Any, Union
 import json
 from datetime import datetime
 
@@ -14,7 +15,7 @@ class Zemletochki:
     - Землеточки от Гринвича
     - Сефариал
     """
-    def __init__(self, server_url, server_endpoint, user, password, x_token, zt_type):
+    def __init__(self, server_url: str, server_endpoint: str, user: str, password: str, x_token: str, zt_type: int) -> None:
         self.server_url = server_url
         self.server_endpoint = server_endpoint
         self.user = user
@@ -23,7 +24,7 @@ class Zemletochki:
         self.zt_type = zt_type
 
     # def process(self, year,month,day,hour,h,m,s,geolon,geolat,altitude,openastrocfg,):
-    def process(self, *args, **kwargs):
+    def process(self, *args: Any, **kwargs: Any) -> List[Tuple[Tuple[float, int, int, int, int, int], int]]:
         year = kwargs['year']
         month = kwargs['month']
         day = kwargs['day']
@@ -56,7 +57,7 @@ class Zemletochki:
         return planet_pos
 
 
-    def zt_request(self, year, month, day, h, m, s, geolat, geolon, zt_type):
+    def zt_request(self, year: int, month: int, day: int, h: int, m: int, s: int, geolat: float, geolon: float, zt_type: int) -> List[float]:
         dt = datetime(year, month, day, h, m, s)
         dt_str = dt.strftime("%Y-%m-%d %H:%M:%S")
 

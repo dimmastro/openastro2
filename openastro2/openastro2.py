@@ -18,6 +18,7 @@
 """
 
 #basics
+from typing import Dict, List, Any, Tuple, Optional, Union
 import math, sys, os.path, gettext, codecs, datetime
 
 # from icalendar import Calendar, Event
@@ -32,7 +33,8 @@ import sqlite3
 
 from openastromod.utils import utc_to_local, local_to_utc
 
-sqlite3.dbapi2.register_adapter(str, lambda s:s)
+# Register string adapter for sqlite
+sqlite3.register_adapter(str, lambda s: s)
 
 #template processing
 from string import Template
@@ -143,7 +145,7 @@ except IOError as err:
 
 class openAstroSettings:
 
-	def __init__(self, settings={}):
+	def __init__(self, settings: Dict[str, Any] = {}) -> None:
 		self.version = VERSION
 		dprint("-------------------------------")
 		dprint('  OpenAstro2 ' + str(self.version))
@@ -224,7 +226,7 @@ class openAstroSettings:
 		return
 
 
-	def read_settings(self, settings_path):
+	def read_settings(self, settings_path: str) -> Optional[Dict[str, Any]]:
 		try:
 			DATADIR = Path(__file__).parent
 			json_path = DATADIR / settings_path
@@ -239,7 +241,7 @@ class openAstroSettings:
 			return None
 
 
-	def setLanguage(self, lang=None):
+	def setLanguage(self, lang: Optional[str] = None) -> None:
 		if lang == None or lang == "default":
 			TRANSLATION["default"].install()
 			dprint("installing default language")
@@ -248,24 +250,24 @@ class openAstroSettings:
 			dprint("installing language (%s)" % (lang))
 		return
 
-	def getColors(self):
+	def getColors(self) -> Dict[str, Any]:
 		out = self.settings["color_codes"]
 		return out
 
-	def getLabel(self):
+	def getLabel(self) -> Dict[str, Any]:
 		out = self.settings["label"]
 		return out
 
-	def getSettingsPlanet(self):
+	def getSettingsPlanet(self) -> Dict[str, Any]:
 		dict = self.settings["settings_planet"]
 		return dict
 
-	def getSettingsAspect(self):
+	def getSettingsAspect(self) -> Dict[str, Any]:
 		dict = self.settings["settings_aspect"]
 		return dict
 
 
-	def checkSwissEphemeris(self, num):
+	def checkSwissEphemeris(self, num: int) -> None:
 		# 00 = -01-600
 		# 06 = 600 - 1200
 		# 12 = 1200 - 1800
@@ -279,19 +281,21 @@ class openAstroSettings:
 class openAstro:
 
 	@staticmethod
-	def event(name="Now", year="", month="", day="", hour="", minute="", second="", timezone=None, location="London", countrycode="", geolat=None, geolon=None, altitude=25):
+	def event(name: str = "Now", year: Union[str, int] = "", month: Union[str, int] = "", day: Union[str, int] = "", hour: Union[str, int] = "", minute: Union[str, int] = "", second: Union[str, int] = "", timezone: Optional[float] = None, location: str = "London", countrycode: str = "", geolat: Optional[float] = None, geolon: Optional[float] = None, altitude: int = 25) -> Dict[str, Any]:
 		event = {}
+		geo = None
 		if(timezone is None or geolat is None or geolon is None):
 			geoname0 = geoname.search(location, countrycode)
-			geo = geoname0[0]
+			if geoname0 and len(geoname0) > 0:
+				geo = geoname0[0]
 		if(year=="" and month=="" and day=="" and hour=="" and minute=="" and second==""):
 			now = datetime.datetime.now()
-			year: int = now.year
-			month: int = now.month
-			day: int = now.day
-			hour: int = now.hour
-			minute: int = now.minute
-			second: int = now.second
+			year = now.year
+			month = now.month
+			day = now.day
+			hour = now.hour
+			minute = now.minute
+			second = now.second
 
 		event["name"] = name
 		event["year"] = year
@@ -307,18 +311,31 @@ class openAstro:
 			now = datetime.datetime.now()
 			# aware datetime object
 			dt_input = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, now.second)
-			dt = pytz.timezone(geo["timezonestr"]).localize(dt_input)
-			# Datetime offset to float in hours
-			dh = float(dt.utcoffset().days * 24)
-			sh = float(dt.utcoffset().seconds / 3600.0)
-			event["timezone"] = dh + sh
+			if geo is not None:
+				dt = pytz.timezone(geo["timezonestr"]).localize(dt_input)
+				# Datetime offset to float in hours
+				utc_offset = dt.utcoffset()
+				if utc_offset is not None:
+					dh = float(utc_offset.days * 24)
+					sh = float(utc_offset.seconds / 3600.0)
+					event["timezone"] = dh + sh
+				else:
+					event["timezone"] = 0.0
+			else:
+				event["timezone"] = 0.0
 		if(timezone is None or geolat is None or geolon is None):
-			event["geonameid"] = geo["geonameId"]
-			event["location"] = geo["name"]
-			event["geolat"] = geo["lat"]
-			event["geolon"] = geo["lng"]
-			event["countrycode"] = geo["countryCode"]
-			event["timezonestr"] = geo["timezonestr"]
+			if geo is not None:
+				event["geonameid"] = geo["geonameId"]
+				event["location"] = geo["name"]
+				event["geolat"] = geo["lat"]
+				event["geolon"] = geo["lng"]
+				event["countrycode"] = geo["countryCode"]
+				event["timezonestr"] = geo["timezonestr"]
+			else:
+				event["location"] = location
+				event["geolat"] = 0.0
+				event["geolon"] = 0.0
+				event["countrycode"] = countrycode
 		else:
 			event["location"] = location
 			event["geolat"] = geolat
@@ -327,31 +344,33 @@ class openAstro:
 		return event
 
 	@classmethod
-	def event_dt_str(self, name="Now", dt_str="", dt_str_format="%Y-%m-%d %H:%M:%S",  timezone=False, location="London", countrycode="", geolat=False, geolon=False, altitude=25):
+	def event_dt_str(cls, name: str = "Now", dt_str: str = "", dt_str_format: str = "%Y-%m-%d %H:%M:%S", timezone: Union[bool, float] = False, location: str = "London", countrycode: str = "", geolat: Union[bool, float] = False, geolon: Union[bool, float] = False, altitude: int = 25) -> Dict[str, Any]:
 		# date_time_str = '2022-12-01 10:27:03.929149'
 		dt = datetime.datetime.strptime(dt_str, dt_str_format)
-		year: int = dt.year
-		month: int = dt.month
-		day: int = dt.day
-		hour: int = dt.hour
-		minute: int = dt.minute
-		second: int = dt.second
-		return self.event(name, year, month, day, hour, minute, second, timezone, location, countrycode, geolat, geolon, altitude)
+		year = dt.year
+		month = dt.month
+		day = dt.day
+		hour = dt.hour
+		minute = dt.minute
+		second = dt.second
+		return cls.event(name, year, month, day, hour, minute, second, timezone, location, countrycode, geolat, geolon, altitude)
 
 	@classmethod
-	def event_dt(self, name="Now", dt=None,  timezone=False, location="London", countrycode="", geolat=False, geolon=False, altitude=25):
+	def event_dt(cls, name: str = "Now", dt: Optional[datetime.datetime] = None, timezone: Union[bool, float] = False, location: str = "London", countrycode: str = "", geolat: Union[bool, float] = False, geolon: Union[bool, float] = False, altitude: int = 25) -> Dict[str, Any]:
 		# date_time_str = '2022-12-01 10:27:03.929149'
 		# dt = datetime.datetime.strptime(dt_str, dt_str_format)
-		year: int = dt.year
-		month: int = dt.month
-		day: int = dt.day
-		hour: int = dt.hour
-		minute: int = dt.minute
-		second: int = dt.second
-		return self.event(name, year, month, day, hour, minute, second, timezone, location, countrycode, geolat, geolon, altitude)
+		if dt is None:
+			dt = datetime.datetime.now()
+		year = dt.year
+		month = dt.month
+		day = dt.day
+		hour = dt.hour
+		minute = dt.minute
+		second = dt.second
+		return cls.event(name, year, month, day, hour, minute, second, timezone, location, countrycode, geolat, geolon, altitude)
 
 
-	def __init__(self, event1, event2=[], type="Radix", settings={}, args={}):
+	def __init__(self, event1: Dict[str, Any], event2: List[Any] = [], type: str = "Radix", settings: Dict[str, Any] = {}, args: Dict[str, Any] = {}) -> None:
 		self.settings = openAstroSettings(settings=settings)
 
 		self.event1 = event1

@@ -1,5 +1,5 @@
 import unittest
-from openastromod.utils import decHourJoin, decHour
+from openastro2.openastromod.utils import decHourJoin, decHour
 
 class TestTimeConversion(unittest.TestCase):
     """Test suite for decimal hour <-> HMS conversion functions."""

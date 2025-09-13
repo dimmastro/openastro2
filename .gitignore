@@ -178,7 +178,7 @@ swisseph/
 *.sep
 
 # Generated charts and outputs
-*.svg
+# *.svg
 *.png
 *.jpg
 *.jpeg
@@ -324,3 +324,5 @@ Thumbs.db
 openastro_temp/
 chart_output/
 test_charts/
+
+openastro2/tests/tests_regressions/test_chart_list_regressions/obtained/

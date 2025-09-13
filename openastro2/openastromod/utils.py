@@ -1,6 +1,7 @@
+from typing import Tuple, List
 import datetime
 
-def utc_to_local(year, month, day, hour_decimal, timezone):
+def utc_to_local(year: int, month: int, day: int, hour_decimal: float, timezone: float) -> Tuple[int, int, int, int, int, int]:
     """
     Convert UTC time to local time based on timezone offset.
 
@@ -27,7 +28,7 @@ def utc_to_local(year, month, day, hour_decimal, timezone):
 
 
 
-def local_to_utc(year, month, day, hour_decimal, timezone):
+def local_to_utc(year: int, month: int, day: int, hour_decimal: float, timezone: float) -> Tuple[int, int, int, int, int, int]:
     """
     Convert local time to UTC time.
 
@@ -66,7 +67,7 @@ def local_to_utc(year, month, day, hour_decimal, timezone):
 
 
 # decimal hour to minutes and seconds
-def decHour(input):
+def decHour(input: float) -> List[int]:
     hours = int(input)
     mands = (input - hours) * 60.0
     mands = round(mands, 5)
@@ -76,7 +77,7 @@ def decHour(input):
 
 
 # join hour, minutes, seconds, timezone integere to hour float
-def decHourJoin(inH, inM, inS):
+def decHourJoin(inH: int, inM: int, inS: int) -> float:
     dh = float(inH)
     dm = float(inM) / 60
     ds = float(inS) / 3600

@@ -18,11 +18,12 @@
 """
 from __future__ import with_statement
 
+from typing import List, Dict, Any
 from xml.dom.minidom import parseString
 
 from codecs import EncodedFile
 
-def _getText(nodelist):
+def _getText(nodelist: Any) -> str:
 	"""Internal function to return text from nodes
 	"""
 	rc = ""
@@ -31,7 +32,7 @@ def _getText(nodelist):
 			rc = rc + node.data
 	return rc
 
-def getOAC(filename):
+def getOAC(filename: str) -> List[Dict[str, str]]:
 	f=open(filename)	
 	dom = parseString(f.read())
 	f.close()
@@ -49,7 +50,7 @@ def getOAC(filename):
 	#return results
 	return output
 
-def getOroboros(filename):
+def getOroboros(filename: str) -> List[Dict[str, str]]:
 	f=open(filename)
 	dom = parseString(f.read())
 	f.close()
@@ -67,7 +68,7 @@ def getOroboros(filename):
 	dom.unlink()
 	return output
 
-def getSkylendar(filename):
+def getSkylendar(filename: str) -> List[Dict[str, Any]]:
 	f=open(filename)
 	dom = parseString(f.read())
 	f.close()
@@ -109,18 +110,20 @@ def getSkylendar(filename):
 		dom.unlink()
 	return output
 	
-def getAstrolog32(filename):
+def getAstrolog32(filename: str) -> List[Dict[str, Any]]:
 	"""
 	examples:
 @0102  ; Astrolog chart info.
 /qb 6 23 1972  3:00:00 ST -1:00   5:24:00E 43:18:00N
-/zi "Zinedine Zidane" "Marseille"	
+/zi "Zinedine Zidane" "Marseille"
+	
 @0102  ; Astrolog32 chart info.
 
 ; Date is in American format: month day year.
 
 /qb 10 27 1980 10:20:00 ST -1:00  14:39'00E 50:11'00N
-/zi "Honzik" "Brandys nad Labem"	
+/zi "Honzik" "Brandys nad Labem"
+	
 	"""
 	d={}
 	h=open(filename)

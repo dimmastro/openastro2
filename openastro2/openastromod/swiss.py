@@ -16,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with OpenAstro.org.  If not, see <http://www.gnu.org/licenses/>.
 """
+from typing import List, Dict, Any, Tuple, Optional, Union
 import importlib
 import os.path, sys, datetime, math
 from pathlib import Path
@@ -37,7 +38,7 @@ import swisseph as swe
 from openastromod.fixar import get_fixar_ecliptic_latlon_arr, get_fixar_earth_ecliptic_latlon_arr
 
 class ephData:
-	def __init__(self,year,month,day,hour,geolon,geolat,altitude,planets,zodiac,openastrocfg,houses_override=None):
+	def __init__(self, year: int, month: int, day: int, hour: float, geolon: float, geolat: float, altitude: int, planets: List[Any], zodiac: List[str], openastrocfg: Dict[str, Any], houses_override: Optional[Any] = None) -> None:
 		self.year = year
 		self.month = month
 		self.day = day

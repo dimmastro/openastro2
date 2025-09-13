@@ -21,6 +21,7 @@ import importlib
 import os.path, sys, datetime, math
 from pathlib import Path
 from skyfield.api import load, wgs84
+from openastromod.utils import decHour
 # #swiss ephemeris files directory
 # swissDir = os.path.join(sys.prefix,'share','swisseph')
 #local swiss ephemeris files directory
@@ -46,7 +47,7 @@ class ephData:
 		self.geolon = geolon
 		self.geolat = geolat
 		self.altitude = altitude
-		h, m, s = self.decHour(self.hour)
+		h, m, s = decHour(self.hour)
 		self.h = h
 		self.m = m
 		self.s = s
@@ -1360,26 +1361,17 @@ class ephData:
 		return self
 
 
-	def decHour( self , input ):
-		hours=int(input)
-		mands=(input-hours)*60.0
-		mands=round(mands,5)
-		minutes=int(mands)
-		seconds=int(round((mands-minutes)*60))
-		return [hours,minutes,seconds]
+		# Use decHour from utils instead of local implementation
+		# Removed duplicate function - imported from utils.py
 
-def years_diff(y1, m1, d1, h1 , y2, m2, d2, h2):
-		# swe.set_ephe_path(ephe_path)
-		jd1 = swe.julday(y1,m1,d1,h1)
-		jd2 = swe.julday(y2,m2,d2,h2)
-		# jd = jd1 + swe._years_diff(jd1, jd2)
-		jd = jd1 + ( (jd2-jd1) / 365.248193724 )
-		# y, mth, d, h, m, s = swe.revjul(jd, swe.GREG_CAL)
-		y, mth, d, hour = swe.revjul(jd, swe.GREG_CAL)
-		h = int(hour)
-		mands = (hour - h) * 60.0
-		mands = round(mands, 5)
-		m = int(mands)
-		s = int(round((mands - m) * 60))
-		return datetime.datetime(y,mth,d,h,m,s)
+def years_diff(y1: int, m1: int, d1: int, h1: float, y2: int, m2: int, d2: int, h2: float) -> datetime.datetime:
+	# swe.set_ephe_path(ephe_path)
+	jd1 = swe.julday(y1,m1,d1,h1)
+	jd2 = swe.julday(y2,m2,d2,h2)
+	# jd = jd1 + swe._years_diff(jd1, jd2)
+	jd = jd1 + ( (jd2-jd1) / 365.248193724 )
+	# y, mth, d, h, m, s = swe.revjul(jd, swe.GREG_CAL)
+	y, mth, d, hour = swe.revjul(jd, swe.GREG_CAL)
+	h, m, s = decHour(hour)  # Use imported decHour function
+	return datetime.datetime(y,mth,d,h,m,s)
 

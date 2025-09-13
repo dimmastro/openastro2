@@ -31,7 +31,7 @@ import pytz
 #pysqlite
 import sqlite3
 
-from openastromod.utils import utc_to_local, local_to_utc
+from openastromod.utils import utc_to_local, local_to_utc, decHour, decHourJoin, offsetToTz, decTzStr, degreeDiff, degreeDiff2, dec2deg, dec2deg_str
 
 # Register string adapter for sqlite
 sqlite3.register_adapter(str, lambda s: s)
@@ -394,7 +394,7 @@ class openAstro:
 		self.h = self.event1["hour"]
 		self.m = self.event1["minute"]
 		self.s = self.event1["second"]
-		self.hour=self.decHourJoin(self.event1["hour"],self.event1["minute"], self.event1["second"])
+		self.hour=decHourJoin(self.event1["hour"],self.event1["minute"], self.event1["second"])
 		if ("timezone" in self.event1):
 			self.timezone = self.event1["timezone"]
 		self.altitude = self.event1["altitude"]
@@ -420,7 +420,7 @@ class openAstro:
 			# self.t_h = self.event2["hour"]
 			# self.t_m = self.event2["minute"]
 			# self.t_s = self.event2["second"]
-			self.t_hour = self.decHourJoin(self.event2["hour"], self.event2["minute"], self.event2["second"])
+			self.t_hour = decHourJoin(self.event2["hour"], self.event2["minute"], self.event2["second"])
 			self.t_timezone = self.event2["timezone"]
 			self.t_altitude = self.event2["altitude"]
 			# self.t_geonameid = self.event2["geonameid"]
@@ -431,14 +431,14 @@ class openAstro:
 			# self.t_timezonestr = self.event2["timezonestr"]
 			# OpenAstro1 used UTC time in database
 			# make global UTC time variables from local
-			h, m, s = self.decHour(self.t_hour)
+			h, m, s = decHour(self.t_hour)
 			utc = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
 			tz = datetime.timedelta(seconds=float(self.t_timezone) * float(3600))
 			utc_loc = utc - tz
 			self.t_year = utc_loc.year
 			self.t_month = utc_loc.month
 			self.t_day = utc_loc.day
-			self.t_hour = self.decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
+			self.t_hour = decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
 			self.t_utc_year = utc_loc.year
 			self.t_utc_month = utc_loc.month
 			self.t_utc_day = utc_loc.day
@@ -520,14 +520,14 @@ class openAstro:
 		self.utc_year, self.utc_month, self.utc_day, self.utc_h, self.utc_m, self.utc_s \
 			= local_to_utc(self.year, self.month, self.day, self.hour, self.timezone)
 
-		h, m, s = self.decHour(self.hour)
+		h, m, s = decHour(self.hour)
 		utc = datetime.datetime(self.year, self.month, self.day, h, m, s)
 		tz = datetime.timedelta(seconds=float(self.timezone) * float(3600))
 		utc_loc = utc - tz
 		self.year = utc_loc.year
 		self.month = utc_loc.month
 		self.day = utc_loc.day
-		self.hour = self.decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
+		self.hour = decHourJoin(utc_loc.hour, utc_loc.minute, utc_loc.second)
 
 
 	def localToDirection(self, t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude):
@@ -2751,106 +2751,30 @@ class openAstro:
 		return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': min, '#3': sec, '#4': sign}
 		# return "%s°%s'%s\" %s" % (deg,min,sec,sign)
 	
-	#decimal hour to minutes and seconds
-	def decHour( self , input ):
-		hours=int(input)
-		mands=(input-hours)*60.0
-		mands=round(mands,5)
-		minutes=int(mands)
-		seconds=int(round((mands-minutes)*60))
-		return [hours,minutes,seconds]
-		
-	#join hour, minutes, seconds, timezone integere to hour float
-	def decHourJoin( self , inH , inM , inS ):
-		dh = float(inH)
-		dm = float(inM)/60
-		ds = float(inS)/3600
-		output = dh + dm + ds
-		return output
-
-	#Datetime offset to float in hours	
-	def offsetToTz( self, dtoffset ):
-		dh = float(dtoffset.days * 24)
-		sh = float(dtoffset.seconds / 3600.0)
-		output = dh + sh
-		return output
+	# Utility function wrappers - delegate to utils.py functions
+	def decHour(self, input: float) -> List[int]:
+		return decHour(input)
 	
+	def decHourJoin(self, inH: int, inM: int, inS: int) -> float:
+		return decHourJoin(inH, inM, inS)
 	
-	#decimal timezone string
-	def decTzStr( self, tz ):
-		if tz > 0:
-			h = int(tz)
-			m = int((float(tz)-float(h))*float(60))
-			return " +%(#1)02d:%(#2)02d" % {'#1':h,'#2':m}
-		else:
-			h = int(tz)
-			m = int((float(tz)-float(h))*float(60))/-1
-			return "-%(#1)02d:%(#2)02d" % {'#1':h/-1,'#2':m}
-
-	#degree difference
-	def degreeDiff( self , a , b ):
-		if (self.settings.astrocfg["round_aspects"] == 1):
-			a = int(a)
-			b = int(b)
-		out=float()
-		if a > b:
-			out=a-b
-		if a < b:
-			out=b-a
-		if out > 180.0:
-			out=360.0-out
-		return out
-	#degree difference
-	def degreeDiff2( self , a , b ):
-		if (self.settings.astrocfg["round_aspects"] == 1):
-			a = int(a)
-			b = int(b)
-		out=float()
-		if a > b:
-			out=a-b
-		if a < b:
-			out=b-a
-		if out > 360.0:
-			out=360.0-out
-		if out < -360.0:
-			out=out+360
-		return out
-
-	#decimal to degrees (a°b'c")
-	def dec2deg( self , dec , type="3"):
-		dec=float(dec)
-		a=int(dec)
-		a_new=(dec-float(a)) * 60.0
-		b_rounded = int(round(a_new))
-		b=int(a_new)
-		c=int(round((a_new-float(b))*60.0))
-		if type=="3":
-			out = '%(#1)02d&#176;%(#2)02d&#39;%(#3)02d&#34;' % {'#1':a,'#2':b, '#3':c}
-		elif type=="2":
-			out = '%(#1)02d&#176;%(#2)02d&#39;' % {'#1':a,'#2':b_rounded}
-		elif type=="1":
-			out = '%(#1)02d&#176;' % {'#1':a}
-		elif type == "0":
-			out = '%(#1)2d' % {'#1': a}
-		return str(out)
-
-	# decimal to degrees (a°b'c")
-	def dec2deg_str(self, dec, type="3"):
-		dec = float(dec)
-		a = int(dec)
-		a_new = (dec - float(a)) * 60.0
-		b_rounded = int(round(a_new))
-		b = int(a_new)
-		c = int(round((a_new - float(b)) * 60.0))
-		if type == "3":
-			out = '%(#1)°%(#2)`%(#3)``' % {'#1': a, '#2': b, '#3': c}
-		elif type == "2":
-			out = f"{a}°{b_rounded}'"
-		elif type == "1":
-			out = '%(#1)°' % {'#1': a}
-		elif type == "0":
-			out = '%(#1)2d' % {'#1': a}
-		return str(out)
+	def offsetToTz(self, dtoffset: datetime.timedelta) -> float:
+		return offsetToTz(dtoffset)
+	
+	def decTzStr(self, tz: float) -> str:
+		return decTzStr(tz)
+	
+	def degreeDiff(self, a: Union[int, float], b: Union[int, float]) -> float:
+		return degreeDiff(a, b, self.settings.astrocfg["round_aspects"] == 1)
+	
+	def degreeDiff2(self, a: Union[int, float], b: Union[int, float]) -> float:
+		return degreeDiff2(a, b, self.settings.astrocfg["round_aspects"] == 1)
+	
+	def dec2deg(self, dec: float, type: str = "3") -> str:
+		return dec2deg(dec, type)
+	
+	def dec2deg_str(self, dec: float, type: str = "3") -> str:
+		return dec2deg_str(dec, type)
 
 	#draw svg aspects: ring, aspect ring, degreeA degreeB
 	def drawAspect( self , r , ar , degA , degB , color):

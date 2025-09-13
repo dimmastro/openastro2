@@ -5,13 +5,20 @@ from openastro2.openastro2 import openAstro
 event = openAstro.event('Test', 2000, 1, 1, 12, 0, 0)
 chart = openAstro(event, type="Radix")
 
+# Calculate astrological data
+chart.calcAstro()
+
 print("Testing chart data access...")
 
 try:
-    # Try to get planet degrees
-    if hasattr(chart, 'getPlanetsDegut'):
-        planet_degrees = chart.getPlanetsDegut()
-        print(f"✓ Planet degrees (first 5): {planet_degrees[:5]}")
+    # Try to get planet degrees using the correct API
+    if hasattr(chart, 'getPlanetsDegut') and hasattr(chart, 'planets_degree_ut'):
+        planet_degrees = chart.getPlanetsDegut(chart.planets_degree_ut, flag_transit="Radix")
+        print(f"✓ Planet degrees (first 5): {list(planet_degrees.keys())[:5]}")
+    elif hasattr(chart, 'planets_degree_ut'):
+        # Access planet degrees directly from attribute
+        planet_degrees = chart.planets_degree_ut
+        print(f"✓ Planet degrees direct access (first 5): {planet_degrees[:5]}")
     
     # Check for other data access methods
     if hasattr(chart, 'makePlanetDict'):

@@ -1,5 +1,6 @@
-from typing import Tuple, List
+from typing import Tuple, List, Union, Optional
 import datetime
+
 
 def utc_to_local(year: int, month: int, day: int, hour_decimal: float, timezone: float) -> Tuple[int, int, int, int, int, int]:
     """
@@ -25,7 +26,6 @@ def utc_to_local(year: int, month: int, day: int, hour_decimal: float, timezone:
 
     # Return as tuple
     return (loc.year, loc.month, loc.day, loc.hour, loc.minute, loc.second)
-
 
 
 def local_to_utc(year: int, month: int, day: int, hour_decimal: float, timezone: float) -> Tuple[int, int, int, int, int, int]:
@@ -83,3 +83,95 @@ def decHourJoin(inH: int, inM: int, inS: int) -> float:
     ds = float(inS) / 3600
     output = dh + dm + ds
     return output
+
+
+# Datetime offset to float in hours
+def offsetToTz(dtoffset: datetime.timedelta) -> float:
+    dh = float(dtoffset.days * 24)
+    sh = float(dtoffset.seconds / 3600.0)
+    output = dh + sh
+    return output
+
+
+# decimal timezone string
+def decTzStr(tz: float) -> str:
+    if tz > 0:
+        h = int(tz)
+        m = int((float(tz) - float(h)) * float(60))
+        return " +%(#1)02d:%(#2)02d" % {'#1': h, '#2': m}
+    else:
+        h = int(tz)
+        m = int((float(tz) - float(h)) * float(60)) / -1
+        return "-%(#1)02d:%(#2)02d" % {'#1': h / -1, '#2': m}
+
+
+# degree difference
+def degreeDiff(a: Union[int, float], b: Union[int, float], round_aspects: bool = False) -> float:
+    if round_aspects:
+        a = int(a)
+        b = int(b)
+    out = float()
+    if a > b:
+        out = a - b
+    if a < b:
+        out = b - a
+    if out > 180.0:
+        out = 360.0 - out
+    return out
+
+
+# degree difference (alternative version)
+def degreeDiff2(a: Union[int, float], b: Union[int, float], round_aspects: bool = False) -> float:
+    if round_aspects:
+        a = int(a)
+        b = int(b)
+    out = float()
+    if a > b:
+        out = a - b
+    if a < b:
+        out = b - a
+    if out > 360.0:
+        out = 360.0 - out
+    if out < -360.0:
+        out = out + 360
+    return out
+
+
+# decimal to degrees (a°b'c") for HTML
+def dec2deg(dec: float, type: str = "3") -> str:
+    dec = float(dec)
+    a = int(dec)
+    a_new = (dec - float(a)) * 60.0
+    b_rounded = int(round(a_new))
+    b = int(a_new)
+    c = int(round((a_new - float(b)) * 60.0))
+    out = ""
+    if type == "3":
+        out = '%(#1)02d&#176;%(#2)02d&#39;%(#3)02d&#34;' % {'#1': a, '#2': b, '#3': c}
+    elif type == "2":
+        out = '%(#1)02d&#176;%(#2)02d&#39;' % {'#1': a, '#2': b_rounded}
+    elif type == "1":
+        out = '%(#1)02d&#176;' % {'#1': a}
+    elif type == "0":
+        out = '%(#1)2d' % {'#1': a}
+    return str(out)
+
+
+# decimal to degrees (a°b'c") for plain text
+def dec2deg_str(dec: float, type: str = "3") -> str:
+    dec = float(dec)
+    a = int(dec)
+    a_new = (dec - float(a)) * 60.0
+    b_rounded = int(round(a_new))
+    b = int(a_new)
+    c = int(round((a_new - float(b)) * 60.0))
+    out = ""
+    if type == "3":
+        out = '%(#1)°%(#2)`%(#3)``' % {'#1': a, '#2': b, '#3': c}
+    elif type == "2":
+        out = f"{a}°{b_rounded}'"
+    elif type == "1":
+        out = '%(#1)°' % {'#1': a}
+    elif type == "0":
+        out = '%(#1)2d' % {'#1': a}
+    return str(out)

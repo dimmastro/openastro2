@@ -1,3 +1,4 @@
+from typing import Dict, Any
 
 if __name__ == '__main__':
     from openastro2.openastro2 import openAstro

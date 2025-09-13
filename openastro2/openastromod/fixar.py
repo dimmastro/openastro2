@@ -1,10 +1,11 @@
+from typing import List, Dict, Any, Tuple
 from skyfield.api import load, wgs84
 from skyfield.framelib import ICRS
 from skyfield.positionlib import build_position
 from skyfield.framelib import ecliptic_frame
 
 
-def get_fixar_ecliptic_latlon(eph, planet_name, t1, t2, lat, lon):
+def get_fixar_ecliptic_latlon(eph: Any, planet_name: str, t1: Any, t2: Any, lat: float, lon: float) -> List[float]:
     earth, sun, planet = eph['earth'], eph['sun'], eph[planet_name]
     # ts = load.timescale()
     # t1 = ts.utc(2001, 3, 19, 10, 32)
@@ -30,7 +31,7 @@ def get_fixar_ecliptic_latlon(eph, planet_name, t1, t2, lat, lon):
     return [lat0.degrees, lon0.degrees, distance0.km]
 
 
-def get_fixar_earth_ecliptic_latlon(eph, planet_name, t1, t2, lat, lon):
+def get_fixar_earth_ecliptic_latlon(eph: Any, planet_name: str, t1: Any, t2: Any, lat: float, lon: float) -> List[float]:
     earth, sun, planet = eph['earth'], eph['sun'], eph[planet_name]
     # ts = load.timescale()
     # t1 = ts.utc(2001, 3, 19, 10, 32)
@@ -57,7 +58,7 @@ def get_fixar_earth_ecliptic_latlon(eph, planet_name, t1, t2, lat, lon):
 
 
 
-def get_fixar_ecliptic_latlon_arr(planet_name_dic, t1, t2, lat, lon):
+def get_fixar_ecliptic_latlon_arr(planet_name_dic: Dict[str, str], t1: Any, t2: Any, lat: float, lon: float) -> List[List[float]]:
 
     eph = load('de421.bsp')
     lat_arr = []
@@ -71,7 +72,7 @@ def get_fixar_ecliptic_latlon_arr(planet_name_dic, t1, t2, lat, lon):
     return [lat_arr, lon_arr]
 
 
-def get_fixar_earth_ecliptic_latlon_arr(planet_name_dic, t1, t2, lat, lon):
+def get_fixar_earth_ecliptic_latlon_arr(planet_name_dic: Dict[str, str], t1: Any, t2: Any, lat: float, lon: float) -> List[List[float]]:
 
     eph = load('de421.bsp')
     lat_arr = []

@@ -6,9 +6,12 @@ see http://www.twinsun.com/tz/tz-link.htm ,
     http://en.wikipedia.org/wiki/Zoneinfo
 """
 
+from typing import List, Tuple, Callable, TypeVar, Iterator, Optional, Union, Any
 import re, math
 
-def nearest_tz(lat, lon, zones):
+T = TypeVar('T')
+
+def nearest_tz(lat: float, lon: float, zones: Iterator[Tuple[str, Tuple[float, float], str]]) -> Tuple[str, Tuple[float, float], str]:
     """
     >>> nearest_tz(39.2975, -94.7139, timezones())[2]
     'America/Indiana/Vincennes'
@@ -21,7 +24,7 @@ def nearest_tz(lat, lon, zones):
         return distance(lat, lon, tzrec[1][0], tzrec[1][1])
     return optimize(zones, d)
 
-def optimize(seq, metric):
+def optimize(seq: Iterator[T], metric: Callable[[T], float]) -> Optional[T]:
     best = None
     m = None
 
@@ -32,7 +35,7 @@ def optimize(seq, metric):
             best = candidate
     return best
 
-def distance(lat_1, long_1, lat_2, long_2):
+def distance(lat_1: float, long_1: float, lat_2: float, long_2: float) -> float:
     # thanks http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/393241
     # Submitter: Kevin Ryan (other recipes)
     # Last Updated: 2006/04/25 
@@ -43,8 +46,8 @@ def distance(lat_1, long_1, lat_2, long_2):
         * (math.sin(dlong / 2))**2
     return 2 * math.asin(min(1, math.sqrt(a)))
         
-def timezones(zonetab="/usr/share/zoneinfo/zone.tab",
-              exclude=[]):
+def timezones(zonetab: str = "/usr/share/zoneinfo/zone.tab",
+              exclude: List[str] = []) -> Iterator[Tuple[str, Tuple[float, float], str]]:
     """iterate over timezones in zone.tab; yield (country, (lat, lon), name)
 
     @param zonetab: filename of zone.tab file
@@ -65,7 +68,7 @@ def timezones(zonetab="/usr/share/zoneinfo/zone.tab",
     
 
 
-def latlong(coords):
+def latlong(coords: str) -> Tuple[float, float]:
     """decode ISO 6709. ugh.
     
     >>> latlong("-1247+04514")
@@ -79,7 +82,7 @@ def latlong(coords):
         raise ValueError(coords)
     return coord(m.group(1), m.group(2)), coord(m.group(3), m.group(4))
 
-def coord(sign, digits):
+def coord(sign: str, digits: str) -> float:
     """
     >>> coord("-", "1247")
     -12.783333333333333
@@ -107,7 +110,7 @@ def coord(sign, digits):
 
     return dms(kludge, d, m, s)
 
-def dms(o, d, m, s):
+def dms(o: str, d: int, m: int, s: Union[int, str, float]) -> float:
     """
     >>> abs(dms(u'N', 30, 11, u'40.3') - 30.194527777777779) <.001
     True

@@ -16,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with OpenAstro.org.  If not, see <http://www.gnu.org/licenses/>.
 """
+from typing import Tuple, List, Union
 import os.path, sys
 #swiss ephemeris files directory
 swissDir = '/usr/share/swisseph:/usr/local/share/swisseph'
@@ -31,7 +32,7 @@ import swisseph as swe
 
 __all__ = [ "getdignities" ]
 
-def getdignities(lon, isday, terms):
+def getdignities(lon: float, isday: bool, terms: str) -> Tuple[Union[int, List[int]], ...]:
     '''
     Gets a list of essential dignities and debilities
 

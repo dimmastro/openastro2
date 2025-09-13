@@ -1,3 +1,4 @@
+from typing import Any
 import pytest
 
 from openastro2.openastro2 import openAstro
@@ -34,7 +35,7 @@ FULL_CHART_TYPES = [
     "FixarEarthTransit"
 ]
 @pytest.mark.parametrize("astro_type", FULL_CHART_TYPES)
-def test_openastro_types(astro_type):
+def test_openastro_types(astro_type: str) -> None:
     # Инициализация событий с фиксированными параметрами
     event1 = openAstro.event_dt_str("Владимир Высоцкий", dt_str="1938-01-25 09:40:00", timezone=3, location="Москва",
                                     geolat=55.78472277151802, geolon=37.628137530436106)

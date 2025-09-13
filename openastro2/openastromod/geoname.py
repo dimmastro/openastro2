@@ -26,6 +26,7 @@ preset vars:
 	maxRows=1
 """
 
+from typing import List, Dict, Optional, Any
 from urllib.request import urlopen
 from urllib.parse import urlencode
 from xml.dom.minidom import parseString
@@ -33,7 +34,7 @@ from socket import timeout
 from urllib.error import HTTPError, URLError
 
 
-def _getText(nodelist):
+def _getText(nodelist: Any) -> str:
 	"""Internal function to return text from nodes
 	"""
 	rc = ""
@@ -42,7 +43,7 @@ def _getText(nodelist):
 			rc = rc + node.data
 	return rc
 
-def search(name='',country=''):
+def search(name: str = '', country: str = '') -> Optional[List[Dict[str, str]]]:
 	
 	"""Search function for geonames.org api
 		name must be supplied

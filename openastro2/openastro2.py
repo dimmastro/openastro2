@@ -31,7 +31,8 @@ import pytz
 #pysqlite
 import sqlite3
 
-from openastromod.utils import utc_to_local, local_to_utc, decHour, decHourJoin, offsetToTz, decTzStr, degreeDiff, degreeDiff2, dec2deg, dec2deg_str
+from openastromod.utils import utc_to_local, local_to_utc, decHour, decHourJoin, offsetToTz, decTzStr, degreeDiff, \
+	degreeDiff2, dec2deg, dec2deg_str, get_zodiac_sign
 
 # Register string adapter for sqlite
 sqlite3.register_adapter(str, lambda s: s)
@@ -4934,8 +4935,20 @@ class openAstro:
 			# if self.planets[i]['visible'] == 1:
 			if 1:
 				planet_code = i
-				# print (jul_day_UT)
-				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				try:
+					planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				except:
+					if planet_code >= 23 and planet_code <= 34:
+						houses_system = b'P'
+						if self.settings.settings["astrocfg"].get('houses_system', None):
+							houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
+							print(houses_system)
+						sh = swe.houses(jul_day_UT, lat, lon, houses_system)
+						planet_pos = []
+						h_i = planet_code-23
+						planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
+					else:
+						continue
 				# print (planet_pos)
 				# lat = planet_pos[0][0]
 				# lon = planet_pos[0][1]
@@ -4956,7 +4969,7 @@ class openAstro:
 				# print("Азимут планеты:", azimuth)
 				# print("Истинная высота:", true_altitude)
 				# print("Видимая высота:", apparent_altitude)
-
+				label_short = self.settings.settings_planet[i]['label_short']
 				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 				# lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
@@ -4965,7 +4978,8 @@ class openAstro:
 				  "from": {
 					# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) +  ")",
-					"coordinates": [
+					  "label_short": f"{label_short}",
+					  "coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
@@ -4973,7 +4987,8 @@ class openAstro:
 				  "to": {
 					# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth)  + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth)  + ")",
-					"coordinates": [
+					  "label_short": f"{label_short}",
+					  "coordinates": [
 					  new_longitude,
 					  new_latitude
 					]
@@ -4986,7 +5001,8 @@ class openAstro:
 					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
 					# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
-					"coordinates": [
+					  "label_short": f"{label_short}",
+					  "coordinates": [
 					  starting_longitude,
 					  starting_latitude
 					]
@@ -4995,7 +5011,8 @@ class openAstro:
 					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
 					# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
-					"coordinates": [
+					  "label_short": f"{label_short}",
+					  "coordinates": [
 					  new_longitude2,
 					  new_latitude2
 					]
@@ -5098,7 +5115,21 @@ class openAstro:
 		for i in range(num_planet):
 			if 1:
 				planet_code = i
-				planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				# planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				try:
+					planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				except:
+					if planet_code >= 23 and planet_code <= 34:
+						houses_system = b'P'
+						if self.settings.settings["astrocfg"].get('houses_system', None):
+							houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
+							print(houses_system)
+						sh = swe.houses(jul_day_UT, lat, lon, houses_system)
+						planet_pos = []
+						h_i = planet_code - 23
+						planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
+					else:
+						continue
 				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
 																	  [lon, lat, 287], 0, 0,
 																	  planet_pos[0])
@@ -5111,6 +5142,7 @@ class openAstro:
 				# aspects = [60, 90, 120]
 
 				for aspect in aspects:
+					label_short = self.settings.settings_planet[i]['label_short']
 					azimuth = azimuth0 + aspect
 					if (azimuth > 360):
 						azimuth = azimuth - 360
@@ -5121,13 +5153,15 @@ class openAstro:
 						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-						"coordinates": [starting_longitude, starting_latitude]
+						  "label_short": f"{label_short}-{aspect}",
+						  "coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
 						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
 						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-						"coordinates": [new_longitude, new_latitude]
+						  "label_short": f"{label_short}-{aspect}",
+						  "coordinates": [new_longitude, new_latitude]
 					  }
 					}
 
@@ -5151,6 +5185,90 @@ class openAstro:
 		# df["name"] = df["from"].apply(lambda f: f["name"])
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
+
+	def makeLocalSpaceAspectSwePlanets(self, dt, lat, lon, planets=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, ],
+									   aspects=[0, 180]):
+		"""
+		Calc LocalSpace thru Swe with aspects list and planets list.
+		Return list without dataframe.
+		New best function.
+
+		:param dt:
+		:param lat:
+		:param lon:
+		:param planets:
+		:param aspects:
+		:return:
+		"""
+
+		starting_latitude = lat  # Начальная широта
+		starting_longitude = lon  # Начальная долгота
+		distance2 = 6371 * 3.1  # Расстояние (в километрах)
+		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
+		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
+		dfd = []
+		for i in planets:
+			if 1:
+				planet_code = i
+				try:
+					planet_pos = swe.calc_ut(jul_day_UT, planet_code)
+				except:
+					if planet_code >= 23 and planet_code <= 34:
+						houses_system = b'P'
+						if self.settings.settings["astrocfg"].get('houses_system', None):
+							houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
+							print(houses_system)
+						sh = swe.houses(jul_day_UT, lat, lon, houses_system)
+						planet_pos = []
+						h_i = planet_code - 23
+						planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
+					else:
+						continue
+				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+																	   [lon, lat, 287], 0, 0,
+																	   planet_pos[0])
+				azimuth0 = azimuth0 + 180
+				if (azimuth0 > 360):
+					azimuth0 = azimuth0 - 360
+
+				for aspect in aspects:
+					label_short = self.settings.settings_planet[i]['label_short']
+					azimuth = azimuth0 + aspect
+					if (azimuth > 360):
+						azimuth = azimuth - 360
+					new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude,
+																				 azimuth, distance2)
+					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude,
+																				   starting_longitude, azimuth,
+																				   -distance2)
+					dfdata = {
+						"from": {
+							"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + "-" + str(
+								aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+							"label_short": f"{label_short}-{aspect}",
+							"coordinates": [starting_longitude, starting_latitude]
+						},
+						"to": {
+							"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + "-" + str(
+								aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+							"label_short": f"{label_short}-{aspect}",
+							"coordinates": [new_longitude, new_latitude]
+						},
+						"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + "-" + str(
+							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						"label_short": f"{label_short}-{aspect}",
+						"azimuth": azimuth,
+					}
+
+					dfd.append(dfdata)
+
+		# Добавляем поле "name" на верхний уровень (как в оригинальном DataFrame)
+		for item in dfd:
+			item["name"] = item["from"]["name"]
+			item["label_short"] = item["from"]["label_short"]
+		return dfd
+
+
 	def makeLocalSpaceAspectSweApiDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
 
 		starting_latitude = lat  # Начальная широта
@@ -5564,7 +5682,8 @@ class openAstro:
 		)
 		return layer
 
-	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [0, 60, 90, 120, 180, 240, 270, 300], local_aspects=False):
+	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon, num_planet=11,
+										 aspects=[0, 60, 90, 120, 180, 240, 270, 300], local_aspects=False):
 		"""
 		Calculates Local Space directions via the scipy library.
 
@@ -5578,8 +5697,9 @@ class openAstro:
 		:return: Dataframe with geographic coordinates of the planets and azimuths.
 		"""
 
+		print('dt=', dt)
 		ts = api.load.timescale()
-		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
+		t = ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
@@ -5599,12 +5719,13 @@ class openAstro:
 				lat_angle0 = self.t_planet_latitude[i]
 				lon_angle0 = self.t_planets_degree_ut[i]
 
+			label_short = self.settings.settings_planet[i]['label_short']
 			azimuth0 = False
 			for aspect in aspects:
-				if(aspect<=180):
-					lat_angle =  lat_angle0 * (90-aspect)/90.0
-				if(aspect>180):
-					lat_angle =  lat_angle0 * (aspect-90-180)/90.0
+				if (aspect <= 180):
+					lat_angle = lat_angle0 * (90 - aspect) / 90.0
+				if (aspect > 180):
+					lat_angle = lat_angle0 * (aspect - 90 - 180) / 90.0
 				true_altitude = lat_angle
 				lon_angle = lon_angle0 + aspect
 
@@ -5616,38 +5737,48 @@ class openAstro:
 				if aspect == 0:
 					azimuth0 = azimuth
 				if local_aspects == True and azimuth0:
-					azimuth = azimuth0+aspect
+					azimuth = azimuth0 + aspect
 
-				dfdata= {
-				  "from": {
-					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
-					"coordinates": [starting_longitude, starting_latitude]
-				  },
-				  "to": {
-					# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-					"coordinates": [new_longitude, new_latitude]
-				  },
-					"azimuth":azimuth
+				dfdata = {
+					"from": {
+						# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
+						"label_short": f"{label_short}-{aspect}",
+						"coordinates": [starting_longitude, starting_latitude]
+					},
+					"to": {
+						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						"label_short": f"{label_short}-{aspect}",
+						"coordinates": [new_longitude, new_latitude]
+					},
+					"azimuth": azimuth
 				}
 
 				dfd.append(dfdata)
-				dfdata= {
-				  "from": {
-					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
-					"coordinates": [starting_longitude-180, -starting_latitude]
-				  },
-				  "to": {
-					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
-					"coordinates": [new_longitude, new_latitude]
-				  },
+				dfdata = {
+					"from": {
+						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(
+							self.deg_180(azimuth)) + ")",
+						"label_short": f"{label_short}-{aspect}",
+						"coordinates": [starting_longitude - 180, -starting_latitude]
+					},
+					"to": {
+						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(
+							self.deg_180(azimuth)) + ")",
+						"label_short": f"{label_short}-{aspect}",
+						"coordinates": [new_longitude, new_latitude]
+					},
 					# "azimuth": self.deg_180(azimuth)
 					"azimuth": azimuth
 				}
@@ -5656,6 +5787,8 @@ class openAstro:
 		# df["name"] = df["from"].apply(lambda f: f["name"])
 		df["name"] = df["to"].apply(lambda t: t["name"])
 		return df
+
+
 	def makeLocalSpaceAspectSkyApiDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [0, 60, 90, 120, 180, 240, 270, 300]):
 
 		ts = api.load.timescale()

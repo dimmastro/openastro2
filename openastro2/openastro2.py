@@ -5217,7 +5217,7 @@ class openAstro:
 						houses_system = b'P'
 						if self.settings.settings["astrocfg"].get('houses_system', None):
 							houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
-							print(houses_system)
+							# print(houses_system)
 						sh = swe.houses(jul_day_UT, lat, lon, houses_system)
 						planet_pos = []
 						h_i = planet_code - 23
@@ -5225,18 +5225,25 @@ class openAstro:
 					else:
 						continue
 
+				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+																	   [lon, lat, 287], 0, 0,
+																	   planet_pos[0])
+				azimuth0 = azimuth0 + 180
+				if (azimuth0 > 360):
+					azimuth0 = azimuth0 - 360
+
 				for aspect in aspects:
 					label_short = self.settings.settings_planet[i]['label_short']
 					if aspect_type == 'ecliptic_parallel':
-						deg_ut = planet_pos[0][0] + aspect
-						if (deg_ut > 360):
-							deg_ut = deg_ut - 360
-						print(planet_pos)
+						deg_ut = planet_pos[0][0] - aspect # rotation is different for ecliptic and azimuth
+						if (deg_ut < 0):
+							deg_ut = deg_ut + 360
+						# print(planet_pos)
 						planet_pos_asp = list(planet_pos)
 						planet_pos_0_list = list(planet_pos_asp[0])
 						planet_pos_asp[0] = planet_pos_0_list
 						planet_pos_asp[0][0] = deg_ut
-						print(planet_pos_asp)
+						# print(planet_pos_asp)
 						azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
 																			  [lon, lat, 287], 0, 0,
 																			  planet_pos_asp[0])
@@ -5245,10 +5252,10 @@ class openAstro:
 							azimuth = azimuth - 360
 
 					elif aspect_type == 'ecliptic_diagonal':
-						deg_ut = planet_pos[0][0] + aspect
-						if (deg_ut > 360):
-							deg_ut = deg_ut - 360
-						print(planet_pos)
+						deg_ut = planet_pos[0][0] - aspect # rotation is different for ecliptic and azimuth
+						if (deg_ut < 0):
+							deg_ut = deg_ut + 360
+						# print(planet_pos)
 						planet_pos_asp = list(planet_pos)
 						planet_pos_0_list = list(planet_pos_asp[0])
 						planet_pos_asp[0] = planet_pos_0_list
@@ -5256,10 +5263,10 @@ class openAstro:
 
 						# Diagonal == cos(aspect) cos(0)==1, cos(180)==-1
 						aspect_coef = math.cos(math.radians(aspect))
-						print(f"aspect={aspect}° → aspect_height={aspect_coef:.3f}")
+						# print(f"aspect={aspect}° → aspect_height={aspect_coef:.3f}")
 						planet_pos_asp[0][1] = planet_pos[0][1] * aspect_coef
 
-						print(planet_pos_asp)
+						# print(planet_pos_asp)
 						azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
 																			  [lon, lat, 287], 0, 0,
 																			  planet_pos_asp[0])
@@ -5268,13 +5275,7 @@ class openAstro:
 							azimuth = azimuth - 360
 
 					else:
-						azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
-																			   [lon, lat, 287], 0, 0,
-																			   planet_pos[0])
-						azimuth0 = azimuth0 + 180
-						if (azimuth0 > 360):
-							azimuth0 = azimuth0 - 360
-						azimuth = azimuth0 + aspect
+						azimuth = azimuth0 + aspect # rotation is different for ecliptic and azimuth
 						if (azimuth > 360):
 							azimuth = azimuth - 360
 
@@ -5310,6 +5311,7 @@ class openAstro:
 			item["name"] = item["from"]["name"]
 			item["label_short"] = item["from"]["label_short"]
 		return dfd
+
 
 	def makeLocalSpaceAspectSweApiDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
 

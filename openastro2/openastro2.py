@@ -136,7 +136,7 @@ for i in range(len(LANGUAGES)):
 	except IOError as err:
 		print("IOError! Invalid languages specified (%s) in %s" %(LANGUAGES[i],TDomain))
 		TRANSLATION[LANGUAGES[i]] = gettext.translation("openastro",TDomain,languages=['en'])
-		
+
 try:
 	TRANSLATION["default"] = gettext.translation("openastro",TDomain)
 except IOError as err:
@@ -460,7 +460,7 @@ class openAstro:
 		# #aware datetime object
 		# dt_input = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, now.second)
 		# dt = pytz.timezone(self.timezonestr).localize(dt_input)
-		
+
 		#naive utc datetime object
 		# dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
 
@@ -480,7 +480,7 @@ class openAstro:
 		self.localToUtc()
 		#Make locals
 		self.utcToLocal()
-		
+
 		#configuration
 		#ZOOM 1 = 100%
 		self.zoom = self.settings.settings_svg["zoom"]
@@ -1423,7 +1423,7 @@ class openAstro:
 
 
 	def localToSProgression(self,dt):
-		
+
 		#remove timezone
 		dt_utc = dt - datetime.timedelta(seconds=float(self.timezone)*float(3600))
 		h,m,s = self.decHour(self.hour)
@@ -1447,7 +1447,7 @@ class openAstro:
 
 		dprint("localToSProgression: got UTC %s-%s-%s %s:%s:%s"%(
 			dt_new.year,dt_new.month,dt_new.day,dt_new.hour,dt_new.minute,dt_new.second))
-			
+
 		# self.type = "SProgression"
 		self.type = "Transit"
 		openAstro.charttype="%s (%s-%02d-%02d %02d:%02d)" % ("SProgression",dt.year,dt.month,dt.day,dt.hour,dt.minute)
@@ -2699,7 +2699,7 @@ class openAstro:
 			out += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke: %s; stroke-width: 1px; stroke-opacity:.9;"/>\n' % (
 				x1,y1,x2,y2,self.colors['paper_0'] )
 		return out
-		
+
 	def degreeTransitRing( self , r ):
 		out=''
 		# for i in range(72):
@@ -2716,7 +2716,7 @@ class openAstro:
 		# 	out += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke: #F00; stroke-width: 1px; stroke-opacity:.9;"/>\n' % (
 		# 		x1,y1,x2,y2 )
 		return out
-	
+
 	#floating latitude an longitude to string
 	def lat2str( self, coord ):
 		sign=self.label["north"]
@@ -2728,7 +2728,7 @@ class openAstro:
 		sec = int( round( float( ( (float(coord) - deg) * 60 ) - min) * 60.0 ) )
 		return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': min, '#3': sec, '#4': sign}
 		# return "%s°%s'%s\" %s" % (deg,min,sec,sign)
-		
+
 	def lon2str( self, coord ):
 		sign=self.label["east"]
 		if coord < 0.0:
@@ -2739,29 +2739,29 @@ class openAstro:
 		sec = int( round( float( ( (float(coord) - deg) * 60 ) - min) * 60.0 ) )
 		return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': min, '#3': sec, '#4': sign}
 		# return "%s°%s'%s\" %s" % (deg,min,sec,sign)
-	
+
 	# Utility function wrappers - delegate to utils.py functions
 	def decHour(self, input: float) -> List[int]:
 		return decHour(input)
-	
+
 	def decHourJoin(self, inH: int, inM: int, inS: int) -> float:
 		return decHourJoin(inH, inM, inS)
-	
+
 	def offsetToTz(self, dtoffset: datetime.timedelta) -> float:
 		return offsetToTz(dtoffset)
-	
+
 	def decTzStr(self, tz: float) -> str:
 		return decTzStr(tz)
-	
+
 	def degreeDiff(self, a: Union[int, float], b: Union[int, float]) -> float:
 		return degreeDiff(a, b, self.settings.astrocfg["round_aspects"] == 1)
-	
+
 	def degreeDiff2(self, a: Union[int, float], b: Union[int, float]) -> float:
 		return degreeDiff2(a, b, self.settings.astrocfg["round_aspects"] == 1)
-	
+
 	def dec2deg(self, dec: float, type: str = "3") -> str:
 		return dec2deg(dec, type)
-	
+
 	def dec2deg_str(self, dec: float, type: str = "3") -> str:
 		return dec2deg_str(dec, type)
 
@@ -2782,17 +2782,17 @@ class openAstro:
 			# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
 			# 	x2, y2, 0.50, self.colors['paper_1'], self.colors["color_transit_2"])
 			return out
-	
+
 	def sliceToX( self , slice , r, offset):
 		plus = (math.pi * offset) / 180
 		radial = ((math.pi/6) * slice) + plus
 		return r * (math.cos(radial)+1)
-	
+
 	def sliceToY( self , slice , r, offset):
 		plus = (math.pi * offset) / 180
 		radial = ((math.pi/6) * slice) + plus
 		return r * ((math.sin(radial)/-1)+1)
-	
+
 	def zodiacSlice( self , num , r , style,  type):
 		#pie slices
 		if self.settings.astrocfg["houses_system"] == "G":
@@ -2822,13 +2822,13 @@ class openAstro:
 			scale) + ')"><use x="' + str(sign_x * (1 / scale)) + '" y="' + str(
 			sign_y * (1 / scale)) + '" xlink:href="#' + type + '" stroke="black" fill="black" /></g></g>\n'
 		return slice + '\n' + sign
-	
+
 	def makeZodiac( self , r ):
 		output = ""
 		for i in range(len(self.zodiac)):
 			output = output + self.zodiacSlice( i , r , "fill:" + self.colors["zodiac_bg_%s"%(i)] + "; fill-opacity: 0.5;" , self.zodiac[i]) + '\n'
 		return output
-		
+
 	def makeHouses( self , r ):
 		path = ""
 		if self.settings.astrocfg["houses_system"] == "G":
@@ -2844,7 +2844,7 @@ class openAstro:
 			else:
 				dropin=self.c3
 				roff=self.c1-self.settings.settings_svg['roff']
-				
+
 			#offset is negative desc houses_degree_ut[6]
 			# offset = (int(self.houses_degree_ut[int(xr/2)]) / -1) + int(self.houses_degree_ut[i])
 			offset = (float(self.get_chart_start_point()) / -1) + float(self.houses_degree_ut[i])
@@ -2853,8 +2853,8 @@ class openAstro:
 			y1 = self.sliceToY( 0 , (r-dropin) , offset ) + dropin
 			x2 = self.sliceToX( 0 , r-roff , offset ) + roff
 			y2 = self.sliceToY( 0 , r-roff , offset ) + roff
-			
-			if i < (xr-1):		
+
+			if i < (xr-1):
 				text_offset = offset + int(self.degreeDiff( self.houses_degree_ut[(i)], self.houses_degree_ut[i] ) / 1 )
 			else:
 				# text_offset = offset + int(self.degreeDiff( self.houses_degree_ut[0], self.houses_degree_ut[(xr-1)] ) / 2 )
@@ -2888,7 +2888,7 @@ class openAstro:
 				t_y1 = self.sliceToY( 0 , (r-t_roff) , t_offset ) + t_roff
 				t_x2 = self.sliceToX( 0 , r , t_offset )
 				t_y2 = self.sliceToY( 0 , r , t_offset )
-				if i < 11:		
+				if i < 11:
 					# t_text_offset = t_offset + int(self.degreeDiff( self.t_houses_degree_ut[(i+1)], self.t_houses_degree_ut[i] ) / 2 )
 					t_text_offset = t_offset
 				else:
@@ -2916,14 +2916,14 @@ class openAstro:
 					path = path + '<text style="fill: ' + t_linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
 					path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(self.t_houses_degree[(i)]+1, type="0") + '</text>'
 
-			#if transit			
+			#if transit
 			if self.type == "Transit" or self.type == "Direction":
 				dropin = self.c1 - self.settings.settings_svg['roff_deg']
 			elif self.settings.astrocfg["chartview"] == "european":
 				dropin = self.c1 - self.settings.settings_svg['roff_deg']
-			else:		
+			else:
 				dropin=48
-				
+
 			# xtext = self.sliceToX( 0 , (r-dropin) , text_offset ) + dropin #was 132
 			# ytext = self.sliceToY( 0 , (r-dropin) , text_offset ) + dropin #was 132
 			# path = path + '<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+linecolor+'; stroke-width: 2px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
@@ -2993,7 +2993,7 @@ class openAstro:
 
 
 	def makePlanets( self , r ):
-		
+
 		planets_degut={}
 
 		diff=range(len(self.planets))
@@ -3005,7 +3005,7 @@ class openAstro:
 			# 	if not (22 < i and i < 35): # exclude houses
 			# 		#list of planets sorted by degree
 			# 		planets_degut[self.planets_degree_ut[i]]=i
-			
+
 			#element: get extra points if planet is in own zodiac
 			pz = self.planets[i]['zodiac_relation']
 			cz = self.planets_sign[i]
@@ -3018,7 +3018,7 @@ class openAstro:
 			#calculate element points for all planets
 			# dprint (i)
 			# dprint(self.planets_sign[i])
-			ele = self.zodiac_element[self.planets_sign[i]]			
+			ele = self.zodiac_element[self.planets_sign[i]]
 			if ele == "fire":
 				self.fire = self.fire + self.planets[i]['element_points'] + extrapoints
 			elif ele == "earth":
@@ -3027,8 +3027,8 @@ class openAstro:
 				self.air = self.air + self.planets[i]['element_points'] + extrapoints
 			elif ele == "water":
 				self.water = self.water + self.planets[i]['element_points'] + extrapoints
-				
-		output = ""	
+
+		output = ""
 
 
 		planets_delta = self.getPlanetsDelta(self.planets_degree_ut)
@@ -3047,16 +3047,16 @@ class openAstro:
 					switch = 0
 				else:
 					rplanet = self.c2 - (self.c2-self.c3)/2
-					switch = 1				
+					switch = 1
 			else:
 				#if 22 < i < 27 it is asc,mc,dsc,ic (angles of chart)
 				#put on special line (rplanet is range from outer ring)
-				amin,bmin,cmin=0,0,0				
+				amin,bmin,cmin=0,0,0
 				if self.settings.astrocfg["chartview"] == "european":
 					amin=74-30
 					bmin=94-30
 					cmin=40-30
-				
+
 				if 22 < i < 27:
 					rplanet = 50-cmin
 				elif switch == 1:
@@ -3064,8 +3064,8 @@ class openAstro:
 					switch = 0
 				else:
 					rplanet=104-bmin
-					switch = 1			
-				
+					switch = 1
+
 			# rtext=45
 			if self.settings.astrocfg['houses_system'] == "G":
 				offset = (int(self.houses_degree_ut[18]) / -1) + float(self.planets_degree_ut[i])
@@ -3457,8 +3457,8 @@ class openAstro:
 		* Stellium: At least four planets linked together in a series of continuous conjunctions.
     	* Grand trine: Three trine aspects together.
 		* Grand cross: Two pairs of opposing planets squared to each other.
-		* T-Square: Two planets in opposition squared to a third. 
-		* Yod: Two qunicunxes together joined by a sextile. 
+		* T-Square: Two planets in opposition squared to a third.
+		* Yod: Two qunicunxes together joined by a sextile.
 		"""
 		conj = {} #0
 		opp = {} #10
@@ -3484,7 +3484,7 @@ class openAstro:
 				#skip some points
 				n = self.planets[j]['name']
 				if n == 'earth' or n == 'true node' or n == 'osc. apogee' or n == 'intp. apogee' or n == 'intp. perigee':
-					continue	
+					continue
 				if n == 'Dsc' or n == 'Ic':
 					continue
 				b=self.planets_degree_ut[j]
@@ -3493,17 +3493,17 @@ class openAstro:
 				xa = float(self.aspects[10]['degree']) - float(self.aspects[10]['orb'])
 				xb = float(self.aspects[10]['degree']) + float(self.aspects[10]['orb'])
 				if( xa <= delta <= xb ):
-					opp[i][j]=True	
+					opp[i][j]=True
 				#check for conjunction
 				xa = float(self.aspects[0]['degree']) - float(self.aspects[0]['orb'])
 				xb = float(self.aspects[0]['degree']) + float(self.aspects[0]['orb'])
 				if( xa <= delta <= xb ):
-					conj[i][j]=True					
+					conj[i][j]=True
 				#check for squares
 				xa = float(self.aspects[5]['degree']) - float(self.aspects[5]['orb'])
 				xb = float(self.aspects[5]['degree']) + float(self.aspects[5]['orb'])
 				if( xa <= delta <= xb ):
-					sq[i][j]=True			
+					sq[i][j]=True
 				#check for qunicunxes
 				xa = float(self.aspects[9]['degree']) - float(self.aspects[9]['orb'])
 				xb = float(self.aspects[9]['degree']) + float(self.aspects[9]['orb'])
@@ -3514,7 +3514,7 @@ class openAstro:
 				xb = float(self.aspects[3]['degree']) + float(self.aspects[3]['orb'])
 				if( xa <= delta <= xb ):
 					sext[i][j]=True
-							
+
 		yot={}
 		#check for double qunicunxes
 		for k,v in qc.items():
@@ -3543,7 +3543,7 @@ class openAstro:
 									tsquare['%s,%s,%s' % (a,k,l)] = '%s => %s, %s' % (
 										self.planets[a]['label'],self.planets[k]['label'],self.planets[l]['label'])
 		stellium={}
-		#check for 4 continuous conjunctions	
+		#check for 4 continuous conjunctions
 		for k,v in conj.items():
 			if len(conj[k]) >= 1:
 				#first conjunction
@@ -3559,13 +3559,13 @@ class openAstro:
 									#skip first and second conj
 									if p == k or p == n:
 										continue
-									if len(conj[p]) >= 1:										
+									if len(conj[p]) >= 1:
 										#fourth conjunction
 										for r,s in conj[p].items():
 											#skip conj 1,2,3
 											if r == k or r == n or r == p:
 												continue
-											
+
 											l=[k,n,p,r]
 											l.sort()
 											stellium['%s %s %s %s' % (l[0],l[1],l[2],l[3])]='%s %s %s %s' % (
@@ -3577,12 +3577,12 @@ class openAstro:
 			y=0
 			for k,v in yot.items():
 				out += '<text y="%s" style="fill:%s; font-size: 12px;">%s</text>\n' % (y,self.colors['paper_0'],_("Yot"))
-				
+
 				#first planet symbol
 				out += '<g transform="translate(20,%s)">' % (y)
 				out += '<use transform="scale(0.4)" x="0" y="-20" xlink:href="#%s" /></g>\n' % (
 					self.planets[yot[k][0]]['name'])
-				
+
 				#second planet symbol
 				out += '<g transform="translate(30,%s)">'  % (y)
 				out += '<use transform="scale(0.4)" x="0" y="-20" xlink:href="#%s" /></g>\n' % (
@@ -3592,13 +3592,13 @@ class openAstro:
 				out += '<g transform="translate(40,%s)">'  % (y)
 				out += '<use transform="scale(0.4)" x="0" y="-20" xlink:href="#%s" /></g>\n' % (
 					self.planets[yot[k][2]]['name'])
-				
+
 				y=y+14
 		#finalize
-		out += '</g>'		
+		out += '</g>'
 		#return out
 		return ''
-	
+
 	def makeAspects( self , r , ar ):
 		out=""
 		self.planets_aspects= {}
@@ -3769,7 +3769,7 @@ class openAstro:
 												# self.atgrid[-1]['diff']=diff
 										# self.t_planets_aspects_id_dic[i][x] = aspect_arr
 		return out
-	
+
 	def makeAspectTransitGrid( self , r ):
 		out = ''
 		out += '<text y="-15" x="0" style="fill:%s; font-size: 12px;">%s</text>\n' % (self.colors['paper_0'],_("Planets in Transit"))
@@ -3800,10 +3800,10 @@ class openAstro:
 				self.dec2deg(self.atgrid[i]['diff']) )
 			#line
 			out += '</g>'
-			line = line + 14		
+			line = line + 14
 		out += ''
 		return out
-	
+
 	def makeAspectGrid( self , r ):
 		self.planets_aspects_list = []
 		out=""
@@ -4082,7 +4082,7 @@ class openAstro:
 		out = out + '<text y="0" style="fill:#ff6600; font-size: 10px;">'+self.label['fire']+'  '+str(pf)+'%</text>\n'
 		out = out + '<text y="12" style="fill:#6a2d04; font-size: 10px;">'+self.label['earth']+' '+str(pe)+'%</text>\n'
 		out = out + '<text y="24" style="fill:#6f76d1; font-size: 10px;">'+self.label['air']+'   '+str(pa)+'%</text>\n'
-		out = out + '<text y="36" style="fill:#630e73; font-size: 10px;">'+self.label['water']+' '+str(pw)+'%</text>\n'		
+		out = out + '<text y="36" style="fill:#630e73; font-size: 10px;">'+self.label['water']+' '+str(pw)+'%</text>\n'
 		out = out + '</g>\n'
 		return out
 
@@ -4204,7 +4204,7 @@ class openAstro:
 	def importOroboros(filename)
 	
 	"""
-	
+
 	def exportOAC(self,filename):
 		template="""<?xml version='1.0' encoding='UTF-8'?>
 <openastrochart>
@@ -4266,7 +4266,7 @@ class openAstro:
 	# 	#debug dprint
 	# 	dprint('importOAC: %s' % filename)
 	# 	return
-	
+
 	# def importOroboros(self, filename):
 	# 	r=importfile.getOroboros(filename)[0]
 	# 	#naive local datetime
@@ -4306,7 +4306,7 @@ class openAstro:
 	# 	#debug dprint
 	# 	dprint('importOroboros: UTC: %s file: %s' % (dt_utc,filename))
 	# 	return
-	
+
 	# def importSkylendar(self, filename):
 	# 	r = importfile.getSkylendar(filename)[0]
 	#
@@ -4366,7 +4366,7 @@ class openAstro:
 	# 	#Make locals
 	# 	self.utcToLocal()
 	# 	return
-	
+
 	# def importZet8(self, filename):
 	# 	h=open(filename)
 	# 	f=codecs.EncodedFile(h,"utf-8","latin-1")
@@ -5187,7 +5187,7 @@ class openAstro:
 		return df
 
 	def makeLocalSpaceAspectSwePlanets(self, dt, lat, lon, planets=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, ],
-									   aspects=[0, 180]):
+									   aspects=[0, 180], aspect_type='azimuth'):
 		"""
 		Calc LocalSpace thru Swe with aspects list and planets list.
 		Return list without dataframe.
@@ -5224,18 +5224,61 @@ class openAstro:
 						planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
 					else:
 						continue
-				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
-																	   [lon, lat, 287], 0, 0,
-																	   planet_pos[0])
-				azimuth0 = azimuth0 + 180
-				if (azimuth0 > 360):
-					azimuth0 = azimuth0 - 360
 
 				for aspect in aspects:
 					label_short = self.settings.settings_planet[i]['label_short']
-					azimuth = azimuth0 + aspect
-					if (azimuth > 360):
-						azimuth = azimuth - 360
+					if aspect_type == 'ecliptic_parallel':
+						deg_ut = planet_pos[0][0] + aspect
+						if (deg_ut > 360):
+							deg_ut = deg_ut - 360
+						print(planet_pos)
+						planet_pos_asp = list(planet_pos)
+						planet_pos_0_list = list(planet_pos_asp[0])
+						planet_pos_asp[0] = planet_pos_0_list
+						planet_pos_asp[0][0] = deg_ut
+						print(planet_pos_asp)
+						azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+																			  [lon, lat, 287], 0, 0,
+																			  planet_pos_asp[0])
+						azimuth = azimuth + 180
+						if (azimuth > 360):
+							azimuth = azimuth - 360
+
+					elif aspect_type == 'ecliptic_diagonal':
+						deg_ut = planet_pos[0][0] + aspect
+						if (deg_ut > 360):
+							deg_ut = deg_ut - 360
+						print(planet_pos)
+						planet_pos_asp = list(planet_pos)
+						planet_pos_0_list = list(planet_pos_asp[0])
+						planet_pos_asp[0] = planet_pos_0_list
+						planet_pos_asp[0][0] = deg_ut
+
+						# Diagonal == cos(aspect) cos(0)==1, cos(180)==-1
+						aspect_coef = math.cos(math.radians(aspect))
+						print(f"aspect={aspect}° → aspect_height={aspect_coef:.3f}")
+						planet_pos_asp[0][1] = planet_pos[0][1] * aspect_coef
+
+						print(planet_pos_asp)
+						azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+																			  [lon, lat, 287], 0, 0,
+																			  planet_pos_asp[0])
+						azimuth = azimuth + 180
+						if (azimuth > 360):
+							azimuth = azimuth - 360
+
+					else:
+						azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
+																			   [lon, lat, 287], 0, 0,
+																			   planet_pos[0])
+						azimuth0 = azimuth0 + 180
+						if (azimuth0 > 360):
+							azimuth0 = azimuth0 - 360
+						azimuth = azimuth0 + aspect
+						if (azimuth > 360):
+							azimuth = azimuth - 360
+
+
 					new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude,
 																				 azimuth, distance2)
 					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude,
@@ -5267,7 +5310,6 @@ class openAstro:
 			item["name"] = item["from"]["name"]
 			item["label_short"] = item["from"]["label_short"]
 		return dfd
-
 
 	def makeLocalSpaceAspectSweApiDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
 

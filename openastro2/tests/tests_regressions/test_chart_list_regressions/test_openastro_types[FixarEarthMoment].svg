@@ -624,25 +624,25 @@
 <g transform="translate(50,50)">
 	<g transform="translate(0,0)">
 	<!-- Zodiac -->
-	<path d="M237,237 L396.7191028964731,412.0965681272647 A237,237 0 0,0 462.86908464163884,308.77852466544715 z" style="fill:#ef5350; fill-opacity: 0.5;"/>
+	<path d="M237,237 L396.71910289647315,412.0965681272647 A237,237 0 0,0 462.86908464163884,308.7785246654472 z" style="fill:#ef5350; fill-opacity: 0.5;"/>
 <g transform="translate(-4.8,-4.8)"><g transform="scale(0.3)"><use x="1427.24465811037" y="1197.9996202868845" xlink:href="#aries" stroke="black" fill="black" /></g></g>
 
-<path d="M237,237 L462.86908464163884,308.77852466544715 A237,237 0 0,0 468.4976275619204,186.22748348562595 z" style="fill:#73b230; fill-opacity: 0.5;"/>
+<path d="M237,237 L462.86908464163884,308.7785246654472 A237,237 0 0,0 468.4976275619204,186.22748348562595 z" style="fill:#73b230; fill-opacity: 0.5;"/>
 <g transform="translate(-4.8,-4.8)"><g transform="scale(0.3)"><use x="1545.8698724929523" y="824.7157068476616" xlink:href="#taurus" stroke="black" fill="black" /></g></g>
 
 <path d="M237,237 L468.4976275619204,186.22748348562595 A237,237 0 0,0 412.0965681272647,77.28089710352688 z" style="fill:#ffd237; fill-opacity: 0.5;"/>
 <g transform="translate(-4.8,-4.8)"><g transform="scale(0.3)"><use x="1461.9603649580322" y="442.1297477939327" xlink:href="#gemini" stroke="black" fill="black" /></g></g>
 
 <path d="M237,237 L412.0965681272647,77.28089710352688 A237,237 0 0,0 308.7785246654472,11.130915358361214 z" style="fill:#4093f4; fill-opacity: 0.5;"/>
-<g transform="translate(-4.8,-4.8)"><g transform="scale(0.3)"><use x="1197.9996202868845" y="152.75534188963002" xlink:href="#cancer" stroke="black" fill="black" /></g></g>
+<g transform="translate(-4.8,-4.8)"><g transform="scale(0.3)"><use x="1197.9996202868845" y="152.7553418896299" xlink:href="#cancer" stroke="black" fill="black" /></g></g>
 
 <path d="M237,237 L308.7785246654472,11.130915358361214 A237,237 0 0,0 186.22748348562595,5.502372438079579 z" style="fill:#ef5350; fill-opacity: 0.5;"/>
 <g transform="translate(-4.8,-4.8)"><g transform="scale(0.3)"><use x="824.7157068476617" y="34.1301275070479" xlink:href="#leo" stroke="black" fill="black" /></g></g>
 
-<path d="M237,237 L186.22748348562595,5.502372438079579 A237,237 0 0,0 77.28089710352675,61.90343187273547 z" style="fill:#73b230; fill-opacity: 0.5;"/>
+<path d="M237,237 L186.22748348562595,5.502372438079579 A237,237 0 0,0 77.28089710352673,61.90343187273547 z" style="fill:#73b230; fill-opacity: 0.5;"/>
 <g transform="translate(-4.8,-4.8)"><g transform="scale(0.3)"><use x="442.1297477939328" y="118.039635041968" xlink:href="#virgo" stroke="black" fill="black" /></g></g>
 
-<path d="M237,237 L77.28089710352675,61.90343187273547 A237,237 0 0,0 11.130915358361214,165.22147533455276 z" style="fill:#ffd237; fill-opacity: 0.5;"/>
+<path d="M237,237 L77.28089710352673,61.90343187273547 A237,237 0 0,0 11.130915358361214,165.22147533455276 z" style="fill:#ffd237; fill-opacity: 0.5;"/>
 <g transform="translate(-4.8,-4.8)"><g transform="scale(0.3)"><use x="152.75534188963033" y="382.0003797131148" xlink:href="#libra" stroke="black" fill="black" /></g></g>
 
 <path d="M237,237 L11.130915358361214,165.22147533455276 A237,237 0 0,0 5.502372438079579,287.77251651437405 z" style="fill:#4093f4; fill-opacity: 0.5;"/>

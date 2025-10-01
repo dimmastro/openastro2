@@ -2,7 +2,7 @@
   "oa": {
     "air": 70.0,
     "altitude": 25,
-    "args": {},
+    "args": [],
     "aspects": [
       {
         "color": "#4093f4",
@@ -609,6 +609,7 @@
       9,
       9
     ],
+    "kwargs": {},
     "label": {
       "air": "Air",
       "apparent_geocentric": "Apparent Geocentric",
@@ -644,18 +645,19 @@
     "month": 1,
     "month_loc": 1,
     "name": "Vladimir Visotskiy",
+    "oa_args": {},
     "planet_apparent_altitude": [
       6.001955482169352,
       10.67200623094964,
       10.053298602820046,
       5.447051085086247,
       -4.517258586164499,
-      4.862962290203929,
+      4.862962290203926,
       -7.116340021137227,
       -10.737836900461637,
       4.323133505833919,
-      -3.857898538924968,
-      11.556634283042058,
+      -3.8578985389249687,
+      11.55663428304205,
       11.56562226740449,
       12.792123967724395,
       12.505743054131438,
@@ -663,7 +665,7 @@
       -17.15164242104971,
       15.63208420728755,
       -9.570456210968599,
-      19.620956709555294,
+      19.620956709555298,
       21.60450049188015,
       18.017247991708526,
       12.511123150829253,
@@ -780,7 +782,7 @@
       42
     ],
     "planet_latitude": [
-      -3.7242594286694054e-05,
+      -3.7242594286694244e-05,
       -0.7426460731374758,
       0.6090673314276668,
       -0.984722911333133,
@@ -798,9 +800,9 @@
       -6.435547548983829,
       6.667571234166301,
       -8.511659393958968,
-      16.15172189471015,
+      16.151721894710153,
       10.0742339387134,
-      6.9899195854560805,
+      6.989919585456079,
       1.2583089519233244,
       -3.163326600403868,
       23,
@@ -875,12 +877,12 @@
       9.96484316226075,
       5.292717632008813,
       -4.517258586164499,
-      4.6934233986157565,
+      4.693423398615754,
       -7.116340021137227,
       -10.737836900461637,
       4.136932860506281,
-      -3.857898538924968,
-      11.47934433386321,
+      -3.8578985389249687,
+      11.479344333863201,
       11.488390930195937,
       12.722160251160798,
       12.43420318452959,
@@ -888,10 +890,10 @@
       -17.15164242104971,
       15.574736753191,
       -9.570456210968599,
-      19.575594186999332,
+      19.575594186999336,
       21.56367432575978,
       17.96751720522134,
-      12.439613522951875,
+      12.439613522951877,
       -12.262671952936,
       23,
       24,
@@ -5761,7 +5763,7 @@
         "version": "2.0.1",
         "zodiactype": "tropical"
       },
-      "astrodir": "C:\\Users\\Dimm\\.openastro.org",
+      "astrodir": "/home/dimm/.openastro.org",
       "color_codes": {
         "color_radix": "#444444",
         "color_transit_1": "#ff0000",
@@ -5841,9 +5843,9 @@
         "zodiac_transit_ring_1": "#CCCCCC",
         "zodiac_transit_ring_2": "#CCCCCC"
       },
-      "homedir": "C:\\Users\\Dimm",
-      "iconAspects": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\icons\\aspects",
-      "iconWindow": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\icons\\openastro.svg",
+      "homedir": "/home/dimm",
+      "iconAspects": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/icons/aspects",
+      "iconWindow": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/icons/openastro.svg",
       "lang_label": {
         "ar": "الْعَرَبيّة",
         "bg": "български език",
@@ -13749,20 +13751,21 @@
         "t_rplanet": 25,
         "zoom": 2
       },
-      "swissLocalDir": "C:\\Users\\Dimm\\.openastro.org\\swiss_ephemeris",
-      "tempfilename": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChart.svg",
-      "tempfilenameprint": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChartPrint.svg",
-      "tempfilenametable": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChartTable.svg",
-      "tempfilenametableprint": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChartTablePrint.svg",
-      "tmpdir": "C:\\Users\\Dimm\\.openastro.org\\tmp",
+      "swissLocalDir": "/home/dimm/.openastro.org/swiss_ephemeris",
+      "tempfilename": "/home/dimm/.openastro.org/tmp/openAstroChart.svg",
+      "tempfilenameprint": "/home/dimm/.openastro.org/tmp/openAstroChartPrint.svg",
+      "tempfilenametable": "/home/dimm/.openastro.org/tmp/openAstroChartTable.svg",
+      "tempfilenametableprint": "/home/dimm/.openastro.org/tmp/openAstroChartTablePrint.svg",
+      "tmpdir": "/home/dimm/.openastro.org/tmp",
       "type": "GeoZodiac",
       "version": "2.0.0",
-      "xml_svg": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro-svg.xml",
-      "xml_svg2": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro2-svg.xml",
-      "xml_svg_table": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro-svg-table.xml",
-      "xml_ui": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro-ui.xml"
+      "xml_svg": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-svg.xml",
+      "xml_svg2": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro2-svg.xml",
+      "xml_svg_table": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-svg-table.xml",
+      "xml_ui": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-ui.xml"
     },
     "t_altitude": 25,
+    "t_aspect_all_str": "",
     "t_day": 25,
     "t_geolat": 55.78472277151802,
     "t_geolon": 37.628137530436106,
@@ -13781,7 +13784,7 @@
       9.231195907455287,
       12.729210639164336,
       23.925780821231385,
-      29.90700136681164
+      29.907001366811627
     ],
     "t_houses_degree_ut": [
       147.07813917710592,
@@ -13795,7 +13798,7 @@
       9.231195907455287,
       42.729210639164336,
       83.92578082123138,
-      119.90700136681164
+      119.90700136681163
     ],
     "t_houses_dict": {
       "Asc": {
@@ -13975,8 +13978,8 @@
         "houses_zodiac_yinyang": "yang"
       },
       "XII": {
-        "houses_degree": 29.90700136681164,
-        "houses_degree_ut": 119.90700136681164,
+        "houses_degree": 29.907001366811627,
+        "houses_degree_ut": 119.90700136681163,
         "houses_id": 11,
         "houses_name": "XII",
         "houses_position_str": "XII 29°54' cancer",
@@ -14073,7 +14076,7 @@
       -6.433855418650061,
       6.6674827081006685,
       -8.503439226451823,
-      16.126992192810704,
+      16.1269921928107,
       10.093344229048713,
       7.001640503083466,
       1.266293782354022,
@@ -41570,7 +41573,7 @@
           0,
           0,
           0,
-          0.03869061362394177,
+          0.03869061362392756,
           0,
           0,
           0,
@@ -90875,7 +90878,7 @@
           "id": ""
         },
         {
-          "delta": 0.03869061362394177,
+          "delta": 0.03869061362392756,
           "id": "120"
         },
         {
@@ -97211,7 +97214,7 @@
       9.231195907455287,
       12.729210639164336,
       23.925780821231385,
-      29.90700136681164,
+      29.907001366811627,
       22.548376902819825,
       1.6079014513920242,
       4.2975247543953685,
@@ -97256,7 +97259,7 @@
       9.231195907455287,
       42.729210639164336,
       83.92578082123138,
-      119.90700136681164,
+      119.90700136681163,
       82.54837690281983,
       211.60790145139202,
       64.29752475439537,
@@ -97532,8 +97535,8 @@
         "planets_zodiac_yinyang": "yang"
       },
       "XII": {
-        "planets_degree": 29.90700136681164,
-        "planets_degree_ut": 119.90700136681164,
+        "planets_degree": 29.907001366811627,
+        "planets_degree_ut": 119.90700136681163,
         "planets_house": [
           10,
           11

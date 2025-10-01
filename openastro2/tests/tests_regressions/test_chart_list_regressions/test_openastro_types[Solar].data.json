@@ -2,7 +2,7 @@
   "oa": {
     "air": 70.0,
     "altitude": 25,
-    "args": {},
+    "args": [],
     "aspects": [
       {
         "color": "#4093f4",
@@ -599,6 +599,7 @@
       9,
       9
     ],
+    "kwargs": {},
     "label": {
       "air": "Air",
       "apparent_geocentric": "Apparent Geocentric",
@@ -634,18 +635,19 @@
     "month": 1,
     "month_loc": 1,
     "name": "Vladimir Visotskiy",
+    "oa_args": {},
     "planet_apparent_altitude": [
       6.001955482169352,
       10.67200623094964,
       10.053298602820046,
       5.447051085086247,
       -4.517258586164499,
-      4.862962290203929,
+      4.862962290203926,
       -7.116340021137227,
       -10.737836900461637,
       4.323133505833919,
-      -3.857898538924968,
-      11.556634283042058,
+      -3.8578985389249687,
+      11.55663428304205,
       11.56562226740449,
       12.792123967724395,
       12.505743054131438,
@@ -653,7 +655,7 @@
       -17.15164242104971,
       15.63208420728755,
       -9.570456210968599,
-      19.620956709555294,
+      19.620956709555298,
       21.60450049188015,
       18.017247991708526,
       12.511123150829253,
@@ -770,7 +772,7 @@
       42
     ],
     "planet_latitude": [
-      -3.7242594286694054e-05,
+      -3.7242594286694244e-05,
       -0.7426460731374758,
       0.6090673314276668,
       -0.984722911333133,
@@ -788,9 +790,9 @@
       -6.435547548983829,
       6.667571234166301,
       -8.511659393958968,
-      16.15172189471015,
+      16.151721894710153,
       10.0742339387134,
-      6.9899195854560805,
+      6.989919585456079,
       1.2583089519233244,
       -3.163326600403868,
       23,
@@ -865,12 +867,12 @@
       9.96484316226075,
       5.292717632008813,
       -4.517258586164499,
-      4.6934233986157565,
+      4.693423398615754,
       -7.116340021137227,
       -10.737836900461637,
       4.136932860506281,
-      -3.857898538924968,
-      11.47934433386321,
+      -3.8578985389249687,
+      11.479344333863201,
       11.488390930195937,
       12.722160251160798,
       12.43420318452959,
@@ -878,10 +880,10 @@
       -17.15164242104971,
       15.574736753191,
       -9.570456210968599,
-      19.575594186999332,
+      19.575594186999336,
       21.56367432575978,
       17.96751720522134,
-      12.439613522951875,
+      12.439613522951877,
       -12.262671952936,
       23,
       24,
@@ -5751,7 +5753,7 @@
         "version": "2.0.1",
         "zodiactype": "tropical"
       },
-      "astrodir": "C:\\Users\\Dimm\\.openastro.org",
+      "astrodir": "/home/dimm/.openastro.org",
       "color_codes": {
         "color_radix": "#444444",
         "color_transit_1": "#ff0000",
@@ -5831,9 +5833,9 @@
         "zodiac_transit_ring_1": "#CCCCCC",
         "zodiac_transit_ring_2": "#CCCCCC"
       },
-      "homedir": "C:\\Users\\Dimm",
-      "iconAspects": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\icons\\aspects",
-      "iconWindow": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\icons\\openastro.svg",
+      "homedir": "/home/dimm",
+      "iconAspects": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/icons/aspects",
+      "iconWindow": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/icons/openastro.svg",
       "lang_label": {
         "ar": "الْعَرَبيّة",
         "bg": "български език",
@@ -13739,20 +13741,21 @@
         "t_rplanet": 25,
         "zoom": 2
       },
-      "swissLocalDir": "C:\\Users\\Dimm\\.openastro.org\\swiss_ephemeris",
-      "tempfilename": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChart.svg",
-      "tempfilenameprint": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChartPrint.svg",
-      "tempfilenametable": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChartTable.svg",
-      "tempfilenametableprint": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChartTablePrint.svg",
-      "tmpdir": "C:\\Users\\Dimm\\.openastro.org\\tmp",
+      "swissLocalDir": "/home/dimm/.openastro.org/swiss_ephemeris",
+      "tempfilename": "/home/dimm/.openastro.org/tmp/openAstroChart.svg",
+      "tempfilenameprint": "/home/dimm/.openastro.org/tmp/openAstroChartPrint.svg",
+      "tempfilenametable": "/home/dimm/.openastro.org/tmp/openAstroChartTable.svg",
+      "tempfilenametableprint": "/home/dimm/.openastro.org/tmp/openAstroChartTablePrint.svg",
+      "tmpdir": "/home/dimm/.openastro.org/tmp",
       "type": "Solar",
       "version": "2.0.0",
-      "xml_svg": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro-svg.xml",
-      "xml_svg2": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro2-svg.xml",
-      "xml_svg_table": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro-svg-table.xml",
-      "xml_ui": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro-ui.xml"
+      "xml_svg": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-svg.xml",
+      "xml_svg2": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro2-svg.xml",
+      "xml_svg_table": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-svg-table.xml",
+      "xml_ui": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-ui.xml"
     },
     "t_altitude": 25,
+    "t_aspect_all_str": "",
     "t_day": 25,
     "t_geolat": 55.78472277151802,
     "t_geolon": 37.628137530436106,
@@ -14050,9 +14053,9 @@
       1.3391463713301597,
       -1.3634017010917339,
       -1.0801658314940865,
-      -1.2011337591659301,
+      -1.201133759165931,
       -1.1908079059180103,
-      0.8038067492325486,
+      0.8038067492325501,
       1.7556751362862777,
       14.149524608990953,
       0.0,
@@ -14066,7 +14069,7 @@
       22.79773340801605,
       9.447627241162794,
       0.9365390184326535,
-      3.5754723615791253,
+      3.5754723615791244,
       -1.370233601509608,
       23,
       24,
@@ -14095,10 +14098,10 @@
       280.00588939452075,
       340.3534066476432,
       309.69273584725664,
-      13.738705479159117,
+      13.738705479159119,
       323.1179143213018,
-      159.35220908363942,
-      227.6725503814171,
+      159.3522090836394,
+      227.67255038141707,
       163.83468982281633,
       100.05335817995007,
       101.10398069673772,
@@ -30991,7 +30994,7 @@
           0,
           0,
           0,
-          0.38738717250652144,
+          0.38738717250654986,
           0,
           0,
           0,
@@ -41578,7 +41581,7 @@
           0,
           0,
           0,
-          0.6157118343386685,
+          0.6157118343386401,
           0,
           0,
           0,
@@ -42343,7 +42346,7 @@
           0,
           0,
           0,
-          0.3873871725065072,
+          0.38738717250653565,
           0,
           0,
           0,
@@ -90931,7 +90934,7 @@
           "id": ""
         },
         {
-          "delta": 0.6157118343386685,
+          "delta": 0.6157118343386401,
           "id": "120"
         },
         {
@@ -93889,7 +93892,7 @@
           "id": ""
         },
         {
-          "delta": 0.3873871725065072,
+          "delta": 0.38738717250653565,
           "id": "120"
         },
         {
@@ -94933,7 +94936,7 @@
           "id": ""
         },
         {
-          "delta": 0.38738717250652144,
+          "delta": 0.38738717250654986,
           "id": "60"
         },
         {
@@ -97172,10 +97175,10 @@
       10.00588939452075,
       10.353406647643226,
       9.692735847256643,
-      13.738705479159117,
+      13.738705479159119,
       23.117914321301782,
-      9.352209083639423,
-      17.672550381417096,
+      9.352209083639394,
+      17.672550381417068,
       13.83468982281633,
       10.053358179950067,
       11.103980696737722,
@@ -97217,10 +97220,10 @@
       280.00588939452075,
       340.3534066476432,
       309.69273584725664,
-      13.738705479159117,
+      13.738705479159119,
       323.1179143213018,
-      159.35220908363942,
-      227.6725503814171,
+      159.3522090836394,
+      227.67255038141707,
       163.83468982281633,
       100.05335817995007,
       101.10398069673772,
@@ -97724,8 +97727,8 @@
         "planets_zodiac_yinyang": "ying"
       },
       "jupiter": {
-        "planets_degree": 13.738705479159117,
-        "planets_degree_ut": 13.738705479159117,
+        "planets_degree": 13.738705479159119,
+        "planets_degree_ut": 13.738705479159119,
         "planets_house": [
           8
         ],
@@ -97882,8 +97885,8 @@
         "planets_zodiac_yinyang": "yang"
       },
       "neptune": {
-        "planets_degree": 17.672550381417096,
-        "planets_degree_ut": 227.6725503814171,
+        "planets_degree": 17.672550381417068,
+        "planets_degree_ut": 227.67255038141707,
         "planets_house": [
           3
         ],
@@ -98151,8 +98154,8 @@
         "planets_zodiac_yinyang": "ying"
       },
       "uranus": {
-        "planets_degree": 9.352209083639423,
-        "planets_degree_ut": 159.35220908363942,
+        "planets_degree": 9.352209083639394,
+        "planets_degree_ut": 159.3522090836394,
         "planets_house": [
           1
         ],

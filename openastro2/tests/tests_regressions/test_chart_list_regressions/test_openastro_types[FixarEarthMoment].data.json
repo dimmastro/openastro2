@@ -2,7 +2,7 @@
   "oa": {
     "air": 125.0,
     "altitude": 25,
-    "args": {},
+    "args": [],
     "aspects": [
       {
         "color": "#4093f4",
@@ -575,6 +575,7 @@
       7
     ],
     "jul_day_UT": 2438648.875,
+    "kwargs": {},
     "label": {
       "air": "Air",
       "apparent_geocentric": "Apparent Geocentric",
@@ -610,6 +611,7 @@
     "month": 1,
     "month_loc": 1,
     "name": "Vladimir Visotskiy",
+    "oa_args": {},
     "planet_apparent_altitude": [
       38.83340940467015,
       9.185986889840558,
@@ -619,7 +621,7 @@
       5.457682148491872,
       -46.59776186819832,
       42.38301257613488,
-      2.915799885939369,
+      2.915799885939372,
       52.41753632742631,
       27.961162867599302,
       28.23699880320806,
@@ -748,14 +750,14 @@
     "planet_latitude": [
       -3.70619629909949e-05,
       0.005625428470090697,
-      -1.0413686778207394,
+      -1.0413686778207396,
       -1.2561153287187161,
       1.78281340200461,
-      -1.0874267198063665,
+      -1.0874267198063667,
       -1.4291606328195947,
       0.8052198443657855,
       1.753916325871492,
-      14.374544551717163,
+      14.374544551717166,
       0.0,
       0.0,
       0.1134315610916412,
@@ -844,7 +846,7 @@
       5.303602312456524,
       -46.59776186819832,
       42.365316186349986,
-      2.6686894478009178,
+      2.668689447800921,
       52.40511073241836,
       27.93072129202026,
       28.206908447831452,
@@ -81312,7 +81314,7 @@
         "version": "2.0.1",
         "zodiactype": "tropical"
       },
-      "astrodir": "C:\\Users\\Dimm\\.openastro.org",
+      "astrodir": "/home/dimm/.openastro.org",
       "color_codes": {
         "color_radix": "#444444",
         "color_transit_1": "#ff0000",
@@ -81392,9 +81394,9 @@
         "zodiac_transit_ring_1": "#CCCCCC",
         "zodiac_transit_ring_2": "#CCCCCC"
       },
-      "homedir": "C:\\Users\\Dimm",
-      "iconAspects": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\icons\\aspects",
-      "iconWindow": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\icons\\openastro.svg",
+      "homedir": "/home/dimm",
+      "iconAspects": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/icons/aspects",
+      "iconWindow": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/icons/openastro.svg",
       "lang_label": {
         "ar": "الْعَرَبيّة",
         "bg": "български език",
@@ -89300,18 +89302,18 @@
         "t_rplanet": 25,
         "zoom": 2
       },
-      "swissLocalDir": "C:\\Users\\Dimm\\.openastro.org\\swiss_ephemeris",
-      "tempfilename": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChart.svg",
-      "tempfilenameprint": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChartPrint.svg",
-      "tempfilenametable": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChartTable.svg",
-      "tempfilenametableprint": "C:\\Users\\Dimm\\.openastro.org\\tmp\\openAstroChartTablePrint.svg",
-      "tmpdir": "C:\\Users\\Dimm\\.openastro.org\\tmp",
+      "swissLocalDir": "/home/dimm/.openastro.org/swiss_ephemeris",
+      "tempfilename": "/home/dimm/.openastro.org/tmp/openAstroChart.svg",
+      "tempfilenameprint": "/home/dimm/.openastro.org/tmp/openAstroChartPrint.svg",
+      "tempfilenametable": "/home/dimm/.openastro.org/tmp/openAstroChartTable.svg",
+      "tempfilenametableprint": "/home/dimm/.openastro.org/tmp/openAstroChartTablePrint.svg",
+      "tmpdir": "/home/dimm/.openastro.org/tmp",
       "type": "FixarEarthMoment",
       "version": "2.0.0",
-      "xml_svg": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro-svg.xml",
-      "xml_svg2": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro2-svg.xml",
-      "xml_svg_table": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro-svg-table.xml",
-      "xml_ui": "D:\\projects\\astro\\openastro2\\openastro2\\openastro2\\xml/openastro-ui.xml"
+      "xml_svg": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-svg.xml",
+      "xml_svg2": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro2-svg.xml",
+      "xml_svg_table": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-svg-table.xml",
+      "xml_ui": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-ui.xml"
     },
     "t_altitude": 25,
     "t_day": 10,

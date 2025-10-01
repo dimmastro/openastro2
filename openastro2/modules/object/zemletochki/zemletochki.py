@@ -36,11 +36,11 @@ class Zemletochki:
         geolon = kwargs['geolon']
         openastrocfg = kwargs['openastrocfg']
         zt_type = 1
-        if openastrocfg['type'] == "Zemletochki": # Землеточки
+        if openastrocfg['type'] in ["Zemletochki", "ZemletochkiAntis"]: # Землеточки
             zt_type = 1
-        elif openastrocfg['type'] == "ZemletochkiG": # Землеточки от Гринвича
+        elif openastrocfg['type'] in ["ZemletochkiG", "ZemletochkiGAntis"] : # Землеточки от Гринвича
             zt_type = 2
-        elif openastrocfg['type'] == "Sefarial": # Сефариал
+        elif openastrocfg['type'] in ["Sefarial", "SefarialAntis"] : # Сефариал
             zt_type = 3
 
         try:

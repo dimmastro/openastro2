@@ -371,7 +371,7 @@ class openAstro:
 		return cls.event(name, year, month, day, hour, minute, second, timezone, location, countrycode, geolat, geolon, altitude)
 
 
-	def __init__(self, event1: Dict[str, Any], event2: List[Any] = [], type: str = "Radix", settings: Dict[str, Any] = {}, args: Dict[str, Any] = {}) -> None:
+	def __init__(self, event1: Dict[str, Any], event2: List[Any] = [], type: str = "Radix", settings: Dict[str, Any] = {}, oa_args: Dict[str, Any] = {}, *args: Any, **kwargs: Any) -> None:
 		self.settings = openAstroSettings(settings=settings)
 
 		self.event1 = event1
@@ -501,7 +501,9 @@ class openAstro:
 		#get color configuration
 		self.colors = self.settings.getColors()
 		self.label = self.settings.getLabel()
+		self.oa_args = oa_args
 		self.args = args
+		self.kwargs = kwargs
 
 		return
 
@@ -1543,40 +1545,40 @@ class openAstro:
 			h, m, s = self.decHour(self.hour)
 			dt_original = datetime.datetime(self.year, self.month, self.day, h, m, s)
 
-			dt_end = datetime.datetime.strptime(self.args['dateEndStr'], "%Y-%m-%d %H:%M:%S")
+			dt_end = datetime.datetime.strptime(self.oa_args['dateEndStr'], "%Y-%m-%d %H:%M:%S")
 			dt_direction = dt_end - dt_original
 			dt_dir_seconds = dt_direction.total_seconds()
-			if self.args['DirectionToEndType'] == "to_ic":
+			if self.oa_args['DirectionToEndType'] == "to_ic":
 				# 90 to IC
 				delta_degr = (module_data.houses_degree_ut[3] - module_data.houses_degree_ut[0])
 				if(delta_degr < 0):
 					delta_degr = 360 + delta_degr
 				solaryearsecs = (dt_dir_seconds / delta_degr)
-			if self.args['DirectionToEndType'] == "to_ic_back":
+			if self.oa_args['DirectionToEndType'] == "to_ic_back":
 				# 90 to IC
 				delta_degr = (module_data.houses_degree_ut[3] - module_data.houses_degree_ut[0])
 				if(delta_degr > 0):
 					delta_degr = delta_degr - 360
 				solaryearsecs = (dt_dir_seconds / delta_degr)
-			elif self.args['DirectionToEndType'] == "to_mc_forward":
+			elif self.oa_args['DirectionToEndType'] == "to_mc_forward":
 				# 270 to MC
 				delta_degr = (module_data.houses_degree_ut[9] - module_data.houses_degree_ut[0])
 				if(delta_degr < 0):
 					delta_degr = 360 + delta_degr
 				solaryearsecs = (dt_dir_seconds / delta_degr)
-			elif self.args['DirectionToEndType'] == "to_mc_back":
+			elif self.oa_args['DirectionToEndType'] == "to_mc_back":
 				# -90 to MC
 				delta_degr = (module_data.houses_degree_ut[9] - module_data.houses_degree_ut[0])
 				if(delta_degr > 0):
 					delta_degr = delta_degr - 360
 				solaryearsecs = (dt_dir_seconds / delta_degr)
-			elif self.args['DirectionToEndType'] == "360":
+			elif self.oa_args['DirectionToEndType'] == "360":
 				solaryearsecs = 31556925.51/4  # 365 days, 5 hours, 48 minutes, 45.51 seconds
-			elif self.args['DirectionToEndType'] == "to_360":
+			elif self.oa_args['DirectionToEndType'] == "to_360":
 				solaryearsecs =  dt_dir_seconds / 360
-			elif self.args['DirectionToEndType'] == "to_90":
+			elif self.oa_args['DirectionToEndType'] == "to_90":
 				solaryearsecs = dt_dir_seconds / 90
-			elif self.args['DirectionToEndType'] == "90":
+			elif self.oa_args['DirectionToEndType'] == "90":
 				solaryearsecs = 31556925.51  # 365 days, 5 hours, 48 minutes, 45.51 seconds
 
 			self.planets_sign = module_data.planets_sign
@@ -1896,9 +1898,16 @@ class openAstro:
 														  self.settings.astrocfg, None)
 			self.type = "Transit"
 
-		elif self.type == "Zemletochki" or self.type == "ZemletochkiG" or self.type == "Sefarial":
+		elif (self.type == "Zemletochki" or self.type == "ZemletochkiG" or self.type == "Sefarial"
+			  or self.type == "ZemletochkiAntis" or self.type == "ZemletochkiGAntis" or self.type == "SefarialAntis"):
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			# if self.kwargs.get("zemletochki_antis", False) == True:
+			if self.type == "ZemletochkiAntis" or self.type == "ZemletochkiGAntis" or self.type == "SefarialAntis":
+				for i in range(len(module_data.planets_degree_ut)):
+					module_data.planets_degree_ut[i] = 360 - module_data.planets_degree_ut[i]
+					module_data.planets_sign[i], module_data.planets_degree[i] = get_zodiac_sign(module_data.planets_degree_ut[i])
+
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											  self.settings.astrocfg)
@@ -2116,6 +2125,7 @@ class openAstro:
 		self.t_houses_dict = {}
 		self.t_planets_all_str = ""
 		self.t_houses_all_str = ""
+		self.t_aspect_all_str = ""
 		i = 0
 		hi = 0
 		# Цикл для заполнения словаря
@@ -2253,10 +2263,10 @@ class openAstro:
 			dt += datetime.timedelta(minutes=1)
 			event1 = self.event_dt_str("tmp", dt_str=dt.strftime("%Y-%m-%d %H:%M:%S"), timezone=3, location="СПб",
 											geolat=59.871391, geolon=30.332604)
-			args = {}
-			args['DirectionToEndType'] = "360"
-			args['dateEndStr'] = "1990-08-15 09:40:00"
-			oa2 = openAstro(event1, self.event2, type="DirectionWithEnd", args=args)
+			oa_args = {}
+			oa_args['DirectionToEndType'] = "360"
+			oa_args['dateEndStr'] = "1990-08-15 09:40:00"
+			oa2 = openAstro(event1, self.event2, type="DirectionWithEnd", oa_args=oa_args)
 			oa2.calcAstro()
 			r = self.settings.settings_svg["r"]
 			self.c3 = 120
@@ -2676,7 +2686,8 @@ class openAstro:
 		(Right point of chart = 7th house or zemletyl of zemletochki)
 		:return:
 		"""
-		if self.settings.type == "Zemletochki" or self.settings.type == "ZemletochkiG" or self.settings.type == "Sefarial":
+		if (self.settings.type == "Zemletochki" or self.settings.type == "ZemletochkiG" or self.settings.type == "Sefarial"
+				or self.settings.type == "ZemletochkiAntis" or self.settings.type == "ZemletochkiGAntis" or self.settings.type == "SefarialAntis"):
 			return self.t_planets_degree_ut[46]
 			# return self.houses_degree_ut[6]
 		else:

@@ -28,6 +28,5 @@ setup(
         "openpyxl==3.1.5",
         "ephem==4.2",
         "geographiclib==2.0",
-        "scipy==1.15.3",
     ],
 )

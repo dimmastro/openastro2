@@ -65,7 +65,6 @@ skyfield==1.46          # Astronomical computations
 svgwrite==1.4.3         # SVG generation
 pandas==2.0.2           # Data manipulation
 numpy==1.26.4           # Numerical operations
-scipy==1.15.3           # Scientific computations
 pytz                    # Time zone handling
 requests==2.31.0        # HTTP client
 pydeck==0.8.0          # Geospatial visualization

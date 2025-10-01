@@ -5740,7 +5740,7 @@ class openAstro:
 	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon, num_planet=11,
 										 aspects=[0, 60, 90, 120, 180, 240, 270, 300], local_aspects=False):
 		"""
-		Calculates Local Space directions via the scipy library.
+		Calculates Local Space directions via library.
 
 		:param type_tr: Radix or Transit
 		:param dt: date and time

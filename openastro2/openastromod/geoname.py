@@ -61,7 +61,7 @@ def search(name: str = '', country: str = '') -> Optional[List[Dict[str, str]]]:
 		f = urlopen("http://api.geonames.org/search?%s" % params, timeout=60)
 
 	except (HTTPError, URLError) as error:
-		print('Errir: not retrieved because %s\nURL: %s', error, url)
+		print('Errir: not retrieved because %s\nURL: %s', error, "http://api.geonames.org/search")
 
 	except timeout:
 		print('Timeout on search!')
@@ -90,7 +90,7 @@ def search(name: str = '', country: str = '') -> Optional[List[Dict[str, str]]]:
 		try:
 			f = urlopen("http://api.geonames.org/timezone?%s" % tparams, timeout=20)
 		except (HTTPError, URLError) as error:
-			print('Errir: not retrieved because %s\nURL: %s', error, url)
+			print('Errir: not retrieved because %s\nURL: %s', error, "http://api.geonames.org/timezone")
 		except timeout:
 			print('Timeout on search!')
 			return None

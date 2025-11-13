@@ -60,7 +60,7 @@ def test_openastro_integration():
     print("\nTesting OpenAstro integration...")
     
     # Create a simple chart using the correct API
-    event = openAstro.event('Test', 1990, 6, 15, 12, 0, 0)
+    event = openAstro.event('Test', 1990, 6, 15, 12, 0, 0, 0, 0, 0, 0, 0)
     astro = openAstro(event, type="Radix")
     astro.calcAstro()
     

@@ -215,15 +215,15 @@ class openAstroSettings:
 		self.settings["settings_aspect_dic"] = self._build_settings_aspect_dic()
 
 
-		self.astrocfg = self.settings["astrocfg"]
+		# self.astrocfg = self.settings["astrocfg"]
 		# dprint(self.astrocfg)
 
 		# #install language
 		self.setLanguage(self.settings["astrocfg"]['language'])
 		self.lang_label = LANGUAGES_LABEL
 
-		self.settings_svg = self.settings["settings_svg"]
-		self.color_codes = self.settings["color_codes"]
+		# self.settings_svg = self.settings["settings_svg"]
+		# self.color_codes = self.settings["color_codes"]
 		self.settings_planet = self.settings["settings_planet"]
 		return
 
@@ -513,8 +513,8 @@ class openAstro:
 		self.zodiac_attention = ['outer','outer', 'inner','inner', 'outer','outer', 'inner','inner', 'outer','outer', 'inner','inner']
 
 		#get color configuration
-		self.colors = self.settings.getColors()
-		self.label = self.settings.getLabel()
+		# self.colors = self.settings.getColors()
+		# self.label = self.settings.getLabel()
 		self.oa_args = oa_args
 		self.args = args
 		self.kwargs = kwargs

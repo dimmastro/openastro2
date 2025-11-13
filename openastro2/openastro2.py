@@ -212,13 +212,14 @@ class openAstroSettings:
 			return dict1
 
 		self.settings = merge_dicts(settings0, settings)
+		self.settings["settings_aspect_dic"] = self._build_settings_aspect_dic()
 
 
 		self.astrocfg = self.settings["astrocfg"]
 		# dprint(self.astrocfg)
 
 		# #install language
-		self.setLanguage(self.astrocfg['language'])
+		self.setLanguage(self.settings["astrocfg"]['language'])
 		self.lang_label = LANGUAGES_LABEL
 
 		self.settings_svg = self.settings["settings_svg"]
@@ -266,6 +267,19 @@ class openAstroSettings:
 	def getSettingsAspect(self) -> Dict[str, Any]:
 		dict = self.settings["settings_aspect"]
 		return dict
+
+	def _build_settings_aspect_dic(self) -> Dict[str, Dict[str, Any]]:
+		"""Derive the aspect lookup dictionary from the list form that is stored in JSON."""
+		aspect_dic: Dict[str, Dict[str, Any]] = {}
+		for aspect in self.settings.get("settings_aspect", []):
+			aspect_id = str(aspect.get("id"))
+			entry = dict(aspect)
+			entry["id"] = aspect_id
+			entry["label"] = entry.get("label", f"{entry.get('degree')} gr")
+			if "visible_json" not in entry:
+				entry["visible_json"] = 1 if entry.get("is_major") == 1 else 0
+			aspect_dic[aspect_id] = entry
+		return aspect_dic
 
 
 	def checkSwissEphemeris(self, num: int) -> None:
@@ -7788,7 +7802,6 @@ def dprint(str):
 # 	openAstro = openAstroInstance(db)
 # 	mainWindow()
 # 	main()
-
 
 
 

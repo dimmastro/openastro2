@@ -2,7 +2,7 @@ from typing import Dict, Any, List
 from openastro2.openastro2 import openAstro
 
 # Create test chart
-event = openAstro.event('Test', 2000, 1, 1, 12, 0, 0)
+event = openAstro.event('Test', 2000, 1, 1, 12, 0, 0, 0, 0, 0, 0, 0)
 chart = openAstro(event, type="Radix")
 
 # Calculate astrological data

@@ -378,14 +378,14 @@ class openAstro:
 		self.event2 = event2
 		self.type = type
 		self.settings.type = type
-		self.settings.astrocfg['type'] = type
+		self.settings.settings["astrocfg"]['type'] = type
 
 		# self.screen_width = 1920
 		# self.screen_height = 1080
 		# self.screen_width = 1024
 		# self.screen_height = 576
-		self.screen_width = self.settings.settings_svg["screen_width"]
-		self.screen_height = self.settings.settings_svg["screen_height"]
+		self.screen_width = self.settings.settings["settings_svg"]["screen_width"]
+		self.screen_height = self.settings.settings["settings_svg"]["screen_height"]
 
 		self.name = self.event1["name"]
 		self.charttype = self.type
@@ -467,7 +467,7 @@ class openAstro:
 
 		#Default
 		# self.name=_("Here and Now")
-		# self.charttype=self.label["radix"]
+		# self.charttype=self.settings.settings["label"]["radix"]
 		# self.year=dt_utc.year
 		# self.month=dt_utc.month
 		# self.day=dt_utc.day
@@ -483,7 +483,7 @@ class openAstro:
 
 		#configuration
 		#ZOOM 1 = 100%
-		self.zoom = self.settings.settings_svg["zoom"]
+		self.zoom = self.settings.settings["settings_svg"]["zoom"]
 		# self.type="Radix"
 
 
@@ -552,7 +552,7 @@ class openAstro:
 		dprint (self.planets_degree_ut)
 		mdata = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 		dprint (mdata.planets_degree_ut)
 		for i in range(0,43):
 			mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
@@ -626,7 +626,7 @@ class openAstro:
 		dprint (self.planets_degree_ut)
 		mdata = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 		dprint (mdata.planets_degree_ut)
 		for i in range(0,43):
 			mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
@@ -700,7 +700,7 @@ class openAstro:
 		dprint (self.planets_degree_ut)
 		mdata = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 		dprint (mdata.planets_degree_ut)
 		for i in range(0,43):
 			mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
@@ -847,9 +847,9 @@ class openAstro:
 		# # dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
 		# dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
 		# dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_id]))
-		# # mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# # mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 		# mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude, self.planets,
-		# 						  self.zodiac, self.settings.astrocfg)
+		# 						  self.zodiac, self.settings.settings["astrocfg"])
 		# dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_id]))
 		# sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
 		# dprint("localToSolar: sundiff %s" % (sundiff))
@@ -882,8 +882,8 @@ class openAstro:
 
 		# dt_dir_seconds = dt_direction.total_seconds()
 		# gradus_delta = (dt_dir_seconds / solaryearsecs)
-		# # # mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		# # mdata = ephemeris.ephData(t_year,t_month,t_day,t_hour,t_geolon,t_geolat,t_altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# # # mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
+		# # mdata = ephemeris.ephData(t_year,t_month,t_day,t_hour,t_geolon,t_geolat,t_altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 		# # dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[0]) )
 		# # sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
 		# # dprint("localToSolar: sundiff %s" %(sundiff))
@@ -892,13 +892,13 @@ class openAstro:
 		# # dt_delta = datetime.timedelta(seconds=int(sundelta))
 		# # dt_delta = datetime.timedelta(seconds=int(sundelta))
 		# # dt_new = dt_new + dt_delta
-		# # mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# # mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 		# # dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[0]))
 		# # dprint (dt_new)
 		# dprint (self.planets_degree_ut)
 		# mdata = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 		# 									self.geolat, self.altitude, self.planets, self.zodiac,
-		# 									self.settings.astrocfg)
+		# 									self.settings.settings["astrocfg"])
 		# dprint (mdata.planets_degree_ut)
 		# for i in range(0,43):
 		# 	mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
@@ -986,8 +986,8 @@ class openAstro:
 		# dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
 		dt_new = datetime.datetime(t_year,t_month,t_day,t_h,t_m,t_s)
 		dprint("localToSolar: first sun %s" % (self.planets_degree_ut[0]) )
-		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
-		mdata = ephemeris.ephData(t_year,t_month,t_day,t_hour,t_geolon,t_geolat,t_altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
+		mdata = ephemeris.ephData(t_year,t_month,t_day,t_hour,t_geolon,t_geolat,t_altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[0]) )
 		# sundiff = -360 + self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
 		sundiff = self.planets_degree_ut[0] - mdata.planets_degree_ut[0]
@@ -998,7 +998,7 @@ class openAstro:
 		dprint("localToSolar: sundelta %s" % (sundelta))
 		dt_delta = datetime.timedelta(seconds=int(sundelta))
 		dt_new = dt_new + dt_delta
-		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		mdata = ephemeris.ephData(dt_new.year,dt_new.month,dt_new.day,self.decHourJoin(dt_new.hour,dt_new.minute,dt_new.second),self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 		dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[0]))
 		# dprint (dt_new)
 		#get precise
@@ -1013,7 +1013,7 @@ class openAstro:
 			sundelta = sundiff / step
 			dt_delta = datetime.timedelta(seconds=int(sundelta))
 			dt_new = dt_new + dt_delta
-			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
 			# print(dt_new)
 
@@ -1182,9 +1182,9 @@ class openAstro:
 		# dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
 		dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
 		# dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_id]))
-		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 		mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude, self.planets,
-								  self.zodiac, self.settings.astrocfg)
+								  self.zodiac, self.settings.settings["astrocfg"])
 		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_id]))
 		sundiff = -360 + self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
 		# dprint("localToSolar: sundiff %s" % (sundiff))
@@ -1194,7 +1194,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
 								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), t_geolon, t_geolat,
-								  t_altitude, self.planets, self.zodiac, self.settings.astrocfg)
+								  t_altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 		# dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_id]))
 		# print(dt_new)
 
@@ -1208,7 +1208,7 @@ class openAstro:
 			sundelta = sundiff / step
 			dt_delta = datetime.timedelta(seconds=int(sundelta))
 			dt_new = dt_new + dt_delta
-			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
 			# print(dt_new)
 
@@ -1229,7 +1229,7 @@ class openAstro:
 
 	def localToGeoZodiac(self):
 		# geo_zodiac_start = -17.5833333
-		geo_zodiac_start = self.settings.astrocfg["geo_zodiac_start"]
+		geo_zodiac_start = self.settings.settings["astrocfg"]["geo_zodiac_start"]
 		planet_id = 0 #Earth = 0 Aries
 
 		planet_names = {1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran',
@@ -1316,9 +1316,9 @@ class openAstro:
 		# dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
 		dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
 		# dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_id]))
-		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 		mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude, self.planets,
-								  self.zodiac, self.settings.astrocfg)
+								  self.zodiac, self.settings.settings["astrocfg"])
 		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_id]))
 		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
 		# dprint("localToSolar: sundiff %s" % (sundiff))
@@ -1328,7 +1328,7 @@ class openAstro:
 		dt_new = dt_new + dt_delta
 		mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
 								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), t_geolon, t_geolat,
-								  t_altitude, self.planets, self.zodiac, self.settings.astrocfg)
+								  t_altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 		# dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_id]))
 		# print(dt_new)
 		for i in range(100):
@@ -1339,7 +1339,7 @@ class openAstro:
 			sundelta = sundiff / step
 			dt_delta = datetime.timedelta(seconds=int(sundelta))
 			dt_new = dt_new + dt_delta
-			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
 			# print(dt_new)
 			# print(sundiff)
@@ -1373,9 +1373,9 @@ class openAstro:
 		dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
 		t_geolon_new = t_geolon
 		# dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_id]))
-		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.astrocfg)
+		# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 		mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude, self.planets,
-								  self.zodiac, self.settings.astrocfg)
+								  self.zodiac, self.settings.settings["astrocfg"])
 		dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_id]))
 		sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
 		# dprint("localToSolar: sundiff %s" % (sundiff))
@@ -1384,7 +1384,7 @@ class openAstro:
 		# dt_delta = datetime.timedelta(seconds=int(sundelta))
 		t_geolon_new = t_geolon_new + sundiff
 		mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon_new, t_geolat, t_altitude, self.planets,
-								  self.zodiac, self.settings.astrocfg)
+								  self.zodiac, self.settings.settings["astrocfg"])
 		# print(sundiff)
 		# dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_id]))
 		# print(dt_new)
@@ -1397,9 +1397,9 @@ class openAstro:
 			# dt_delta = datetime.timedelta(seconds=int(sundelta))
 			# dt_new = dt_new + dt_delta
 			t_geolon_new = t_geolon_new + sundelta
-			# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+			# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 			mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon_new, t_geolat, t_altitude, self.planets,
-								  self.zodiac, self.settings.astrocfg)
+								  self.zodiac, self.settings.settings["astrocfg"])
 			# dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
 			# print(t_geolon_new)
 			# print (self.planets_degree_ut[planet_id])
@@ -1504,7 +1504,7 @@ class openAstro:
 			# make calculations
 			module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			h, m, s = self.decHour(self.t_hour)
 			dt_new = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
 			self.e2_dt_utc = dt_new
@@ -1513,7 +1513,7 @@ class openAstro:
 		elif self.type == "Direction":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_sign = module_data.planets_sign
 			self.planets_degree = module_data.planets_degree
 			self.planets_degree_ut = module_data.planets_degree_ut
@@ -1525,7 +1525,7 @@ class openAstro:
 			t_module_data = self.localToDirection(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon, self.t_geolat, self.t_altitude)
 			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-			# 								  self.settings.astrocfg)
+			# 								  self.settings.settings["astrocfg"])
 			self.t_planets_sign = t_module_data.planets_sign
 			self.t_planets_degree = t_module_data.planets_degree
 			self.t_planets_degree_ut = t_module_data.planets_degree_ut
@@ -1540,7 +1540,7 @@ class openAstro:
 		elif self.type == "DirectionWithEnd":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			solaryearsecs = 31556925.51  # 365 days, 5 hours, 48 minutes, 45.51 seconds
 			h, m, s = self.decHour(self.hour)
 			dt_original = datetime.datetime(self.year, self.month, self.day, h, m, s)
@@ -1592,7 +1592,7 @@ class openAstro:
 			t_module_data = self.localToDirectionWithEnd(solaryearsecs, self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon, self.t_geolat, self.t_altitude)
 			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-			# 								  self.settings.astrocfg)
+			# 								  self.settings.settings["astrocfg"])
 			self.t_planets_sign = t_module_data.planets_sign
 			self.t_planets_degree = t_module_data.planets_degree
 			self.t_planets_degree_ut = t_module_data.planets_degree_ut
@@ -1608,7 +1608,7 @@ class openAstro:
 		elif self.type == "DirectionPast":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_sign = module_data.planets_sign
 			self.planets_degree = module_data.planets_degree
 			self.planets_degree_ut = module_data.planets_degree_ut
@@ -1623,7 +1623,7 @@ class openAstro:
 			t_module_data = self.localToDirectionPast(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon, self.t_geolat, self.t_altitude)
 			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-			# 								  self.settings.astrocfg)
+			# 								  self.settings.settings["astrocfg"])
 			self.t_planets_sign = t_module_data.planets_sign
 			self.t_planets_degree = t_module_data.planets_degree
 			self.t_planets_degree_ut = t_module_data.planets_degree_ut
@@ -1639,13 +1639,13 @@ class openAstro:
 		elif self.type == "DirectionRealPast":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToDirectionRealPast(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 			# grab transiting module data
 			self.t_planets_sign = t_module_data.planets_sign
 			self.t_planets_degree = t_module_data.planets_degree
@@ -1660,13 +1660,13 @@ class openAstro:
 		elif self.type == "DirectionRealFuture":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToDirectionRealFuture(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 			# grab transiting module data
 			self.t_planets_sign = t_module_data.planets_sign
 			self.t_planets_degree = t_module_data.planets_degree
@@ -1682,133 +1682,133 @@ class openAstro:
 		elif self.type == "Solar":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToSolar(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 		elif self.type == "SolarNext":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToSolarNext(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 		elif self.type == "SolarPrev":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToSolarPrev(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 		elif self.type == "SolarNear":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToSolarNear(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 		elif self.type == "NewMoonNext":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToNewMoonNext(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 									self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 
 
 		elif self.type == "NewMoonPrev":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToNewMoonPrev(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 									self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 
 
 		elif self.type == "FullMoonNext":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToFullMoonNext(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 									self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 
 
 		elif self.type == "FullMoonPrev":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToFullMoonPrev(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 							  self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 
 
 		# Lunar module data
 		elif self.type == "Lunar":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToLunar(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 		elif self.type == "AscReturn":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToAscReturn(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 
 		elif self.type == "EarthReturn":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToEarthReturn(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											self.t_geolat, self.t_altitude)
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 
 		elif self.type == "GeoZodiac":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			self.planets_degree_ut = module_data.planets_degree_ut
 			self.localToGeoZodiac()
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 
 
 		elif self.type == "SProgression":
@@ -1817,13 +1817,13 @@ class openAstro:
 			self.localToSProgression(dt)
 			# module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 			# 								self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
-			# 								self.settings.astrocfg, houses_override=self.houses_override)
+			# 								self.settings.settings["astrocfg"], houses_override=self.houses_override)
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			t_module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 											  self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg, houses_override=self.houses_override)
+											  self.settings.settings["astrocfg"], houses_override=self.houses_override)
 			self.t_planets_sign = t_module_data.planets_sign
 			self.t_planets_degree = t_module_data.planets_degree
 			self.t_planets_degree_ut = t_module_data.planets_degree_ut
@@ -1840,13 +1840,13 @@ class openAstro:
 			self.localToSProgressionPast(dt)
 			# module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 			# 								self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
-			# 								self.settings.astrocfg, houses_override=self.houses_override)
+			# 								self.settings.settings["astrocfg"], houses_override=self.houses_override)
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
-											self.settings.astrocfg)
+											self.settings.settings["astrocfg"])
 			t_module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 											  self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg, houses_override=self.houses_override)
+											  self.settings.settings["astrocfg"], houses_override=self.houses_override)
 			self.t_planets_sign = t_module_data.planets_sign
 			self.t_planets_degree = t_module_data.planets_degree
 			self.t_planets_degree_ut = t_module_data.planets_degree_ut
@@ -1860,24 +1860,24 @@ class openAstro:
 
 		elif self.type == "FixarPlanetMoment":
 			module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
-											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
+											self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"], None)
 			self.module_data = module_data
 			self.type = "Radix"
 		elif self.type == "FixarPlanetRadix":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
-											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+											self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 			self.module_data = module_data
 			t_module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
-											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
+											self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"], None)
 			self.type = "Transit"
 
 		elif self.type == "FixarPlanetTransit":
 			module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
-											self.altitude, self.planets, self.zodiac, self.settings.astrocfg, None)
+											self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"], None)
 			self.module_data = module_data
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 			self.type = "Transit"
 
 		elif self.type == "FixarEarthMoment":
@@ -1885,23 +1885,23 @@ class openAstro:
 														  self.t_month, self.t_day, self.t_hour, self.geolon,
 														  self.geolat,
 														  self.altitude, self.planets, self.zodiac,
-														  self.settings.astrocfg, None)
+														  self.settings.settings["astrocfg"], None)
 			self.type = "Radix"
 		elif self.type == "FixarEarthTransit":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
-											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+											self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 			self.module_data = module_data
 			t_module_data = ephemeris.ephData.ephData_fixar_earth(self, self.year, self.month, self.day, self.hour, self.t_year,
 														  self.t_month, self.t_day, self.t_hour, self.geolon,
 														  self.geolat,
 														  self.altitude, self.planets, self.zodiac,
-														  self.settings.astrocfg, None)
+														  self.settings.settings["astrocfg"], None)
 			self.type = "Transit"
 
 		elif (self.type == "Zemletochki" or self.type == "ZemletochkiG" or self.type == "Sefarial"
 			  or self.type == "ZemletochkiAntis" or self.type == "ZemletochkiGAntis" or self.type == "SefarialAntis"):
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
-											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+											self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 			# if self.kwargs.get("zemletochki_antis", False) == True:
 			if self.type == "ZemletochkiAntis" or self.type == "ZemletochkiGAntis" or self.type == "SefarialAntis":
 				for i in range(len(module_data.planets_degree_ut)):
@@ -1910,7 +1910,7 @@ class openAstro:
 
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 			h, m, s = self.decHour(self.t_hour)
 			dt_new = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
 			self.e2_dt_utc = dt_new
@@ -1918,17 +1918,17 @@ class openAstro:
 
 		elif self.type == "Transit" or self.type == "Composite":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
-											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+											self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
-											  self.settings.astrocfg)
+											  self.settings.settings["astrocfg"])
 			h, m, s = self.decHour(self.t_hour)
 			dt_new = datetime.datetime(self.t_year, self.t_month, self.t_day, h, m, s)
 			self.e2_dt_utc = dt_new
 		else:
 			# make calculations
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
-											self.altitude, self.planets, self.zodiac, self.settings.astrocfg)
+											self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 
 		self.makePlanetNames()
 
@@ -2056,7 +2056,7 @@ class openAstro:
 			planets_house = self.get_house_for_planet(degree_ut, self.houses_degree_ut, one_house=True)
 			planets_houses = self.get_house_for_planet(degree_ut, self.houses_degree_ut, one_house=False)
 			# foreach h in planets_houses:
-			if ("planet_in_one_house" in self.settings.astrocfg and self.settings.astrocfg["planet_in_one_house"] == 1):
+			if ("planet_in_one_house" in self.settings.settings["astrocfg"] and self.settings.settings["astrocfg"]["planet_in_one_house"] == 1):
 				house_name = [self.planets_name[i + 23] for i in planets_house]
 				house_str = ', '.join(house_name)
 			else:
@@ -2136,7 +2136,7 @@ class openAstro:
 			planets_house = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut, one_house=True)
 			planets_houses = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut, one_house=False)
 			# foreach h in planets_houses:
-			if ("planet_in_one_house" in self.settings.astrocfg and self.settings.astrocfg["planet_in_one_house"] == 1):
+			if ("planet_in_one_house" in self.settings.settings["astrocfg"] and self.settings.settings["astrocfg"]["planet_in_one_house"] == 1):
 				house_name = [self.planets_name[i + 23] for i in planets_house]
 				house_str = ', '.join(house_name)
 			else:
@@ -2268,7 +2268,7 @@ class openAstro:
 			oa_args['dateEndStr'] = "1990-08-15 09:40:00"
 			oa2 = openAstro(event1, self.event2, type="DirectionWithEnd", oa_args=oa_args)
 			oa2.calcAstro()
-			r = self.settings.settings_svg["r"]
+			r = self.settings.settings["settings_svg"]["r"]
 			self.c3 = 120
 			oa2.makeAspectsTransit(r, (r - self.c3))
 			aspects_id_arr.append(oa2.t_planets_aspects_id_arr)
@@ -2365,11 +2365,11 @@ class openAstro:
 
 		# template dictionary
 		td = dict()
-		r = self.settings.settings_svg["r"]
-		if (self.settings.astrocfg['chartview'] == "european"):
-			self.c1 = self.settings.settings_svg["c1"]
-			self.c2 = self.settings.settings_svg['c2']
-			self.c3 = self.settings.settings_svg['c3']
+		r = self.settings.settings["settings_svg"]["r"]
+		if (self.settings.settings["astrocfg"]['chartview'] == "european"):
+			self.c1 = self.settings.settings["settings_svg"]["c1"]
+			self.c2 = self.settings.settings["settings_svg"]['c2']
+			self.c3 = self.settings.settings["settings_svg"]['c3']
 		else:
 			self.c1 = 0
 			self.c2 = 36
@@ -2383,17 +2383,17 @@ class openAstro:
 			# circles
 			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"'
 			td['c1style'] = 'fill: %s; stroke: %s;  fill-opacity:0.0; stroke-width: 0px; stroke-opacity:1.0;' % (
-			self.colors['paper_1'], self.colors['zodiac_transit_ring_2'])
+			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_transit_ring_2'])
 			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"'
 			td['c2style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.4; stroke-width: 0px' % (
-			self.colors['paper_1'], self.colors['zodiac_transit_ring_1'])
+			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_transit_ring_1'])
 			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"'
 			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px' % (
-			self.colors['paper_1'], self.colors['zodiac_transit_ring_0'])
+			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_transit_ring_0'])
 			td['makeAspects'] = self.makeAspectsTransit(r, (r - self.c3))
 
 			td['makeAspectGrid'] = ""
-			if self.settings.settings_svg["printAspectGrid"] == 1:
+			if self.settings.settings["settings_svg"]["printAspectGrid"] == 1:
 				td['makeAspectGrid'] = self.makeAspectGrid(r)
 			td['makePatterns'] = ''
 		else:
@@ -2402,23 +2402,23 @@ class openAstro:
 			td['degreeRing'] = ""
 			# circles
 			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"'
-			td['c1style'] = 'fill: none; stroke: %s; stroke-width: 0.0px; ' % (self.colors['zodiac_radix_ring_2'])
+			td['c1style'] = 'fill: none; stroke: %s; stroke-width: 0.0px; ' % (self.settings.settings["color_codes"]['zodiac_radix_ring_2'])
 			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"'
 			td['c2style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.3; stroke-width: 0.0px' % (
-			self.colors['paper_1'], self.colors['zodiac_radix_ring_1'])
+			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_radix_ring_1'])
 			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"'
 			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 0.5px' % (
-			self.colors['paper_1'], self.colors['zodiac_radix_ring_0'])
+			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_radix_ring_0'])
 			td['makeAspects'] = self.makeAspects(r, (r - self.c3))
 
 			td['makeAspectGrid'] = ""
-			if self.settings.settings_svg["printAspectGrid"] == 1:
+			if self.settings.settings["settings_svg"]["printAspectGrid"] == 1:
 				td['makeAspectGrid'] = self.makeAspectGrid(r)
 
 			td['makePatterns'] = self.makePatterns()
 
-		td['circleX'] = str(self.settings.settings_svg["circleX"])
-		td['circleY'] = str(self.settings.settings_svg["circleY"])
+		td['circleX'] = str(self.settings.settings["settings_svg"]["circleX"])
+		td['circleY'] = str(self.settings.settings["settings_svg"]["circleY"])
 		td['svgWidth'] = str(svgWidth)
 		td['svgHeight'] = str(svgHeight)
 		td['viewbox'] = viewbox
@@ -2439,11 +2439,11 @@ class openAstro:
 		td['stringLon'] = ""
 		td['stringPosition'] = ""
 
-		if self.settings.settings_svg["printChartType"] == 1:
+		if self.settings.settings["settings_svg"]["printChartType"] == 1:
 			td['chartType'] = self.charttype
 
 		# Print Radix Chart description
-		if self.settings.settings_svg["printDescriptionRadix"] == 1:
+		if self.settings.settings["settings_svg"]["printDescriptionRadix"] == 1:
 			td['stringTitle'] = self.name
 			# td['chartType'] = self.charttype
 			td['stringDateTime'] = str(self.year_loc) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
@@ -2464,14 +2464,14 @@ class openAstro:
 
 			td['stringLat'] = "%s" % (self.lat2str(self.geolat))
 			td['stringLon'] = "%s" % (self.lon2str(self.geolon))
-			postype = {"geo": self.label["apparent_geocentric"], "truegeo": self.label["true_geocentric"],
-					   "topo": self.label["topocentric"], "helio": self.label["heliocentric"]}
-			# td['stringPosition'] = postype[self.settings.astrocfg['postype']]
-			td['stringPosition'] = self.settings.astrocfg['postype']
+			postype = {"geo": self.settings.settings["label"]["apparent_geocentric"], "truegeo": self.settings.settings["label"]["true_geocentric"],
+					   "topo": self.settings.settings["label"]["topocentric"], "helio": self.settings.settings["label"]["heliocentric"]}
+			# td['stringPosition'] = postype[self.settings.settings["astrocfg"]['postype']]
+			td['stringPosition'] = self.settings.settings["astrocfg"]['postype']
 
 		# Print Douuble-Chart description
 		if self.type == "Transit" or self.type == "Direction":
-			if self.settings.settings_svg["printDescriptionDouble"] == 1:
+			if self.settings.settings["settings_svg"]["printDescriptionDouble"] == 1:
 				# td['chartType'] = self.charttype
 				td['t_stringTitle'] = self.t_name
 				td['t_stringDateTime'] = str(self.event2["year"]) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
@@ -2479,8 +2479,8 @@ class openAstro:
 					'#5': self.event2["second"]}
 				# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
 				td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
-				# td['t_stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.t_geolat))
-				# td['t_stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.t_geolon))
+				# td['t_stringLat'] = "%s: %s" % (self.settings.settings["label"]['latitude'], self.lat2str(self.t_geolat))
+				# td['t_stringLon'] = "%s: %s" % (self.settings.settings["label"]['longitude'], self.lon2str(self.t_geolon))
 				td['t_stringLat'] = "%s" % (self.lat2str(self.t_geolat))
 				td['t_stringLon'] = "%s" % (self.lon2str(self.t_geolon))
 
@@ -2508,9 +2508,9 @@ class openAstro:
 			"B1950": _("B1950")
 		}
 
-		if self.settings.astrocfg['zodiactype'] == 'sidereal':
+		if self.settings.settings["astrocfg"]['zodiactype'] == 'sidereal':
 			td['bottomLeft1'] = _("Sidereal")
-			td['bottomLeft2'] = siderealmode_chartview[self.settings.astrocfg['siderealmode']]
+			td['bottomLeft2'] = siderealmode_chartview[self.settings.settings["astrocfg"]['siderealmode']]
 		else:
 			td['bottomLeft1'] = _("Tropical")
 			td['bottomLeft2'] = '%s: %s (%s) %s (%s)' % (
@@ -2527,34 +2527,34 @@ class openAstro:
 			if (deg > 80.0): maxr = maxr * maxr
 			lfcx = 20.0 + (deg / 90.0) * (maxr + 10.0)
 			lfr = 10.0 + (deg / 90.0) * maxr
-			lffg, lfbg = self.colors["lunar_phase_0"], self.colors["lunar_phase_1"]
+			lffg, lfbg = self.settings.settings["color_codes"]["lunar_phase_0"], self.settings.settings["color_codes"]["lunar_phase_1"]
 
 		elif (deg < 180.0):
 			maxr = 180.0 - deg
 			if (deg < 100.0): maxr = maxr * maxr
 			lfcx = 20.0 + ((deg - 90.0) / 90.0 * (maxr + 10.0)) - (maxr + 10.0)
 			lfr = 10.0 + maxr - ((deg - 90.0) / 90.0 * maxr)
-			lffg, lfbg = self.colors["lunar_phase_1"], self.colors["lunar_phase_0"]
+			lffg, lfbg = self.settings.settings["color_codes"]["lunar_phase_1"], self.settings.settings["color_codes"]["lunar_phase_0"]
 
 		elif (deg < 270.0):
 			maxr = deg - 180.0
 			if (deg > 260.0): maxr = maxr * maxr
 			lfcx = 20.0 + ((deg - 180.0) / 90.0 * (maxr + 10.0))
 			lfr = 10.0 + ((deg - 180.0) / 90.0 * maxr)
-			lffg, lfbg = self.colors["lunar_phase_1"], self.colors["lunar_phase_0"]
+			lffg, lfbg = self.settings.settings["color_codes"]["lunar_phase_1"], self.settings.settings["color_codes"]["lunar_phase_0"]
 
 		elif (deg < 361):
 			maxr = 360.0 - deg
 			if (deg < 280.0): maxr = maxr * maxr
 			lfcx = 20.0 + ((deg - 270.0) / 90.0 * (maxr + 10.0)) - (maxr + 10.0)
 			lfr = 10.0 + maxr - ((deg - 270.0) / 90.0 * maxr)
-			lffg, lfbg = self.colors["lunar_phase_0"], self.colors["lunar_phase_1"]
+			lffg, lfbg = self.settings.settings["color_codes"]["lunar_phase_0"], self.settings.settings["color_codes"]["lunar_phase_1"]
 
 		td['lunar_phase_fg'] = lffg
 		td['lunar_phase_bg'] = lfbg
 		td['lunar_phase_cx'] = '%s' % (lfcx)
 		td['lunar_phase_r'] = '%s' % (lfr)
-		td['lunar_phase_outline'] = self.colors["lunar_phase_2"]
+		td['lunar_phase_outline'] = self.settings.settings["color_codes"]["lunar_phase_2"]
 
 		# rotation based on latitude
 		td['lunar_phase_rotate'] = "%s" % (-90.0 - self.geolat)
@@ -2588,38 +2588,38 @@ class openAstro:
 		# if self.type == "Transit" or self.type == "Direction":
 		# 	# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
 		# 	td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
-		# 	# td['t_stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.t_geolat))
-		# 	# td['t_stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.t_geolon))
+		# 	# td['t_stringLat'] = "%s: %s" % (self.settings.settings["label"]['latitude'], self.lat2str(self.t_geolat))
+		# 	# td['t_stringLon'] = "%s: %s" % (self.settings.settings["label"]['longitude'], self.lon2str(self.t_geolon))
 		# 	td['t_stringLat'] = "%s" % (self.lat2str(self.t_geolat))
 		# 	td['t_stringLon'] = "%s" % (self.lon2str(self.t_geolon))
 		#
-		# # td['stringLat'] = "%s: %s" % (self.label['latitude'], self.lat2str(self.geolat))
-		# # td['stringLon'] = "%s: %s" % (self.label['longitude'], self.lon2str(self.geolon))
+		# # td['stringLat'] = "%s: %s" % (self.settings.settings["label"]['latitude'], self.lat2str(self.geolat))
+		# # td['stringLon'] = "%s: %s" % (self.settings.settings["label"]['longitude'], self.lon2str(self.geolon))
 		# td['stringLat'] = "%s" % ( self.lat2str(self.geolat))
 		# td['stringLon'] = "%s" % (self.lon2str(self.geolon))
-		# postype = {"geo": self.label["apparent_geocentric"], "truegeo": self.label["true_geocentric"],
-		# 		   "topo": self.label["topocentric"], "helio": self.label["heliocentric"]}
-		# # td['stringPosition'] = postype[self.settings.astrocfg['postype']]
-		# td['stringPosition'] = self.settings.astrocfg['postype']
+		# postype = {"geo": self.settings.settings["label"]["apparent_geocentric"], "truegeo": self.settings.settings["label"]["true_geocentric"],
+		# 		   "topo": self.settings.settings["label"]["topocentric"], "helio": self.settings.settings["label"]["heliocentric"]}
+		# # td['stringPosition'] = postype[self.settings.settings["astrocfg"]['postype']]
+		# td['stringPosition'] = self.settings.settings["astrocfg"]['postype']
 
 		# paper_color_X
-		td['paper_color_0'] = self.colors["paper_0"]
-		td['paper_color_1'] = self.colors["paper_1"]
+		td['paper_color_0'] = self.settings.settings["color_codes"]["paper_0"]
+		td['paper_color_1'] = self.settings.settings["color_codes"]["paper_1"]
 
 
 
 		for i in range(len(self.planets)):
-			# td['planets_color_%s'%(i)]=self.colors["planet_%s"%(i)]
-			td['planets_color_%s'%(i)]=self.colors["planet_all"]
+			# td['planets_color_%s'%(i)]=self.settings.settings["color_codes"]["planet_%s"%(i)]
+			td['planets_color_%s'%(i)]=self.settings.settings["color_codes"]["planet_all"]
 
 		# zodiac_color_X
 		for i in range(12):
-			td['zodiac_color_%s' % (i)] = self.colors["zodiac_icon_%s" % (i)]
+			td['zodiac_color_%s' % (i)] = self.settings.settings["color_codes"]["zodiac_icon_%s" % (i)]
 
 		# orb_color_X
-		for i in range(len(self.aspects)):
-			# td['orb_color_%s' % (self.aspects[i]['degree'])] = self.colors["aspect_%s" % (self.aspects[i]['degree'])]
-			td['orb_color_%s' % (self.aspects[i]['degree'])] = self.aspects[i]['color']
+		for i in range(len(self.settings.settings["settings_aspect"])):
+			# td['orb_color_%s' % (self.settings.settings["settings_aspect"][i]['degree'])] = self.settings.settings["color_codes"]["aspect_%s" % (self.settings.settings["settings_aspect"][i]['degree'])]
+			td['orb_color_%s' % (self.settings.settings["settings_aspect"][i]['degree'])] = self.settings.settings["settings_aspect"][i]['color']
 
 		# config
 		td['cfgZoom'] = str(self.zoom)
@@ -2633,20 +2633,20 @@ class openAstro:
 		td['makeElements'] = self.makeElements(r)
 
 		td['makePlanetGrid'] = ""
-		if self.settings.settings_svg["printPlanetGrid"] == 1:
+		if self.settings.settings["settings_svg"]["printPlanetGrid"] == 1:
 			td['makePlanetGrid'] = self.makePlanetGrid()
 
 		td['makeHousesGrid'] = ""
-		if self.settings.settings_svg["printHousesGrid"] == 1:
+		if self.settings.settings["settings_svg"]["printHousesGrid"] == 1:
 			td['makeHousesGrid'] = self.makeHousesGrid()
 
 
 		td['makePlanetGrid_t'] = ""
 		td['makeHousesGrid_t'] = ""
 		if self.type == "Transit" or self.type == "Direction":
-			if self.settings.settings_svg["printPlanetGrid_t"] == 1:
+			if self.settings.settings["settings_svg"]["printPlanetGrid_t"] == 1:
 				td['makePlanetGrid_t'] = self.makePlanetGrid_t()
-			if self.settings.settings_svg["printHousesGrid_t"] == 1:
+			if self.settings.settings["settings_svg"]["printHousesGrid_t"] == 1:
 				td['makeHousesGrid_t'] = self.makeHousesGrid_t()
 
 		# read template
@@ -2655,7 +2655,7 @@ class openAstro:
 		template = Template(f.read()).substitute(td)
 		f.close()
 
-		if self.settings.settings_svg["saveSwgFile"] == 1:
+		if self.settings.settings["settings_svg"]["saveSwgFile"] == 1:
 			# write template
 			if printing:
 				# f = open(cfg.tempfilenameprint, "w")
@@ -2675,8 +2675,8 @@ class openAstro:
 
 	#draw transit ring
 	def transitRing( self , r ):
-		# out = '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:0.7; stroke: %s; stroke-width: 36px; stroke-opacity: 1.0;"/>' % (r,r,r-18,self.colors['paper_1'] ,self.colors['paper_1'])
-		# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:0.7; stroke: %s; stroke-width: 1px; stroke-opacity: .6;"/>' % (r,r,r,self.colors['paper_1'] ,self.colors['zodiac_transit_ring_3'])
+		# out = '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:0.7; stroke: %s; stroke-width: 36px; stroke-opacity: 1.0;"/>' % (r,r,r-18,self.settings.settings["color_codes"]['paper_1'] ,self.settings.settings["color_codes"]['paper_1'])
+		# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:0.7; stroke: %s; stroke-width: 1px; stroke-opacity: .6;"/>' % (r,r,r,self.settings.settings["color_codes"]['paper_1'] ,self.settings.settings["color_codes"]['zodiac_transit_ring_3'])
 		# return out
 		return
 
@@ -2708,7 +2708,7 @@ class openAstro:
 			x2 = self.sliceToX( 0 , r+2-self.c1 , offset ) - 2 + self.c1
 			y2 = self.sliceToY( 0 , r+2-self.c1 , offset ) - 2 + self.c1
 			out += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke: %s; stroke-width: 1px; stroke-opacity:.9;"/>\n' % (
-				x1,y1,x2,y2,self.colors['paper_0'] )
+				x1,y1,x2,y2,self.settings.settings["color_codes"]['paper_0'] )
 		return out
 
 	def degreeTransitRing( self , r ):
@@ -2730,9 +2730,9 @@ class openAstro:
 
 	#floating latitude an longitude to string
 	def lat2str( self, coord ):
-		sign=self.label["north"]
+		sign=self.settings.settings["label"]["north"]
 		if coord < 0.0:
-			sign=self.label["south"]
+			sign=self.settings.settings["label"]["south"]
 			coord = abs(coord)
 		deg = int(coord)
 		min = int( (float(coord) - deg) * 60 )
@@ -2741,9 +2741,9 @@ class openAstro:
 		# return "%s°%s'%s\" %s" % (deg,min,sec,sign)
 
 	def lon2str( self, coord ):
-		sign=self.label["east"]
+		sign=self.settings.settings["label"]["east"]
 		if coord < 0.0:
-			sign=self.label["west"]
+			sign=self.settings.settings["label"]["west"]
 			coord = abs(coord)
 		deg = int(coord)
 		min = int( (float(coord) - deg) * 60 )
@@ -2765,10 +2765,10 @@ class openAstro:
 		return decTzStr(tz)
 
 	def degreeDiff(self, a: Union[int, float], b: Union[int, float]) -> float:
-		return degreeDiff(a, b, self.settings.astrocfg["round_aspects"] == 1)
+		return degreeDiff(a, b, self.settings.settings["astrocfg"]["round_aspects"] == 1)
 
 	def degreeDiff2(self, a: Union[int, float], b: Union[int, float]) -> float:
-		return degreeDiff2(a, b, self.settings.astrocfg["round_aspects"] == 1)
+		return degreeDiff2(a, b, self.settings.settings["astrocfg"]["round_aspects"] == 1)
 
 	def dec2deg(self, dec: float, type: str = "3") -> str:
 		return dec2deg(dec, type)
@@ -2789,9 +2789,9 @@ class openAstro:
 			y2 = self.sliceToY( 0 , ar , offset ) + (r-ar)
 			out = '			<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+color+'; stroke-width: 1.0; stroke-opacity: .5;"/>\n'
 			# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
-			# 	x1, y1, 3.5, self.colors['paper_1'], self.colors["color_transit_2"])
+			# 	x1, y1, 3.5, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]["color_transit_2"])
 			# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
-			# 	x2, y2, 0.50, self.colors['paper_1'], self.colors["color_transit_2"])
+			# 	x2, y2, 0.50, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]["color_transit_2"])
 			return out
 
 	def sliceToX( self , slice , r, offset):
@@ -2806,7 +2806,7 @@ class openAstro:
 
 	def zodiacSlice( self , num , r , style,  type):
 		#pie slices
-		if self.settings.astrocfg["houses_system"] == "G":
+		if self.settings.settings["astrocfg"]["houses_system"] == "G":
 			offset = 360 - self.houses_degree_ut[18]
 		else:
 			# offset = 360 - self.houses_degree_ut[6]
@@ -2837,12 +2837,12 @@ class openAstro:
 	def makeZodiac( self , r ):
 		output = ""
 		for i in range(len(self.zodiac)):
-			output = output + self.zodiacSlice( i , r , "fill:" + self.colors["zodiac_bg_%s"%(i)] + "; fill-opacity: 0.5;" , self.zodiac[i]) + '\n'
+			output = output + self.zodiacSlice( i , r , "fill:" + self.settings.settings["color_codes"]["zodiac_bg_%s"%(i)] + "; fill-opacity: 0.5;" , self.zodiac[i]) + '\n'
 		return output
 
 	def makeHouses( self , r ):
 		path = ""
-		if self.settings.astrocfg["houses_system"] == "G":
+		if self.settings.settings["astrocfg"]["houses_system"] == "G":
 			xr = 36
 		else:
 			xr = 12
@@ -2850,11 +2850,11 @@ class openAstro:
 			#check transit
 			if self.type == "Transit" or self.type == "Direction":
 				dropin=self.c3
-				roff=self.c1 - self.settings.settings_svg['roff']
-				t_roff=self.c1 - self.settings.settings_svg['t_roff']
+				roff=self.c1 - self.settings.settings["settings_svg"]['roff']
+				t_roff=self.c1 - self.settings.settings["settings_svg"]['t_roff']
 			else:
 				dropin=self.c3
-				roff=self.c1-self.settings.settings_svg['roff']
+				roff=self.c1-self.settings.settings["settings_svg"]['roff']
 
 			#offset is negative desc houses_degree_ut[6]
 			# offset = (int(self.houses_degree_ut[int(xr/2)]) / -1) + int(self.houses_degree_ut[i])
@@ -2881,9 +2881,9 @@ class openAstro:
 			elif i == 3:
 				linecolor=self.planets[32]['color']
 			else:
-				linecolor=self.colors['houses_radix_line']
+				linecolor=self.settings.settings["color_codes"]['houses_radix_line']
 			if self.type == "Transit" or self.type == "Direction":
-				linecolor = self.colors['houses_transit_line_1']
+				linecolor = self.settings.settings["color_codes"]['houses_transit_line_1']
 
 			#transit houses lines
 			if self.type == "Transit" or self.type == "Direction":
@@ -2906,14 +2906,14 @@ class openAstro:
 					t_text_offset = t_offset
 				#linecolor
 				if i ==  0 or i ==  9 or i ==  6 or i ==  3:
-					t_linecolor = self.colors['houses_transit_line_2']
+					t_linecolor = self.settings.settings["color_codes"]['houses_transit_line_2']
 				else:
-					t_linecolor = self.colors['houses_transit_line_2']
+					t_linecolor = self.settings.settings["color_codes"]['houses_transit_line_2']
 				# xtext = self.sliceToX( 0 , (r-25) , t_text_offset ) + 25
 				# ytext = self.sliceToY( 0 , (r-25) , t_text_offset ) + 25
 				# path = path + '<text style="fill: #00f; fill-opacity: .4; font-size: 14px"><tspan x="'+str(xtext-3)+'" y="'+str(ytext+3)+'">'+str(i+1)+'</tspan></text>\n'
 				# path = path + '<line x1="'+str(t_x1)+'" y1="'+str(t_y1)+'" x2="'+str(t_x2)+'" y2="'+str(t_y2)+'" style="stroke: '+t_linecolor+'; stroke-width: 2px; stroke-opacity:.3;"/>\n'
-				dropin = self.c1 - self.settings.settings_svg['t_roff_deg']
+				dropin = self.c1 - self.settings.settings["settings_svg"]['t_roff_deg']
 				h_text = str(i + 1)
 				xtext = self.sliceToX(
 					0, (r - dropin), t_text_offset) + dropin  # was 132
@@ -2925,13 +2925,13 @@ class openAstro:
 				if ('t_visible' in self.planets[ih] and self.planets[ih]['t_visible'] == 1) or ('t_visible' not in self.planets[ih] and self.planets[ih]['visible'] == 1) :
 					path = path + '<line x1="' + str(t_x1) + '" y1="' + str(t_y1) + '" x2="' + str(t_x2) + '" y2="' + str(t_y2) + '" style="stroke: ' + t_linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
 					path = path + '<text style="fill: ' + t_linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
-					path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(self.t_houses_degree[(i)]+1, type="0") + '</text>'
+					path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings["settings_svg"]["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings["settings_svg"]["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(self.t_houses_degree[(i)]+1, type="0") + '</text>'
 
 			#if transit
 			if self.type == "Transit" or self.type == "Direction":
-				dropin = self.c1 - self.settings.settings_svg['roff_deg']
-			elif self.settings.astrocfg["chartview"] == "european":
-				dropin = self.c1 - self.settings.settings_svg['roff_deg']
+				dropin = self.c1 - self.settings.settings["settings_svg"]['roff_deg']
+			elif self.settings.settings["astrocfg"]["chartview"] == "european":
+				dropin = self.c1 - self.settings.settings["settings_svg"]['roff_deg']
 			else:
 				dropin=48
 
@@ -2964,7 +2964,7 @@ class openAstro:
 			# Natal houses lines
 			path = path + '<line x1="' + str(x1) + '" y1="' + str(y1) + '" x2="' + str(x2) + '" y2="' + str(y2) + '" style="stroke: ' + linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
 			path = path + '<text style="fill: ' + linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
-			path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings_svg["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings_svg["offset_degree_planet_y"]) + '"  style="fill:' + linecolor + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)]+1, type="0") + '</text>'
+			path = path + '<text text-anchor="start" x="' + str(xtext + self.settings.settings["settings_svg"]["offset_degree_planet_x"]) + '" y="' + str(ytext + self.settings.settings["settings_svg"]["offset_degree_planet_y"]) + '"  style="fill:' + linecolor + '; font-size: 7px;">' + self.dec2deg(self.houses_degree[(i)]+1, type="0") + '</text>'
 
 		return path
 
@@ -3063,7 +3063,7 @@ class openAstro:
 				#if 22 < i < 27 it is asc,mc,dsc,ic (angles of chart)
 				#put on special line (rplanet is range from outer ring)
 				amin,bmin,cmin=0,0,0
-				if self.settings.astrocfg["chartview"] == "european":
+				if self.settings.settings["astrocfg"]["chartview"] == "european":
 					amin=74-30
 					bmin=94-30
 					cmin=40-30
@@ -3078,7 +3078,7 @@ class openAstro:
 					switch = 1
 
 			# rtext=45
-			if self.settings.astrocfg['houses_system'] == "G":
+			if self.settings.settings["astrocfg"]['houses_system'] == "G":
 				offset = (int(self.houses_degree_ut[18]) / -1) + float(self.planets_degree_ut[i])
 				# trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])
 				trueoffset = (float(self.get_chart_start_point()) / -1) + float(self.planets_degree_ut[i])
@@ -3092,8 +3092,8 @@ class openAstro:
 
 			# Paint inner radix planets for Transit
 			if self.type == "Transit" or self.type == "Direction":
-				if "t_planet_symbol_scale_1" in self.settings.settings_svg:
-					scale = self.settings.settings_svg["t_planet_symbol_scale_1"]
+				if "t_planet_symbol_scale_1" in self.settings.settings["settings_svg"]:
+					scale = self.settings.settings["settings_svg"]["t_planet_symbol_scale_1"]
 				else:
 					scale = 0.6
 				#line1
@@ -3102,7 +3102,7 @@ class openAstro:
 				# x2=self.sliceToX( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
 				# y2=self.sliceToY( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
 				# color=self.planets[i]["color"]
-				color=self.colors["color_transit_1"]
+				color=self.settings.settings["color_codes"]["color_transit_1"]
 				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
 				#line2
 				line_shift_start = self.c3 - 60 + 10
@@ -3115,11 +3115,11 @@ class openAstro:
 				x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
 				y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
 				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
-					x1, y1, 1.5, self.colors['paper_1'], self.colors['color_transit_1'])
+					x1, y1, 1.5, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['color_transit_1'])
 
-			elif self.settings.astrocfg["chartview"] == "european":
-				if "planet_symbol_scale" in self.settings.settings_svg:
-					scale = self.settings.settings_svg["planet_symbol_scale"]
+			elif self.settings.settings["astrocfg"]["chartview"] == "european":
+				if "planet_symbol_scale" in self.settings.settings["settings_svg"]:
+					scale = self.settings.settings["settings_svg"]["planet_symbol_scale"]
 				else:
 					scale = 0.6
 				#line1
@@ -3128,7 +3128,7 @@ class openAstro:
 				x2=self.sliceToX( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
 				y2=self.sliceToY( 0 , (r-rplanet-30) , trueoffset ) + rplanet + 30
 				# color=self.planets[i]["color"]
-				color=self.colors["color_radix"]
+				color=self.settings.settings["color_codes"]["color_radix"]
 				# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
 				#line2
 				rplanet = self.c2 - (self.c2 - self.c3) / 2
@@ -3140,10 +3140,10 @@ class openAstro:
 				if (not (23 <= i and i <= 34)):
 					output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.5;"/>\n' % (x1,y1,x2,y2,color)
 					output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
-						x1, y1, 1.5, self.colors['paper_1'], self.colors['color_radix'])
+						x1, y1, 1.5, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['color_radix'])
 			else:
-				if "planet_symbol_scale" in self.settings.settings_svg:
-					scale = self.settings.settings_svg["planet_symbol_scale"]
+				if "planet_symbol_scale" in self.settings.settings["settings_svg"]:
+					scale = self.settings.settings["settings_svg"]["planet_symbol_scale"]
 				else:
 					scale = 1
 
@@ -3167,20 +3167,20 @@ class openAstro:
 				text_offset = offset
 				# text_offset = 10
 				dropin = rplanet
-				xtext = self.sliceToX(0, (r - dropin), text_offset) + dropin  + self.settings.settings_svg["offset_degree_planet_x"]
-				ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin  + self.settings.settings_svg["offset_degree_planet_y"]
-				output = output + '<text text-anchor="start" x="' + str(xtext + 2 * scale / 0.6) + '" y="' + str(ytext - 0) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + self.dec2deg(self.planets_degree[(i)]+1, type="0") + '</text>'
+				xtext = self.sliceToX(0, (r - dropin), text_offset) + dropin  + self.settings.settings["settings_svg"]["offset_degree_planet_x"]
+				ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin  + self.settings.settings["settings_svg"]["offset_degree_planet_y"]
+				output = output + '<text text-anchor="start" x="' + str(xtext + 2 * scale / 0.6) + '" y="' + str(ytext - 0) + '"  style="fill:' + self.settings.settings["color_codes"]['paper_0'] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + self.dec2deg(self.planets_degree[(i)]+1, type="0") + '</text>'
 				if self.planets_retrograde[i]:
 					output = output + '<text text-anchor="start" x="' + str(xtext + 2 * scale / 0.6) + '" y="' + str(
-						ytext + 10 * scale / 0.6) + '"  style="fill:' + self.colors['paper_0'] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + 'r' + '</text>'
+						ytext + 10 * scale / 0.6) + '"  style="fill:' + self.settings.settings["color_codes"]['paper_0'] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + 'r' + '</text>'
 				output = output + ''
 
 		# Paint outer transit planets for Transit
 		#make transit degut and display planets
 		if self.type == "Transit" or self.type == "Direction":
 
-			if "t_planet_symbol_scale_2" in self.settings.settings_svg:
-				scale = self.settings.settings_svg["t_planet_symbol_scale_2"]
+			if "t_planet_symbol_scale_2" in self.settings.settings["settings_svg"]:
+				scale = self.settings.settings["settings_svg"]["t_planet_symbol_scale_2"]
 			else:
 				scale = 0.99
 			# line1
@@ -3189,7 +3189,7 @@ class openAstro:
 			x2 = self.sliceToX(0, (r - rplanet - 30), trueoffset) + rplanet + 30
 			y2 = self.sliceToY(0, (r - rplanet - 30), trueoffset) + rplanet + 30
 			# color=self.planets[i]["color"]
-			color = self.colors["color_transit_1"]
+			color = self.settings.settings["color_codes"]["color_transit_1"]
 			# output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.3;"/>\n' % (x1,y1,x2,y2,color)
 			# line2
 			x1 = self.sliceToX(0, (r - rplanet - 20), trueoffset) + rplanet + 20
@@ -3202,7 +3202,7 @@ class openAstro:
 			x1 = self.sliceToX(0, (r - self.c3), trueoffset) + self.c3
 			y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
 			output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
-				x1, y1, 1.5, self.colors['paper_1'], self.colors['color_transit_1'])
+				x1, y1, 1.5, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['color_transit_1'])
 
 			group_offset={}
 			t_planets_degut={}
@@ -3255,7 +3255,7 @@ class openAstro:
 				# 	t_offset = t_offset - 360
 				# planet_x = self.sliceToX( 0 , (r-rplanet) , t_offset ) + rplanet
 				# planet_y = self.sliceToY( 0 , (r-rplanet) , t_offset ) + rplanet
-				if self.settings.astrocfg['houses_system'] == "G":
+				if self.settings.settings["astrocfg"]['houses_system'] == "G":
 					t_offset = (float(self.t_houses_degree_ut[18]) / -1) + float(self.t_planets_degree_ut[i])
 					trueoffset = (float(self.t_houses_degree_ut[6]) / -1) + float(self.t_planets_degree_ut[i])
 				else:
@@ -3266,17 +3266,17 @@ class openAstro:
 				x1 = self.sliceToX(0, (r - self.c3), t_offset) + self.c3
 				y1 = self.sliceToY(0, (r - self.c3), t_offset) + self.c3
 				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
-					x1, y1, 1.5, self.colors['paper_1'], self.colors["color_transit_2"])
+					x1, y1, 1.5, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]["color_transit_2"])
 
 				x1 = self.sliceToX(0, (r - self.c1), t_offset) + self.c1
 				y1 = self.sliceToY(0, (r - self.c1), t_offset) + self.c1
 				output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
-					x1, y1, 1.5, self.colors['paper_1'], self.colors["color_transit_2"])
+					x1, y1, 1.5, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]["color_transit_2"])
 
 
 				if (not (23 <= i and i <= 34)):
-					if "t_rplanet" in self.settings.settings_svg:
-						t_rplanet = self.settings.settings_svg["t_rplanet"]
+					if "t_rplanet" in self.settings.settings["settings_svg"]:
+						t_rplanet = self.settings.settings["settings_svg"]["t_rplanet"]
 					else:
 						t_rplanet = 20
 					rplanet = self.c1 - t_rplanet
@@ -3291,16 +3291,16 @@ class openAstro:
 					text_offset = offset
 					# text_offset = 10
 					dropin = rplanet
-					xtext = self.sliceToX(0, (r - dropin), text_offset) + dropin + self.settings.settings_svg[
+					xtext = self.sliceToX(0, (r - dropin), text_offset) + dropin + self.settings.settings["settings_svg"][
 						"offset_degree_planet_x"]
-					ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin + self.settings.settings_svg[
+					ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin + self.settings.settings["settings_svg"][
 						"offset_degree_planet_y"]
 					output = output + '<text text-anchor="start" x="' + str(xtext + 2 * scale / 0.6) + '" y="' + str(
-						ytext - 0) + '"  style="fill:' + self.colors["color_transit_2"] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + self.dec2deg(
+						ytext - 0) + '"  style="fill:' + self.settings.settings["color_codes"]["color_transit_2"] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + self.dec2deg(
 						self.t_planets_degree[(i)]+1, type="0") + '</text>'
 					if self.t_planets_retrograde[i]:
 						output = output + '<text text-anchor="start" x="' + str(xtext + 2 * scale / 0.6) + '" y="' + str(
-							ytext + 10 * scale / 0.6) + '"  style="fill:' + self.colors[
+							ytext + 10 * scale / 0.6) + '"  style="fill:' + self.settings.settings["color_codes"][
 									 'paper_0'] + '; font-size: ' + str(7 * scale / 0.6) + 'px;">' + 'r' + '</text>'
 					output = output + ''
 
@@ -3310,7 +3310,7 @@ class openAstro:
 					x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 					y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 					# Transit planets lines
-					output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.2;"/>\n' % (x1,y1,x2,y2,self.colors["color_transit_2"])
+					output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.2;"/>\n' % (x1,y1,x2,y2,self.settings.settings["color_codes"]["color_transit_2"])
 
 
 		return output
@@ -3347,8 +3347,8 @@ class openAstro:
 		planets_degrouped = {}
 		groups = []
 		planets_by_pos = list(range(len(planets_degut)))
-		if "planet_drange" in self.settings.settings_svg:
-			planet_drange = self.settings.settings_svg["planet_drange"]
+		if "planet_drange" in self.settings.settings["settings_svg"]:
+			planet_drange = self.settings.settings["settings_svg"]["planet_drange"]
 		else:
 			planet_drange = 3.4
 		# get groups closely together
@@ -3501,28 +3501,28 @@ class openAstro:
 				b=self.planets_degree_ut[j]
 				delta=float(self.degreeDiff(a,b))
 				#check for opposition
-				xa = float(self.aspects[10]['degree']) - float(self.aspects[10]['orb'])
-				xb = float(self.aspects[10]['degree']) + float(self.aspects[10]['orb'])
+				xa = float(self.settings.settings["settings_aspect"][10]['degree']) - float(self.settings.settings["settings_aspect"][10]['orb'])
+				xb = float(self.settings.settings["settings_aspect"][10]['degree']) + float(self.settings.settings["settings_aspect"][10]['orb'])
 				if( xa <= delta <= xb ):
 					opp[i][j]=True
 				#check for conjunction
-				xa = float(self.aspects[0]['degree']) - float(self.aspects[0]['orb'])
-				xb = float(self.aspects[0]['degree']) + float(self.aspects[0]['orb'])
+				xa = float(self.settings.settings["settings_aspect"][0]['degree']) - float(self.settings.settings["settings_aspect"][0]['orb'])
+				xb = float(self.settings.settings["settings_aspect"][0]['degree']) + float(self.settings.settings["settings_aspect"][0]['orb'])
 				if( xa <= delta <= xb ):
 					conj[i][j]=True
 				#check for squares
-				xa = float(self.aspects[5]['degree']) - float(self.aspects[5]['orb'])
-				xb = float(self.aspects[5]['degree']) + float(self.aspects[5]['orb'])
+				xa = float(self.settings.settings["settings_aspect"][5]['degree']) - float(self.settings.settings["settings_aspect"][5]['orb'])
+				xb = float(self.settings.settings["settings_aspect"][5]['degree']) + float(self.settings.settings["settings_aspect"][5]['orb'])
 				if( xa <= delta <= xb ):
 					sq[i][j]=True
 				#check for qunicunxes
-				xa = float(self.aspects[9]['degree']) - float(self.aspects[9]['orb'])
-				xb = float(self.aspects[9]['degree']) + float(self.aspects[9]['orb'])
+				xa = float(self.settings.settings["settings_aspect"][9]['degree']) - float(self.settings.settings["settings_aspect"][9]['orb'])
+				xb = float(self.settings.settings["settings_aspect"][9]['degree']) + float(self.settings.settings["settings_aspect"][9]['orb'])
 				if( xa <= delta <= xb ):
 					qc[i][j]=True
 				#check for sextiles
-				xa = float(self.aspects[3]['degree']) - float(self.aspects[3]['orb'])
-				xb = float(self.aspects[3]['degree']) + float(self.aspects[3]['orb'])
+				xa = float(self.settings.settings["settings_aspect"][3]['degree']) - float(self.settings.settings["settings_aspect"][3]['orb'])
+				xb = float(self.settings.settings["settings_aspect"][3]['degree']) + float(self.settings.settings["settings_aspect"][3]['orb'])
 				if( xa <= delta <= xb ):
 					sext[i][j]=True
 
@@ -3587,7 +3587,7 @@ class openAstro:
 		if len(yot) >= 1:
 			y=0
 			for k,v in yot.items():
-				out += '<text y="%s" style="fill:%s; font-size: 12px;">%s</text>\n' % (y,self.colors['paper_0'],_("Yot"))
+				out += '<text y="%s" style="fill:%s; font-size: 12px;">%s</text>\n' % (y,self.settings.settings["color_codes"]['paper_0'],_("Yot"))
 
 				#first planet symbol
 				out += '<g transform="translate(20,%s)">' % (y)
@@ -3613,8 +3613,8 @@ class openAstro:
 	def makeAspects( self , r , ar ):
 		out=""
 		self.planets_aspects= {}
-		self.planets_aspects_arr = [[[0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
-		self.planets_aspects_arr_diff = [[[0.0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
+		self.planets_aspects_arr = [[[0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.settings.settings["settings_aspect"]))]
+		self.planets_aspects_arr_diff = [[[0.0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.settings.settings["settings_aspect"]))]
 		for i in range(len(self.planets)):
 			self.planets_aspects[i] = {}
 			start=self.planets_degree_ut[i]
@@ -3625,16 +3625,16 @@ class openAstro:
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs
 				if (self.planets[i]['visible_aspect_line'] == 1) & (self.planets[x]['visible_aspect_line'] == 1):
-					for z in range(len(self.aspects)):
+					for z in range(len(self.settings.settings["settings_aspect"])):
 
-						# orb = self.aspects[z]['orb']
-						# orb1 = self.aspects[z]['orb']
-						# orb2 = self.aspects[z]['orb']
+						# orb = self.settings.settings["settings_aspect"][z]['orb']
+						# orb1 = self.settings.settings["settings_aspect"][z]['orb']
+						# orb2 = self.settings.settings["settings_aspect"][z]['orb']
 						# if ('planet_orb' in self.planets[i]):
 						# 	if (self.type in self.planets[i]['planet_orb']):
 						# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
 						# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
-						# 		aspect = str(self.aspects[z]['degree'])
+						# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 						# 		# dprint (aspect)
 						# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
 						# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
@@ -3642,7 +3642,7 @@ class openAstro:
 						# 	if (self.type in self.planets[x]['planet_orb']):
 						# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
 						# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
-						# 		aspect = str(self.aspects[z]['degree'])
+						# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 						# 		# dprint (aspect)
 						# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
 						# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
@@ -3651,26 +3651,26 @@ class openAstro:
 						#
 						#
 						#
-						# if	( float(self.aspects[z]['degree']) - float(orb) ) <= diff <= ( float(self.aspects[z]['degree']) + float(orb) ):
+						# if	( float(self.settings.settings["settings_aspect"][z]['degree']) - float(orb) ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + float(orb) ):
 						if (self.planetsInAspect(diff, z, i, x)):
 							#check if we want to display this aspect
-							if self.aspects[z]['visible'] == 1:
+							if self.settings.settings["settings_aspect"][z]['visible'] == 1:
 								# self.planets_aspects[z][i][x] = 1
 								# self.planets_aspects_arr[z][i][x] = 1
 
-								aspect = str(self.aspects[z]['degree'])
+								aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 								if ('planet_orb' in self.planets[i] and 'planet_orb' in self.planets[x] ):
 									orb1 = self.planets[i]['planet_orb'][self.type][aspect]
 									orb2 = self.planets[x]['planet_orb'][self.type][aspect]
 									orb = max([orb1, orb2])
 								else:
-									orb = self.aspects[z]['orb']
+									orb = self.settings.settings["settings_aspect"][z]['orb']
 
-								self.planets_aspects_arr[z][i][x] = orb-abs(float(self.aspects[z]['degree']) - abs(float(diff)))
+								self.planets_aspects_arr[z][i][x] = orb-abs(float(self.settings.settings["settings_aspect"][z]['degree']) - abs(float(diff)))
 								if(i==x):
 									self.planets_aspects_arr[z][i][x] = 0
-								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
-								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.aspects[z]['color'] )
+								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.settings.settings["color_codes"]["aspect_%s" %(self.settings.settings["settings_aspect"][z]['degree'])] )
+								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.settings.settings["settings_aspect"][z]['color'] )
 
 		return out
 
@@ -3690,8 +3690,8 @@ class openAstro:
 		self.t_planets_aspects_id_arr = []
 		self.t_planets_aspects_id_dic = []
 		aspect_arr = {}
-		self.t_planets_aspects_arr = [[[0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
-		self.t_planets_aspects_arr_diff = [[[0.0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.aspects))]
+		self.t_planets_aspects_arr = [[[0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.settings.settings["settings_aspect"]))]
+		self.t_planets_aspects_arr_diff = [[[0.0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.settings.settings["settings_aspect"]))]
 		for i in range(len(self.planets)):
 			self.t_planets_aspects_id_arr.append([])
 			self.t_planets_aspects_id_dic.append([])
@@ -3710,7 +3710,7 @@ class openAstro:
 							# if (("visible2" in self.planets[x]['planet_orb'][self.type] and self.planets[x]['planet_orb'][self.type]["visible2"] == 1)):
 							if (self.ifShowPlanetInTransit(x)):
 								if (1):
-									for z in range(len(self.aspects)):
+									for z in range(len(self.settings.settings["settings_aspect"])):
 										#check for personal planets and determine orb
 										# if 0 <= i <= 4 or 0 <= x <= 4:
 										# 	orb_before = 1.0
@@ -3718,14 +3718,14 @@ class openAstro:
 										# 	orb_before = 2.0
 										#
 										#
-										# orb = self.aspects[z]['orb']
-										# orb1 = self.aspects[z]['orb']
-										# orb2 = self.aspects[z]['orb']
+										# orb = self.settings.settings["settings_aspect"][z]['orb']
+										# orb1 = self.settings.settings["settings_aspect"][z]['orb']
+										# orb2 = self.settings.settings["settings_aspect"][z]['orb']
 										# if ('planet_orb' in self.planets[i]):
 										# 	if (self.type in self.planets[i]['planet_orb']):
 										# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
 										# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
-										# 		aspect = str(self.aspects[z]['degree'])
+										# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 										# 		# dprint (aspect)
 										# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
 										# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
@@ -3733,7 +3733,7 @@ class openAstro:
 										# 	if (self.type in self.planets[x]['planet_orb']):
 										# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
 										# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
-										# 		aspect = str(self.aspects[z]['degree'])
+										# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 										# 		# dprint (aspect)
 										# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
 										# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
@@ -3741,38 +3741,38 @@ class openAstro:
 										# # orb = (orb1 + orb2)/2
 										#
 										# #check if we want to display this aspect
-										# # if	( float(self.aspects[z]['degree']) - orb_before ) <= diff <= ( float(self.aspects[z]['degree']) + 1.0 ):
-										# if	( float(self.aspects[z]['degree']) - orb ) <= diff <= ( float(self.aspects[z]['degree']) + orb ):
+										# # if	( float(self.settings.settings["settings_aspect"][z]['degree']) - orb_before ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + 1.0 ):
+										# if	( float(self.settings.settings["settings_aspect"][z]['degree']) - orb ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + orb ):
 										if (self.planetsInAspect(diff, z, i, x)):
-											if self.aspects[z]['visible'] == 1:
+											if self.settings.settings["settings_aspect"][z]['visible'] == 1:
 												# self.planets_aspects[z][i][x] = 1
 												# self.planets_aspects_arr[z][i][x] = 1
 
-												aspect = str(self.aspects[z]['degree'])
+												aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 												if ('planet_orb' in self.planets[i] and 'planet_orb' in self.planets[x]):
 													orb1 = self.planets[i]['planet_orb'][self.type][aspect]
 													orb2 = self.planets[x]['planet_orb'][self.type][aspect]
 													orb = max([orb1, orb2])
 												else:
-													orb = self.aspects[z]['orb']
+													orb = self.settings.settings["settings_aspect"][z]['orb']
 
 												self.t_planets_aspects_arr[z][i][x] = orb - abs(
-													float(self.aspects[z]['degree']) - abs(float(diff)))
+													float(self.settings.settings["settings_aspect"][z]['degree']) - abs(float(diff)))
 												# print(self.planets[x]['name'])
-												# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.colors["aspect_%s" %(self.aspects[z]['degree'])] )
-												out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.aspects[z]['color'] )
+												# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.settings.settings["color_codes"]["aspect_%s" %(self.settings.settings["settings_aspect"][z]['degree'])] )
+												out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.t_planets_degree_ut[x] , self.settings.settings["settings_aspect"][z]['color'] )
 
 												# self.t_planets_aspects_id_arr[z][i] = 1
-												self.t_planets_aspects_id_arr[i][x] = self.aspects[z]['id']
-												# aspect_arr['id'] = self.aspects[z]['id']
+												self.t_planets_aspects_id_arr[i][x] = self.settings.settings["settings_aspect"][z]['id']
+												# aspect_arr['id'] = self.settings.settings["settings_aspect"][z]['id']
 												# aspect_arr['delta'] = self.t_planets_aspects_arr[z][i][x]
 												# print(aspect_arr['delta'])
 												# self.t_planets_aspects_id_dic[i][x] = aspect_arr
-												self.t_planets_aspects_id_dic[i][x] = {'id':self.aspects[z]['id'], 'delta':self.t_planets_aspects_arr[z][i][x]}
+												self.t_planets_aspects_id_dic[i][x] = {'id':self.settings.settings["settings_aspect"][z]['id'], 'delta':self.t_planets_aspects_arr[z][i][x]}
 												# print(self.t_planets_aspects_id_dic[i][x])
 
 											#aspect grid dictionary
-											if self.aspects[z]['visible_grid'] == 1:
+											if self.settings.settings["settings_aspect"][z]['visible_grid'] == 1:
 												self.atgrid.append({})
 												# self.atgrid[-1]['p1']=i
 												# self.atgrid[-1]['p2']=x
@@ -3783,7 +3783,7 @@ class openAstro:
 
 	def makeAspectTransitGrid( self , r ):
 		out = ''
-		out += '<text y="-15" x="0" style="fill:%s; font-size: 12px;">%s</text>\n' % (self.colors['paper_0'],_("Planets in Transit"))
+		out += '<text y="-15" x="0" style="fill:%s; font-size: 12px;">%s</text>\n' % (self.settings.settings["color_codes"]['paper_0'],_("Planets in Transit"))
 		line = 0
 		nl = 0
 		for i in range(len(self.atgrid)):
@@ -3799,7 +3799,7 @@ class openAstro:
 				self.planets[self.atgrid[i]['p2']]['name'])
 			#aspect symbol
 			out += '<use  x="15" y="0" xlink:href="#orb%s" />\n' % (
-				self.aspects[self.atgrid[i]['aid']]['degree'])
+				self.settings.settings["settings_aspect"][self.atgrid[i]['aid']]['degree'])
 			#second planet symbol
 			out += '<g transform="translate(30,0)">'
 			out += '<use transform="scale(0.4)" x="0" y="3" xlink:href="#%s" />\n' % (
@@ -3807,7 +3807,7 @@ class openAstro:
 			out += '</g>'
 			#difference in degrees
 			out += '<text y="8" x="45" style="fill:%s; font-size: 10px;">%s</text>' % (
-				self.colors['paper_0'],
+				self.settings.settings["color_codes"]['paper_0'],
 				self.dec2deg(self.atgrid[i]['diff']) )
 			#line
 			out += '</g>'
@@ -3818,7 +3818,7 @@ class openAstro:
 	def makeAspectGrid( self , r ):
 		self.planets_aspects_list = []
 		out=""
-		style='stroke:%s; stroke-width: 0.25px; stroke-opacity:.6; fill:none' % (self.colors['paper_0'])
+		style='stroke:%s; stroke-width: 0.25px; stroke-opacity:.6; fill:none' % (self.settings.settings["color_codes"]['paper_0'])
 
 		box=14
 		if self.type == "Radix":
@@ -3845,18 +3845,18 @@ class openAstro:
 							diff=self.degreeDiff(start,end)
 							out = out + '<rect x="'+str(xorb)+'" y="'+str(yorb)+'" width="'+str(box)+'" height="'+str(box)+'" style="'+style+'"/>\n'
 							xorb=xorb+box
-							for z in range(len(self.aspects)):
+							for z in range(len(self.settings.settings["settings_aspect"])):
 								#
-								# orb = self.aspects[z]['orb']
-								# orb1 = self.aspects[z]['orb']
-								# orb2 = self.aspects[z]['orb']
+								# orb = self.settings.settings["settings_aspect"][z]['orb']
+								# orb1 = self.settings.settings["settings_aspect"][z]['orb']
+								# orb2 = self.settings.settings["settings_aspect"][z]['orb']
 								# i=a
 								# x=b
 								# if ('planet_orb' in self.planets[i]):
 								# 	if (self.type in self.planets[i]['planet_orb']):
 								# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
 								# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
-								# 		aspect = str(self.aspects[z]['degree'])
+								# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 								# 		# dprint (aspect)
 								# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
 								# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
@@ -3864,7 +3864,7 @@ class openAstro:
 								# 	if (self.type in self.planets[x]['planet_orb']):
 								# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
 								# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
-								# 		aspect = str(self.aspects[z]['degree'])
+								# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 								# 		# dprint (aspect)
 								# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
 								# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
@@ -3872,14 +3872,14 @@ class openAstro:
 								# # orb = (orb1 + orb2)/2
 								#
 								# # check if we want to display this aspect
-								# # if	( float(self.aspects[z]['degree']) - orb_before ) <= diff <= ( float(self.aspects[z]['degree']) + 1.0 ):
-								# if (float(self.aspects[z]['degree']) - orb) <= diff <= (
-								# 		float(self.aspects[z]['degree']) + orb):
+								# # if	( float(self.settings.settings["settings_aspect"][z]['degree']) - orb_before ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + 1.0 ):
+								# if (float(self.settings.settings["settings_aspect"][z]['degree']) - orb) <= diff <= (
+								# 		float(self.settings.settings["settings_aspect"][z]['degree']) + orb):
 								if(self.planetsInAspect(diff, z, a, b)):
-								# if	( float(self.aspects[z]['degree']) - float(self.aspects[z]['orb']) ) <= diff <= ( float(self.aspects[z]['degree']) + float(self.aspects[z]['orb']) ) and self.aspects[z]['visible_grid'] == 1:
-									out = out + '<use  x="'+str(xorb-box+1)+'" y="'+str(yorb+1)+'" xlink:href="#orb'+str(self.aspects[z]['degree'])+'" />\n'
-									# asp_orb = round(abs(float(diff - float(self.aspects[z]['degree']))),1)
-									# asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']} (orbis: {asp_orb})"
+								# if	( float(self.settings.settings["settings_aspect"][z]['degree']) - float(self.settings.settings["settings_aspect"][z]['orb']) ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + float(self.settings.settings["settings_aspect"][z]['orb']) ) and self.settings.settings["settings_aspect"][z]['visible_grid'] == 1:
+									out = out + '<use  x="'+str(xorb-box+1)+'" y="'+str(yorb+1)+'" xlink:href="#orb'+str(self.settings.settings["settings_aspect"][z]['degree'])+'" />\n'
+									# asp_orb = round(abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree']))),1)
+									# asp_str = f"{self.planets[a]['name']} {self.settings.settings["settings_aspect"][z]['degree']} {self.planets[b]['name']} (orbis: {asp_orb})"
 									# self.planets_aspects_list.append(asp_str)
 
 
@@ -3900,17 +3900,17 @@ class openAstro:
 						if self.planets[b]['visible_aspect_grid'] == 1:
 							end=self.planets_degree_ut[b]
 							diff=self.degreeDiff(start,end)
-							for z in range(len(self.aspects)):
+							for z in range(len(self.settings.settings["settings_aspect"])):
 								if(self.planetsInAspect(diff, z, a, b)):
-									aspects_degree_id = self.aspects[z]['id']
-									asp_orb = abs(float(diff - float(self.aspects[z]['degree'])))
+									aspects_degree_id = self.settings.settings["settings_aspect"][z]['id']
+									asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree'])))
 									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
 									asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']} orb={asp_orb_deg}"
 									asp_dict = {
 										'aspects_str': asp_str,
 										'planets_name1': self.planets[a]['name'],
 										'planets_name2': self.planets[b]['name'],
-										'aspects_degree': self.aspects[z]['degree'],
+										'aspects_degree': self.settings.settings["settings_aspect"][z]['degree'],
 										'aspects_diff': diff,
 										'aspects_orbis': asp_orb,
 										'aspects_orbis_deg': asp_orb_deg,
@@ -3981,18 +3981,18 @@ class openAstro:
 							out = out + '<rect x="' + str(xorb) + '" y="' + str(yorb) + '" width="' + str(
 								box) + '" height="' + str(box) + '" style="' + style + '"/>\n'
 							xorb = xorb + box
-							for z in range(len(self.aspects)):
+							for z in range(len(self.settings.settings["settings_aspect"])):
 								#
-								# orb = self.aspects[z]['orb']
-								# orb1 = self.aspects[z]['orb']
-								# orb2 = self.aspects[z]['orb']
+								# orb = self.settings.settings["settings_aspect"][z]['orb']
+								# orb1 = self.settings.settings["settings_aspect"][z]['orb']
+								# orb2 = self.settings.settings["settings_aspect"][z]['orb']
 								# i = a
 								# x = b
 								# if ('planet_orb' in self.planets[i]):
 								# 	if (self.type in self.planets[i]['planet_orb']):
 								# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
 								# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
-								# 		aspect = str(self.aspects[z]['degree'])
+								# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 								# 		# dprint (aspect)
 								# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
 								# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
@@ -4000,7 +4000,7 @@ class openAstro:
 								# 	if (self.type in self.planets[x]['planet_orb']):
 								# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
 								# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
-								# 		aspect = str(self.aspects[z]['degree'])
+								# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 								# 		# dprint (aspect)
 								# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
 								# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
@@ -4008,23 +4008,23 @@ class openAstro:
 								# # orb = (orb1 + orb2)/2
 								#
 								# # check if we want to display this aspect
-								# # if	( float(self.aspects[z]['degree']) - orb_before ) <= diff <= ( float(self.aspects[z]['degree']) + 1.0 ):
-								# if (float(self.aspects[z]['degree']) - orb) <= diff <= (
-								# 		float(self.aspects[z]['degree']) + orb):
-								# 	# if	( float(self.aspects[z]['degree']) - float(self.aspects[z]['orb']) ) <= diff <= ( float(self.aspects[z]['degree']) + float(self.aspects[z]['orb']) ) and self.aspects[z]['visible_grid'] == 1:
+								# # if	( float(self.settings.settings["settings_aspect"][z]['degree']) - orb_before ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + 1.0 ):
+								# if (float(self.settings.settings["settings_aspect"][z]['degree']) - orb) <= diff <= (
+								# 		float(self.settings.settings["settings_aspect"][z]['degree']) + orb):
+								# 	# if	( float(self.settings.settings["settings_aspect"][z]['degree']) - float(self.settings.settings["settings_aspect"][z]['orb']) ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + float(self.settings.settings["settings_aspect"][z]['orb']) ) and self.settings.settings["settings_aspect"][z]['visible_grid'] == 1:
 								if(self.planetsInAspect(diff, z, a, b)):
 									out = out + '<use  x="' + str(xorb - box + 1) + '" y="' + str(
-										yorb + 1) + '" xlink:href="#orb' + str(self.aspects[z]['degree']) + '" />\n'
+										yorb + 1) + '" xlink:href="#orb' + str(self.settings.settings["settings_aspect"][z]['degree']) + '" />\n'
 
-									aspects_degree_id = self.aspects[z]['id']
-									asp_orb = abs(float(diff - float(self.aspects[z]['degree'])))
+									aspects_degree_id = self.settings.settings["settings_aspect"][z]['id']
+									asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree'])))
 									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
-									asp_str = f"{self.planets[a]['name']} {self.aspects[z]['degree']} {self.planets[b]['name']} orb={asp_orb_deg}"
+									asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect'][z]['degree']} {self.planets[b]['name']} orb={asp_orb_deg}"
 									asp_dict = {
 										'aspects_str': asp_str,
 										'planets_name1': self.planets[a]['name'],
 										'planets_name2': self.planets[b]['name'],
-										'aspects_degree': self.aspects[z]['degree'],
+										'aspects_degree': self.settings.settings["settings_aspect"][z]['degree'],
 										'aspects_diff': diff,
 										'aspects_orbis': asp_orb,
 										'aspects_orbis_deg': asp_orb_deg,
@@ -4043,19 +4043,19 @@ class openAstro:
 		return out
 
 	def planetsInAspect( self , diff, aspect_id, p1_id, p2_id ):
-		if(p1_id==2 and p2_id==3 and self.aspects[aspect_id]['degree']==108 ):
+		if(p1_id==2 and p2_id==3 and self.settings.settings["settings_aspect"][aspect_id]['degree']==108 ):
 			1
 		z = aspect_id
 		i = p1_id
 		x = p2_id
-		orb = self.aspects[z]['orb']
-		orb1 = self.aspects[z]['orb']
-		orb2 = self.aspects[z]['orb']
+		orb = self.settings.settings["settings_aspect"][z]['orb']
+		orb1 = self.settings.settings["settings_aspect"][z]['orb']
+		orb2 = self.settings.settings["settings_aspect"][z]['orb']
 		if ('planet_orb' in self.planets[i]):
 			if (self.type in self.planets[i]['planet_orb']):
 				if ("default" in self.planets[i]['planet_orb'][self.type]):
 					orb1 = self.planets[i]['planet_orb'][self.type]["default"]
-				aspect = str(self.aspects[z]['degree'])
+				aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 				# dprint (aspect)
 				if (aspect in self.planets[i]['planet_orb'][self.type]):
 					orb1 = self.planets[i]['planet_orb'][self.type][aspect]
@@ -4063,7 +4063,7 @@ class openAstro:
 			if (self.type in self.planets[x]['planet_orb']):
 				if ("default" in self.planets[x]['planet_orb'][self.type]):
 					orb2 = self.planets[x]['planet_orb'][self.type]["default"]
-				aspect = str(self.aspects[z]['degree'])
+				aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
 				# dprint (aspect)
 				if (aspect in self.planets[x]['planet_orb'][self.type]):
 					orb2 = self.planets[x]['planet_orb'][self.type][aspect]
@@ -4077,8 +4077,8 @@ class openAstro:
 			return False
 
 		# check if we want to display this aspect
-		# if	( float(self.aspects[z]['degree']) - orb_before ) <= diff <= ( float(self.aspects[z]['degree']) + 1.0 ):
-		if (float(self.aspects[z]['degree']) - orb) <= diff <= (float(self.aspects[z]['degree']) + orb):
+		# if	( float(self.settings.settings["settings_aspect"][z]['degree']) - orb_before ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + 1.0 ):
+		if (float(self.settings.settings["settings_aspect"][z]['degree']) - orb) <= diff <= (float(self.settings.settings["settings_aspect"][z]['degree']) + orb):
 			return True
 		else:
 			return False
@@ -4090,10 +4090,10 @@ class openAstro:
 		pa = int(round(100*self.air/total))
 		pw = int(round(100*self.water/total))
 		out = '<g transform="translate(-30,79)">\n'
-		out = out + '<text y="0" style="fill:#ff6600; font-size: 10px;">'+self.label['fire']+'  '+str(pf)+'%</text>\n'
-		out = out + '<text y="12" style="fill:#6a2d04; font-size: 10px;">'+self.label['earth']+' '+str(pe)+'%</text>\n'
-		out = out + '<text y="24" style="fill:#6f76d1; font-size: 10px;">'+self.label['air']+'   '+str(pa)+'%</text>\n'
-		out = out + '<text y="36" style="fill:#630e73; font-size: 10px;">'+self.label['water']+' '+str(pw)+'%</text>\n'
+		out = out + '<text y="0" style="fill:#ff6600; font-size: 10px;">'+self.settings.settings["label"]['fire']+'  '+str(pf)+'%</text>\n'
+		out = out + '<text y="12" style="fill:#6a2d04; font-size: 10px;">'+self.settings.settings["label"]['earth']+' '+str(pe)+'%</text>\n'
+		out = out + '<text y="24" style="fill:#6f76d1; font-size: 10px;">'+self.settings.settings["label"]['air']+'   '+str(pa)+'%</text>\n'
+		out = out + '<text y="36" style="fill:#630e73; font-size: 10px;">'+self.settings.settings["label"]['water']+' '+str(pw)+'%</text>\n'
 		out = out + '</g>\n'
 		return out
 
@@ -4111,13 +4111,13 @@ class openAstro:
 					# start of line
 					out = out + '<g transform="translate(%s,%s)">' % (offset, li)
 					# planet text
-					# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.colors['paper_0'],self.planets[i]['label'])
+					# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.settings.settings["color_codes"]['paper_0'],self.planets[i]['label'])
 					# planet symbol
 					out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
 						  self.planets[i]['name'] + '" /></g>'
 					# planet degree
 					out = out + '<text text-anchor="start" x="16" style="fill:%s; font-size: 10px;">%s</text>' % (
-					self.colors['paper_0'], self.dec2deg(self.planets_degree[i]))
+					self.settings.settings["color_codes"]['paper_0'], self.dec2deg(self.planets_degree[i]))
 					# zodiac
 					out = out + '<g transform="translate(64,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
 						self.planets_sign[i]] + '" /></g>'
@@ -4147,13 +4147,13 @@ class openAstro:
 					# start of line
 					out = out + '<g transform="translate(%s,%s)">' % (offset, li)
 					# planet text
-					# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.colors['paper_0'],self.planets[i]['label'])
+					# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.settings.settings["color_codes"]['paper_0'],self.planets[i]['label'])
 					# planet symbol
 					out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
 						  self.planets[i]['name'] + '" /></g>'
 					# planet degree
 					out = out + '<text text-anchor="start" x="16" style="fill:%s; font-size: 10px;">%s</text>' % (
-					self.colors['paper_0'], self.dec2deg(self.t_planets_degree[i]))
+					self.settings.settings["color_codes"]['paper_0'], self.dec2deg(self.t_planets_degree[i]))
 					# zodiac
 					out = out + '<g transform="translate(64,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
 						self.t_planets_sign[i]] + '" /></g>'
@@ -4180,10 +4180,10 @@ class openAstro:
 				cusp = str(i+1)
 			# out += '<g transform="translate(0,'+str(li)+')">'
 			out = out + '<g transform="translate(%s,%s)">' % (offset, li)
-			# out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s %s:</text>' % (self.colors['paper_0'],self.label['cusp'],cusp)
-			out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s:</text>' % (self.colors['paper_0'],cusp)
+			# out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s %s:</text>' % (self.settings.settings["color_codes"]['paper_0'],self.settings.settings["label"]['cusp'],cusp)
+			out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s:</text>' % (self.settings.settings["color_codes"]['paper_0'],cusp)
 			out += '<g transform="translate(40,-8)"><use transform="scale(0.3)" xlink:href="#'+self.zodiac[self.houses_sign[i]]+'" /></g>'
-			out += '<text x="53" style="fill:%s; font-size: 10px;"> %s</text>' % (self.colors['paper_0'],self.dec2deg(self.houses_degree[i]))
+			out += '<text x="53" style="fill:%s; font-size: 10px;"> %s</text>' % (self.settings.settings["color_codes"]['paper_0'],self.dec2deg(self.houses_degree[i]))
 			out += '</g>\n'
 			li = li + 14
 		out += '\n'
@@ -4199,10 +4199,10 @@ class openAstro:
 				cusp = str(i+1)
 			# out += '<g transform="translate(0,'+str(li)+')">'
 			out = out + '<g transform="translate(%s,%s)">' % (offset, li)
-			# out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s %s:</text>' % (self.colors['paper_0'],self.label['cusp'],cusp)
-			out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s:</text>' % (self.colors['paper_0'],cusp)
+			# out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s %s:</text>' % (self.settings.settings["color_codes"]['paper_0'],self.settings.settings["label"]['cusp'],cusp)
+			out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s:</text>' % (self.settings.settings["color_codes"]['paper_0'],cusp)
 			out += '<g transform="translate(40,-8)"><use transform="scale(0.3)" xlink:href="#'+self.zodiac[self.t_houses_sign[i]]+'" /></g>'
-			out += '<text x="53" style="fill:%s; font-size: 10px;"> %s</text>' % (self.colors['paper_0'],self.dec2deg(self.t_houses_degree[i]))
+			out += '<text x="53" style="fill:%s; font-size: 10px;"> %s</text>' % (self.settings.settings["color_codes"]['paper_0'],self.dec2deg(self.t_houses_degree[i]))
 			out += '</g>\n'
 			li = li + 14
 		out += '\n'

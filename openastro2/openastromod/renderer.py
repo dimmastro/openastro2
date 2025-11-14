@@ -87,6 +87,14 @@ class ChartRenderer:
 			sign_y * (1 / scale)) + '" xlink:href="#' + type + '" stroke="black" fill="black" /></g></g>\n'
 		return slice_path + '\n' + sign
 
+	def makeZodiac(self, r):
+		output = ""
+		for i in range(len(self.zodiac)):
+			output += self.zodiacSlice(i, r,
+			                           "fill:" + self.settings.settings["color_codes"]["zodiac_bg_%s" % (i)] + "; fill-opacity: 0.5;",
+			                           self.zodiac[i]) + '\n'
+		return output
+
 	def makeSVG2(self, printing=None):
 		self.calcAstro()
 
@@ -953,4 +961,3 @@ class ChartRenderer:
 			li = li + 14
 		out += '\n'
 		return out
-

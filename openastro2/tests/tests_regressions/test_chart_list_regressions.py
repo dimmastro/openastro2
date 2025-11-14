@@ -124,6 +124,7 @@ def test_openastro_types_json(astro_type, file_regression):
 
     oa = openAstro(event1, event2, type=astro_type, settings=settings)
     svg_content = oa.makeSVG2()
+    oa.sanitize_for_snapshot()
     # Автоматическая сериализация объектов
     serialized_data = {
         # "event1": auto_serialize(event1),
@@ -147,6 +148,7 @@ def test_openastro_types_json_obtained(astro_type, file_regression):
 
     oa = openAstro(event1, event2, type=astro_type, settings=settings)
     svg_content = oa.makeSVG2()
+    oa.sanitize_for_snapshot()
     # Автоматическая сериализация объектов
     serialized_data = {
         # "event1": auto_serialize(event1),
@@ -163,5 +165,4 @@ def test_openastro_types_json_obtained(astro_type, file_regression):
         extension=".json",
         encoding='utf-8'
     )
-
 

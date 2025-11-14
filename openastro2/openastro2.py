@@ -469,6 +469,10 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		self.type = type
 		self.settings.type = type
 		self.settings.settings["astrocfg"]['type'] = type
+		self.planets_aspects_list: List[Dict[str, Any]] = []
+		self.t_planets_aspects_list: List[Dict[str, Any]] = []
+		self.aspect_all_str = ""
+		self.t_aspect_all_str = ""
 
 		# self.screen_width = 1920
 		# self.screen_height = 1080
@@ -587,6 +591,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		if isinstance(self.settings, dict):
 			return self.settings.get("settings_svg", {})
 		return getattr(self.settings, "settings_svg", getattr(self.settings, "settings", {}).get("settings_svg", {}))
+
+	@property
+	def planets_aspects_list_t(self) -> List[Dict[str, Any]]:
+		return self.t_planets_aspects_list
+
+	@planets_aspects_list_t.setter
+	def planets_aspects_list_t(self, value: List[Dict[str, Any]]) -> None:
+		self.t_planets_aspects_list = value
 
 	def sanitize_for_snapshot(self) -> None:
 		sensitive_attrs = (
@@ -878,7 +890,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 		elif self.type == "SProgression":
 			dt	= datetime.datetime(self.t_year, self.t_month, self.t_day, self.t_h, self.t_m, self.t_s)
-			print (dt)
+			# print (dt)
 			self.localToSProgression(dt)
 			# module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 			# 								self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
@@ -892,7 +904,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 		elif self.type == "SProgressionPast":
 			dt	= datetime.datetime(self.t_year, self.t_month, self.t_day, self.t_h, self.t_m, self.t_s)
-			print (dt)
+			# print (dt)
 			self.localToSProgressionPast(dt)
 			# module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 			# 								self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,

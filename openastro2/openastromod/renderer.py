@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 import os
 from string import Template
 from typing import Any, Callable, Optional, TYPE_CHECKING
@@ -21,6 +22,70 @@ class ChartRenderer:
 	def _debug(self, message: str) -> None:
 		if self._debug_printer:
 			self._debug_printer(message)
+
+	def lat2str(self, coord):
+		sign = self.settings.settings["label"]["north"]
+		if coord < 0.0:
+			sign = self.settings.settings["label"]["south"]
+			coord = abs(coord)
+		deg = int(coord)
+		minute = int((float(coord) - deg) * 60)
+		sec = int(round(float(((float(coord) - deg) * 60) - minute) * 60.0))
+		return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': minute, '#3': sec, '#4': sign}
+
+	def lon2str(self, coord):
+		sign = self.settings.settings["label"]["east"]
+		if coord < 0.0:
+			sign = self.settings.settings["label"]["west"]
+			coord = abs(coord)
+		deg = int(coord)
+		minute = int((float(coord) - deg) * 60)
+		sec = int(round(float(((float(coord) - deg) * 60) - minute) * 60.0))
+		return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': minute, '#3': sec, '#4': sign}
+
+	def sliceToX(self, slice, r, offset):
+		plus = (math.pi * offset) / 180
+		radial = ((math.pi / 6) * slice) + plus
+		return r * (math.cos(radial) + 1)
+
+	def sliceToY(self, slice, r, offset):
+		plus = (math.pi * offset) / 180
+		radial = ((math.pi / 6) * slice) + plus
+		return r * ((math.sin(radial) / -1) + 1)
+
+	def drawAspect(self, r, ar, degA, degB, color):
+		offset = (float(self.get_chart_start_point()) / -1) + float(degA)
+		x1 = self.sliceToX(0, ar, offset) + (r - ar)
+		y1 = self.sliceToY(0, ar, offset) + (r - ar)
+		offset = (float(self.get_chart_start_point()) / -1) + float(degB)
+		x2 = self.sliceToX(0, ar, offset) + (r - ar)
+		y2 = self.sliceToY(0, ar, offset) + (r - ar)
+		out = '			<line x1="' + str(x1) + '" y1="' + str(y1) + '" x2="' + str(x2) + '" y2="' + str(
+			y2) + '" style="stroke: ' + color + '; stroke-width: 1.0; stroke-opacity: .5;"/>\n'
+		return out
+
+	def zodiacSlice(self, num, r, style, type):
+		if self.settings.settings["astrocfg"]["houses_system"] == "G":
+			offset = 360 - self.houses_degree_ut[18]
+		else:
+			offset = 360 - self.get_chart_start_point()
+		if self.type == "Transit" or self.type == "Direction":
+			dropin = 0
+		else:
+			dropin = self.c1
+		slice_path = '<path d="M' + str(r) + ',' + str(r) + ' L' + str(dropin + self.sliceToX(num, r - dropin, offset)) + ',' + str(
+			dropin + self.sliceToY(num, r - dropin, offset)) + ' A' + str(r - dropin) + ',' + str(
+			r - dropin) + ' 0 0,0 ' + str(dropin + self.sliceToX(num + 1, r - dropin, offset)) + ',' + str(
+			dropin + self.sliceToY(num + 1, r - dropin, offset)) + ' z" style="' + style + '"/>'
+		offset = offset + 15
+		dropin = self.c2 / 2
+		sign_x = dropin + self.sliceToX(num, r - dropin, offset)
+		sign_y = dropin + self.sliceToY(num, r - dropin, offset)
+		scale = 0.3
+		sign = '<g transform="translate(-' + str(16 * scale) + ',-' + str(16 * scale) + ')"><g transform="scale(' + str(
+			scale) + ')"><use x="' + str(sign_x * (1 / scale)) + '" y="' + str(
+			sign_y * (1 / scale)) + '" xlink:href="#' + type + '" stroke="black" fill="black" /></g></g>\n'
+		return slice_path + '\n' + sign
 
 	def makeSVG2(self, printing=None):
 		self.calcAstro()
@@ -865,6 +930,5 @@ class ChartRenderer:
 			li = li + 14
 		out += '\n'
 		return out
-
 
 

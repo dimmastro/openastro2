@@ -2428,27 +2428,11 @@ class openAstro:
 	def degreeTransitRing(self, r):
 		return self.renderer.degreeTransitRing(r)
 	#floating latitude an longitude to string
-	def lat2str( self, coord ):
-		sign=self.settings.settings["label"]["north"]
-		if coord < 0.0:
-			sign=self.settings.settings["label"]["south"]
-			coord = abs(coord)
-		deg = int(coord)
-		min = int( (float(coord) - deg) * 60 )
-		sec = int( round( float( ( (float(coord) - deg) * 60 ) - min) * 60.0 ) )
-		return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': min, '#3': sec, '#4': sign}
-		# return "%s°%s'%s\" %s" % (deg,min,sec,sign)
+	def lat2str(self, coord):
+		return self.renderer.lat2str(coord)
 
-	def lon2str( self, coord ):
-		sign=self.settings.settings["label"]["east"]
-		if coord < 0.0:
-			sign=self.settings.settings["label"]["west"]
-			coord = abs(coord)
-		deg = int(coord)
-		min = int( (float(coord) - deg) * 60 )
-		sec = int( round( float( ( (float(coord) - deg) * 60 ) - min) * 60.0 ) )
-		return "%(#1)02d°%(#2)02d'%(#3)02d\" %(#4)s" % {'#1': deg, '#2': min, '#3': sec, '#4': sign}
-		# return "%s°%s'%s\" %s" % (deg,min,sec,sign)
+	def lon2str(self, coord):
+		return self.renderer.lon2str(coord)
 
 	# Utility function wrappers - delegate to utils.py functions
 	def decHour(self, input: float) -> List[int]:
@@ -2476,62 +2460,17 @@ class openAstro:
 		return dec2deg_str(dec, type)
 
 	#draw svg aspects: ring, aspect ring, degreeA degreeB
-	def drawAspect( self , r , ar , degA , degB , color):
-			# offset = (int(self.houses_degree_ut[6]) / -1) + int(degA)
-			offset = (float(self.get_chart_start_point()) / -1) + float(degA)
-			x1 = self.sliceToX( 0 , ar , offset ) + (r-ar)
-			y1 = self.sliceToY( 0 , ar , offset ) + (r-ar)
-			# offset = (int(self.houses_degree_ut[6]) / -1) + int(degB)
-			offset = (float(self.get_chart_start_point()) / -1) + float(degB)
-			# print("offset=",offset)
-			x2 = self.sliceToX( 0 , ar , offset ) + (r-ar)
-			y2 = self.sliceToY( 0 , ar , offset ) + (r-ar)
-			out = '			<line x1="'+str(x1)+'" y1="'+str(y1)+'" x2="'+str(x2)+'" y2="'+str(y2)+'" style="stroke: '+color+'; stroke-width: 1.0; stroke-opacity: .5;"/>\n'
-			# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
-			# 	x1, y1, 3.5, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]["color_transit_2"])
-			# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
-			# 	x2, y2, 0.50, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]["color_transit_2"])
-			return out
+	def drawAspect(self, r, ar, degA, degB, color):
+		return self.renderer.drawAspect(r, ar, degA, degB, color)
 
-	def sliceToX( self , slice , r, offset):
-		plus = (math.pi * offset) / 180
-		radial = ((math.pi/6) * slice) + plus
-		return r * (math.cos(radial)+1)
+	def sliceToX(self, slice, r, offset):
+		return self.renderer.sliceToX(slice, r, offset)
 
-	def sliceToY( self , slice , r, offset):
-		plus = (math.pi * offset) / 180
-		radial = ((math.pi/6) * slice) + plus
-		return r * ((math.sin(radial)/-1)+1)
+	def sliceToY(self, slice, r, offset):
+		return self.renderer.sliceToY(slice, r, offset)
 
-	def zodiacSlice( self , num , r , style,  type):
-		#pie slices
-		if self.settings.settings["astrocfg"]["houses_system"] == "G":
-			offset = 360 - self.houses_degree_ut[18]
-		else:
-			# offset = 360 - self.houses_degree_ut[6]
-			offset = 360 - self.get_chart_start_point()
-			# offset = 180
-		#check transit
-		if self.type == "Transit" or self.type == "Direction":
-			dropin=0
-		else:
-			dropin=self.c1
-		slice = '<path d="M' + str(r) + ',' + str(r) + ' L' + str(dropin + self.sliceToX(num,r-dropin,offset)) + ',' + str( dropin + self.sliceToY(num,r-dropin,offset)) + ' A' + str(r-dropin) + ',' + str(r-dropin) + ' 0 0,0 ' + str(dropin + self.sliceToX(num+1,r-dropin,offset)) + ',' + str(dropin + self.sliceToY(num+1,r-dropin,offset)) + ' z" style="' + style + '"/>'
-		#symbols
-		offset = offset + 15
-		#check transit
-		if self.type == "Transit" or self.type == "Direction":
-			dropin=self.c2/2
-		else:
-			dropin=self.c2/2
-		# sign = '<g transform="translate(-16,-16)"><use x="' + str(dropin + self.sliceToX(num,r-dropin,offset)) + '" y="' + str(dropin + self.sliceToY(num,r-dropin,offset)) + '" xlink:href="#' + type + '" /></g>\n'
-		sign_x = dropin + self.sliceToX(num, r - dropin, offset)
-		sign_y = dropin + self.sliceToY(num, r - dropin, offset)
-		scale = 0.3
-		sign = '<g transform="translate(-' + str(16 * scale) + ',-' + str(16 * scale) + ')"><g transform="scale(' + str(
-			scale) + ')"><use x="' + str(sign_x * (1 / scale)) + '" y="' + str(
-			sign_y * (1 / scale)) + '" xlink:href="#' + type + '" stroke="black" fill="black" /></g></g>\n'
-		return slice + '\n' + sign
+	def zodiacSlice(self, num, r, style, type):
+		return self.renderer.zodiacSlice(num, r, style, type)
 
 	def makeZodiac( self , r ):
 		output = ""

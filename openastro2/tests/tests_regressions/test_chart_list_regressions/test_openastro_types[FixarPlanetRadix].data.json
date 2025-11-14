@@ -6468,10 +6468,6 @@
     "screen_width": 1152,
     "second_loc": 0,
     "settings": {
-      "astrodir": "/home/dimm/.openastro.org",
-      "homedir": "/home/dimm",
-      "iconAspects": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/icons/aspects",
-      "iconWindow": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/icons/openastro.svg",
       "lang_label": {
         "ar": "الْعَرَبيّة",
         "bg": "български език",
@@ -14364,18 +14360,13 @@
           "zodiac_relation": "-1"
         }
       ],
-      "swissLocalDir": "/home/dimm/.openastro.org/swiss_ephemeris",
-      "tempfilename": "/home/dimm/.openastro.org/tmp/openAstroChart.svg",
-      "tempfilenameprint": "/home/dimm/.openastro.org/tmp/openAstroChartPrint.svg",
-      "tempfilenametable": "/home/dimm/.openastro.org/tmp/openAstroChartTable.svg",
-      "tempfilenametableprint": "/home/dimm/.openastro.org/tmp/openAstroChartTablePrint.svg",
-      "tmpdir": "/home/dimm/.openastro.org/tmp",
+      "tmpdir": "<tmp>",
       "type": "FixarPlanetRadix",
       "version": "2.0.0",
-      "xml_svg": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-svg.xml",
-      "xml_svg2": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro2-svg.xml",
-      "xml_svg_table": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-svg-table.xml",
-      "xml_ui": "/home/dimm/PycharmProjects/1_astro/openastro2-dev/openastro2/openastro2/xml/openastro-ui.xml"
+      "xml_svg": "<tmp>",
+      "xml_svg2": "<tmp>",
+      "xml_svg_table": "<tmp>",
+      "xml_ui": "<tmp>"
     },
     "t_altitude": 25,
     "t_aspect_all_str": "",

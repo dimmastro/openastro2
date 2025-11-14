@@ -19,7 +19,7 @@
 
 #basics
 from typing import Dict, List, Any, Tuple, Optional, Union
-import math, sys, os.path, gettext, codecs, datetime
+import math, sys, os, os.path, tempfile, gettext, codecs, datetime
 
 # from icalendar import Calendar, Event
 import pytz
@@ -33,6 +33,7 @@ import sqlite3
 
 from openastromod.utils import utc_to_local, local_to_utc, decHour, decHourJoin, offsetToTz, decTzStr, degreeDiff, \
 	degreeDiff2, dec2deg, dec2deg_str, get_zodiac_sign
+from openastromod.renderer import ChartRenderer
 
 # Register string adapter for sqlite
 sqlite3.register_adapter(str, lambda s: s)
@@ -40,14 +41,7 @@ sqlite3.register_adapter(str, lambda s: s)
 #template processing
 from string import Template
 
-#minidom parser
 
-#GTK, cairo to display svg
-# from gi import require_version
-# require_version('Rsvg', '2.0')
-# require_version('Gtk', '3.0')
-# from gi.repository import Gtk
-# from gi.repository import Gdk, GObject, Rsvg, cairo
 
 import json
 from pathlib import Path
@@ -78,7 +72,6 @@ import svgwrite
 
 from gettext import gettext as _
 
-# from openastro2.openastromod.fixar import get_fixar_ecliptic_latlon_arr
 
 #debug
 LOCAL=True
@@ -88,12 +81,12 @@ VERSION='2.0.0'
 #directories
 if LOCAL:
 	DATADIR=os.path.dirname(__file__)
-elif os.path.exists(os.path.join(sys.prefix,'share','openastro.org')):
-	DATADIR=os.path.join(sys.prefix,'share','openastro.org')
-elif os.path.exists(os.path.join('usr','local','share','openastro.org')):
-	DATADIR=os.path.join('usr','local','share','openastro.org')
-elif os.path.exists(os.path.join('usr','share','openastro.org')):
-	DATADIR=os.path.join('usr','share','openastro.org')
+# elif os.path.exists(os.path.join(sys.prefix,'share','openastro.org')):
+# 	DATADIR=os.path.join(sys.prefix,'share','openastro.org')
+# elif os.path.exists(os.path.join('usr','local','share','openastro.org')):
+# 	DATADIR=os.path.join('usr','local','share','openastro.org')
+# elif os.path.exists(os.path.join('usr','share','openastro.org')):
+# 	DATADIR=os.path.join('usr','share','openastro.org')
 else:
 	print("Exiting... can't find data directory")
 	sys.exit()
@@ -151,22 +144,21 @@ class openAstroSettings:
 		dprint("-------------------------------")
 		dprint('  OpenAstro2 ' + str(self.version))
 		dprint("-------------------------------")
-		self.homedir = os.path.expanduser("~")
+		# self.homedir = os.path.expanduser("~")
 
 		# check for astrodir
-		self.astrodir = os.path.join(self.homedir, '.openastro.org')
-		if os.path.isdir(self.astrodir) == False:
-			os.mkdir(self.astrodir)
+		# self.astrodir = os.path.join(self.homedir, '.openastro.org')
+		# if os.path.isdir(self.astrodir) == False:
+		# 	os.mkdir(self.astrodir)
 
-		# check for tmpdir
-		self.tmpdir = os.path.join(self.astrodir, 'tmp')
-		if os.path.isdir(self.tmpdir) == False:
-			os.mkdir(self.tmpdir)
+		# system tmpdir for generated artifacts
+		system_tmp = tempfile.gettempdir()
+		self.tmpdir = self._ensure_writable_tmpdir(os.path.join(system_tmp, 'openastro2'))
 
 		# check for swiss local dir
-		self.swissLocalDir = os.path.join(self.astrodir, 'swiss_ephemeris')
-		if os.path.isdir(self.swissLocalDir) == False:
-			os.mkdir(self.swissLocalDir)
+		# self.swissLocalDir = os.path.join(self.astrodir, 'swiss_ephemeris')
+		# if os.path.isdir(self.swissLocalDir) == False:
+		# 	os.mkdir(self.swissLocalDir)
 
 		# directories
 		if LOCAL:
@@ -181,15 +173,15 @@ class openAstroSettings:
 			print("Exiting... can't find data directory")
 			sys.exit()
 		# icons
-		icons = os.path.join(DATADIR, 'icons')
-		self.iconWindow = os.path.join(icons, 'openastro.svg')
-		self.iconAspects = os.path.join(icons, 'aspects')
+		# icons = os.path.join(DATADIR, 'icons')
+		# self.iconWindow = os.path.join(icons, 'openastro.svg')
+		# self.iconAspects = os.path.join(icons, 'aspects')
 
 		# basic files
-		self.tempfilename = os.path.join(self.tmpdir, "openAstroChart.svg")
-		self.tempfilenameprint = os.path.join(self.tmpdir, "openAstroChartPrint.svg")
-		self.tempfilenametable = os.path.join(self.tmpdir, "openAstroChartTable.svg")
-		self.tempfilenametableprint = os.path.join(self.tmpdir, "openAstroChartTablePrint.svg")
+		# self.tempfilename = os.path.join(self.tmpdir, "openAstroChart.svg")
+		# self.tempfilenameprint = os.path.join(self.tmpdir, "openAstroChartPrint.svg")
+		# self.tempfilenametable = os.path.join(self.tmpdir, "openAstroChartTable.svg")
+		# self.tempfilenametableprint = os.path.join(self.tmpdir, "openAstroChartTablePrint.svg")
 		self.xml_ui = os.path.join(DATADIR, 'xml/openastro-ui.xml')
 		self.xml_svg = os.path.join(DATADIR, 'xml/openastro-svg.xml')
 		self.xml_svg2 = os.path.join(DATADIR, 'xml/openastro2-svg.xml')
@@ -222,8 +214,6 @@ class openAstroSettings:
 		self.setLanguage(self.settings["astrocfg"]['language'])
 		self.lang_label = LANGUAGES_LABEL
 
-		# self.settings_svg = self.settings["settings_svg"]
-		# self.color_codes = self.settings["color_codes"]
 		self.settings_planet = self.settings["settings_planet"]
 		return
 
@@ -267,6 +257,67 @@ class openAstroSettings:
 	def getSettingsAspect(self) -> Dict[str, Any]:
 		dict = self.settings["settings_aspect"]
 		return dict
+
+	def sanitize_for_snapshot(self) -> None:
+		"""
+		Clear folders names before regression tests
+		:return:
+		"""
+		placeholder = "<tmp>"
+		sensitive_attrs = (
+			"tmpdir",
+			"tempfilename",
+			"tempfilenameprint",
+			"tempfilenametable",
+			"tempfilenametableprint",
+			"astrodir",
+			"homedir",
+			"iconWindow",
+			"iconAspects",
+			"swissLocalDir",
+			"xml_ui",
+			"xml_svg",
+			"xml_svg2",
+			"xml_svg_table",
+		)
+
+		for attr in sensitive_attrs:
+			if hasattr(self, attr):
+				setattr(self, attr, placeholder)
+
+		payloads = []
+		if isinstance(self.settings, dict):
+			payloads.append(self.settings)
+		elif hasattr(self, "settings"):
+			payloads.append(self.settings.__dict__)
+			if hasattr(self.settings, "settings"):
+				payloads.append(self.settings.settings)
+
+		for payload in payloads:
+			if not isinstance(payload, dict):
+				continue
+			for attr in sensitive_attrs:
+				if attr in payload:
+					payload[attr] = placeholder
+			settings_svg = payload.get("settings_svg")
+			if isinstance(settings_svg, dict):
+				for attr in sensitive_attrs:
+					if attr in settings_svg:
+						settings_svg[attr] = placeholder
+
+	def _ensure_writable_tmpdir(self, preferred: str) -> str:
+		candidates = [preferred, os.path.join(Path(__file__).parent, 'tmp')]
+		for path in candidates:
+			try:
+				os.makedirs(path, exist_ok=True)
+				test_file = os.path.join(path, '.write_test')
+				with open(test_file, 'w') as tmp:
+					tmp.write('')
+				os.remove(test_file)
+				return path
+			except OSError:
+				continue
+		return preferred
 
 	def _build_settings_aspect_dic(self) -> Dict[str, Dict[str, Any]]:
 		"""Derive the aspect lookup dictionary from the list form that is stored in JSON."""
@@ -387,6 +438,7 @@ class openAstro:
 
 	def __init__(self, event1: Dict[str, Any], event2: List[Any] = [], type: str = "Radix", settings: Dict[str, Any] = {}, oa_args: Dict[str, Any] = {}, *args: Any, **kwargs: Any) -> None:
 		self.settings = openAstroSettings(settings=settings)
+		self._renderer = ChartRenderer(self, dprint)
 
 		self.event1 = event1
 		self.event2 = event2
@@ -468,27 +520,6 @@ class openAstro:
 			self.dt2_utc = utc_loc
 
 
-		# #current datetime
-		# now = datetime.datetime.now()
-		#
-		# #aware datetime object
-		# dt_input = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, now.second)
-		# dt = pytz.timezone(self.timezonestr).localize(dt_input)
-
-		#naive utc datetime object
-		# dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-
-
-		#Default
-		# self.name=_("Here and Now")
-		# self.charttype=self.settings.settings["label"]["radix"]
-		# self.year=dt_utc.year
-		# self.month=dt_utc.month
-		# self.day=dt_utc.day
-		# self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-		# self.timezone=self.offsetToTz(dt.utcoffset())
-		# self.altitude=25
-		# self.geonameid=None
 
 		# OpenAstro1 used UTC time in database
 		self.localToUtc()
@@ -498,8 +529,6 @@ class openAstro:
 		#configuration
 		#ZOOM 1 = 100%
 		self.zoom = self.settings.settings["settings_svg"]["zoom"]
-		# self.type="Radix"
-
 
 		#12 zodiacs
 		self.zodiac = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
@@ -520,7 +549,32 @@ class openAstro:
 		self.kwargs = kwargs
 
 		return
+	@property
+	def renderer(self) -> ChartRenderer:
+		return self._renderer
 
+	def sanitize_for_snapshot(self) -> None:
+		sensitive_attrs = (
+			"tmpdir",
+			"tempfilename",
+			"tempfilenameprint",
+			"tempfilenametable",
+			"tempfilenametableprint",
+			"astrodir",
+			"homedir",
+			"iconWindow",
+			"iconAspects",
+			"swissLocalDir",
+		)
+		for attr in sensitive_attrs:
+			if hasattr(self, attr):
+				setattr(self, attr, "<tmp>")
+		if hasattr(self, "settings") and hasattr(self.settings, "sanitize_for_snapshot"):
+			self.settings.sanitize_for_snapshot()
+		if hasattr(self, "settings") and isinstance(self.settings, dict):
+			for attr in sensitive_attrs:
+				if attr in self.settings:
+					self.settings[attr] = "<tmp>"
 
 
 	def utcToLocal(self):
@@ -2347,352 +2401,12 @@ class openAstro:
 		doc.save()
 
 	def makeSVG2(self, printing=None):
-		self.calcAstro()
-
-		# width and height from screen
-		# ratio = float(self.screen_width) / float(self.screen_height)
-		# if ratio < 1.3:  # 1280x1024
-		# 	wm_off = 0
-		# else:  # 1024x768, 800x600, 1280x800, 1680x1050
-		# 	wm_off = 0
-
-		# check for printer
-		if printing == None:
-			svgHeight = self.screen_height
-			svgWidth = self.screen_width
-			# svgHeight=self.screen_height-wm_off
-			# svgWidth=(770.0*svgHeight)/540.0
-			# svgWidth=float(self.screen_width)-25.0
-			rotate = "0"
-			translate = "0"
-			# viewbox = '0 0 772.2 546.0'  # 297mm * 2.6 + 210mm * 2.6
-			viewbox = f'0 0 {svgWidth} {svgHeight}'  # 297mm * 2.6 + 210mm * 2.6
-		else:
-			# sizeX = 546.0
-			# sizeY = 970.7
-			svgWidth = printing['width']
-			svgHeight = printing['height']
-			rotate = "0"
-			# viewbox = '0 0 970.7 546.0'
-			viewbox = f'0 0 {svgWidth} {svgHeight}'  # 297mm * 2.6 + 210mm * 2.6
-			translate = "0"
-
-		# template dictionary
-		td = dict()
-		r = self.settings.settings["settings_svg"]["r"]
-		if (self.settings.settings["astrocfg"]['chartview'] == "european"):
-			self.c1 = self.settings.settings["settings_svg"]["c1"]
-			self.c2 = self.settings.settings["settings_svg"]['c2']
-			self.c3 = self.settings.settings["settings_svg"]['c3']
-		else:
-			self.c1 = 0
-			self.c2 = 36
-			self.c3 = 120
-
-		# make chart
-		# transit
-		if self.type == "Transit" or self.type == "Direction":
-			td['transitRing'] = self.transitRing(r)
-			td['degreeRing'] = self.degreeTransitRing(r)
-			# circles
-			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"'
-			td['c1style'] = 'fill: %s; stroke: %s;  fill-opacity:0.0; stroke-width: 0px; stroke-opacity:1.0;' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_transit_ring_2'])
-			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"'
-			td['c2style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.4; stroke-width: 0px' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_transit_ring_1'])
-			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"'
-			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_transit_ring_0'])
-			td['makeAspects'] = self.makeAspectsTransit(r, (r - self.c3))
-
-			td['makeAspectGrid'] = ""
-			if self.settings.settings["settings_svg"]["printAspectGrid"] == 1:
-				td['makeAspectGrid'] = self.makeAspectGrid(r)
-			td['makePatterns'] = ''
-		else:
-			td['transitRing'] = ""
-			# td['degreeRing'] = self.degreeRing(r)
-			td['degreeRing'] = ""
-			# circles
-			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"'
-			td['c1style'] = 'fill: none; stroke: %s; stroke-width: 0.0px; ' % (self.settings.settings["color_codes"]['zodiac_radix_ring_2'])
-			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"'
-			td['c2style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.3; stroke-width: 0.0px' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_radix_ring_1'])
-			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"'
-			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 0.5px' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_radix_ring_0'])
-			td['makeAspects'] = self.makeAspects(r, (r - self.c3))
-
-			td['makeAspectGrid'] = ""
-			if self.settings.settings["settings_svg"]["printAspectGrid"] == 1:
-				td['makeAspectGrid'] = self.makeAspectGrid(r)
-
-			td['makePatterns'] = self.makePatterns()
-
-		td['circleX'] = str(self.settings.settings["settings_svg"]["circleX"])
-		td['circleY'] = str(self.settings.settings["settings_svg"]["circleY"])
-		td['svgWidth'] = str(svgWidth)
-		td['svgHeight'] = str(svgHeight)
-		td['viewbox'] = viewbox
-
-
-		td['stringTitle'] = ""
-		td['chartType'] = ""
-		td['t_stringTitle'] = ""
-		td['stringDateTime'] = ""
-		td['t_stringDateTime'] = ""
-		td['stringLocation'] = ""
-		td['stringLat'] = ""
-		td['stringLon'] = ""
-		td['t_stringLocation'] = ""
-		td['t_stringLat'] = ""
-		td['t_stringLon'] = ""
-		td['stringLat'] = ""
-		td['stringLon'] = ""
-		td['stringPosition'] = ""
-
-		if self.settings.settings["settings_svg"]["printChartType"] == 1:
-			td['chartType'] = self.charttype
-
-		# Print Radix Chart description
-		if self.settings.settings["settings_svg"]["printDescriptionRadix"] == 1:
-			td['stringTitle'] = self.name
-			# td['chartType'] = self.charttype
-			td['stringDateTime'] = str(self.year_loc) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
-				'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
-				'#5': self.second_loc}
-			# stringlocation
-			if len(self.location) > 35:
-				split = self.location.split(",")
-				if len(split) > 1:
-					td['stringLocation'] = split[0] + ", " + split[-1]
-					if len(td['stringLocation']) > 35:
-						td['stringLocation'] = td['stringLocation'][:35] + "..."
-				else:
-					td['stringLocation'] = self.location[:35] + "..."
-			else:
-				td['stringLocation'] = self.location
-			td['stringLocation'] = td['stringLocation'] + " " + self.decTzStr(self.timezone)
-
-			td['stringLat'] = "%s" % (self.lat2str(self.geolat))
-			td['stringLon'] = "%s" % (self.lon2str(self.geolon))
-			postype = {"geo": self.settings.settings["label"]["apparent_geocentric"], "truegeo": self.settings.settings["label"]["true_geocentric"],
-					   "topo": self.settings.settings["label"]["topocentric"], "helio": self.settings.settings["label"]["heliocentric"]}
-			# td['stringPosition'] = postype[self.settings.settings["astrocfg"]['postype']]
-			td['stringPosition'] = self.settings.settings["astrocfg"]['postype']
-
-		# Print Douuble-Chart description
-		if self.type == "Transit" or self.type == "Direction":
-			if self.settings.settings["settings_svg"]["printDescriptionDouble"] == 1:
-				# td['chartType'] = self.charttype
-				td['t_stringTitle'] = self.t_name
-				td['t_stringDateTime'] = str(self.event2["year"]) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
-					'#1': self.event2["month"], '#2': self.event2["day"], '#3': self.event2["hour"], '#4': self.event2["minute"],
-					'#5': self.event2["second"]}
-				# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
-				td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
-				# td['t_stringLat'] = "%s: %s" % (self.settings.settings["label"]['latitude'], self.lat2str(self.t_geolat))
-				# td['t_stringLon'] = "%s: %s" % (self.settings.settings["label"]['longitude'], self.lon2str(self.t_geolon))
-				td['t_stringLat'] = "%s" % (self.lat2str(self.t_geolat))
-				td['t_stringLon'] = "%s" % (self.lon2str(self.t_geolon))
-
-		# bottom left
-		siderealmode_chartview = {
-			"FAGAN_BRADLEY": _("Fagan Bradley"),
-			"LAHIRI": _("Lahiri"),
-			"DELUCE": _("Deluce"),
-			"RAMAN": _("Ramanb"),
-			"USHASHASHI": _("Ushashashi"),
-			"KRISHNAMURTI": _("Krishnamurti"),
-			"DJWHAL_KHUL": _("Djwhal Khul"),
-			"YUKTESHWAR": _("Yukteshwar"),
-			"JN_BHASIN": _("Jn Bhasin"),
-			"BABYL_KUGLER1": _("Babyl Kugler 1"),
-			"BABYL_KUGLER2": _("Babyl Kugler 2"),
-			"BABYL_KUGLER3": _("Babyl Kugler 3"),
-			"BABYL_HUBER": _("Babyl Huber"),
-			"BABYL_ETPSC": _("Babyl Etpsc"),
-			"ALDEBARAN_15TAU": _("Aldebaran 15Tau"),
-			"HIPPARCHOS": _("Hipparchos"),
-			"SASSANIAN": _("Sassanian"),
-			"J2000": _("J2000"),
-			"J1900": _("J1900"),
-			"B1950": _("B1950")
-		}
-
-		if self.settings.settings["astrocfg"]['zodiactype'] == 'sidereal':
-			td['bottomLeft1'] = _("Sidereal")
-			td['bottomLeft2'] = siderealmode_chartview[self.settings.settings["astrocfg"]['siderealmode']]
-		else:
-			td['bottomLeft1'] = _("Tropical")
-			td['bottomLeft2'] = '%s: %s (%s) %s (%s)' % (
-			_("Lunar Phase"), self.lunar_phase['sun_phase'], _("Sun"), self.lunar_phase['moon_phase'], _("Moon"))
-
-		td['bottomLeft3'] = '%s: %s' % (_("Lunar Phase"), self.dec2deg(self.lunar_phase['degrees']))
-		td['bottomLeft4'] = ''
-
-		# lunar phase
-		deg = self.lunar_phase['degrees']
-
-		if (deg < 90.0):
-			maxr = deg
-			if (deg > 80.0): maxr = maxr * maxr
-			lfcx = 20.0 + (deg / 90.0) * (maxr + 10.0)
-			lfr = 10.0 + (deg / 90.0) * maxr
-			lffg, lfbg = self.settings.settings["color_codes"]["lunar_phase_0"], self.settings.settings["color_codes"]["lunar_phase_1"]
-
-		elif (deg < 180.0):
-			maxr = 180.0 - deg
-			if (deg < 100.0): maxr = maxr * maxr
-			lfcx = 20.0 + ((deg - 90.0) / 90.0 * (maxr + 10.0)) - (maxr + 10.0)
-			lfr = 10.0 + maxr - ((deg - 90.0) / 90.0 * maxr)
-			lffg, lfbg = self.settings.settings["color_codes"]["lunar_phase_1"], self.settings.settings["color_codes"]["lunar_phase_0"]
-
-		elif (deg < 270.0):
-			maxr = deg - 180.0
-			if (deg > 260.0): maxr = maxr * maxr
-			lfcx = 20.0 + ((deg - 180.0) / 90.0 * (maxr + 10.0))
-			lfr = 10.0 + ((deg - 180.0) / 90.0 * maxr)
-			lffg, lfbg = self.settings.settings["color_codes"]["lunar_phase_1"], self.settings.settings["color_codes"]["lunar_phase_0"]
-
-		elif (deg < 361):
-			maxr = 360.0 - deg
-			if (deg < 280.0): maxr = maxr * maxr
-			lfcx = 20.0 + ((deg - 270.0) / 90.0 * (maxr + 10.0)) - (maxr + 10.0)
-			lfr = 10.0 + maxr - ((deg - 270.0) / 90.0 * maxr)
-			lffg, lfbg = self.settings.settings["color_codes"]["lunar_phase_0"], self.settings.settings["color_codes"]["lunar_phase_1"]
-
-		td['lunar_phase_fg'] = lffg
-		td['lunar_phase_bg'] = lfbg
-		td['lunar_phase_cx'] = '%s' % (lfcx)
-		td['lunar_phase_r'] = '%s' % (lfr)
-		td['lunar_phase_outline'] = self.settings.settings["color_codes"]["lunar_phase_2"]
-
-		# rotation based on latitude
-		td['lunar_phase_rotate'] = "%s" % (-90.0 - self.geolat)
-
-		# td['stringDateTime'] = str(self.year_loc) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
-		# 	'#1': self.month_loc, '#2': self.day_loc, '#3': self.hour_loc, '#4': self.minute_loc,
-		# 	'#5': self.second_loc}
-		# td['t_stringDateTime'] = ""
-		# if self.type == "Transit" or self.type == "Direction":
-		# 	td['t_stringDateTime'] = str(self.t_year) + '.%(#1)02d.%(#2)02d %(#3)02d:%(#4)02d:%(#5)02d' % {
-		# 		'#1': self.t_month, '#2': self.t_day, '#3': self.t_h, '#4': self.t_m,
-		# 		'#5': self.t_s}
-
-		# # stringlocation
-		# if len(self.location) > 35:
-		# 	split = self.location.split(",")
-		# 	if len(split) > 1:
-		# 		td['stringLocation'] = split[0] + ", " + split[-1]
-		# 		if len(td['stringLocation']) > 35:
-		# 			td['stringLocation'] = td['stringLocation'][:35] + "..."
-		# 	else:
-		# 		td['stringLocation'] = self.location[:35] + "..."
-		# else:
-		# 	td['stringLocation'] = self.location
-		# td['stringLocation'] = td['stringLocation'] + " " + self.decTzStr(self.timezone)
-		#
-		# td['t_stringLocation'] = ""
-		# td['t_stringLat'] = ""
-		# td['t_stringLon'] = ""
-		# # stringlocation
-		# if self.type == "Transit" or self.type == "Direction":
-		# 	# td['stringLocation'] = td['stringLocation'] + " - " + self.t_location
-		# 	td['t_stringLocation'] = self.t_location + " " + self.decTzStr(self.t_timezone)
-		# 	# td['t_stringLat'] = "%s: %s" % (self.settings.settings["label"]['latitude'], self.lat2str(self.t_geolat))
-		# 	# td['t_stringLon'] = "%s: %s" % (self.settings.settings["label"]['longitude'], self.lon2str(self.t_geolon))
-		# 	td['t_stringLat'] = "%s" % (self.lat2str(self.t_geolat))
-		# 	td['t_stringLon'] = "%s" % (self.lon2str(self.t_geolon))
-		#
-		# # td['stringLat'] = "%s: %s" % (self.settings.settings["label"]['latitude'], self.lat2str(self.geolat))
-		# # td['stringLon'] = "%s: %s" % (self.settings.settings["label"]['longitude'], self.lon2str(self.geolon))
-		# td['stringLat'] = "%s" % ( self.lat2str(self.geolat))
-		# td['stringLon'] = "%s" % (self.lon2str(self.geolon))
-		# postype = {"geo": self.settings.settings["label"]["apparent_geocentric"], "truegeo": self.settings.settings["label"]["true_geocentric"],
-		# 		   "topo": self.settings.settings["label"]["topocentric"], "helio": self.settings.settings["label"]["heliocentric"]}
-		# # td['stringPosition'] = postype[self.settings.settings["astrocfg"]['postype']]
-		# td['stringPosition'] = self.settings.settings["astrocfg"]['postype']
-
-		# paper_color_X
-		td['paper_color_0'] = self.settings.settings["color_codes"]["paper_0"]
-		td['paper_color_1'] = self.settings.settings["color_codes"]["paper_1"]
-
-
-
-		for i in range(len(self.planets)):
-			# td['planets_color_%s'%(i)]=self.settings.settings["color_codes"]["planet_%s"%(i)]
-			td['planets_color_%s'%(i)]=self.settings.settings["color_codes"]["planet_all"]
-
-		# zodiac_color_X
-		for i in range(12):
-			td['zodiac_color_%s' % (i)] = self.settings.settings["color_codes"]["zodiac_icon_%s" % (i)]
-
-		# orb_color_X
-		for i in range(len(self.settings.settings["settings_aspect"])):
-			# td['orb_color_%s' % (self.settings.settings["settings_aspect"][i]['degree'])] = self.settings.settings["color_codes"]["aspect_%s" % (self.settings.settings["settings_aspect"][i]['degree'])]
-			td['orb_color_%s' % (self.settings.settings["settings_aspect"][i]['degree'])] = self.settings.settings["settings_aspect"][i]['color']
-
-		# config
-		td['cfgZoom'] = str(self.zoom)
-		td['cfgRotate'] = rotate
-		td['cfgTranslate'] = translate
-
-		# functions
-		td['makeZodiac'] = self.makeZodiac(r)
-		td['makeHouses'] = self.makeHouses(r)
-		td['makePlanets'] = self.makePlanets(r)
-		td['makeElements'] = self.makeElements(r)
-
-		td['makePlanetGrid'] = ""
-		if self.settings.settings["settings_svg"]["printPlanetGrid"] == 1:
-			td['makePlanetGrid'] = self.makePlanetGrid()
-
-		td['makeHousesGrid'] = ""
-		if self.settings.settings["settings_svg"]["printHousesGrid"] == 1:
-			td['makeHousesGrid'] = self.makeHousesGrid()
-
-
-		td['makePlanetGrid_t'] = ""
-		td['makeHousesGrid_t'] = ""
-		if self.type == "Transit" or self.type == "Direction":
-			if self.settings.settings["settings_svg"]["printPlanetGrid_t"] == 1:
-				td['makePlanetGrid_t'] = self.makePlanetGrid_t()
-			if self.settings.settings["settings_svg"]["printHousesGrid_t"] == 1:
-				td['makeHousesGrid_t'] = self.makeHousesGrid_t()
-
-		# read template
-		# f=open(self.settings.xml_svg)
-		f = open(self.settings.xml_svg2)
-		template = Template(f.read()).substitute(td)
-		f.close()
-
-		if self.settings.settings["settings_svg"]["saveSwgFile"] == 1:
-			# write template
-			if printing:
-				# f = open(cfg.tempfilenameprint, "w")
-				f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
-				dprint("Printing SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
-			else:
-				# f = open(self.settings.tempfilename, "w")
-				f = open(os.path.join(self.settings.tmpdir, self.name + "-" + self.type + '.svg'), "w")
-				dprint("Creating SVG: lat=" + str(self.geolat) + ' lon=' + str(self.geolon) + ' loc=' + self.location)
-			f.write(template)
-			f.close()
-
-		# #return filename
-		# return self.settings.tempfilename
-		# return SVG
-		return template
+		return self.renderer.makeSVG2(printing)
 
 	#draw transit ring
-	def transitRing( self , r ):
-		# out = '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:0.7; stroke: %s; stroke-width: 36px; stroke-opacity: 1.0;"/>' % (r,r,r-18,self.settings.settings["color_codes"]['paper_1'] ,self.settings.settings["color_codes"]['paper_1'])
-		# out += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:0.7; stroke: %s; stroke-width: 1px; stroke-opacity: .6;"/>' % (r,r,r,self.settings.settings["color_codes"]['paper_1'] ,self.settings.settings["color_codes"]['zodiac_transit_ring_3'])
-		# return out
-		return
+	def transitRing(self, r):
+		return self.renderer.transitRing(r)
+
 
 	def get_chart_start_point(self):
 		"""
@@ -2706,42 +2420,13 @@ class openAstro:
 			# return self.houses_degree_ut[6]
 		else:
 			return self.houses_degree_ut[6]
-
 	#draw degree ring
-	def degreeRing( self , r ):
-		out=''
-		for i in range(72):
-			# offset = float(i*5) - self.houses_degree_ut[6]
-			offset = float(i*5) - self.get_chart_start_point()
-			if offset < 0:
-				offset = offset + 360.0
-			elif offset > 360:
-				offset = offset - 360.0
-			x1 = self.sliceToX( 0 , r-self.c1 , offset ) + self.c1
-			y1 = self.sliceToY( 0 , r-self.c1 , offset ) + self.c1
-			x2 = self.sliceToX( 0 , r+2-self.c1 , offset ) - 2 + self.c1
-			y2 = self.sliceToY( 0 , r+2-self.c1 , offset ) - 2 + self.c1
-			out += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke: %s; stroke-width: 1px; stroke-opacity:.9;"/>\n' % (
-				x1,y1,x2,y2,self.settings.settings["color_codes"]['paper_0'] )
-		return out
+	def degreeRing(self, r):
+		return self.renderer.degreeRing(r)
 
-	def degreeTransitRing( self , r ):
-		out=''
-		# for i in range(72):
-		# 	offset = float(i*5) - self.houses_degree_ut[6]
-		# 	offset = float(i*5) - self.get_chart_start_point()
-		# 	if offset < 0:
-		# 		offset = offset + 360.0
-		# 	elif offset > 360:
-		# 		offset = offset - 360.0
-		# 	x1 = self.sliceToX( 0 , r , offset )
-		# 	y1 = self.sliceToY( 0 , r , offset )
-		# 	x2 = self.sliceToX( 0 , r+2 , offset ) - 2
-		# 	y2 = self.sliceToY( 0 , r+2 , offset ) - 2
-		# 	out += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke: #F00; stroke-width: 1px; stroke-opacity:.9;"/>\n' % (
-		# 		x1,y1,x2,y2 )
-		return out
 
+	def degreeTransitRing(self, r):
+		return self.renderer.degreeTransitRing(r)
 	#floating latitude an longitude to string
 	def lat2str( self, coord ):
 		sign=self.settings.settings["label"]["north"]
@@ -3478,151 +3163,7 @@ class openAstro:
 		return planets_delta
 
 	def makePatterns( self ):
-		"""
-		* Stellium: At least four planets linked together in a series of continuous conjunctions.
-    	* Grand trine: Three trine aspects together.
-		* Grand cross: Two pairs of opposing planets squared to each other.
-		* T-Square: Two planets in opposition squared to a third.
-		* Yod: Two qunicunxes together joined by a sextile.
-		"""
-		conj = {} #0
-		opp = {} #10
-		sq = {} #5
-		tr = {} #6
-		qc = {} #9
-		sext = {} #3
-		for i in range(len(self.planets)):
-			a=self.planets_degree_ut[i]
-			qc[i]={}
-			sext[i]={}
-			opp[i]={}
-			sq[i]={}
-			tr[i]={}
-			conj[i]={}
-			#skip some points
-			n = self.planets[i]['name']
-			if n == 'earth' or n == 'true node' or n == 'osc. apogee' or n == 'intp. apogee' or n == 'intp. perigee':
-				continue
-			if n == 'Dsc' or n == 'Ic':
-				continue
-			for j in range(len(self.planets)):
-				#skip some points
-				n = self.planets[j]['name']
-				if n == 'earth' or n == 'true node' or n == 'osc. apogee' or n == 'intp. apogee' or n == 'intp. perigee':
-					continue
-				if n == 'Dsc' or n == 'Ic':
-					continue
-				b=self.planets_degree_ut[j]
-				delta=float(self.degreeDiff(a,b))
-				#check for opposition
-				xa = float(self.settings.settings["settings_aspect"][10]['degree']) - float(self.settings.settings["settings_aspect"][10]['orb'])
-				xb = float(self.settings.settings["settings_aspect"][10]['degree']) + float(self.settings.settings["settings_aspect"][10]['orb'])
-				if( xa <= delta <= xb ):
-					opp[i][j]=True
-				#check for conjunction
-				xa = float(self.settings.settings["settings_aspect"][0]['degree']) - float(self.settings.settings["settings_aspect"][0]['orb'])
-				xb = float(self.settings.settings["settings_aspect"][0]['degree']) + float(self.settings.settings["settings_aspect"][0]['orb'])
-				if( xa <= delta <= xb ):
-					conj[i][j]=True
-				#check for squares
-				xa = float(self.settings.settings["settings_aspect"][5]['degree']) - float(self.settings.settings["settings_aspect"][5]['orb'])
-				xb = float(self.settings.settings["settings_aspect"][5]['degree']) + float(self.settings.settings["settings_aspect"][5]['orb'])
-				if( xa <= delta <= xb ):
-					sq[i][j]=True
-				#check for qunicunxes
-				xa = float(self.settings.settings["settings_aspect"][9]['degree']) - float(self.settings.settings["settings_aspect"][9]['orb'])
-				xb = float(self.settings.settings["settings_aspect"][9]['degree']) + float(self.settings.settings["settings_aspect"][9]['orb'])
-				if( xa <= delta <= xb ):
-					qc[i][j]=True
-				#check for sextiles
-				xa = float(self.settings.settings["settings_aspect"][3]['degree']) - float(self.settings.settings["settings_aspect"][3]['orb'])
-				xb = float(self.settings.settings["settings_aspect"][3]['degree']) + float(self.settings.settings["settings_aspect"][3]['orb'])
-				if( xa <= delta <= xb ):
-					sext[i][j]=True
-
-		yot={}
-		#check for double qunicunxes
-		for k,v in qc.items():
-			if len(qc[k]) >= 2:
-				#check for sextile
-				for l,w in qc[k].items():
-					for m,x in qc[k].items():
-						if m in sext[l]:
-							if l > m:
-								yot['%s,%s,%s' % (k,m,l)] = [k,m,l]
-							else:
-								yot['%s,%s,%s' % (k,l,m)] = [k,l,m]
-		tsquare={}
-		#check for opposition
-		for k,v in opp.items():
-			if len(opp[k]) >= 1:
-				#check for square
-				for l,w in opp[k].items():
-						for a,b in sq.items():
-							if k in sq[a] and l in sq[a]:
-								#print 'got tsquare %s %s %s' % (a,k,l)
-								if k > l:
-									tsquare['%s,%s,%s' % (a,l,k)] = '%s => %s, %s' % (
-										self.planets[a]['label'],self.planets[l]['label'],self.planets[k]['label'])
-								else:
-									tsquare['%s,%s,%s' % (a,k,l)] = '%s => %s, %s' % (
-										self.planets[a]['label'],self.planets[k]['label'],self.planets[l]['label'])
-		stellium={}
-		#check for 4 continuous conjunctions
-		for k,v in conj.items():
-			if len(conj[k]) >= 1:
-				#first conjunction
-				for l,m in conj[k].items():
-					if len(conj[l]) >= 1:
-						for n,o in conj[l].items():
-							#skip 1st conj
-							if n == k:
-								continue
-							if len(conj[n]) >= 1:
-								#third conjunction
-								for p,q in conj[n].items():
-									#skip first and second conj
-									if p == k or p == n:
-										continue
-									if len(conj[p]) >= 1:
-										#fourth conjunction
-										for r,s in conj[p].items():
-											#skip conj 1,2,3
-											if r == k or r == n or r == p:
-												continue
-
-											l=[k,n,p,r]
-											l.sort()
-											stellium['%s %s %s %s' % (l[0],l[1],l[2],l[3])]='%s %s %s %s' % (
-												self.planets[l[0]]['label'],self.planets[l[1]]['label'],
-												self.planets[l[2]]['label'],self.planets[l[3]]['label'])
-		#print yots
-		out='<g transform="translate(-30,380)">'
-		if len(yot) >= 1:
-			y=0
-			for k,v in yot.items():
-				out += '<text y="%s" style="fill:%s; font-size: 12px;">%s</text>\n' % (y,self.settings.settings["color_codes"]['paper_0'],_("Yot"))
-
-				#first planet symbol
-				out += '<g transform="translate(20,%s)">' % (y)
-				out += '<use transform="scale(0.4)" x="0" y="-20" xlink:href="#%s" /></g>\n' % (
-					self.planets[yot[k][0]]['name'])
-
-				#second planet symbol
-				out += '<g transform="translate(30,%s)">'  % (y)
-				out += '<use transform="scale(0.4)" x="0" y="-20" xlink:href="#%s" /></g>\n' % (
-					self.planets[yot[k][1]]['name'])
-
-				#third planet symbol
-				out += '<g transform="translate(40,%s)">'  % (y)
-				out += '<use transform="scale(0.4)" x="0" y="-20" xlink:href="#%s" /></g>\n' % (
-					self.planets[yot[k][2]]['name'])
-
-				y=y+14
-		#finalize
-		out += '</g>'
-		#return out
-		return ''
+		return self.renderer.makePatterns()
 
 	def makeAspects( self , r , ar ):
 		out=""
@@ -3796,265 +3337,10 @@ class openAstro:
 		return out
 
 	def makeAspectTransitGrid( self , r ):
-		out = ''
-		out += '<text y="-15" x="0" style="fill:%s; font-size: 12px;">%s</text>\n' % (self.settings.settings["color_codes"]['paper_0'],_("Planets in Transit"))
-		line = 0
-		nl = 0
-		for i in range(len(self.atgrid)):
-			if i == 12:
-				nl = 100
-				if len(self.atgrid) > 24:
-					line = -1 * ( len(self.atgrid) - 24) * 14
-				else:
-					line = 0
-			out += '<g transform="translate(%s,%s)">' % (nl,line)
-			#first planet symbol
-			out += '<use transform="scale(0.4)" x="0" y="3" xlink:href="#%s" />\n' % (
-				self.planets[self.atgrid[i]['p2']]['name'])
-			#aspect symbol
-			out += '<use  x="15" y="0" xlink:href="#orb%s" />\n' % (
-				self.settings.settings["settings_aspect"][self.atgrid[i]['aid']]['degree'])
-			#second planet symbol
-			out += '<g transform="translate(30,0)">'
-			out += '<use transform="scale(0.4)" x="0" y="3" xlink:href="#%s" />\n' % (
-				self.planets[self.atgrid[i]['p1']]['name'])
-			out += '</g>'
-			#difference in degrees
-			out += '<text y="8" x="45" style="fill:%s; font-size: 10px;">%s</text>' % (
-				self.settings.settings["color_codes"]['paper_0'],
-				self.dec2deg(self.atgrid[i]['diff']) )
-			#line
-			out += '</g>'
-			line = line + 14
-		out += ''
-		return out
+		return self.renderer.makeAspectTransitGrid(r)
 
 	def makeAspectGrid( self , r ):
-		self.planets_aspects_list = []
-		out=""
-		style='stroke:%s; stroke-width: 0.25px; stroke-opacity:.6; fill:none' % (self.settings.settings["color_codes"]['paper_0'])
-
-		box=14
-		if self.type == "Radix":
-			xindent = 380
-			yindent = 468
-			revr=list(range(len(self.planets)))
-			revr.reverse()
-			for a in revr:
-				if self.planets[a]['visible_aspect_grid'] == 1:
-					start=self.planets_degree_ut[a]
-					#first planet
-					out = out + '<rect x="'+str(xindent)+'" y="'+str(yindent)+'" width="'+str(box)+'" height="'+str(box)+'" style="'+style+'"/>\n'
-					out = out + '<use transform="scale(0.4)" x="'+str((xindent+2)*2.5)+'" y="'+str((yindent+1)*2.5)+'" xlink:href="#'+self.planets[a]['name']+'" />\n'
-					xindent = xindent + box
-					yindent = yindent - box
-					revr2=list(range(a))
-					revr2=list(range(a))
-					revr2.reverse()
-					xorb=xindent
-					yorb=yindent + box
-					for b in revr2:
-						if self.planets[b]['visible_aspect_grid'] == 1:
-							end=self.planets_degree_ut[b]
-							diff=self.degreeDiff(start,end)
-							out = out + '<rect x="'+str(xorb)+'" y="'+str(yorb)+'" width="'+str(box)+'" height="'+str(box)+'" style="'+style+'"/>\n'
-							xorb=xorb+box
-							for z in range(len(self.settings.settings["settings_aspect"])):
-								#
-								# orb = self.settings.settings["settings_aspect"][z]['orb']
-								# orb1 = self.settings.settings["settings_aspect"][z]['orb']
-								# orb2 = self.settings.settings["settings_aspect"][z]['orb']
-								# i=a
-								# x=b
-								# if ('planet_orb' in self.planets[i]):
-								# 	if (self.type in self.planets[i]['planet_orb']):
-								# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
-								# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
-								# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
-								# 		# dprint (aspect)
-								# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
-								# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
-								# if ('planet_orb' in self.planets[x]):
-								# 	if (self.type in self.planets[x]['planet_orb']):
-								# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
-								# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
-								# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
-								# 		# dprint (aspect)
-								# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
-								# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
-								# orb = max([orb1, orb2])
-								# # orb = (orb1 + orb2)/2
-								#
-								# # check if we want to display this aspect
-								# # if	( float(self.settings.settings["settings_aspect"][z]['degree']) - orb_before ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + 1.0 ):
-								# if (float(self.settings.settings["settings_aspect"][z]['degree']) - orb) <= diff <= (
-								# 		float(self.settings.settings["settings_aspect"][z]['degree']) + orb):
-								if(self.planetsInAspect(diff, z, a, b)):
-								# if	( float(self.settings.settings["settings_aspect"][z]['degree']) - float(self.settings.settings["settings_aspect"][z]['orb']) ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + float(self.settings.settings["settings_aspect"][z]['orb']) ) and self.settings.settings["settings_aspect"][z]['visible_grid'] == 1:
-									out = out + '<use  x="'+str(xorb-box+1)+'" y="'+str(yorb+1)+'" xlink:href="#orb'+str(self.settings.settings["settings_aspect"][z]['degree'])+'" />\n'
-									# asp_orb = round(abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree']))),1)
-									# asp_str = f"{self.planets[a]['name']} {self.settings.settings["settings_aspect"][z]['degree']} {self.planets[b]['name']} (orbis: {asp_orb})"
-									# self.planets_aspects_list.append(asp_str)
-
-
-
-			# Make self.planets_aspects_list and add aspects in self.planets_dict, self.houses_dict
-			self.aspect_all_str=""
-			revr=list(range(len(self.planets)))
-			i=0
-			hi=0
-			# revr.reverse()
-			for a in revr:
-				if self.planets[a]['visible_aspect_grid'] == 1:
-					start=self.planets_degree_ut[a]
-					#first planet
-					revr2=list(range(a+1, len(revr)))
-					# revr2.reverse()
-					for b in revr2:
-						if self.planets[b]['visible_aspect_grid'] == 1:
-							end=self.planets_degree_ut[b]
-							diff=self.degreeDiff(start,end)
-							for z in range(len(self.settings.settings["settings_aspect"])):
-								if(self.planetsInAspect(diff, z, a, b)):
-									aspects_degree_id = self.settings.settings["settings_aspect"][z]['id']
-									asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree'])))
-									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
-									asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']} orb={asp_orb_deg}"
-									asp_dict = {
-										'aspects_str': asp_str,
-										'planets_name1': self.planets[a]['name'],
-										'planets_name2': self.planets[b]['name'],
-										'aspects_degree': self.settings.settings["settings_aspect"][z]['degree'],
-										'aspects_diff': diff,
-										'aspects_orbis': asp_orb,
-										'aspects_orbis_deg': asp_orb_deg,
-									}
-
-									self.planets_aspects_list.append(asp_dict)
-
-									if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
-										if ('visible_json' in self.planets[b] and self.planets[b]['visible_json'] == 1):
-											if ('visible_json' in self.settings.settings["settings_aspect_dic"][aspects_degree_id] and self.settings.settings["settings_aspect_dic"][aspects_degree_id]['visible_json'] == 1):
-												self.aspect_all_str = self.aspect_all_str + asp_str + """
-"""
-
-									if 'aspects' not in self.planets_dict[self.planets[a]['name']]:
-										self.planets_dict[self.planets[a]['name']]['aspects'] = {}
-									self.planets_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict
-									if 'aspects' not in self.planets_dict[self.planets[b]['name']]:
-										self.planets_dict[self.planets[b]['name']]['aspects'] = {}
-									self.planets_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict
-
-									# Houses aspects
-									if (22 < a and a < 35):
-										if 'aspects' not in self.houses_dict[self.planets[a]['name']]:
-											self.houses_dict[self.planets[a]['name']]['aspects'] = {}
-										self.houses_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict
-									# Houses aspects
-									if (22 < b and b < 35):
-										if 'aspects' not in self.houses_dict[self.planets[b]['name']]:
-											self.houses_dict[self.planets[b]['name']]['aspects'] = {}
-										self.houses_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict
-
-		if self.type == "Transit" or self.type == "Direction":
-			box = 12
-			xstart = 500
-			ystart = 280
-			xindent = xstart
-			yindent = ystart
-			revr = list(range(len(self.planets)))
-			# revr.reverse()
-			ii=0
-			# Make self.planets_aspects_list and add aspects in self.planets_dict, self.houses_dict
-			self.t_aspect_all_str=""
-			self.t_planets_aspects_list=[]
-			for a in revr:
-				if self.planets[a]['visible_aspect_grid'] == 1:
-					ii=ii+1
-					start = self.planets_degree_ut[a]
-					# first planet
-					# out = out + '<rect x="' + str(xindent-box) + '" y="' + str(yindent) + '" width="' + str(
-					# 	box) + '" height="' + str(box) + '" style="' + style + '"/>\n'
-					out = out + '<use transform="scale(0.4)" x="' + str((xindent-box + 2) * 2.5) + '" y="' + str(
-						ystart*2.5 + (ii*box+ 1) * 2.5) + '" xlink:href="#' + self.planets[a]['name'] + '" />\n'
-					# out = out + '<rect x="' + str(xstart+i*box) + '" y="' + str(ystart-168) + '" width="' + str(
-					# 	box) + '" height="' + str(box) + '" style="' + style + '"/>\n'
-					out = out + '<use transform="scale(0.4)" x="' + str(xstart*2.5 + (ii*box - box) * 2.5) + '" y="' + str(
-						ystart*2.5 ) + '" xlink:href="#' + self.planets[a]['name'] + '" />\n'
-					xindent = xindent
-					yindent = yindent + box
-					revr2 = list(range(a))
-					revr2 = list(range(a))
-					# revr2.reverse()
-					xorb = xindent
-					yorb = yindent
-					for b in list(range(len(self.planets))):
-						if self.planets[b]['visible_aspect_grid'] == 1:
-							end = self.t_planets_degree_ut[b]
-							diff = self.degreeDiff(start, end)
-							out = out + '<rect x="' + str(xorb) + '" y="' + str(yorb) + '" width="' + str(
-								box) + '" height="' + str(box) + '" style="' + style + '"/>\n'
-							xorb = xorb + box
-							for z in range(len(self.settings.settings["settings_aspect"])):
-								#
-								# orb = self.settings.settings["settings_aspect"][z]['orb']
-								# orb1 = self.settings.settings["settings_aspect"][z]['orb']
-								# orb2 = self.settings.settings["settings_aspect"][z]['orb']
-								# i = a
-								# x = b
-								# if ('planet_orb' in self.planets[i]):
-								# 	if (self.type in self.planets[i]['planet_orb']):
-								# 		if ("default" in self.planets[i]['planet_orb'][self.type]):
-								# 			orb1 = self.planets[i]['planet_orb'][self.type]["default"]
-								# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
-								# 		# dprint (aspect)
-								# 		if (aspect in self.planets[i]['planet_orb'][self.type]):
-								# 			orb1 = self.planets[i]['planet_orb'][self.type][aspect]
-								# if ('planet_orb' in self.planets[x]):
-								# 	if (self.type in self.planets[x]['planet_orb']):
-								# 		if ("default" in self.planets[x]['planet_orb'][self.type]):
-								# 			orb2 = self.planets[x]['planet_orb'][self.type]["default"]
-								# 		aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
-								# 		# dprint (aspect)
-								# 		if (aspect in self.planets[x]['planet_orb'][self.type]):
-								# 			orb2 = self.planets[x]['planet_orb'][self.type][aspect]
-								# orb = max([orb1, orb2])
-								# # orb = (orb1 + orb2)/2
-								#
-								# # check if we want to display this aspect
-								# # if	( float(self.settings.settings["settings_aspect"][z]['degree']) - orb_before ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + 1.0 ):
-								# if (float(self.settings.settings["settings_aspect"][z]['degree']) - orb) <= diff <= (
-								# 		float(self.settings.settings["settings_aspect"][z]['degree']) + orb):
-								# 	# if	( float(self.settings.settings["settings_aspect"][z]['degree']) - float(self.settings.settings["settings_aspect"][z]['orb']) ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + float(self.settings.settings["settings_aspect"][z]['orb']) ) and self.settings.settings["settings_aspect"][z]['visible_grid'] == 1:
-								if(self.planetsInAspect(diff, z, a, b)):
-									out = out + '<use  x="' + str(xorb - box + 1) + '" y="' + str(
-										yorb + 1) + '" xlink:href="#orb' + str(self.settings.settings["settings_aspect"][z]['degree']) + '" />\n'
-
-									aspects_degree_id = self.settings.settings["settings_aspect"][z]['id']
-									asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree'])))
-									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
-									asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect'][z]['degree']} {self.planets[b]['name']} orb={asp_orb_deg}"
-									asp_dict = {
-										'aspects_str': asp_str,
-										'planets_name1': self.planets[a]['name'],
-										'planets_name2': self.planets[b]['name'],
-										'aspects_degree': self.settings.settings["settings_aspect"][z]['degree'],
-										'aspects_diff': diff,
-										'aspects_orbis': asp_orb,
-										'aspects_orbis_deg': asp_orb_deg,
-									}
-
-									self.t_planets_aspects_list.append(asp_dict)
-									if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
-										if ('t_visible_json' in self.planets[b] and self.planets[b]['t_visible_json'] == 1):
-											if ('visible_json' in self.settings.settings["settings_aspect_dic"][
-												aspects_degree_id] and
-													self.settings.settings["settings_aspect_dic"][aspects_degree_id][
-														'visible_json'] == 1):
-												self.t_aspect_all_str = self.t_aspect_all_str + asp_str + """
-"""
-
-		return out
+		return self.renderer.makeAspectGrid(r)
 
 	def planetsInAspect( self , diff, aspect_id, p1_id, p2_id ):
 		if(p1_id==2 and p2_id==3 and self.settings.settings["settings_aspect"][aspect_id]['degree']==108 ):
@@ -4098,54 +3384,10 @@ class openAstro:
 			return False
 
 	def makeElements( self , r ):
-		total = self.fire + self.earth + self.air + self.water
-		pf = int(round(100*self.fire/total))
-		pe = int(round(100*self.earth/total))
-		pa = int(round(100*self.air/total))
-		pw = int(round(100*self.water/total))
-		out = '<g transform="translate(-30,79)">\n'
-		out = out + '<text y="0" style="fill:#ff6600; font-size: 10px;">'+self.settings.settings["label"]['fire']+'  '+str(pf)+'%</text>\n'
-		out = out + '<text y="12" style="fill:#6a2d04; font-size: 10px;">'+self.settings.settings["label"]['earth']+' '+str(pe)+'%</text>\n'
-		out = out + '<text y="24" style="fill:#6f76d1; font-size: 10px;">'+self.settings.settings["label"]['air']+'   '+str(pa)+'%</text>\n'
-		out = out + '<text y="36" style="fill:#630e73; font-size: 10px;">'+self.settings.settings["label"]['water']+' '+str(pw)+'%</text>\n'
-		out = out + '</g>\n'
-		return out
+		return self.renderer.makeElements(r)
 
-	def makePlanetGrid(self):
-		out = ''
-		# loop over all planets
-		li = 10
-		offset = 10
-		for i in range(len(self.planets)):
-			# if i == 27:
-			# 	li = 10
-			# 	offset = -120
-			if  not(23 <= i and i <= 34):
-				if self.planets[i]['visible'] == 1:
-					# start of line
-					out = out + '<g transform="translate(%s,%s)">' % (offset, li)
-					# planet text
-					# out = out + '<text text-anchor="end" style="fill:%s; font-size: 10px;">%s</text>' % (self.settings.settings["color_codes"]['paper_0'],self.planets[i]['label'])
-					# planet symbol
-					out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
-						  self.planets[i]['name'] + '" /></g>'
-					# planet degree
-					out = out + '<text text-anchor="start" x="16" style="fill:%s; font-size: 10px;">%s</text>' % (
-					self.settings.settings["color_codes"]['paper_0'], self.dec2deg(self.planets_degree[i]))
-					# zodiac
-					out = out + '<g transform="translate(64,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
-						self.planets_sign[i]] + '" /></g>'
-					# planet retrograde
-					if self.planets_retrograde[i]:
-						out = out + '<g transform="translate(76,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
-
-					# end of line
-					out = out + '</g>\n'
-					# offset between lines
-					li = li + 14
-
-		out = out + '\n'
-		return out
+	def makePlanetGrid( self ):
+		return self.renderer.makePlanetGrid()
 
 	def makePlanetGrid_t(self):
 		out = ''
@@ -4184,301 +3426,10 @@ class openAstro:
 		return out
 
 	def makeHousesGrid( self ):
-		out = ''
-		li=10
-		offset=10
-		for i in range(12):
-			if i < 9:
-				cusp = '&#160;&#160;'+str(i+1)
-			else:
-				cusp = str(i+1)
-			# out += '<g transform="translate(0,'+str(li)+')">'
-			out = out + '<g transform="translate(%s,%s)">' % (offset, li)
-			# out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s %s:</text>' % (self.settings.settings["color_codes"]['paper_0'],self.settings.settings["label"]['cusp'],cusp)
-			out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s:</text>' % (self.settings.settings["color_codes"]['paper_0'],cusp)
-			out += '<g transform="translate(40,-8)"><use transform="scale(0.3)" xlink:href="#'+self.zodiac[self.houses_sign[i]]+'" /></g>'
-			out += '<text x="53" style="fill:%s; font-size: 10px;"> %s</text>' % (self.settings.settings["color_codes"]['paper_0'],self.dec2deg(self.houses_degree[i]))
-			out += '</g>\n'
-			li = li + 14
-		out += '\n'
-		return out
+		return self.renderer.makeHousesGrid()
+
 	def makeHousesGrid_t( self ):
-		out = ''
-		li=10
-		offset=10
-		for i in range(12):
-			if i < 9:
-				cusp = '&#160;&#160;'+str(i+1)
-			else:
-				cusp = str(i+1)
-			# out += '<g transform="translate(0,'+str(li)+')">'
-			out = out + '<g transform="translate(%s,%s)">' % (offset, li)
-			# out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s %s:</text>' % (self.settings.settings["color_codes"]['paper_0'],self.settings.settings["label"]['cusp'],cusp)
-			out += '<text text-anchor="end" x="40" style="fill:%s; font-size: 10px;">%s:</text>' % (self.settings.settings["color_codes"]['paper_0'],cusp)
-			out += '<g transform="translate(40,-8)"><use transform="scale(0.3)" xlink:href="#'+self.zodiac[self.t_houses_sign[i]]+'" /></g>'
-			out += '<text x="53" style="fill:%s; font-size: 10px;"> %s</text>' % (self.settings.settings["color_codes"]['paper_0'],self.dec2deg(self.t_houses_degree[i]))
-			out += '</g>\n'
-			li = li + 14
-		out += '\n'
-		return out
-
-	"""Export/Import Functions related to openastro.org
-
-	def exportOAC(filename)
-	def importOAC(filename)
-	def importOroboros(filename)
-	
-	"""
-
-	def exportOAC(self,filename):
-		template="""<?xml version='1.0' encoding='UTF-8'?>
-<openastrochart>
-	<name>$name</name>
-	<datetime>$datetime</datetime>
-	<location>$location</location>
-	<altitude>$altitude</altitude>
-	<latitude>$latitude</latitude>
-	<longitude>$longitude</longitude>
-	<countrycode>$countrycode</countrycode>
-	<timezone>$timezone</timezone>
-	<geonameid>$geonameid</geonameid>
-	<timezonestr>$timezonestr</timezonestr>
-	<extra>$extra</extra>
-</openastrochart>"""
-		h,m,s = self.decHour(openAstro.hour)
-		dt=datetime.datetime(openAstro.year,openAstro.month,openAstro.day,h,m,s)
-		substitute={}
-		substitute['name']=self.name
-		substitute['datetime']=dt.strftime("%Y-%m-%d %H:%M:%S")
-		substitute['location']=self.location
-		substitute['altitude']=self.altitude
-		substitute['latitude']=self.geolat
-		substitute['longitude']=self.geolon
-		substitute['countrycode']=self.countrycode
-		substitute['timezone']=self.timezone
-		substitute['timezonestr']=self.timezonestr
-		substitute['geonameid']=self.geonameid
-		substitute['extra']=''
-		#write the results to the template
-		output=Template(template).substitute(substitute)
-		f=open(filename,"w")
-		f.write(output)
-		f.close()
-		dprint("exporting OAC: %s" % filename)
-		return
-	#
-	# def importOAC(self, filename):
-	# 	r=importfile.getOAC(filename)[0]
-	# 	dt = datetime.datetime.strptime(r['datetime'],"%Y-%m-%d %H:%M:%S")
-	# 	self.name=r['name']
-	# 	self.countrycode=r['countrycode']
-	# 	self.altitude=int(r['altitude'])
-	# 	self.geolat=float(r['latitude'])
-	# 	self.geolon=float(r['longitude'])
-	# 	self.timezone=float(r['timezone'])
-	# 	self.geonameid=r['geonameid']
-	# 	if "timezonestr" in r:
-	# 		self.timezonestr=r['timezonestr']
-	# 	else:
-	# 		self.timezonestr=db.gnearest(self.geolat,self.geolon)['timezonestr']
-	# 	self.location=r['location']
-	# 	self.year=dt.year
-	# 	self.month=dt.month
-	# 	self.day=dt.day
-	# 	self.hour=self.decHourJoin(dt.hour,dt.minute,dt.second)
-	# 	#Make locals
-	# 	self.utcToLocal()
-	# 	#debug dprint
-	# 	dprint('importOAC: %s' % filename)
-	# 	return
-
-	# def importOroboros(self, filename):
-	# 	r=importfile.getOroboros(filename)[0]
-	# 	#naive local datetime
-	# 	naive = datetime.datetime.strptime(r['datetime'],"%Y-%m-%d %H:%M:%S")
-	# 	#aware datetime object
-	# 	dt_input = datetime.datetime(naive.year, naive.month, naive.day, naive.hour, naive.minute, naive.second)
-	# 	dt = pytz.timezone(r['zoneinfo']).localize(dt_input)
-	# 	#naive utc datetime object
-	# 	dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-	#
-	# 	#process latitude/longitude
-	# 	deg,type,min,sec = r['latitude'].split(":")
-	# 	lat = float(deg)+( float(min) / 60.0 )+( float(sec) / 3600.0 )
-	# 	if type == "S":
-	# 		lat = decimal / -1.0
-	# 	deg,type,min,sec = r['longitude'].split(":")
-	# 	lon = float(deg)+( float(min) / 60.0 )+( float(sec) / 3600.0 )
-	# 	if type == "W":
-	# 		lon = decimal / -1.0
-	#
-	# 	geon = db.gnearest(float(lat),float(lon))
-	# 	self.timezonestr=geon['timezonestr']
-	# 	self.geonameid=geon['geonameid']
-	# 	self.name=r['name']
-	# 	self.countrycode=''
-	# 	self.altitude=int(r['altitude'])
-	# 	self.geolat=lat
-	# 	self.geolon=lon
-	# 	self.timezone=self.offsetToTz(dt.utcoffset())
-	# 	self.location='%s, %s' % (r['location'],r['countryname'])
-	# 	self.year=dt_utc.year
-	# 	self.month=dt_utc.month
-	# 	self.day=dt_utc.day
-	# 	self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-	# 	#Make locals
-	# 	self.utcToLocal()
-	# 	#debug dprint
-	# 	dprint('importOroboros: UTC: %s file: %s' % (dt_utc,filename))
-	# 	return
-
-	# def importSkylendar(self, filename):
-	# 	r = importfile.getSkylendar(filename)[0]
-	#
-	# 	#naive local datetime
-	# 	naive = datetime.datetime(int(r['year']),int(r['month']),int(r['day']),int(r['hour']),int(r['minute']))
-	# 	#aware datetime object
-	# 	dt_input = datetime.datetime(naive.year, naive.month, naive.day, naive.hour, naive.minute, naive.second)
-	# 	dt = pytz.timezone(r['zoneinfofile']).localize(dt_input)
-	# 	#naive utc datetime object
-	# 	dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-	#
-	# 	geon = db.gnearest(float(r['latitude']),float(r['longitude']))
-	# 	self.timezonestr=geon['timezonestr']
-	# 	self.geonameid=geon['geonameid']
-	# 	self.name=r['name']
-	# 	self.countrycode=''
-	# 	self.altitude=25
-	# 	self.geolat=float(r['latitude'])
-	# 	self.geolon=float(r['longitude'])
-	# 	self.timezone=float(r['timezone'])
-	# 	self.location='%s, %s' % (r['location'],r['countryname'])
-	# 	self.year=dt_utc.year
-	# 	self.month=dt_utc.month
-	# 	self.day=dt_utc.day
-	# 	self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-	# 	#Make locals
-	# 	self.utcToLocal()
-	# 	return
-
-	# def importAstrolog32(self, filename):
-	# 	r = importfile.getAstrolog32(filename)[0]
-	#
-	# 	#timezone string
-	# 	timezone_str = zonetab.nearest_tz(float(r['latitude']),float(r['longitude']),zonetab.timezones())[2]
-	# 	#naive local datetime
-	# 	naive = datetime.datetime(int(r['year']),int(r['month']),int(r['day']),int(r['hour']),int(r['minute']),int(r['second']))
-	# 	#aware datetime object
-	# 	dt_input = datetime.datetime(naive.year, naive.month, naive.day, naive.hour, naive.minute, naive.second)
-	# 	dt = pytz.timezone(timezone_str).localize(dt_input)
-	# 	#naive utc datetime object
-	# 	dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-	#
-	# 	geon = db.gnearest(float(r['latitude']),float(r['longitude']))
-	# 	self.timezonestr=geon['timezonestr']
-	# 	self.geonameid=geon['geonameid']
-	# 	self.name=r['name']
-	# 	self.countrycode=''
-	# 	self.altitude=25
-	# 	self.geolat=float(r['latitude'])
-	# 	self.geolon=float(r['longitude'])
-	# 	self.timezone=self.offsetToTz(dt.utcoffset())
-	# 	self.location=r['location']
-	# 	self.year=dt_utc.year
-	# 	self.month=dt_utc.month
-	# 	self.day=dt_utc.day
-	# 	self.hour=self.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-	# 	#Make locals
-	# 	self.utcToLocal()
-	# 	return
-
-	# def importZet8(self, filename):
-	# 	h=open(filename)
-	# 	f=codecs.EncodedFile(h,"utf-8","latin-1")
-	# 	data=[]
-	# 	for line in f.readlines():
-	# 		s=line.split(";")
-	# 		if s[0] == line:
-	# 			continue
-	#
-	# 		data.append({})
-	# 		data[-1]['name']=s[0].strip()
-	# 		day=int( s[1].strip().split('.')[0] )
-	# 		month=int( s[1].strip().split('.')[1] )
-	# 		year=int( s[1].strip().split('.')[2] )
-	# 		hour=int(  s[2].strip().split(':')[0] )
-	# 		minute=int( s[2].strip().split(':')[1] )
-	# 		if len(s[3].strip()) > 3:
-	# 			data[-1]['timezone']=float( s[3].strip().split(":")[0] )
-	# 			if data[-1]['timezone'] < 0:
-	# 				data[-1]['timezone']-= float( s[3].strip().split(":")[1] ) / 60.0
-	# 			else:
-	# 				data[-1]['timezone']+= float( s[3].strip().split(":")[1] ) / 60.0
-	# 		elif len(s[3].strip()) > 0:
-	# 			data[-1]['timezone']=int(s[3].strip())
-	# 		else:
-	# 			data[-1]['timezone']=0
-	#
-	# 		#substract timezone from date
-	# 		dt = datetime.datetime(year,month,day,hour,minute)
-	# 		dt = dt - datetime.timedelta(seconds=float(data[-1]['timezone'])*float(3600))
-	# 		data[-1]['year'] = dt.year
-	# 		data[-1]['month'] = dt.month
-	# 		data[-1]['day'] = dt.day
-	# 		data[-1]['hour'] =  float(dt.hour) + float(dt.minute/60.0)
-	# 		data[-1]['location']=s[4].strip()
-	#
-	# 		#latitude
-	# 		p=s[5].strip()
-	# 		if p.find("°") != -1:
-	# 			#later version of zet8
-	# 			if p.find("S") == -1:
-	# 				deg=p.split("°")[0] #\xc2
-	# 				min=p[p.find("°")+2:p.find("'")]
-	# 				sec=p[p.find("'")+1:p.find('"')]
-	# 				data[-1]['latitude']=float(deg)+(float(min)/60.0)
-	# 			else:
-	# 				deg=p.split("°")[0] #\xc2
-	# 				min=p[p.find("°")+2:p.find("'")]
-	# 				sec=p[p.find("'")+1:p.find('"')]
-	# 				data[-1]['latitude']=( float(deg)+(float(min)/60.0) ) / -1.0
-	# 		else:
-	# 			#earlier version of zet8
-	# 			if p.find("s") == -1:
-	# 				i=p.find("n")
-	# 				data[-1]['latitude']=float(p[:i])+(float(p[i+1:])/60.0)
-	# 			else:
-	# 				i=p.find("s")
-	# 				data[-1]['latitude']=( float(p[:i])+(float(p[i+1:])/60.0) ) / -1.0
-	# 		#longitude
-	# 		p=s[6].strip()
-	# 		if p.find("°") != -1:
-	# 			#later version of zet8
-	# 			if p.find("W") == -1:
-	# 				deg=p.split("°")[0] #\xc2
-	# 				min=p[p.find("°")+2:p.find("'")]
-	# 				sec=p[p.find("'")+1:p.find('"')]
-	# 				data[-1]['longitude']=float(deg)+(float(min)/60.0)
-	# 			else:
-	# 				deg=p.split("°")[0] #\xc2
-	# 				min=p[p.find("°")+2:p.find("'")]
-	# 				sec=p[p.find("'")+1:p.find('"')]
-	# 				data[-1]['longitude']=( float(deg)+(float(min)/60.0) ) / -1.0
-	# 		else:
-	# 			#earlier version of zet8
-	# 			if p.find("w") == -1:
-	# 				i=p.find("e")
-	# 				data[-1]['longitude']=float(p[:i])+(float(p[i+1:])/60.0)
-	# 			else:
-	# 				i=p.find("w")
-	# 				data[-1]['longitude']=( float(p[:i])+(float(p[i+1:])/60.0) ) / -1.0
-	#
-	# 	db.importZet8( cfg.peopledb , data )
-	# 	dprint('importZet8: database with %s entries: %s' % (len(data),filename))
-	# 	f.close()
-	# 	return
-
-
+		return self.renderer.makeHousesGrid_t()
 
 	def compute_destination_point(self, latitude, longitude, azimuth, distance):
 		R = 6371  # Радиус Земли в километрах
@@ -7304,510 +6255,7 @@ class openAstro:
 
 
 
-##############
-# MAIN CLASS #
-##############
-
-#Main GTK Window
-# class mainWindow:
-# 	def __init__(self):
-#
-# 		#gtktopwindow
-# 		self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
-# 		self.window.connect("destroy", lambda w: Gtk.main_quit())
-# 		self.window.set_title("OpenAstro.org")
-# 		self.window.set_icon_from_file(cfg.iconWindow)
-# 		self.window.maximize()
-#
-# 		self.vbox = Gtk.VBox()
-#
-# 		#uimanager
-# 		self.uimanager = Gtk.UIManager()
-# 		self.ui_mid = self.uimanager.add_ui_from_file(cfg.xml_ui)
-# 		accelgroup = self.uimanager.get_accel_group()
-# 		self.window.add_accel_group(accelgroup)
-#
-# 		#actions definitions
-# 		self.actions = [('File', None, _('Chart') ),
-# 								('Quit', Gtk.STOCK_QUIT, _("Quit!"), None,'Quit the Program', self.quit_cb),
-# 	                     ('History', None, _('History') ),
-# 	                     ('newChart', Gtk.STOCK_NEW, _('New Chart'), None, 'New Chart', self.eventDataNew ),
-# 	                     ('importXML', Gtk.STOCK_OPEN, _('Open Chart'), None, 'Open Chart', self.doImport ),
-# 	                     ('exportXML', Gtk.STOCK_SAVE, _('Save Chart'), None, 'Save Chart', self.doExport ),
-# 	                     ('export', Gtk.STOCK_SAVE_AS, _('Save as') ),
-# 	                     ('exportPNG', None, _('PNG Image'), None, 'PNG Image', self.doExport ),
-# 	                     ('exportSVG', None, _('SVG Image'), None, 'SVG Image', self.doExport ),
-# 	                     ('exportJPG', None, _('JPG Image'), None, 'JPG Image', self.doExport ),
-# 	                     ('exportPDF', None, _('PDF File'), None, 'PDF File', self.doPrint ),
-# 	                     ('import', None, _('Import') ),
-# 	                     ('importOroboros', None, _('Oroboros (*.xml)'), None, 'Oroboros (*.xml)', self.doImport ),
-# 	                     ('importAstrolog32', None, _('Astrolog (*.dat)'), None, 'Astrolog (*.dat)', self.doImport ),
-# 	                     ('importSkylendar', None, _('Skylendar (*.skif)'), None, 'Skylendar (*.skif)', self.doImport ),
-# 	                     ('importZet8', None, _('Zet8 Dbase (*.zbs)'), None, 'Zet8 Dbase (*.zbs)', self.doImport ),
-# 	                     ('Event', None, _('Event') ),
-# 	                     ('EditEvent', Gtk.STOCK_EDIT, _('Edit Event'), None, 'Event Data', self.eventData ),
-# 	                     ('OpenDatabase', Gtk.STOCK_HARDDISK, _('Open Database'), None, 'Open Database', self.openDatabase ),
-# 								('QuickOpenDatabase', None, _('Quick Open Database') ),
-# 	                     ('OpenDatabaseFamous', Gtk.STOCK_HARDDISK, _('Open Famous People Database'), None, 'Open Database Famous', self.openDatabaseFamous ),
-# 	                     ('Settings', None, _('Settings') ),
-# 	                     ('Special', None, _('Chart Type') ),
-# 	                     ('ZoomRadio', None, _('Zoom') ),
-# 								('Planets', None, _('Planets & Angles'), None, 'Planets & Angles', self.settingsPlanets ),
-# 								('Aspects', None, _('Aspects'), None, 'Aspects', self.settingsAspects ),
-# 								('Colors', None, _('Colors'), None, 'Colors', self.settingsColors ),
-# 								('Labels', None, _('Labels'), None, 'Labels', self.settingsLabel ),
-# 								('Location', Gtk.STOCK_HOME, _('Set Home Location'), None, 'Set Location', self.settingsLocation ),
-# 								('Configuration', Gtk.STOCK_PREFERENCES, _('Configuration'), None, 'Configuration', self.settingsConfiguration ),
-# 								('Radix', None, _('Radix Chart'), None, 'Transit Chart', self.specialRadix ),
-# 								('Transit', None, _('Transit Chart'), None, 'Transit Chart', self.specialTransit ),
-# 								('Synastry', None, _('Synastry Chart'), None, 'Synastry Chart...', lambda w: self.openDatabaseSelect(_("Select for Synastry"),"Synastry") ),
-# 								('Composite', None, _('Composite Chart'), None, 'Composite Chart...', lambda w: self.openDatabaseSelect(_("Select for Composite"),"Composite") ),
-# 								('Combine', None, _('Combine Chart'), None, 'Combine Chart...', lambda w: self.openDatabaseSelect(_("Select for Combine"),"Combine") ),
-# 								('Solar', None, _('Solar Return'), None, 'Solar Return...', self.specialSolar ),
-# 								('SProgression', None, _('Secondary Progressions'), None, 'Secondary Progressions...', self.specialSProgression ),
-# 								('Tables', None, _('Tables') ),
-# 								('MonthlyTimeline', None, _('Monthly Timeline 1'), None, 'Monthly Timeline 1', self.tableMonthlyTimeline ),
-# 								('MonthlyTimeline2', None, _('Monthly Timeline2'), None, 'Monthly Timeline2', self.tableMonthlyTimeline2 ),
-# 								('CuspAspects', None, _('Cusp Aspects'), None, 'Cusp Aspects', self.tableCuspAspects ),
-# 								('Extra', None, _('Extra') ),
-# 								('exportDB', None, _('Export Database'), None, 'Export Database', self.extraExportDB ),
-# 								('importDB', None, _('Import Database'), None, 'Import Database', self.extraImportDB ),
-# 								('About', None, _('About') ),
-# 								('AboutInfo', Gtk.STOCK_INFO, _('Info'), None, 'Info', self.aboutInfo )  ,
-# 	                     ('AboutSupport', Gtk.STOCK_HELP, _('Support'), None, 'Support', lambda w: webbrowser.open_new('http://www.openastro.org/?Support') )
-# 	                     ]
-#
-# 		#update UI
-# 		self.updateUI()
-#
-# 		# Create a MenuBar
-# 		menubar = self.uimanager.get_widget('/MenuBar')
-# 		self.vbox.pack_start(menubar, expand=False, fill=True, padding=0)
-#
-# 		#make first SVG
-# 		self.tempfilename = openAstro.makeSVG()
-#
-# 		# Draw svg pixbuf
-# 		self.draw = drawSVG()
-# 		self.draw.setSVG(self.tempfilename)
-# 		scrolledwindow = Gtk.ScrolledWindow()
-# 		scrolledwindow.add_with_viewport(self.draw)
-# 		scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-# 		self.vbox.pack_start(scrolledwindow, expand=True, fill=True, padding=0)
-#
-# 		self.window.add(self.vbox)
-# 		self.window.show_all()
-#
-# 		#check if we need to ask for location
-# 		if openAstro.ask_for_home:
-# 			self.settingsLocation(self.window)
-#
-# 		#check internet connection
-# 		self.checkInternetConnection()
-#
-# 		return
-#
-# 	"""
-#
-# 	'Extra' Menu Items Functions
-#
-# 	extraExportDB
-# 	extraImportDB
-#
-# 	"""
-#
-# 	def extraExportDB(self, widget):
-# 		chooser = Gtk.FileChooserDialog(parent=self.window, title=None,action=Gtk.FileChooserAction.SAVE,
-#                                   buttons=(Gtk.STOCK_CANCEL,Gtk.ResponseType.CANCEL,Gtk.STOCK_SAVE,Gtk.ResponseType.OK))
-# 		chooser.set_current_folder(cfg.homedir)
-# 		chooser.set_current_name('openastro-database.sql')
-# 		filter = Gtk.FileFilter()
-# 		filter.set_name(_("OpenAstro.org Databases (*.sql)"))
-# 		filter.add_pattern("*.sql")
-# 		chooser.add_filter(filter)
-# 		response = chooser.run()
-#
-# 		if response == Gtk.ResponseType.OK:
-# 			copyfile(cfg.peopledb, chooser.get_filename())
-#
-# 		elif response == Gtk.ResponseType.CANCEL:
-# 					dprint('Dialog closed, no files selected')
-# 		chooser.destroy()
-#
-# 	def extraImportDB(self, widget):
-# 		chooser = Gtk.FileChooserDialog(parent=self.window, title=_("Please select database to import"),action=Gtk.FileChooserAction.OPEN,
-#                                   buttons=(Gtk.STOCK_CANCEL,Gtk.ResponseType.CANCEL,Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
-# 		chooser.set_current_folder(cfg.homedir)
-# 		filter = Gtk.FileFilter()
-# 		filter.set_name(_("OpenAstro.org Databases (*.sql)"))
-# 		filter.add_pattern("*.sql")
-# 		chooser.add_filter(filter)
-# 		response = chooser.run()
-#
-# 		if response == Gtk.ResponseType.OK:
-# 			db.databaseMerge(cfg.peopledb,chooser.get_filename())
-#
-# 		elif response == Gtk.ResponseType.CANCEL:
-# 					dprint('Dialog closed, no files selected')
-# 		chooser.destroy()
-#
-# 	"""
-#
-# 	Function to check if we have an internet connection
-# 	for geonames.org geocoder
-#
-# 	"""
-# 	def checkInternetConnection(self):
-#
-# 		if db.getAstrocfg('use_geonames.org') == "0":
-# 			self.iconn = False
-# 			dprint('iconn: not using geocoding!')
-# 			return
-#
-# 		#from openastromod import timeoutsocket
-# 		#timeoutsocket.setDefaultSocketTimeout(2)
-# 		HOST='api.geonames.org'
-# 		PORT=80
-# 		s = None
-#
-# 		try:
-# 			socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC, socket.SOCK_STREAM)
-# 		except socket.error as msg:
-# 			self.iconn = False
-# 			dprint('iconn: no connection (getaddrinfo)')
-# 			return
-#
-# 		for res in socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC, socket.SOCK_STREAM):
-# 			af, socktype, proto, canonname, sa = res
-# 			try:
-# 				s = socket.socket(af, socktype, proto)
-# 			except socket.error as msg:
-# 				s = None
-# 				continue
-# 			try:
-# 				s.connect(sa)
-# 			except (socket.error, timeoutsocket.Timeout):
-# 				s.close()
-# 				s = None
-# 				continue
-# 			break
-#
-# 		if s is None:
-# 			self.iconn = False
-# 			dprint('iconn: no connection')
-# 		else:
-# 			self.iconn = True
-# 			dprint('iconn: got connection')
-# 			#timeoutsocket.setDefaultSocketTimeout(20)
-# 			s.close()
-# 		return
-#
-# 	def zoom(self, action, current):
-# 		#check for zoom level
-# 		if current.get_name() == 'z80':
-# 			openAstro.zoom=0.8
-# 		elif current.get_name() == 'z150':
-# 			openAstro.zoom=1.5
-# 		elif current.get_name() == 'z200':
-# 			openAstro.zoom=2
-# 		else:
-# 			openAstro.zoom=1
-#
-# 		#redraw svg
-# 		openAstro.makeSVG()
-# 		self.draw.queue_draw()
-# 		self.draw.setSVG(self.tempfilename)
-# 		return
-#
-#
-# 	def doExport(self, widget):
-#
-# 		chooser = Gtk.FileChooserDialog(parent=self.window,title=None,action=Gtk.FileChooserAction.SAVE,
-#                                   buttons=(Gtk.STOCK_CANCEL,Gtk.ResponseType.CANCEL,Gtk.STOCK_SAVE,Gtk.ResponseType.OK))
-# 		chooser.set_current_folder(cfg.homedir)
-#
-#
-# 		filter = Gtk.FileFilter()
-# 		if widget.get_name() == 'exportPNG':
-# 			chooser.set_current_name(openAstro.name+'.png')
-# 			filter.set_name(_("PNG Image Files (*.png)"))
-# 			filter.add_mime_type("image/png")
-# 			filter.add_pattern("*.png")
-# 		elif widget.get_name() == 'exportJPG':
-# 			chooser.set_current_name(openAstro.name+'.jpg')
-# 			filter.set_name(_("JPG Image Files (*.jpg)"))
-# 			filter.add_mime_type("image/jpeg")
-# 			filter.add_pattern("*.jpg")
-# 			filter.add_pattern("*.jpeg")
-# 		elif widget.get_name() == 'exportSVG':
-# 			chooser.set_current_name(openAstro.name+'.svg')
-# 			filter.set_name(_("SVG Image Files (*.svg)"))
-# 			filter.add_mime_type("image/svg+xml")
-# 			filter.add_pattern("*.svg")
-# 		elif widget.get_name() == 'exportXML':
-# 			chooser.set_current_name(openAstro.name+'.oac')
-# 			filter.set_name(_("OpenAstro Charts (*.oac)"))
-# 			filter.add_mime_type("text/xml")
-# 			filter.add_pattern("*.oac")
-# 		chooser.add_filter(filter)
-#
-# 		filter = Gtk.FileFilter()
-# 		filter.set_name(_("All files (*)"))
-# 		filter.add_pattern("*")
-# 		chooser.add_filter(filter)
-#
-# 		response = chooser.run()
-#
-# 		if response == Gtk.ResponseType.OK:
-# 			if widget.get_name() == 'exportSVG':
-# 				copyfile(cfg.tempfilename, chooser.get_filename())
-# 			elif widget.get_name() == 'exportPNG':
-# 				os.system("%s %s %s" % ('convert',cfg.tempfilename,"'"+chooser.get_filename()+"'"))
-# 			elif widget.get_name() == 'exportJPG':
-# 				os.system("%s %s %s" % ('convert',cfg.tempfilename,"'"+chooser.get_filename()+"'"))
-# 			elif widget.get_name() == 'exportXML':
-# 				openAstro.exportOAC(chooser.get_filename())
-# 		elif response == Gtk.ResponseType.CANCEL:
-# 					dprint('Dialog closed, no files selected')
-#
-# 		chooser.destroy()
-# 		return
-#
-# 	def doImport(self, widget):
-#
-# 		chooser = Gtk.FileChooserDialog(parent=self.window,title=_('Select file to open'),action=Gtk.FileChooserAction.OPEN,
-#                                   buttons=(Gtk.STOCK_CANCEL,Gtk.ResponseType.CANCEL,Gtk.STOCK_OPEN,Gtk.ResponseType.OK))
-# 		chooser.set_current_folder(cfg.homedir)
-#
-# 		filter = Gtk.FileFilter()
-# 		if widget.get_name() == 'importXML':
-# 			filter.set_name(_("OpenAstro Charts (*.oac)"))
-# 			#filter.add_mime_type("text/xml")
-# 			filter.add_pattern("*.oac")
-# 		elif widget.get_name() == 'importOroboros':
-# 			filter.set_name(_("Oroboros Charts (*.xml)"))
-# 			#filter.add_mime_type("text/xml")
-# 			filter.add_pattern("*.xml")
-# 		elif widget.get_name() == 'importSkylendar':
-# 			filter.set_name(_("Skylendar Charts (*.skif)"))
-# 			filter.add_pattern("*.skif")
-# 		elif widget.get_name() == 'importAstrolog32':
-# 			filter.set_name(_("Astrolog32 Charts (*.dat)"))
-# 			filter.add_pattern("*.dat")
-# 		elif widget.get_name() == 'importZet8':
-# 			filter.set_name(_("Zet8 Databases (*.zbs)"))
-# 			filter.add_pattern("*.zbs")
-# 		chooser.add_filter(filter)
-# 		response = chooser.run()
-#
-# 		if response == Gtk.ResponseType.OK:
-# 			if widget.get_name() == 'importXML':
-# 				openAstro.importOAC(chooser.get_filename())
-# 			elif widget.get_name() == 'importOroboros':
-# 				openAstro.importOroboros(chooser.get_filename())
-# 			elif widget.get_name() == 'importSkylendar':
-# 				openAstro.importSkylendar(chooser.get_filename())
-# 			elif widget.get_name() == 'importAstrolog32':
-# 				openAstro.importAstrolog32(chooser.get_filename())
-# 			elif widget.get_name() == 'importZet8':
-# 				openAstro.importZet8(chooser.get_filename())
-# 			self.updateChart()
-# 		elif response == Gtk.ResponseType.CANCEL:
-# 					dprint('Dialog closed, no files selected')
-# 		chooser.destroy()
-# 		return
-#
-# 	def specialRadix(self, widget):
-# 		openAstro.type="Radix"
-# 		openAstro.charttype=openAstro.label["radix"]
-# 		openAstro.transit=False
-# 		openAstro.makeSVG()
-# 		self.draw.queue_draw()
-# 		self.draw.setSVG(self.tempfilename)
-#
-# 	def specialTransit(self, widget):
-# 		openAstro.type="Transit"
-# 		openAstro.t_geolon=float(openAstro.home_geolon)
-# 		openAstro.t_geolat=float(openAstro.home_geolat)
-#
-# 		now = datetime.datetime.now()
-# 		timezone_str = zonetab.nearest_tz(openAstro.t_geolat,openAstro.t_geolon,zonetab.timezones())[2]
-# 		#aware datetime object
-# 		dt_input = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, now.second)
-# 		dt = pytz.timezone(timezone_str).localize(dt_input)
-# 		#naive utc datetime object
-# 		dt_utc = dt.replace(tzinfo=None) - dt.utcoffset()
-# 		#transit data
-# 		openAstro.t_year=dt_utc.year
-# 		openAstro.t_month=dt_utc.month
-# 		openAstro.t_day=dt_utc.day
-# 		openAstro.t_hour=openAstro.decHourJoin(dt_utc.hour,dt_utc.minute,dt_utc.second)
-# 		openAstro.t_timezone=openAstro.offsetToTz(dt.utcoffset())
-# 		openAstro.t_altitude=25
-#
-# 		#make svg with transit
-# 		openAstro.charttype="%s (%s-%02d-%02d %02d:%02d)" % (openAstro.label["transit"],dt.year,dt.month,dt.day,dt.hour,dt.minute)
-# 		openAstro.transit=True
-# 		openAstro.makeSVG()
-# 		self.draw.queue_draw()
-# 		self.draw.setSVG(self.tempfilename)
-#
-# 	def specialSolar(self, widget):
-# 		# create a new window
-# 		self.win_SS = Gtk.Dialog()
-# 		self.win_SS.set_icon_from_file(cfg.iconWindow)
-# 		self.win_SS.set_title(_("Select year for Solar Return"))
-# 		self.win_SS.connect("delete_event", lambda w,e: self.win_SS.destroy())
-# 		self.win_SS.move(150,150)
-# 		self.win_SS.set_border_width(5)
-# 		self.win_SS.set_size_request(300,100)
-#
-# 		#create a table
-# 		table = Gtk.Table(2, 1, False)
-# 		table.set_col_spacings(0)
-# 		table.set_row_spacings(0)
-# 		table.set_border_width(10)
-#
-# 		#options
-# 		table.attach(Gtk.Label(_("Select year for Solar Return")), 0, 1, 0, 1, xoptions=Gtk.AttachOptions.SHRINK, yoptions=Gtk.AttachOptions.SHRINK, xpadding=10)
-# 		entry=Gtk.Entry()
-# 		entry.set_max_length(4)
-# 		entry.set_width_chars(4)
-# 		entry.set_text(str(datetime.datetime.now().year))
-# 		table.attach(entry, 1, 2, 0, 1, xoptions=Gtk.AttachOptions.SHRINK, yoptions=Gtk.AttachOptions.SHRINK, xpadding=10)
-#
-# 		#make the ui layout with ok button
-# 		self.win_SS.vbox.pack_start(table, True, True, 0)
-#
-# 		#ok button
-# 		button = Gtk.Button(stock=Gtk.STOCK_OK)
-# 		button.connect("clicked", self.specialSolarSubmit, entry)
-# 		button.set_can_default(True)
-# 		self.win_SS.action_area.pack_start(button, True, True, 0)
-# 		button.grab_default()
-#
-# 		#cancel button
-# 		button = Gtk.Button(stock=Gtk.STOCK_CANCEL)
-# 		button.connect("clicked", lambda w: self.win_SS.destroy())
-# 		self.win_SS.action_area.pack_start(button, True, True, 0)
-#
-# 		self.win_SS.show_all()
-# 		return
-#
-# 	def specialSolarSubmit(self, widget, entry):
-# 		intyear = int(entry.get_text())
-# 		openAstro.localToSolar(intyear)
-# 		self.win_SS.destroy()
-# 		self.updateChart()
-# 		return
-#
-# 	def specialSProgression(self, widget):
-# 		# create a new window
-# 		self.win_SSP = Gtk.Dialog(parent=self.window)
-# 		self.win_SSP.set_icon_from_file(cfg.iconWindow)
-# 		self.win_SSP.set_title(_("Enter Date"))
-# 		self.win_SSP.connect("delete_event", lambda w,e: self.win_SSP.destroy())
-# 		self.win_SSP.move(150,150)
-# 		self.win_SSP.set_border_width(5)
-# 		self.win_SSP.set_size_request(320,180)
-#
-# 		#create a table
-# 		table = Gtk.Table(1, 4, False)
-# 		table.set_col_spacings(0)
-# 		table.set_row_spacings(0)
-# 		table.set_border_width(10)
-#
-# 		#options
-# 		table.attach(Gtk.Label(_("Select date for Secondary Progression")+":"), 0, 1, 0, 1, xoptions=Gtk.AttachOptions.SHRINK, yoptions=Gtk.AttachOptions.SHRINK, xpadding=10, ypadding=10)
-# 		hbox = Gtk.HBox(spacing=4)  # pack_start(child, expand=True, fill=True, padding=0)
-# 		entry={}
-#
-# 		hbox.pack_start(Gtk.Label(_('Year')+": "), False, False, 0)
-# 		entry['Y']=Gtk.Entry()
-# 		entry['Y'].set_max_length(4)
-# 		entry['Y'].set_width_chars(4)
-# 		entry['Y'].set_text(str(datetime.datetime.now().year))
-# 		hbox.pack_start(entry['Y'], False, False, 0)
-# 		hbox.pack_start(Gtk.Label(_('Month')+": "), False, False, 0)
-# 		entry['M']=Gtk.Entry()
-# 		entry['M'].set_max_length(2)
-# 		entry['M'].set_width_chars(2)
-# 		entry['M'].set_text('%02d'%(datetime.datetime.now().month))
-# 		hbox.pack_start(entry['M'], False, False, 0)
-# 		hbox.pack_start(Gtk.Label(_('Day')+": "), False, False, 0)
-# 		entry['D']=Gtk.Entry()
-# 		entry['D'].set_max_length(2)
-# 		entry['D'].set_width_chars(2)
-# 		entry['D'].set_text(str(datetime.datetime.now().day))
-# 		hbox.pack_start(entry['D'], False, False, 0)
-# 		table.attach(hbox,0,1,1,2, xoptions=Gtk.AttachOptions.SHRINK, yoptions=Gtk.AttachOptions.SHRINK, xpadding=10, ypadding=10)
-#
-# 		hbox = Gtk.HBox(spacing=4)
-# 		hbox.pack_start(Gtk.Label(_('Hour')+": "), False, False, 0)
-# 		entry['h']=Gtk.Entry()
-# 		entry['h'].set_max_length(2)
-# 		entry['h'].set_width_chars(2)
-# 		entry['h'].set_text('%02d'%(datetime.datetime.now().hour))
-# 		hbox.pack_start(entry['h'], False, False, 0)
-# 		hbox.pack_start(Gtk.Label(_('Min')+": "), False, False, 0)
-# 		entry['m']=Gtk.Entry()
-# 		entry['m'].set_max_length(2)
-# 		entry['m'].set_width_chars(2)
-# 		entry['m'].set_text('%02d'%(datetime.datetime.now().minute))
-# 		hbox.pack_start(entry['m'], False, False, 0)
-# 		table.attach(hbox,0,1,2,3, xoptions=Gtk.AttachOptions.SHRINK, yoptions=Gtk.AttachOptions.SHRINK, xpadding=10, ypadding=10)
-#
-# 		#make the ui layout with ok button
-# 		self.win_SSP.vbox.pack_start(table, True, True, 0)
-#
-# 		#ok button
-# 		button = Gtk.Button(stock=Gtk.STOCK_OK)
-# 		button.connect("clicked", self.specialSProgressionSubmit, entry)
-# 		button.set_can_default(True)
-# 		self.win_SSP.action_area.pack_start(button, True, True, 0)
-# 		button.grab_default()
-#
-# 		#cancel button
-# 		button = Gtk.Button(stock=Gtk.STOCK_CANCEL)
-# 		button.connect("clicked", lambda w: self.win_SSP.destroy())
-# 		self.win_SSP.action_area.pack_start(button, True, True, 0)
-#
-# 		self.win_SSP.show_all()
-# 		return
-#
-# 	def specialSProgressionSubmit(self, widget, entry):
-# 		dt	= datetime.datetime(int(entry['Y'].get_text()),int(entry['M'].get_text()),int(entry['D'].get_text()),int(entry['h'].get_text()),int(entry['m'].get_text()))
-# 		openAstro.localToSProgression(dt)
-# 		self.win_SSP.destroy()
-# 		self.updateChart()
-# 		return
-#
-#
 #debug print function
 def dprint(str):
 	if "--debug" in sys.argv or DEBUG:
 		print('%s' % str)
-
-#gtk main
-
-# def main():
-#     Gtk.main()
-#     return 0
-
-# #start the whole bunch
-#
-# if __name__ == "__main__":
-# 	cfg = openAstroCfg()
-# 	db = openAstroSqlite()
-# 	openAstro = openAstroInstance(db)
-# 	mainWindow()
-# 	main()
-
-
-
-
-
-
-
-
-

@@ -946,13 +946,19 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			self.type = "Transit"
 
 		elif (self.type == "Zemletochki" or self.type == "ZemletochkiG" or self.type == "Sefarial"
-			  or self.type == "ZemletochkiAntis" or self.type == "ZemletochkiGAntis" or self.type == "SefarialAntis"):
+			  or self.type == "ZemletochkiAntis" or self.type == "ZemletochkiGAntis" or self.type == "SefarialAntis"
+			  or self.type == "ZemletochkiContrAntis" or self.type == "ZemletochkiGContrAntis" or self.type == "SefarialContrAntis"
+		):
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon, self.geolat,
 											self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 			# if self.kwargs.get("zemletochki_antis", False) == True:
-			if self.type == "ZemletochkiAntis" or self.type == "ZemletochkiGAntis" or self.type == "SefarialAntis":
+			if self.type == "ZemletochkiContrAntis" or self.type == "ZemletochkiGContrAntis" or self.type == "SefarialContrAntis":
 				for i in range(len(module_data.planets_degree_ut)):
 					module_data.planets_degree_ut[i] = 360 - module_data.planets_degree_ut[i]
+					module_data.planets_sign[i], module_data.planets_degree[i] = get_zodiac_sign(module_data.planets_degree_ut[i])
+			elif self.type == "ZemletochkiAntis" or self.type == "ZemletochkiGAntis" or self.type == "SefarialAntis":
+				for i in range(len(module_data.planets_degree_ut)):
+					module_data.planets_degree_ut[i] = 180 - module_data.planets_degree_ut[i]
 					module_data.planets_sign[i], module_data.planets_degree[i] = get_zodiac_sign(module_data.planets_degree_ut[i])
 
 			t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
@@ -1372,7 +1378,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		:return:
 		"""
 		if (self.settings.type == "Zemletochki" or self.settings.type == "ZemletochkiG" or self.settings.type == "Sefarial"
-				or self.settings.type == "ZemletochkiAntis" or self.settings.type == "ZemletochkiGAntis" or self.settings.type == "SefarialAntis"):
+				or self.settings.type == "ZemletochkiAntis" or self.settings.type == "ZemletochkiGAntis" or self.settings.type == "SefarialAntis"
+				or self.settings.type == "ZemletochkiContrAntis" or self.settings.type == "ZemletochkiGContrAntis" or self.settings.type == "SefarialContrAntis"
+		):
 			return self.t_planets_degree_ut[46]
 			# return self.houses_degree_ut[6]
 		else:

@@ -2473,10 +2473,7 @@ class openAstro:
 		return self.renderer.zodiacSlice(num, r, style, type)
 
 	def makeZodiac( self , r ):
-		output = ""
-		for i in range(len(self.zodiac)):
-			output = output + self.zodiacSlice( i , r , "fill:" + self.settings.settings["color_codes"]["zodiac_bg_%s"%(i)] + "; fill-opacity: 0.5;" , self.zodiac[i]) + '\n'
-		return output
+		return self.renderer.makeZodiac(r)
 
 	def makeHouses( self , r ):
 		path = ""

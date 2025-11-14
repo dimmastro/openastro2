@@ -434,6 +434,29 @@ class ChartRenderer:
 		# 	out += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke: #F00; stroke-width: 1px; stroke-opacity:.9;"/>\n' % (
 		# 		x1,y1,x2,y2 )
 		return out
+
+	def makePlanetGrid_t(self):
+		out = ''
+		li = 10
+		offset = 10
+		for i in range(len(self.planets)):
+			if not (23 <= i and i <= 34):
+				if self.planets[i]['visible'] == 1:
+					out = out + '<g transform="translate(%s,%s)">' % (offset, li)
+					out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
+						  self.planets[i]['name'] + '" /></g>'
+					out = out + '<text text-anchor="start" x="16" style="fill:%s; font-size: 10px;">%s</text>' % (
+						self.settings.settings["color_codes"]['paper_0'], self.dec2deg(self.t_planets_degree[i]))
+					out = out + '<g transform="translate(64,-8)"><use transform="scale(0.3)" xlink:href="#' + self.zodiac[
+						self.t_planets_sign[i]] + '" /></g>'
+					if self.t_planets_retrograde[i]:
+						out = out + '<g transform="translate(76,-6)"><use transform="scale(.5)" xlink:href="#retrograde" /></g>'
+					out = out + '</g>\n'
+					li = li + 14
+
+		out = out + '\n'
+		return out
+
 	def makePatterns( self ):
 		"""
 		* Stellium: At least four planets linked together in a series of continuous conjunctions.
@@ -930,5 +953,4 @@ class ChartRenderer:
 			li = li + 14
 		out += '\n'
 		return out
-
 

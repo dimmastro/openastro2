@@ -95,6 +95,110 @@ class ChartRenderer:
 			                           self.zodiac[i]) + '\n'
 		return output
 
+	def makeHouses(self, r):
+		path = ""
+		if self.settings.settings["astrocfg"]["houses_system"] == "G":
+			xr = 36
+		else:
+			xr = 12
+		for i in range(xr):
+			if self.type == "Transit" or self.type == "Direction":
+				dropin = self.c3
+				roff = self.c1 - self.settings.settings["settings_svg"]['roff']
+				t_roff = self.c1 - self.settings.settings["settings_svg"]['t_roff']
+			else:
+				dropin = self.c3
+				roff = self.c1 - self.settings.settings["settings_svg"]['roff']
+
+			offset = (float(self.get_chart_start_point()) / -1) + float(self.houses_degree_ut[i])
+			x1 = self.sliceToX(0, (r - dropin), offset) + dropin
+			y1 = self.sliceToY(0, (r - dropin), offset) + dropin
+			x2 = self.sliceToX(0, r - roff, offset) + roff
+			y2 = self.sliceToY(0, r - roff, offset) + roff
+
+			if i < (xr - 1):
+				text_offset = offset + int(self.degreeDiff(self.houses_degree_ut[(i)], self.houses_degree_ut[i]) / 1)
+			else:
+				text_offset = offset + int(self.degreeDiff(self.houses_degree_ut[0], self.houses_degree_ut[0]) / 1)
+
+			if i == 0:
+				linecolor = self.planets[23]['color']
+			elif i == 9:
+				linecolor = self.planets[26]['color']
+			elif i == 6:
+				linecolor = self.planets[29]['color']
+			elif i == 3:
+				linecolor = self.planets[32]['color']
+			else:
+				linecolor = self.settings.settings["color_codes"]['houses_radix_line']
+			if self.type == "Transit" or self.type == "Direction":
+				linecolor = self.settings.settings["color_codes"]['houses_transit_line_1']
+
+			if self.type == "Transit" or self.type == "Direction":
+				zeropoint = 360 - self.get_chart_start_point()
+				t_offset = zeropoint + self.t_houses_degree_ut[i]
+				t_offset = zeropoint + self.t_houses_degree_ut[i]
+				if t_offset > 360:
+					t_offset = t_offset - 360
+				t_x1 = self.sliceToX(0, (r - t_roff), t_offset) + t_roff
+				t_y1 = self.sliceToY(0, (r - t_roff), t_offset) + t_roff
+				t_x2 = self.sliceToX(0, r, t_offset)
+				t_y2 = self.sliceToY(0, r, t_offset)
+				if i < 11:
+					t_text_offset = t_offset
+				else:
+					t_text_offset = t_offset
+				if i == 0 or i == 9 or i == 6 or i == 3:
+					t_linecolor = self.settings.settings["color_codes"]['houses_transit_line_2']
+				else:
+					t_linecolor = self.settings.settings["color_codes"]['houses_transit_line_2']
+				dropin = self.c1 - self.settings.settings["settings_svg"]['t_roff_deg']
+				h_text = str(i + 1)
+				xtext = self.sliceToX(0, (r - dropin), t_text_offset) + dropin
+				ytext = self.sliceToY(0, (r - dropin), t_text_offset) + dropin
+				ih = i + 23
+				if ('t_visible' in self.planets[ih] and self.planets[ih]['t_visible'] == 1) or (
+						't_visible' not in self.planets[ih] and self.planets[ih]['visible'] == 1):
+					path = path + '<line x1="' + str(t_x1) + '" y1="' + str(t_y1) + '" x2="' + str(t_x2) + '" y2="' + str(
+						t_y2) + '" style="stroke: ' + t_linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
+					path = path + '<text style="fill: ' + t_linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(
+						xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
+					path = path + '<text text-anchor="start" x="' + str(
+						xtext + self.settings.settings["settings_svg"]["offset_degree_planet_x"]) + '" y="' + str(
+						ytext + self.settings.settings["settings_svg"]["offset_degree_planet_y"]) + '"  style="fill:' + t_linecolor + '; font-size: 7px;">' + self.dec2deg(
+						self.t_houses_degree[(i)] + 1, type="0") + '</text>'
+
+			if self.type == "Transit" or self.type == "Direction":
+				dropin = self.c1 - self.settings.settings["settings_svg"]['roff_deg']
+			elif self.settings.settings["astrocfg"]["chartview"] == "european":
+				dropin = self.c1 - self.settings.settings["settings_svg"]['roff_deg']
+			else:
+				dropin = 48
+
+			if i == 0:
+				h_text = str(i + 1)
+			elif i == 9:
+				h_text = str(i + 1)
+			elif i == 6:
+				h_text = str(i + 1)
+			elif i == 3:
+				h_text = str(i + 1)
+			else:
+				h_text = str(i + 1)
+
+			xtext = self.sliceToX(0, (r - dropin), text_offset) + dropin
+			ytext = self.sliceToY(0, (r - dropin), text_offset) + dropin
+			path = path + '<line x1="' + str(x1) + '" y1="' + str(y1) + '" x2="' + str(x2) + '" y2="' + str(
+				y2) + '" style="stroke: ' + linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
+			path = path + '<text style="fill: ' + linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(
+				xtext - 3) + '" y="' + str(ytext + 3) + '">' + h_text + '</tspan></text>\n'
+			path = path + '<text text-anchor="start" x="' + str(
+				xtext + self.settings.settings["settings_svg"]["offset_degree_planet_x"]) + '" y="' + str(
+				ytext + self.settings.settings["settings_svg"]["offset_degree_planet_y"]) + '"  style="fill:' + linecolor + '; font-size: 7px;">' + self.dec2deg(
+				self.houses_degree[(i)] + 1, type="0") + '</text>'
+
+		return path
+
 	def makeSVG2(self, printing=None):
 		self.calcAstro()
 

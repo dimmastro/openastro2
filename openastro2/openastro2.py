@@ -349,6 +349,36 @@ class openAstroSettings:
 
 
 class openAstro:
+	MODULE_BASE_ATTRS = (
+		"planets_sign",
+		"planets_degree",
+		"planets_degree_ut",
+		"planets_retrograde",
+		"houses_degree",
+		"houses_sign",
+		"houses_degree_ut",
+		"lunar_phase",
+	)
+	MODULE_EXTENDED_ATTRS = MODULE_BASE_ATTRS + (
+		"planet_longitude",
+		"planet_latitude",
+		"planet_hour_angle",
+		"planet_azimuth",
+		"planet_true_altitude",
+		"planet_apparent_altitude",
+	)
+	TRANSIT_ATTRS = (
+		"planets_sign",
+		"planets_degree",
+		"planets_degree_ut",
+		"planets_retrograde",
+		"houses_degree",
+		"houses_sign",
+		"houses_degree_ut",
+		"planet_azimuth",
+		"planet_latitude",
+		"planet_longitude",
+	)
 
 	@staticmethod
 	def event(name: str = "Now", year: Union[str, int] = "", month: Union[str, int] = "", day: Union[str, int] = "", hour: Union[str, int] = "", minute: Union[str, int] = "", second: Union[str, int] = "", timezone: Optional[float] = None, location: str = "London", countrycode: str = "", geolat: Optional[float] = None, geolon: Optional[float] = None, altitude: int = 25) -> Dict[str, Any]:
@@ -553,6 +583,11 @@ class openAstro:
 		self.kwargs = kwargs
 
 		return
+
+	def _copy_module_attrs(self, module_data, attrs, prefix: str = "") -> None:
+		for attr in attrs:
+			setattr(self, f"{prefix}{attr}", getattr(module_data, attr))
+
 	@property
 	def renderer(self) -> ChartRenderer:
 		return self._renderer
@@ -1592,28 +1627,12 @@ class openAstro:
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
 											self.settings.settings["astrocfg"])
-			self.planets_sign = module_data.planets_sign
-			self.planets_degree = module_data.planets_degree
-			self.planets_degree_ut = module_data.planets_degree_ut
-			self.planets_retrograde = module_data.planets_retrograde
-			self.houses_degree = module_data.houses_degree
-			self.houses_sign = module_data.houses_sign
-			self.houses_degree_ut = module_data.houses_degree_ut
-			self.lunar_phase = module_data.lunar_phase
+			self._copy_module_attrs(module_data, self.MODULE_BASE_ATTRS)
 			t_module_data = self.localToDirection(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon, self.t_geolat, self.t_altitude)
 			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 			# 								  self.settings.settings["astrocfg"])
-			self.t_planets_sign = t_module_data.planets_sign
-			self.t_planets_degree = t_module_data.planets_degree
-			self.t_planets_degree_ut = t_module_data.planets_degree_ut
-			self.t_planets_retrograde = t_module_data.planets_retrograde
-			self.t_houses_degree = t_module_data.houses_degree
-			self.t_houses_sign = t_module_data.houses_sign
-			self.t_houses_degree_ut = t_module_data.houses_degree_ut
-			self.t_planet_azimuth = t_module_data.planet_azimuth
-			self.t_planet_latitude = t_module_data.planet_latitude
-			self.t_planet_longitude = t_module_data.planet_longitude
+			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 
 		elif self.type == "DirectionWithEnd":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
@@ -1659,59 +1678,25 @@ class openAstro:
 			elif self.oa_args['DirectionToEndType'] == "90":
 				solaryearsecs = 31556925.51  # 365 days, 5 hours, 48 minutes, 45.51 seconds
 
-			self.planets_sign = module_data.planets_sign
-			self.planets_degree = module_data.planets_degree
-			self.planets_degree_ut = module_data.planets_degree_ut
-			self.planets_retrograde = module_data.planets_retrograde
-			self.houses_degree = module_data.houses_degree
-			self.houses_sign = module_data.houses_sign
-			self.houses_degree_ut = module_data.houses_degree_ut
-			self.lunar_phase = module_data.lunar_phase
+			self._copy_module_attrs(module_data, self.MODULE_BASE_ATTRS)
 			t_module_data = self.localToDirectionWithEnd(solaryearsecs, self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon, self.t_geolat, self.t_altitude)
 			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 			# 								  self.settings.settings["astrocfg"])
-			self.t_planets_sign = t_module_data.planets_sign
-			self.t_planets_degree = t_module_data.planets_degree
-			self.t_planets_degree_ut = t_module_data.planets_degree_ut
-			self.t_planets_retrograde = t_module_data.planets_retrograde
-			self.t_houses_degree = t_module_data.houses_degree
-			self.t_houses_sign = t_module_data.houses_sign
-			self.t_houses_degree_ut = t_module_data.houses_degree_ut
-			self.t_planet_azimuth = t_module_data.planet_azimuth
-			self.t_planet_latitude = t_module_data.planet_latitude
-			self.t_planet_longitude = t_module_data.planet_longitude
+			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 
 
 		elif self.type == "DirectionPast":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
 											self.settings.settings["astrocfg"])
-			self.planets_sign = module_data.planets_sign
-			self.planets_degree = module_data.planets_degree
-			self.planets_degree_ut = module_data.planets_degree_ut
-			self.planets_retrograde = module_data.planets_retrograde
-			self.houses_degree = module_data.houses_degree
-			self.houses_sign = module_data.houses_sign
-			self.houses_degree_ut = module_data.houses_degree_ut
-			self.lunar_phase = module_data.lunar_phase
-			self.t_planet_azimuth = module_data.planet_azimuth
-			self.t_planet_latitude = module_data.planet_latitude
-			self.t_planet_longitude = module_data.planet_longitude
+			self._copy_module_attrs(module_data, self.MODULE_BASE_ATTRS)
+			self._copy_module_attrs(module_data, ("planet_azimuth", "planet_latitude", "planet_longitude"), prefix="t_")
 			t_module_data = self.localToDirectionPast(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon, self.t_geolat, self.t_altitude)
 			# t_module_data = ephemeris.ephData(self.t_year, self.t_month, self.t_day, self.t_hour, self.t_geolon,
 			# 								  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 			# 								  self.settings.settings["astrocfg"])
-			self.t_planets_sign = t_module_data.planets_sign
-			self.t_planets_degree = t_module_data.planets_degree
-			self.t_planets_degree_ut = t_module_data.planets_degree_ut
-			self.t_planets_retrograde = t_module_data.planets_retrograde
-			self.t_houses_degree = t_module_data.houses_degree
-			self.t_houses_sign = t_module_data.houses_sign
-			self.t_houses_degree_ut = t_module_data.houses_degree_ut
-			self.t_planet_azimuth = t_module_data.planet_azimuth
-			self.t_planet_latitude = t_module_data.planet_latitude
-			self.t_planet_longitude = t_module_data.planet_longitude
+			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 
 		# DirectionReal module data
 		elif self.type == "DirectionRealPast":
@@ -1725,16 +1710,7 @@ class openAstro:
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											  self.settings.settings["astrocfg"])
 			# grab transiting module data
-			self.t_planets_sign = t_module_data.planets_sign
-			self.t_planets_degree = t_module_data.planets_degree
-			self.t_planets_degree_ut = t_module_data.planets_degree_ut
-			self.t_planets_retrograde = t_module_data.planets_retrograde
-			self.t_houses_degree = t_module_data.houses_degree
-			self.t_houses_sign = t_module_data.houses_sign
-			self.t_houses_degree_ut = t_module_data.houses_degree_ut
-			self.t_planet_azimuth = t_module_data.planet_azimuth
-			self.t_planet_latitude = t_module_data.planet_latitude
-			self.t_planet_longitude = t_module_data.planet_longitude
+			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 		elif self.type == "DirectionRealFuture":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
 											self.geolat, self.altitude, self.planets, self.zodiac,
@@ -1746,16 +1722,7 @@ class openAstro:
 											  self.t_geolat, self.t_altitude, self.planets, self.zodiac,
 											  self.settings.settings["astrocfg"])
 			# grab transiting module data
-			self.t_planets_sign = t_module_data.planets_sign
-			self.t_planets_degree = t_module_data.planets_degree
-			self.t_planets_degree_ut = t_module_data.planets_degree_ut
-			self.t_planets_retrograde = t_module_data.planets_retrograde
-			self.t_houses_degree = t_module_data.houses_degree
-			self.t_houses_sign = t_module_data.houses_sign
-			self.t_houses_degree_ut = t_module_data.houses_degree_ut
-			self.t_planet_azimuth = t_module_data.planet_azimuth
-			self.t_planet_latitude = t_module_data.planet_latitude
-			self.t_planet_longitude = t_module_data.planet_longitude
+			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 		# Solar module data
 		elif self.type == "Solar":
 			module_data = ephemeris.ephData(self.year, self.month, self.day, self.hour, self.geolon,
@@ -1902,16 +1869,7 @@ class openAstro:
 			t_module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 											  self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
 											  self.settings.settings["astrocfg"], houses_override=self.houses_override)
-			self.t_planets_sign = t_module_data.planets_sign
-			self.t_planets_degree = t_module_data.planets_degree
-			self.t_planets_degree_ut = t_module_data.planets_degree_ut
-			self.t_planets_retrograde = t_module_data.planets_retrograde
-			self.t_houses_degree = t_module_data.houses_degree
-			self.t_houses_sign = t_module_data.houses_sign
-			self.t_houses_degree_ut = t_module_data.houses_degree_ut
-			self.t_planet_azimuth = t_module_data.planet_azimuth
-			self.t_planet_latitude = t_module_data.planet_latitude
-			self.t_planet_longitude = t_module_data.planet_longitude
+			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 		elif self.type == "SProgressionPast":
 			dt	= datetime.datetime(self.t_year, self.t_month, self.t_day, self.t_h, self.t_m, self.t_s)
 			print (dt)
@@ -1925,16 +1883,7 @@ class openAstro:
 			t_module_data = ephemeris.ephData(self.sp_year, self.sp_month, self.sp_day, self.sp_hour, self.sp_geolon,
 											  self.sp_geolat, self.sp_altitude, self.planets, self.zodiac,
 											  self.settings.settings["astrocfg"], houses_override=self.houses_override)
-			self.t_planets_sign = t_module_data.planets_sign
-			self.t_planets_degree = t_module_data.planets_degree
-			self.t_planets_degree_ut = t_module_data.planets_degree_ut
-			self.t_planets_retrograde = t_module_data.planets_retrograde
-			self.t_houses_degree = t_module_data.houses_degree
-			self.t_houses_sign = t_module_data.houses_sign
-			self.t_houses_degree_ut = t_module_data.houses_degree_ut
-			self.t_planet_azimuth = t_module_data.planet_azimuth
-			self.t_planet_latitude = t_module_data.planet_latitude
-			self.t_planet_longitude = t_module_data.planet_longitude
+			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 
 		elif self.type == "FixarPlanetMoment":
 			module_data = ephemeris.ephData.ephData_fixar(self, self.year, self.month, self.day, self.hour, self.t_year, self.t_month, self.t_day, self.t_hour, self.geolon, self.geolat,
@@ -2013,33 +1962,11 @@ class openAstro:
 		# Transit module data
 		if self.type == "Transit" or self.type == "Composite":
 			# grab transiting module data
-			self.t_planets_sign = t_module_data.planets_sign
-			self.t_planets_degree = t_module_data.planets_degree
-			self.t_planets_degree_ut = t_module_data.planets_degree_ut
-			self.t_planets_retrograde = t_module_data.planets_retrograde
-			self.t_houses_degree = t_module_data.houses_degree
-			self.t_houses_sign = t_module_data.houses_sign
-			self.t_houses_degree_ut = t_module_data.houses_degree_ut
-			self.t_planet_azimuth = t_module_data.planet_azimuth
-			self.t_planet_latitude = t_module_data.planet_latitude
-			self.t_planet_longitude = t_module_data.planet_longitude
+			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 			self.t_makePlanetDict()
 
 		# grab normal module data
-		self.planets_sign = module_data.planets_sign
-		self.planets_degree = module_data.planets_degree
-		self.planets_degree_ut = module_data.planets_degree_ut
-		self.planets_retrograde = module_data.planets_retrograde
-		self.houses_degree = module_data.houses_degree
-		self.houses_sign = module_data.houses_sign
-		self.houses_degree_ut = module_data.houses_degree_ut
-		self.lunar_phase = module_data.lunar_phase
-		self.planet_longitude = module_data.planet_longitude
-		self.planet_latitude = module_data.planet_latitude
-		self.planet_hour_angle = module_data.planet_hour_angle
-		self.planet_azimuth = module_data.planet_azimuth
-		self.planet_true_altitude = module_data.planet_true_altitude
-		self.planet_apparent_altitude = module_data.planet_apparent_altitude
+		self._copy_module_attrs(module_data, self.MODULE_EXTENDED_ATTRS)
 		self.makePlanetDict()
 
 		# make composite averages

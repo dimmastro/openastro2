@@ -42,7 +42,7 @@
   {"id": "180", "degree": 180, "name": "opposition 1/2", "label": "opposition", "label_short": "☍", "color": "#444444", "visible": 1, "visible_grid": 1, "is_major": 1, "is_minor": 0, "orb": 6, "visible_json": 1}
 ],
 "settings_planet": [
-  {"id": 0, "name": "sun", "color": "#444444", "visible": 1, "element_points": 40, "zodiac_relation": "4", "label": "\u0421\u043e\u043b\u043d\u0446\u0435", "label_short": "sun", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 0, "name": "sun", "color": "#444444", "visible": 1, "element_points": 40, "zodiac_relation": "4", "label": "Sun", "label_short": "sun", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix":   {"default": 10, "0": 10, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1.5, "51.5": 0, "60": 9, "72": 0, "80": 0, "90": 10, "100": 0, "108": 0, "120": 10, "135": 1, "144": 0, "150": 3, "180": 10},
       "Transit": {"default":  2, "0":  2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90":  2, "100": 0, "108": 0, "120":  2, "135": 0, "144": 0, "150": 0, "180":  0},
@@ -50,7 +50,7 @@
       "Direction": {"default":  1, "0":  2, "18": 1, "20": 1, "30": 1, "36": 1, "40": 1, "45":   1, "51.5": 1, "60": 2, "72": 1, "80": 1, "90":  2, "100": 1, "108": 1, "120":  2, "135": 1, "144": 1, "150": 1, "180":  2}
    }
   },
-  {"id": 1, "name": "moon", "color": "#444444", "visible": 1, "element_points": 40, "zodiac_relation": "3", "label": "\u041b\u0443\u043d\u0430", "label_short": "moon", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 1, "name": "moon", "color": "#444444", "visible": 1, "element_points": 40, "zodiac_relation": "3", "label": "Moon", "label_short": "moon", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix":   {"default": 9, "0": 9, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 9, "72": 0, "80": 0, "90": 9, "100": 0, "108": 0, "120": 9, "135": 1, "144": 0, "150": 2, "180": 9},
       "Transit": {"default": 2, "0": 2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90": 2, "100": 0, "108": 0, "120": 2, "135": 0, "144": 0, "150": 0, "180": 2},
@@ -58,7 +58,7 @@
       "Direction": {"default":  1, "0":  1.5, "18": 1, "20": 1, "30": 1, "36": 1, "40": 1, "45":   1, "51.5": 1, "60": 1.5, "72": 1, "80": 1, "90":  1.5, "100": 1, "108": 1, "120":  1.5, "135": 1, "144": 1, "150": 1, "180":  1.5}
     }
   },
-  {"id": 2, "name": "mercury", "color": "#444444", "visible": 1, "element_points": 15, "zodiac_relation": "2,5", "label": "\u041c\u0435\u0440\u043a\u0443\u0440\u0438\u0439", "label_short": "mercury", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 2, "name": "mercury", "color": "#444444", "visible": 1, "element_points": 15, "zodiac_relation": "2,5", "label": "Mercury", "label_short": "mercury", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default": 2, "0": 2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90": 2, "100": 0, "108": 0, "120": 2, "135": 0, "144": 0, "150": 0, "180": 2},
@@ -66,7 +66,7 @@
       "Direction": {"default":  1, "0":  1, "18": 1, "20": 1, "30": 1, "36": 1, "40": 1, "45":   1, "51.5": 1, "60": 1, "72": 1, "80": 1, "90":  1, "100": 1, "108": 1, "120":  1, "135": 1, "144": 1, "150": 1, "180":  1}
     }
   },
-  {"id": 3, "name": "venus", "color": "#444444", "visible": 1, "element_points": 15, "zodiac_relation": "1,6", "label": "\u0412\u0435\u043d\u0435\u0440\u0430", "label_short": "venus", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 3, "name": "venus", "color": "#444444", "visible": 1, "element_points": 15, "zodiac_relation": "1,6", "label": "Venus", "label_short": "venus", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default": 2, "0": 2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90": 2, "100": 0, "108": 0, "120": 2, "135": 0, "144": 0, "150": 0, "180": 2},
@@ -74,7 +74,7 @@
       "Direction": {"default":  1, "0":  1, "18": 1, "20": 1, "30": 1, "36": 1, "40": 1, "45":   1, "51.5": 1, "60": 1, "72": 1, "80": 1, "90":  1, "100": 1, "108": 1, "120":  1, "135": 1, "144": 1, "150": 1, "180":  1}
     }
   },
-  {"id": 4, "name": "mars", "color": "#444444", "visible": 1, "element_points": 15, "zodiac_relation": "0", "label": "\u041c\u0430\u0440\u0441", "label_short": "mars", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 4, "name": "mars", "color": "#444444", "visible": 1, "element_points": 15, "zodiac_relation": "0", "label": "Mars", "label_short": "mars", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default": 2, "0": 2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90": 2, "100": 0, "108": 0, "120": 2, "135": 0, "144": 0, "150": 0, "180": 2},
@@ -82,7 +82,7 @@
       "Direction": {"default":  1, "0":  1, "18": 1, "20": 1, "30": 1, "36": 1, "40": 1, "45":   1, "51.5": 1, "60": 1, "72": 1, "80": 1, "90":  1, "100": 1, "108": 1, "120":  1, "135": 1, "144": 1, "150": 1, "180":  1}
     }
   },
-  {"id": 5, "name": "jupiter", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "8", "label": "\u042e\u043f\u0438\u0442\u0435\u0440", "label_short": "jupiter", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 5, "name": "jupiter", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "8", "label": "Jupiter", "label_short": "jupiter", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 7, "0": 7, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 7, "72": 0, "80": 0, "90": 7, "100": 0, "108": 0, "120": 7, "135": 1, "144": 0, "150": 1, "180": 7},
       "Transit": {"default": 2, "0": 2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90": 2, "100": 0, "108": 0, "120": 2, "135": 0, "144": 0, "150": 0, "180": 2},
@@ -90,7 +90,7 @@
       "Direction": {"default":  1, "0":  1, "18": 1, "20": 1, "30": 1, "36": 1, "40": 1, "45":   1, "51.5": 1, "60": 1, "72": 1, "80": 1, "90":  1, "100": 1, "108": 1, "120":  1, "135": 1, "144": 1, "150": 1, "180":  1}
     }
   },
-  {"id": 6, "name": "saturn", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "9", "label": "\u0421\u0430\u0442\u0443\u0440\u043d", "label_short": "saturn", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 6, "name": "saturn", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "9", "label": "Saturn", "label_short": "saturn", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default": 2, "0": 2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90": 2, "100": 0, "108": 0, "120": 2, "135": 0, "144": 0, "150": 0, "180": 2},
@@ -98,7 +98,7 @@
       "Direction": {"default":  1, "0":  1, "18": 1, "20": 1, "30": 1, "36": 1, "40": 1, "45":   1, "51.5": 1, "60": 1, "72": 1, "80": 1, "90":  1, "100": 1, "108": 1, "120":  1, "135": 1, "144": 1, "150": 1, "180":  1}
     }
   },
-  {"id": 7, "name": "uranus", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "10", "label": "\u0423\u0440\u0430\u043d", "label_short": "uranus", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 7, "name": "uranus", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "10", "label": "Uranus", "label_short": "uranus", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default": 2, "0": 2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90": 2, "100": 0, "108": 0, "120": 2, "135": 0, "144": 0, "150": 0, "180": 2},
@@ -106,7 +106,7 @@
       "Direction": {"default":  1, "0":  1, "18": 1, "20": 1, "30": 1, "36": 1, "40": 1, "45":   1, "51.5": 1, "60": 1, "72": 1, "80": 1, "90":  1, "100": 1, "108": 1, "120":  1, "135": 1, "144": 1, "150": 1, "180":  1}
     }
   },
-  {"id": 8, "name": "neptune", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "11", "label": "\u041d\u0435\u043f\u0442\u0443\u043d", "label_short": "neptune", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 8, "name": "neptune", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "11", "label": "Neptune", "label_short": "neptune", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default": 2, "0": 2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90": 2, "100": 0, "108": 0, "120": 2, "135": 0, "144": 0, "150": 0, "180": 2},
@@ -114,7 +114,7 @@
       "Direction": {"default":  1, "0":  1, "18": 1, "20": 1, "30": 1, "36": 1, "40": 1, "45":   1, "51.5": 1, "60": 1, "72": 1, "80": 1, "90":  1, "100": 1, "108": 1, "120":  1, "135": 1, "144": 1, "150": 1, "180":  1}
     }
   },
-  {"id": 9, "name": "pluto", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "7", "label": "\u041f\u043b\u0443\u0442\u043e\u043d", "label_short": "pluto", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
+  {"id": 9, "name": "pluto", "color": "#444444", "visible": 1, "element_points": 10, "zodiac_relation": "7", "label": "Pluto", "label_short": "pluto", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default": 2, "0": 2, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 2, "72": 0, "80": 0, "90": 2, "100": 0, "108": 0, "120": 2, "135": 0, "144": 0, "150": 0, "180": 2},

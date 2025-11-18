@@ -2,6 +2,7 @@ import inspect
 import json
 from datetime import datetime
 
+import json5
 import numpy as np
 import pandas as pd
 import pydeck as pdk
@@ -45,7 +46,7 @@ LOCAL_SPACE_METHODS = [
 
 def _serialize_local_space_output(value):
 	if isinstance(value, pdk.Layer):
-		layer_payload = json.loads(value.to_json())
+		layer_payload = json5.loads(value.to_json())
 		layer_payload.pop("id", None)
 		return layer_payload
 	if isinstance(value, pd.DataFrame):

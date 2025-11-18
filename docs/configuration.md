@@ -518,7 +518,7 @@ def load_settings(filename):
     """Load settings from JSON file."""
     settings_path = Path(__file__).parent / 'settings' / filename
     with open(settings_path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+        return json5.load(f)
 
 # Load predefined settings
 settings = load_settings('settings2.json')

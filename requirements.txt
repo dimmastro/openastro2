@@ -11,6 +11,7 @@ ephem==4.2
 geographiclib==2.0
 pytz==2025.2
 # pyephem
+json5==0.12.1
 
 
 

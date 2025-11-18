@@ -62,6 +62,7 @@ import svgwrite
 
 from gettext import gettext as _
 
+import json5
 
 #debug
 LOCAL=True
@@ -182,7 +183,7 @@ class openAstroSettings:
 		DATADIR = Path(__file__).parent
 		json_path = DATADIR / 'settings/settings2.json'
 		with open(json_path, 'r', encoding='utf-8') as f:
-			settings0 = json.load(f)
+			settings0 = json5.load(f)
 		def merge_dicts(dict1, dict2):
 			for key, value in dict2.items():
 				if isinstance(value, dict):
@@ -213,7 +214,7 @@ class openAstroSettings:
 			DATADIR = Path(__file__).parent
 			json_path = DATADIR / settings_path
 			with open(f'{json_path}', 'r') as file:
-				json_data = json.load(file)
+				json_data = json5.load(file)
 			return json_data
 		except FileNotFoundError:
 			print(f"File not found: {settings_path}")

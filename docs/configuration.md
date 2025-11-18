@@ -511,7 +511,7 @@ vedic_settings = {
 ### Loading from File
 
 ```python
-import json
+import json5
 from pathlib import Path
 
 def load_settings(filename):

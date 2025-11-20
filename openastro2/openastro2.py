@@ -196,6 +196,7 @@ class openAstroSettings:
 
 		self.settings = merge_dicts(settings0, settings)
 		self.settings["settings_aspect_dic"] = self._build_settings_aspect_dic()
+		self._normalize_planet_settings()
 
 
 		# self.astrocfg = self.settings["astrocfg"]
@@ -206,6 +207,7 @@ class openAstroSettings:
 		self.lang_label = LANGUAGES_LABEL
 
 		self.settings_planet = self.settings["settings_planet"]
+		self.settings_planet_dict = self.settings["settings_planet_dict"]
 		return
 
 
@@ -241,9 +243,11 @@ class openAstroSettings:
 		out = self.settings["label"]
 		return out
 
-	def getSettingsPlanet(self) -> Dict[str, Any]:
-		dict = self.settings["settings_planet"]
-		return dict
+	def getSettingsPlanet(self) -> List[Dict[str, Any]]:
+		return self.settings["settings_planet"]
+
+	def getSettingsPlanetDict(self) -> Dict[str, Dict[str, Any]]:
+		return self.settings["settings_planet_dict"]
 
 	def getSettingsAspect(self) -> Dict[str, Any]:
 		dict = self.settings["settings_aspect"]
@@ -294,11 +298,14 @@ class openAstroSettings:
 			for attr in sensitive_attrs:
 				if attr in payload:
 					payload[attr] = placeholder
+			payload.pop("settings_planet_dict", None)
 			settings_svg = payload.get("settings_svg")
 			if isinstance(settings_svg, dict):
 				for attr in sensitive_attrs:
 					if attr in settings_svg:
 						settings_svg[attr] = placeholder
+		if hasattr(self, "settings_planet_dict"):
+			delattr(self, "settings_planet_dict")
 
 	def _ensure_writable_tmpdir(self, preferred: str) -> str:
 		candidates = [preferred, os.path.join(Path(__file__).parent, 'tmp')]
@@ -326,6 +333,41 @@ class openAstroSettings:
 				entry["visible_json"] = 1 if entry.get("is_major") == 1 else 0
 			aspect_dic[aspect_id] = entry
 		return aspect_dic
+
+	def _normalize_planet_settings(self) -> None:
+		"""Ensure both dict and list representations exist for planet settings."""
+		ordered_items: List[Tuple[str, Dict[str, Any]]] = []
+		planet_list = self.settings.get("settings_planet")
+		if isinstance(planet_list, list) and planet_list:
+			for entry in planet_list:
+				planet_id = entry.get("id")
+				if planet_id is None:
+					continue
+				ordered_items.append((str(planet_id), entry))
+		else:
+			planet_dict = self.settings.get("settings_planet_dict")
+			if isinstance(planet_dict, dict) and planet_dict:
+				ordered_items = [(key, value) for key, value in planet_dict.items()]
+
+		if not ordered_items:
+			self.settings["settings_planet_dict"] = {}
+			self.settings["settings_planet"] = []
+			return
+
+		# Guarantee that the dict keys match the entry ids while preserving the configured order.
+		normalized_items: List[Tuple[str, Dict[str, Any]]] = []
+		seen: set[str] = set()
+		for key, entry in ordered_items:
+			planet_id = entry.get("id", key)
+			planet_key = str(planet_id if planet_id is not None else key)
+			if planet_key in seen:
+				# Fall back to using the original key when duplicate IDs appear.
+				planet_key = f"{planet_key}_{len(seen)}"
+			seen.add(planet_key)
+			normalized_items.append((planet_key, entry))
+
+		self.settings["settings_planet_dict"] = {key: entry for key, entry in normalized_items}
+		self.settings["settings_planet"] = [entry for _, entry in normalized_items]
 
 
 	def checkSwissEphemeris(self, num: int) -> None:
@@ -1288,8 +1330,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 	def makePlanetNames(self):
 		self.planets_name = []
-		for i in range(len(self.settings.settings_planet)):
-			self.planets_name.append(self.settings.settings_planet[i]['name'])
+		for i in range(len(self.settings.settings_planet_dict)):
+			self.planets_name.append(self._settings_planet_entry(i)['name'])
 
 	def makeTableRecti(self, dt1_str, dt2_str):
 		dt1 = datetime.datetime.strptime(dt1_str, "%Y-%m-%d %H:%M:%S")
@@ -1352,8 +1394,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 						aspect_id = self.settings.settings["settings_aspect_dic"][aspects_id_arr[t][i][j]]['id']
 						is_major = self.settings.settings["settings_aspect_dic"][aspects_id_arr[t][i][j]]['is_major']
 				if(flag_asp and y<2000 and is_major):
-					# str = self.settings.settings_planet[i]['label_short'] + " " + aspects_id_arr[t][i][j] + " " + self.settings.settings_planet[j]['label_short']
-					str = self.settings.settings_planet[i]['label_short'] + " " + aspect_id + " " + self.settings.settings_planet[j]['label_short']
+					# str = self._settings_planet_entry(i)['label_short'] + " " + aspects_id_arr[t][i][j] + " " + self._settings_planet_entry(j)['label_short']
+					str = self._settings_planet_entry(i)['label_short'] + " " + aspect_id + " " + self._settings_planet_entry(j)['label_short']
 					doc.add(doc.text(str, insert=(0 + col_width / 2, y + row_height / 2)))
 					l = l + 1
 					for t in range(len(aspects_id_arr)):

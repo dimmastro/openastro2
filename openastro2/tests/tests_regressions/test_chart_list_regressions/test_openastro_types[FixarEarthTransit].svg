@@ -783,21 +783,24 @@
 	
 	<!-- Aspects -->
 				<line x1="102.18656955406917" y1="156.5367228395452" x2="102.17814679207673" y2="156.5508365638201" style="stroke: #4093f4; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="102.18656955406917" y1="156.5367228395452" x2="155.01512966193462" y2="370.89354366679004" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
 			<line x1="262.94997185912473" y1="82.15944019569474" x2="82.07327101865003" y2="211.56953309238432" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="146.3338717029096" y1="108.82569220153539" x2="80.61548038754285" y2="250.8881973481443" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="146.3338717029096" y1="108.82569220153539" x2="108.92968337364225" y2="327.81296162566485" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="146.3338717029096" y1="108.82569220153539" x2="393.38451961245715" y2="223.11180265185564" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="146.3338717029096" y1="108.82569220153539" x2="365.07031662635774" y2="146.18703837433517" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="105.63847271404299" y1="151.01657631205438" x2="150.22016936964945" y2="367.8367723377784" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="105.63847271404299" y1="151.01657631205438" x2="323.77983063035055" y2="106.16322766222154" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="105.63847271404299" y1="151.01657631205438" x2="150.39225534410218" y2="367.9507486256524" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="105.63847271404299" y1="151.01657631205438" x2="152.6908518113887" y2="369.44231775271373" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
 			<line x1="90.02748173579037" y1="292.2094092983847" x2="180.2276082346805" y2="90.6241292656297" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="168.80884020003816" y1="378.4176994761832" x2="80.61548038754285" y2="250.8881973481443" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="168.80884020003816" y1="378.4176994761832" x2="393.38451961245715" y2="223.11180265185564" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="363.03750768915876" y1="330.6138165844404" x2="110.96703257572037" y2="143.3800709131305" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
-			<line x1="363.03750768915876" y1="330.6138165844404" x2="363.03296742427966" y2="330.61992908686943" style="stroke: #4093f4; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="363.03750768915876" y1="330.6138165844404" x2="141.46856499891504" y2="361.59030831743485" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="363.03750768915876" y1="330.6138165844404" x2="143.65751559808498" y2="363.2385860411873" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
 			<line x1="240.24901594314034" y1="80.0336217675861" x2="102.17814679207673" y2="156.5508365638201" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="189.22724225622974" y1="87.44478070774315" x2="130.9733300902572" y2="352.79009140617535" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="189.22724225622974" y1="87.44478070774315" x2="133.01029420226698" y2="354.62287655086885" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
 			<line x1="235.79812335206677" y1="393.99539959031654" x2="102.17814679207673" y2="156.5508365638201" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="282.2588105984985" y1="387.3350925872241" x2="130.9733300902572" y2="352.79009140617535" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="359.7005457143093" y1="334.9468023031415" x2="137.17862111365682" y2="358.1804122671198" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="359.7005457143093" y1="334.9468023031415" x2="139.30871420028024" y2="359.90407917883556" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
 			<line x1="238.20187664793326" y1="80.00460040968349" x2="102.17814679207673" y2="156.5508365638201" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="191.74118940150152" y1="86.6649074127759" x2="130.9733300902572" y2="352.79009140617535" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="114.29945428569069" y1="139.0531976968585" x2="137.17862111365682" y2="358.1804122671198" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
+			<line x1="114.29945428569069" y1="139.0531976968585" x2="139.30871420028024" y2="359.90407917883556" style="stroke: #444444; stroke-width: 1.0; stroke-opacity: .5;"/>
 			<line x1="233.75098405685966" y1="393.9663782324139" x2="102.17814679207673" y2="156.5508365638201" style="stroke: #ef5350; stroke-width: 1.0; stroke-opacity: .5;"/>
 
 	</g>
@@ -812,10 +815,10 @@
 
 	<!-- Elements -->
 <!--	<g transform="translate(-30,79)">
-<text y="0" style="fill:#ff6600; font-size: 10px;">Fire  19%</text>
-<text y="12" style="fill:#6a2d04; font-size: 10px;">Earth 13%</text>
-<text y="24" style="fill:#6f76d1; font-size: 10px;">Air   27%</text>
-<text y="36" style="fill:#630e73; font-size: 10px;">Water 40%</text>
+<text y="0" style="fill:#ff6600; font-size: 10px;">Fire  15%</text>
+<text y="12" style="fill:#6a2d04; font-size: 10px;">Earth 18%</text>
+<text y="24" style="fill:#6f76d1; font-size: 10px;">Air   35%</text>
+<text y="36" style="fill:#630e73; font-size: 10px;">Water 32%</text>
 </g>
 -->
 

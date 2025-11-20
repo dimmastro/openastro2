@@ -197,6 +197,7 @@ class openAstroSettings:
 		self.settings = merge_dicts(settings0, settings)
 		self.settings["settings_aspect_dic"] = self._build_settings_aspect_dic()
 		self._normalize_planet_settings()
+		self._normalize_house_settings()
 
 
 		# self.astrocfg = self.settings["astrocfg"]
@@ -208,6 +209,8 @@ class openAstroSettings:
 
 		self.settings_planet = self.settings["settings_planet"]
 		self.settings_planet_dict = self.settings["settings_planet_dict"]
+		self.settings_house = self.settings.get("settings_house", [])
+		self.settings_house_dict = self.settings.get("settings_house_dict", {})
 		return
 
 
@@ -248,6 +251,12 @@ class openAstroSettings:
 
 	def getSettingsPlanetDict(self) -> Dict[str, Dict[str, Any]]:
 		return self.settings["settings_planet_dict"]
+
+	def getSettingsHouse(self) -> List[Dict[str, Any]]:
+		return self.settings.get("settings_house", [])
+
+	def getSettingsHouseDict(self) -> Dict[str, Dict[str, Any]]:
+		return self.settings.get("settings_house_dict", {})
 
 	def getSettingsAspect(self) -> Dict[str, Any]:
 		dict = self.settings["settings_aspect"]
@@ -299,6 +308,8 @@ class openAstroSettings:
 				if attr in payload:
 					payload[attr] = placeholder
 			payload.pop("settings_planet_dict", None)
+			payload.pop("settings_house_dict", None)
+			payload.pop("settings_house", None)
 			settings_svg = payload.get("settings_svg")
 			if isinstance(settings_svg, dict):
 				for attr in sensitive_attrs:
@@ -306,6 +317,10 @@ class openAstroSettings:
 						settings_svg[attr] = placeholder
 		if hasattr(self, "settings_planet_dict"):
 			delattr(self, "settings_planet_dict")
+		if hasattr(self, "settings_house_dict"):
+			delattr(self, "settings_house_dict")
+		if hasattr(self, "settings_house"):
+			delattr(self, "settings_house")
 
 	def _ensure_writable_tmpdir(self, preferred: str) -> str:
 		candidates = [preferred, os.path.join(Path(__file__).parent, 'tmp')]
@@ -335,39 +350,42 @@ class openAstroSettings:
 		return aspect_dic
 
 	def _normalize_planet_settings(self) -> None:
-		"""Ensure both dict and list representations exist for planet settings."""
+		self._normalize_settings_block("settings_planet", "settings_planet_dict")
+
+	def _normalize_house_settings(self) -> None:
+		self._normalize_settings_block("settings_house", "settings_house_dict")
+
+	def _normalize_settings_block(self, list_key: str, dict_key: str) -> None:
 		ordered_items: List[Tuple[str, Dict[str, Any]]] = []
-		planet_list = self.settings.get("settings_planet")
-		if isinstance(planet_list, list) and planet_list:
-			for entry in planet_list:
-				planet_id = entry.get("id")
-				if planet_id is None:
+		list_payload = self.settings.get(list_key)
+		if isinstance(list_payload, list) and list_payload:
+			for entry in list_payload:
+				entry_id = entry.get("id")
+				if entry_id is None:
 					continue
-				ordered_items.append((str(planet_id), entry))
+				ordered_items.append((str(entry_id), entry))
 		else:
-			planet_dict = self.settings.get("settings_planet_dict")
-			if isinstance(planet_dict, dict) and planet_dict:
-				ordered_items = [(key, value) for key, value in planet_dict.items()]
+			dict_payload = self.settings.get(dict_key)
+			if isinstance(dict_payload, dict) and dict_payload:
+				ordered_items = list(dict_payload.items())
 
 		if not ordered_items:
-			self.settings["settings_planet_dict"] = {}
-			self.settings["settings_planet"] = []
+			self.settings[dict_key] = {}
+			self.settings[list_key] = []
 			return
 
-		# Guarantee that the dict keys match the entry ids while preserving the configured order.
-		normalized_items: List[Tuple[str, Dict[str, Any]]] = []
 		seen: set[str] = set()
+		normalized_items: List[Tuple[str, Dict[str, Any]]] = []
 		for key, entry in ordered_items:
-			planet_id = entry.get("id", key)
-			planet_key = str(planet_id if planet_id is not None else key)
-			if planet_key in seen:
-				# Fall back to using the original key when duplicate IDs appear.
-				planet_key = f"{planet_key}_{len(seen)}"
-			seen.add(planet_key)
-			normalized_items.append((planet_key, entry))
+			entry_id = entry.get("id", key)
+			entry_key = str(entry_id if entry_id is not None else key)
+			if entry_key in seen:
+				entry_key = f"{entry_key}_{len(seen)}"
+			seen.add(entry_key)
+			normalized_items.append((entry_key, entry))
 
-		self.settings["settings_planet_dict"] = {key: entry for key, entry in normalized_items}
-		self.settings["settings_planet"] = [entry for _, entry in normalized_items]
+		self.settings[dict_key] = {key: entry for key, entry in normalized_items}
+		self.settings[list_key] = [entry for _, entry in normalized_items]
 
 
 	def checkSwissEphemeris(self, num: int) -> None:
@@ -629,6 +647,56 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 	def renderer(self) -> ChartRenderer:
 		return self._renderer
 
+	def _build_body_settings(self) -> List[Dict[str, Any]]:
+		planet_list = list(self.settings.getSettingsPlanet())
+		house_entries: Dict[str, Dict[str, Any]] = {}
+		for entry in self.settings.getSettingsHouse():
+			entry_id = entry.get("id")
+			if entry_id is None:
+				continue
+			house_entries[str(entry_id)] = entry
+
+		bodies: List[Dict[str, Any]] = []
+		for entry in planet_list:
+			entry_id = entry.get("id")
+			if entry_id is None:
+				bodies.append(entry)
+				continue
+			key = str(entry_id)
+			if key in house_entries:
+				# Prefer explicit entry defined in the current settings file.
+				bodies.append(entry)
+				house_entries.pop(key)
+			else:
+				bodies.append(entry)
+
+		if house_entries:
+			def parse_id(value: Any) -> Optional[int]:
+				try:
+					return int(value)
+				except (TypeError, ValueError):
+					return None
+
+			remaining = sorted(house_entries.values(), key=lambda item: (0, parse_id(item.get("id"))) if parse_id(item.get("id")) is not None else (1, 0))
+			for entry in remaining:
+				entry_id = parse_id(entry.get("id"))
+				if entry_id is None:
+					bodies.append(entry)
+					continue
+				inserted = False
+				for idx, current in enumerate(bodies):
+					current_id = parse_id(current.get("id"))
+					if current_id is None:
+						continue
+					if current_id > entry_id:
+						bodies.insert(idx, entry)
+						inserted = True
+						break
+				if not inserted:
+					bodies.append(entry)
+
+		return bodies
+
 	@property
 	def settings_svg(self) -> Dict[str, Any]:
 		if isinstance(self.settings, dict):
@@ -681,8 +749,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		self.air = 0.0
 		self.water = 0.0
 
-		# get database planet settings
-		self.planets = self.settings.getSettingsPlanet()
+		# get database planet + house settings
+		self.planets = self._build_body_settings()
 
 		# get database aspect settings
 		self.aspects = self.settings.getSettingsAspect()
@@ -1329,9 +1397,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 
 	def makePlanetNames(self):
-		self.planets_name = []
-		for i in range(len(self.settings.settings_planet_dict)):
-			self.planets_name.append(self._settings_planet_entry(i)['name'])
+		self.planets_name = [entry.get('name', '') for entry in self.planets]
 
 	def makeTableRecti(self, dt1_str, dt2_str):
 		dt1 = datetime.datetime.strptime(dt1_str, "%Y-%m-%d %H:%M:%S")

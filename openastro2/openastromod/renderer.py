@@ -137,16 +137,11 @@ class ChartRenderer:
 			else:
 				text_offset = offset + int(self.degreeDiff(self.houses_degree_ut[0], self.houses_degree_ut[0]) / 1)
 
-			if i == 0:
-				linecolor = self.planets[23]['color']
-			elif i == 9:
-				linecolor = self.planets[26]['color']
-			elif i == 6:
-				linecolor = self.planets[29]['color']
-			elif i == 3:
-				linecolor = self.planets[32]['color']
+			default_house_color = self.settings.settings["color_codes"]['houses_radix_line']
+			if self.is_angle_house_number(i):
+				linecolor = self.get_house_color(i, default_house_color)
 			else:
-				linecolor = self.settings.settings["color_codes"]['houses_radix_line']
+				linecolor = default_house_color
 			if self.type == "Transit" or self.type == "Direction":
 				linecolor = self.settings.settings["color_codes"]['houses_transit_line_1']
 
@@ -172,9 +167,14 @@ class ChartRenderer:
 				h_text = str(i + 1)
 				xtext = self.sliceToX(0, (r - dropin), t_text_offset) + dropin
 				ytext = self.sliceToY(0, (r - dropin), t_text_offset) + dropin
-				ih = i + 23
-				if ('t_visible' in self.planets[ih] and self.planets[ih]['t_visible'] == 1) or (
-						't_visible' not in self.planets[ih] and self.planets[ih]['visible'] == 1):
+				house_entry = self.get_house_planet_entry(i) or self._house_entry_by_number(i)
+				show_transit_house = True
+				if house_entry is not None:
+					if 't_visible' in house_entry:
+						show_transit_house = house_entry['t_visible'] == 1
+					else:
+						show_transit_house = house_entry.get('visible', 1) == 1
+				if show_transit_house:
 					path = path + '<line x1="' + str(t_x1) + '" y1="' + str(t_y1) + '" x2="' + str(t_x2) + '" y2="' + str(
 						t_y2) + '" style="stroke: ' + t_linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
 					path = path + '<text style="fill: ' + t_linecolor + '; fill-opacity: .6; font-size: 9px"><tspan x="' + str(
@@ -349,7 +349,7 @@ class ChartRenderer:
 				y1 = self.sliceToY(0, (r - self.c3), trueoffset) + self.c3
 				x2=self.sliceToX( 0 , (r-rplanet-10) , offset ) + rplanet + 10
 				y2=self.sliceToY( 0 , (r-rplanet-10) , offset ) + rplanet + 10
-				if (not (23 <= i and i <= 34)):
+				if not self._is_house_index(i):
 					output += '<line x1="%s" y1="%s" x2="%s" y2="%s" style="stroke-width:1px;stroke:%s;stroke-opacity:.5;"/>\n' % (x1,y1,x2,y2,color)
 					output += '<circle cx="%s" cy="%s" r="%s" style="fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px; stroke-opacity: 0.5;"/>' % (
 						x1, y1, 1.5, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['color_radix'])
@@ -359,7 +359,7 @@ class ChartRenderer:
 				else:
 					scale = 1
 
-			if (not (23 <= i and i <= 34)):
+			if not self._is_house_index(i):
 				#output planet
 				# output = output + '<g transform="translate(-'+str(12*scale)+',-'+str(12*scale)+')"><g transform="scale('+str(scale)+')"><use x="' + str(planet_x*(1/scale)) + '" y="' + str(planet_y*(1/scale)) + '" xlink:href="#' + self.planets[i]['name'] + '" /></g></g>\n'
 				rplanet = self.c2 - (self.c2 - self.c3) / 2
@@ -486,7 +486,7 @@ class ChartRenderer:
 					x1, y1, 1.5, self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]["color_transit_2"])
 
 
-				if (not (23 <= i and i <= 34)):
+				if not self._is_house_index(i):
 					if "t_rplanet" in self.settings.settings["settings_svg"]:
 						t_rplanet = self.settings.settings["settings_svg"]["t_rplanet"]
 					else:
@@ -1028,7 +1028,7 @@ class ChartRenderer:
 		li = 10
 		offset = 10
 		for i in range(len(self.planets)):
-			if not (23 <= i and i <= 34):
+			if not self._is_house_index(i):
 				if self.planets[i]['visible'] == 1:
 					out = out + '<g transform="translate(%s,%s)">' % (offset, li)
 					out = out + '<g transform="translate(5,-8)"><use transform="scale(0.4)" xlink:href="#' + \
@@ -1476,7 +1476,7 @@ class ChartRenderer:
 			# if i == 27:
 			# 	li = 10
 			# 	offset = -120
-			if  not(23 <= i and i <= 34):
+			if not self._is_house_index(i):
 				if self.planets[i]['visible'] == 1:
 					# start of line
 					out = out + '<g transform="translate(%s,%s)">' % (offset, li)

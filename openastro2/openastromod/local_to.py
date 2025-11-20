@@ -809,7 +809,9 @@ class LocalToMixin:
 
 		def localToAscReturn(self, t_year, t_month, t_day, t_hour, t_geolon,
 						 t_geolat, t_altitude):
-			planet_id = 23 #ASC
+			planet_index = self.get_house_planet_index(0)
+			if planet_index is None:
+				raise KeyError("Ascendant house entry is missing")
 			newyear = t_year
 			# solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
 			solaryearsecs = 1 * 24 * 60 * 60 / 4 # 27,3215817 days
@@ -819,12 +821,12 @@ class LocalToMixin:
 			t_h, t_m, t_s = self.decHour(t_hour)
 			# dt_new = datetime.datetime(newyear,self.month,self.day,h,m,s)
 			dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
-			# _dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_id]))
+			# _dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_index]))
 			# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 			mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude, self.planets,
 									  self.zodiac, self.settings.settings["astrocfg"])
-			_dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_id]))
-			sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+			_dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_index]))
+			sundiff = self.planets_degree_ut[planet_index] - mdata.planets_degree_ut[planet_index]
 			# _dprint("localToSolar: sundiff %s" % (sundiff))
 			sundelta = (sundiff / 360.0) * solaryearsecs
 			# _dprint("localToSolar: sundelta %s" % (sundelta))
@@ -833,18 +835,18 @@ class LocalToMixin:
 			mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,
 									  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), t_geolon, t_geolat,
 									  t_altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
-			# _dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_id]))
+			# _dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_index]))
 			# print(dt_new)
 			for i in range(100):
 				# get precise
 				moonyearsecs = 1 * 24 * 60 * 60 /3 # 27,3215817 days
 				step = 360 / moonyearsecs
-				sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+				sundiff = self.planets_degree_ut[planet_index] - mdata.planets_degree_ut[planet_index]
 				sundelta = sundiff / step
 				dt_delta = datetime.timedelta(seconds=int(sundelta))
 				dt_new = dt_new + dt_delta
 				mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,								  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
-				# _dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
+				# _dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_index]))
 				# print(dt_new)
 				# print(sundiff)
 
@@ -867,7 +869,9 @@ class LocalToMixin:
 
 		def localToEarthReturn(self, t_year, t_month, t_day, t_hour, t_geolon,
 						 t_geolat, t_altitude):
-			planet_id = 23 #ASC
+			planet_index = self.get_house_planet_index(0)
+			if planet_index is None:
+				raise KeyError("Ascendant house entry is missing")
 			# solaryearsecs = 31556925.51 # 365 days, 5 hours, 48 minutes, 45.51 seconds
 			solaryearsecs = 1 * 24 * 60 * 60 / 4 #
 			# _dprint("localToSolar: from %s to %s" % (self.year, newyear))
@@ -876,12 +880,12 @@ class LocalToMixin:
 			t_h, t_m, t_s = self.decHour(t_hour)
 			dt_new = datetime.datetime(t_year, t_month, t_day, t_h, t_m, t_s)
 			t_geolon_new = t_geolon
-			# _dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_id]))
+			# _dprint("localToSolar: first sun %s" % (self.planets_degree_ut[planet_index]))
 			# mdata = ephemeris.ephData(newyear,self.month,self.day,self.hour,self.geolon,self.geolat,self.altitude,self.planets,self.zodiac,self.settings.settings["astrocfg"])
 			mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon, t_geolat, t_altitude, self.planets,
 									  self.zodiac, self.settings.settings["astrocfg"])
-			_dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_id]))
-			sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+			_dprint("localToSolar: second sun %s" % (mdata.planets_degree_ut[planet_index]))
+			sundiff = self.planets_degree_ut[planet_index] - mdata.planets_degree_ut[planet_index]
 			# _dprint("localToSolar: sundiff %s" % (sundiff))
 			# sundelta = (sundiff / 360.0) * solaryearsecs
 			# _dprint("localToSolar: sundelta %s" % (sundelta))
@@ -890,13 +894,13 @@ class LocalToMixin:
 			mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon_new, t_geolat, t_altitude, self.planets,
 									  self.zodiac, self.settings.settings["astrocfg"])
 			# print(sundiff)
-			# _dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_id]))
+			# _dprint("localToSolar: new sun %s" % (mdata.planets_degree_ut[planet_index]))
 			# print(dt_new)
 			for i in range(100):
 				# get precise
 				moonyearsecs = 1 * 24 * 60 * 60 /10 # 27,3215817 days
 				step = 360 / moonyearsecs
-				sundiff = self.planets_degree_ut[planet_id] - mdata.planets_degree_ut[planet_id]
+				sundiff = self.planets_degree_ut[planet_index] - mdata.planets_degree_ut[planet_index]
 				sundelta = sundiff / 4
 				# dt_delta = datetime.timedelta(seconds=int(sundelta))
 				# dt_new = dt_new + dt_delta
@@ -904,7 +908,7 @@ class LocalToMixin:
 				# mdata = ephemeris.ephData(dt_new.year, dt_new.month, dt_new.day,  self.decHourJoin(dt_new.hour, dt_new.minute, dt_new.second), self.geolon, self.geolat,								  self.altitude, self.planets, self.zodiac, self.settings.settings["astrocfg"])
 				mdata = ephemeris.ephData(t_year, t_month, t_day, t_hour, t_geolon_new, t_geolat, t_altitude, self.planets,
 									  self.zodiac, self.settings.settings["astrocfg"])
-				# _dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_id]))
+				# _dprint("localToSolar: new sun #2 %s" % (mdata.planets_degree_ut[planet_index]))
 				# print(t_geolon_new)
 				# print (self.planets_degree_ut[planet_id])
 				# print (mdata.planets_degree_ut[planet_id])

@@ -383,7 +383,7 @@
       "timezone": 3,
       "year": 1964
     },
-    "fire": 50.0,
+    "fire": 30.0,
     "geo_loc": null,
     "geolat": 55.78472277151802,
     "geolon": 37.628137530436106,
@@ -99058,7 +99058,7 @@
     "utc_month": 1,
     "utc_s": 0,
     "utc_year": 1938,
-    "water": 105.0,
+    "water": 65.0,
     "year": 1938,
     "year_loc": 1938,
     "zodiac": [

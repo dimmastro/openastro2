@@ -16,16 +16,41 @@ from skyfield.positionlib import Apparent
 
 class LocalSpaceMixin:
 	def _settings_planet_entry(self, index):
-		planet_dict = getattr(self.settings, "settings_planet_dict", None)
 		key = str(index)
-		if isinstance(planet_dict, dict) and key in planet_dict:
-			return planet_dict[key]
-		settings_list = getattr(self.settings, "settings_planet", None)
-		if isinstance(settings_list, list):
-			try:
-				return settings_list[int(index)]
-			except (ValueError, TypeError, IndexError):
-				pass
+		try:
+			idx = int(index)
+			if hasattr(self, "planets") and 0 <= idx < len(self.planets):
+				return self.planets[idx]
+		except (TypeError, ValueError):
+			idx = None
+
+		settings_payload = getattr(self, "settings", None)
+		if settings_payload is not None:
+			if isinstance(settings_payload, dict):
+				planet_dict = settings_payload.get("settings_planet_dict", {})
+				house_dict = settings_payload.get("settings_house_dict", {})
+				planet_list = settings_payload.get("settings_planet")
+				house_list = settings_payload.get("settings_house")
+			else:
+				planet_dict = getattr(settings_payload, "settings_planet_dict", {})
+				house_dict = getattr(settings_payload, "settings_house_dict", {})
+				planet_list = getattr(settings_payload, "settings_planet", None)
+				house_list = getattr(settings_payload, "settings_house", None)
+			if key in planet_dict:
+				return planet_dict[key]
+			if key in house_dict:
+				return house_dict[key]
+			for source in (planet_list, house_list):
+				if isinstance(source, list):
+					for entry in source:
+						entry_id = entry.get("id")
+						if entry_id is not None and str(entry_id) == key:
+							return entry
+					if idx is not None:
+						try:
+							return source[idx]
+						except (IndexError, TypeError, ValueError):
+							continue
 		raise KeyError(f"settings_planet entry '{index}' not found")
 
 	def compute_destination_point(self, latitude, longitude, azimuth, distance):

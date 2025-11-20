@@ -15,6 +15,19 @@ from skyfield.positionlib import Apparent
 
 
 class LocalSpaceMixin:
+	def _settings_planet_entry(self, index):
+		planet_dict = getattr(self.settings, "settings_planet_dict", None)
+		key = str(index)
+		if isinstance(planet_dict, dict) and key in planet_dict:
+			return planet_dict[key]
+		settings_list = getattr(self.settings, "settings_planet", None)
+		if isinstance(settings_list, list):
+			try:
+				return settings_list[int(index)]
+			except (ValueError, TypeError, IndexError):
+				pass
+		raise KeyError(f"settings_planet entry '{index}' not found")
+
 	def compute_destination_point(self, latitude, longitude, azimuth, distance):
 		R = 6371  # Радиус Земли в километрах
 
@@ -513,7 +526,7 @@ class LocalSpaceMixin:
 				# lat = planet_pos[0][0]
 				# lon = planet_pos[0][1]
 				# planet_pos[0][0] = 0
-				# print(self.settings.settings_planet[i]['name'] , lat, lon)
+				# print(self._settings_planet_entry(i)['name'] , lat, lon)
 				# Вычисление азимута планеты
 				azimuth, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
 																	  [lon, lat, 287], 0, 0,
@@ -524,20 +537,20 @@ class LocalSpaceMixin:
 				azimuth = azimuth + 180
 				if(azimuth>360):
 					azimuth = azimuth-360
-				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
-				# print (self.settings.settings_planet[i]['name'])
+				# print(self._settings_planet_entry(i)['name'] , azimuth, true_altitude, apparent_altitude)
+				# print (self._settings_planet_entry(i)['name'])
 				# print("Азимут планеты:", azimuth)
 				# print("Истинная высота:", true_altitude)
 				# print("Видимая высота:", apparent_altitude)
-				label_short = self.settings.settings_planet[i]['label_short']
+				label_short = self._settings_planet_entry(i)['label_short']
 				new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, distance2)
 				# lons, lats = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 				# lons2, lats2 = slerp(A=[starting_longitude, starting_latitude], B=[new_longitude, new_latitude], dir=-1)
 				dfdata= {
 				  "from": {
-					# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) +  ")",
+					# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) +  ")",
 					  "label_short": f"{label_short}",
 					  "coordinates": [
 					  starting_longitude,
@@ -545,8 +558,8 @@ class LocalSpaceMixin:
 					]
 				  },
 				  "to": {
-					# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth)  + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth)  + ")",
+					# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth)  + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth)  + ")",
 					  "label_short": f"{label_short}",
 					  "coordinates": [
 					  new_longitude,
@@ -558,9 +571,9 @@ class LocalSpaceMixin:
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+					# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+					# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 					  "label_short": f"{label_short}",
 					  "coordinates": [
 					  starting_longitude,
@@ -568,9 +581,9 @@ class LocalSpaceMixin:
 					]
 				  },
 				  "to": {
-					# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-					# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-					"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+					# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+					# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+					"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 					  "label_short": f"{label_short}",
 					  "coordinates": [
 					  new_longitude2,
@@ -630,7 +643,7 @@ class LocalSpaceMixin:
 				  "to": {
 					"lonlat": [new_longitude,new_latitude]
 				  },
-					"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+					"name": self.name + "/" + "+" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 					"azimuth": azimuth,
 				}
 
@@ -642,7 +655,7 @@ class LocalSpaceMixin:
 				  "to": {
 					"lonlat": [new_longitude2,new_latitude2]
 				  },
-					"name": self.name + "/" + "-" + self.settings.settings_planet[i]['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+					"name": self.name + "/" + "-" + self._settings_planet_entry(i)['name'] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 					"azimuth": self.deg_180(azimuth),
 				}
 				dfd.append(dfdata)
@@ -694,15 +707,15 @@ class LocalSpaceMixin:
 																	  [lon, lat, 287], 0, 0,
 																	  planet_pos[0])
 				# azimuth = azimuth -180
-				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
-				# print (self.settings.settings_planet[i]['name'])
+				# print(self._settings_planet_entry(i)['name'] , azimuth, true_altitude, apparent_altitude)
+				# print (self._settings_planet_entry(i)['name'])
 				# print("Азимут планеты:", azimuth)
 				# print("Истинная высота:", true_altitude)
 				# print("Видимая высота:", apparent_altitude)
 				# aspects = [60, 90, 120]
 
 				for aspect in aspects:
-					label_short = self.settings.settings_planet[i]['label_short']
+					label_short = self._settings_planet_entry(i)['label_short']
 					azimuth = azimuth0 + aspect
 					if (azimuth > 360):
 						azimuth = azimuth - 360
@@ -710,16 +723,16 @@ class LocalSpaceMixin:
 					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 						  "label_short": f"{label_short}-{aspect}",
 						  "coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/" + "-"  + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						  "label_short": f"{label_short}-{aspect}",
 						  "coordinates": [new_longitude, new_latitude]
 					  }
@@ -728,15 +741,15 @@ class LocalSpaceMixin:
 					dfd.append(dfdata)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [new_longitude2, new_latitude2]
 					  }
 					}
@@ -793,7 +806,7 @@ class LocalSpaceMixin:
 					azimuth0 = azimuth0 - 360
 
 				for aspect in aspects:
-					label_short = self.settings.settings_planet[i]['label_short']
+					label_short = self._settings_planet_entry(i)['label_short']
 					if aspect_type == 'ecliptic_parallel':
 						deg_ut = planet_pos[0][0] - aspect # rotation is different for ecliptic and azimuth
 						if (deg_ut < 0):
@@ -847,18 +860,18 @@ class LocalSpaceMixin:
 																				   -distance2)
 					dfdata = {
 						"from": {
-							"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + "-" + str(
+							"name": self.name + "/" + "+" + self._settings_planet_entry(i)['name'] + "-" + str(
 								aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 							"label_short": f"{label_short}-{aspect}",
 							"coordinates": [starting_longitude, starting_latitude]
 						},
 						"to": {
-							"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + "-" + str(
+							"name": self.name + "/" + "+" + self._settings_planet_entry(i)['name'] + "-" + str(
 								aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 							"label_short": f"{label_short}-{aspect}",
 							"coordinates": [new_longitude, new_latitude]
 						},
-						"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + "-" + str(
+						"name": self.name + "/" + "+" + self._settings_planet_entry(i)['name'] + "-" + str(
 							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						"label_short": f"{label_short}-{aspect}",
 						"azimuth": azimuth,
@@ -889,8 +902,8 @@ class LocalSpaceMixin:
 																	  [lon, lat, 287], 0, 0,
 																	  planet_pos[0])
 				# azimuth = azimuth -180
-				# print(self.settings.settings_planet[i]['name'] , azimuth, true_altitude, apparent_altitude)
-				# print (self.settings.settings_planet[i]['name'])
+				# print(self._settings_planet_entry(i)['name'] , azimuth, true_altitude, apparent_altitude)
+				# print (self._settings_planet_entry(i)['name'])
 				# print("Азимут планеты:", azimuth)
 				# print("Истинная высота:", true_altitude)
 				# print("Видимая высота:", apparent_altitude)
@@ -909,7 +922,7 @@ class LocalSpaceMixin:
 					  "to": {
 						"lonlat": [new_longitude, new_latitude]
 					  },
-						"name": self.name + "/" + "+" + self.settings.settings_planet[i]['name'] + "-" + str(
+						"name": self.name + "/" + "+" + self._settings_planet_entry(i)['name'] + "-" + str(
 							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 					}
 
@@ -921,7 +934,7 @@ class LocalSpaceMixin:
 					  "to": {
 						"lonlat": [new_longitude2, new_latitude2]
 					  },
-						"name": self.name + "/" + "-" + self.settings.settings_planet[i]['name'] + "-" + str(
+						"name": self.name + "/" + "-" + self._settings_planet_entry(i)['name'] + "-" + str(
 							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(
 							self.deg_180(azimuth)) + ")",
 					}
@@ -989,15 +1002,15 @@ class LocalSpaceMixin:
 					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 						"coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/" + "-"  + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						"coordinates": [new_longitude, new_latitude]
 					  }
 					}
@@ -1005,15 +1018,15 @@ class LocalSpaceMixin:
 					dfd.append(dfdata)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [new_longitude2, new_latitude2]
 					  }
 					}
@@ -1083,15 +1096,15 @@ class LocalSpaceMixin:
 					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 						"coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/" + "-"  + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						"coordinates": [new_longitude, new_latitude]
 					  }
 					}
@@ -1099,15 +1112,15 @@ class LocalSpaceMixin:
 					dfd.append(dfdata)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [new_longitude2, new_latitude2]
 					  }
 					}
@@ -1156,15 +1169,15 @@ class LocalSpaceMixin:
 					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 						"coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/" + "-"  + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						"coordinates": [new_longitude, new_latitude]
 					  }
 					}
@@ -1172,15 +1185,15 @@ class LocalSpaceMixin:
 					dfd.append(dfdata)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [new_longitude2, new_latitude2]
 					  }
 					}
@@ -1231,15 +1244,15 @@ class LocalSpaceMixin:
 					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude, starting_longitude, azimuth, -distance2)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 						"coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "+" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/" + "-"  + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "+" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						"coordinates": [new_longitude, new_latitude]
 					  }
 					}
@@ -1247,15 +1260,15 @@ class LocalSpaceMixin:
 					dfd.append(dfdata)
 					dfdata= {
 					  "from": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [starting_longitude, starting_latitude]
 					  },
 					  "to": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/"  + "-" + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/"  + "-" + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + ")",
 						"coordinates": [new_longitude2, new_latitude2]
 					  }
 					}
@@ -1323,7 +1336,7 @@ class LocalSpaceMixin:
 				lat_angle0 = self.t_planet_latitude[i]
 				lon_angle0 = self.t_planets_degree_ut[i]
 
-			label_short = self.settings.settings_planet[i]['label_short']
+			label_short = self._settings_planet_entry(i)['label_short']
 			azimuth0 = False
 			for aspect in aspects:
 				if (aspect <= 180):
@@ -1345,17 +1358,17 @@ class LocalSpaceMixin:
 
 				dfdata = {
 					"from": {
-						# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+						# "name": self.name + "/"  + " " + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/" + " " + self._settings_planet_entry(i)['name'] + "-" + str(
 							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 						"label_short": f"{label_short}-{aspect}",
 						"coordinates": [starting_longitude, starting_latitude]
 					},
 					"to": {
-						# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+						# "name": self.name + "/" + "-"  + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + " " + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/" + " " + self._settings_planet_entry(i)['name'] + "-" + str(
 							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						"label_short": f"{label_short}-{aspect}",
 						"coordinates": [new_longitude, new_latitude]
@@ -1366,18 +1379,18 @@ class LocalSpaceMixin:
 				dfd.append(dfdata)
 				dfdata = {
 					"from": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + " " + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/" + " " + self._settings_planet_entry(i)['name'] + "-" + str(
 							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(
 							self.deg_180(azimuth)) + ")",
 						"label_short": f"{label_short}-{aspect}",
 						"coordinates": [starting_longitude - 180, -starting_latitude]
 					},
 					"to": {
-						# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-						# "name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
-						"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+						# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+						# "name": self.name + "/"  + " " + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+						"name": self.name + "/" + " " + self._settings_planet_entry(i)['name'] + "-" + str(
 							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(
 							self.deg_180(azimuth)) + ")",
 						"label_short": f"{label_short}-{aspect}",
@@ -1436,7 +1449,7 @@ class LocalSpaceMixin:
 				  "to": {
 					"lonlat": [new_longitude, new_latitude]
 				  },
-					"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+					"name": self.name + "/" + " " + self._settings_planet_entry(i)['name'] + "-" + str(
 						aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 				}
 
@@ -1448,7 +1461,7 @@ class LocalSpaceMixin:
 				  "to": {
 					"lonlat": [new_longitude, new_latitude]
 				  },
-					"name": self.name + "/" + " " + self.settings.settings_planet[i]['name'] + "-" + str(
+					"name": self.name + "/" + " " + self._settings_planet_entry(i)['name'] + "-" + str(
 						aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(
 						self.deg_180(azimuth)) + ")",
 				}
@@ -1544,13 +1557,13 @@ class LocalSpaceMixin:
 				new_longitude = h_lon[0]
 				# dfdata= {
 				#   "from": {
-				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+				# 	"name": self.name + "/"  + " " + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 				# 	# "name": self.name + "/"  + "-" + planet_names[i] + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(alt.degrees) +  " distance=" + str(distance) + ")",
 				# 	"coordinates": [starting_longitude, starting_latitude]
 				#   },
 				#   "to": {
-				# 	# "name": self.name + "/" + "-"  + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+				# 	# "name": self.name + "/" + "-"  + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+				# 	"name": self.name + "/"  + " " + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) +  " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 				# 	"coordinates": [new_longitude, new_latitude]
 				#   }
 				# }
@@ -1558,13 +1571,13 @@ class LocalSpaceMixin:
 				# dfd.append(dfdata)
 				# dfdata= {
 				#   "from": {
-				# 	# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+				# 	# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+				# 	"name": self.name + "/"  + " " + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 				# 	"coordinates": [starting_longitude-180, -starting_latitude]
 				#   },
 				#   "to": {
-				# 	# "name": self.name + "/ " + "+" + self.settings.settings_planet[i]['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
-				# 	"name": self.name + "/"  + " " + self.settings.settings_planet[i]['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
+				# 	# "name": self.name + "/ " + "+" + self._settings_planet_entry(i)['name'] + " (" + '{0:.1f}'.format(azimuth) + ")",
+				# 	"name": self.name + "/"  + " " + self._settings_planet_entry(i)['name'] + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + " az180=" + '{0:.1f}'.format(self.deg_180(azimuth)) + " alt=" + '{0:.1f}'.format(true_altitude) + ")",
 				# 	"coordinates": [new_longitude, new_latitude]
 				#   }
 				# }
@@ -1813,7 +1826,7 @@ class LocalSpaceMixin:
 
 		step = 0.5
 		for i in range(num_planet):
-			print (self.settings.settings_planet[i]['name'])
+			print (self._settings_planet_entry(i)['name'])
 			coord_arr = []
 			coord_arr_7 = []
 			planet_id = i
@@ -1851,11 +1864,11 @@ class LocalSpaceMixin:
 			for i in range(len(coord_arr)-1):
 				dfdata= {
 				  "from": {
-					"name": " K1 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
+					"name": " K1 " + self._settings_planet_entry(planet_id)['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
 					"coordinates": [coord_arr[i][0], coord_arr[i][1]]
 				  },
 				  "to": {
-					"name": " K1 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
+					"name": " K1 " + self._settings_planet_entry(planet_id)['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
 					"coordinates": [coord_arr[i+1][0], coord_arr[i+1][1]]
 				  }
 				}
@@ -1867,11 +1880,11 @@ class LocalSpaceMixin:
 			for i in range(len(coord_arr)-1):
 				dfdata= {
 				  "from": {
-					"name": " K7 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
+					"name": " K7 " + self._settings_planet_entry(planet_id)['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
 					"coordinates": [coord_arr[i][0], coord_arr[i][1]]
 				  },
 				  "to": {
-					"name": " K7 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
+					"name": " K7 " + self._settings_planet_entry(planet_id)['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
 					"coordinates": [coord_arr[i+1][0], coord_arr[i+1][1]]
 				  }
 				}
@@ -1905,7 +1918,7 @@ class LocalSpaceMixin:
 
 		step = 0.5
 		for i in range(num_planet):
-			print (self.settings.settings_planet[i]['name'])
+			print (self._settings_planet_entry(i)['name'])
 			coord_arr = []
 			coord_arr_7 = []
 			planet_id = i
@@ -1943,11 +1956,11 @@ class LocalSpaceMixin:
 			for i in range(len(coord_arr)-1):
 				dfdata= {
 				  "from": {
-					"name": " K1 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
+					"name": " K1 " + self._settings_planet_entry(planet_id)['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
 					"coordinates": [coord_arr[i][0], coord_arr[i][1]]
 				  },
 				  "to": {
-					"name": " K1 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
+					"name": " K1 " + self._settings_planet_entry(planet_id)['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
 					"coordinates": [coord_arr[i+1][0], coord_arr[i+1][1]]
 				  }
 				}
@@ -1959,11 +1972,11 @@ class LocalSpaceMixin:
 			for i in range(len(coord_arr)-1):
 				dfdata= {
 				  "from": {
-					"name": " K7 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
+					"name": " K7 " + self._settings_planet_entry(planet_id)['name'] + " " + str(coord_arr[i][0]) + " " + str(coord_arr[i][1]) + " " ,
 					"coordinates": [coord_arr[i][0], coord_arr[i][1]]
 				  },
 				  "to": {
-					"name": " K7 " + self.settings.settings_planet[planet_id]['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
+					"name": " K7 " + self._settings_planet_entry(planet_id)['name'] + " " + str(coord_arr[i+1][0]) + " " + str(coord_arr[i+1][1]) + " ",
 					"coordinates": [coord_arr[i+1][0], coord_arr[i+1][1]]
 				  }
 				}

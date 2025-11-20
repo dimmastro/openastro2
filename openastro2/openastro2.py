@@ -207,6 +207,7 @@ class openAstroSettings:
 		self.setLanguage(self.settings["astrocfg"]['language'])
 		self.lang_label = LANGUAGES_LABEL
 
+		self.settings_planet = self.settings["settings_planet"]
 		self.settings_planet_dict = self.settings["settings_planet_dict"]
 		self.settings_house = self.settings.get("settings_house", [])
 		self.settings_house_dict = self.settings.get("settings_house_dict", {})
@@ -662,9 +663,11 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		return house_list
 
 	def _build_body_settings(self) -> List[Dict[str, Any]]:
-		def clone_entry(entry: Dict[str, Any], is_house: bool) -> Dict[str, Any]:
+		def clone_entry(entry: Dict[str, Any], is_house: bool, house_number: Optional[int] = None) -> Dict[str, Any]:
 			entry_copy = dict(entry)
 			entry_copy["_is_house"] = is_house
+			if is_house and house_number is not None:
+				entry_copy["_house_number"] = house_number
 			return entry_copy
 
 		planet_list = list(self.settings.getSettingsPlanet())
@@ -681,15 +684,18 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		bodies: List[Dict[str, Any]] = []
 		for entry in planet_list:
 			entry_id = entry.get("id")
-			entry_copy = clone_entry(entry, False)
 			if entry_id is None:
-				bodies.append(entry_copy)
+				bodies.append(clone_entry(entry, False))
 				continue
 			key = str(entry_id)
 			if key in house_entries:
-				bodies.append(house_entries.pop(key))
-			else:
+				house_info = house_entries.pop(key)
+				house_number = house_info.get("_house_number")
+				entry_copy = clone_entry(entry, True, house_number)
+				entry_copy["_house_entry"] = house_info
 				bodies.append(entry_copy)
+			else:
+				bodies.append(clone_entry(entry, False))
 
 		if house_entries or orphan_houses:
 			def parse_id(value: Any) -> Optional[int]:
@@ -705,7 +711,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			)
 			for entry in remaining:
 				entry_id = parse_id(entry.get("id"))
-				entry_copy = clone_entry(entry, True)
+				entry_copy = clone_entry(entry, True, entry.get("_house_number"))
 				if entry_id is None:
 					bodies.append(entry_copy)
 					continue
@@ -887,6 +893,45 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			for attr in sensitive_attrs:
 				if attr in self.settings:
 					self.settings[attr] = "<tmp>"
+		ephemeral_attrs = (
+			"body_index_by_id",
+			"house_entries",
+			"house_id_set",
+			"house_index_by_id",
+			"house_planet_index_by_number",
+			"angle_house_numbers",
+			"planet_lat_speed",
+			"planet_lon_speed",
+		)
+		for attr in ephemeral_attrs:
+			if hasattr(self, attr):
+				delattr(self, attr)
+		if hasattr(self, "planets"):
+			for entry in self.planets:
+				if isinstance(entry, dict):
+					entry.pop("_house_entry", None)
+					entry.pop("_house_number", None)
+					entry.pop("_is_house", None)
+		if hasattr(self, "_first_house_planet_index"):
+			house_start = self._first_house_planet_index()
+		else:
+			house_start = len(getattr(self, "planets", []))
+		if house_start < len(getattr(self, "planets", [])):
+			numeric_attrs = (
+				"planets_degree_ut",
+				"planets_degree",
+				"planets_sign",
+				"planet_longitude",
+				"planet_latitude",
+				"planet_lon_speed",
+				"planet_lat_speed",
+			)
+			for attr in numeric_attrs:
+				seq = getattr(self, attr, None)
+				if not isinstance(seq, list):
+					continue
+				for idx in range(house_start, len(seq)):
+					seq[idx] = idx
 
 
 	def utcToLocal(self):

@@ -241,15 +241,16 @@ class ChartRenderer:
 			#calculate element points for all planets
 			# dprint (i)
 			# dprint(self.planets_sign[i])
-			ele = self.zodiac_element[self.planets_sign[i]]
-			if ele == "fire":
-				self.fire = self.fire + self.planets[i]['element_points'] + extrapoints
-			elif ele == "earth":
-				self.earth = self.earth + self.planets[i]['element_points'] + extrapoints
-			elif ele == "air":
-				self.air = self.air + self.planets[i]['element_points'] + extrapoints
-			elif ele == "water":
-				self.water = self.water + self.planets[i]['element_points'] + extrapoints
+			if not self._is_house_index(i):
+				ele = self.zodiac_element[self.planets_sign[i]]
+				if ele == "fire":
+					self.fire = self.fire + self.planets[i]['element_points'] + extrapoints
+				elif ele == "earth":
+					self.earth = self.earth + self.planets[i]['element_points'] + extrapoints
+				elif ele == "air":
+					self.air = self.air + self.planets[i]['element_points'] + extrapoints
+				elif ele == "water":
+					self.water = self.water + self.planets[i]['element_points'] + extrapoints
 
 		output = ""
 

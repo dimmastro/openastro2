@@ -70,6 +70,8 @@ class ephData:
 		self.planet_azimuth = list(range(len(planets)))
 		self.planet_true_altitude = list(range(len(planets)))
 		self.planet_apparent_altitude = list(range(len(planets)))
+		self._set_planet_metadata(planets)
+		self._set_planet_metadata(planets)
 		self.planet_apparent_altitude = list(range(len(planets)))
 		self.planet_lat_speed = list(range(len(planets)))
 		self.planet_lon_speed = list(range(len(planets)))
@@ -488,10 +490,10 @@ class ephData:
 		swe.close()
 
 	def _set_planet_metadata(self, planets: List[Any]) -> None:
-		self.planets_meta = planets or []
+		self._planets_meta = planets or []
 		mappings: List[Tuple[int, Optional[int]]] = []
-		if isinstance(self.planets_meta, list):
-			for idx, entry in enumerate(self.planets_meta):
+		if isinstance(self._planets_meta, list):
+			for idx, entry in enumerate(self._planets_meta):
 				if isinstance(entry, dict) and entry.get("_is_house"):
 					house_number = entry.get("_house_number")
 					if house_number is None:
@@ -501,10 +503,10 @@ class ephData:
 							house_number = None
 					mappings.append((idx, house_number))
 		self._house_body_mappings = mappings
-		self._first_house_start_index = min((idx for idx, _ in mappings), default=len(self.planets_meta))
+		self._first_house_start_index = min((idx for idx, _ in mappings), default=len(self._planets_meta))
 
 	def _extended_body_start_index(self) -> int:
-		return getattr(self, "_first_house_start_index", len(getattr(self, "planets_meta", [])))
+		return getattr(self, "_first_house_start_index", len(getattr(self, "_planets_meta", [])))
 
 	def _assign_house_positions(self) -> None:
 		if not hasattr(self, "planets_degree_ut") or not hasattr(self, "_house_body_mappings"):

@@ -17,13 +17,6 @@ from skyfield.positionlib import Apparent
 class LocalSpaceMixin:
 	def _settings_planet_entry(self, index):
 		key = str(index)
-		try:
-			idx = int(index)
-			if hasattr(self, "planets") and 0 <= idx < len(self.planets):
-				return self.planets[idx]
-		except (TypeError, ValueError):
-			idx = None
-
 		settings_payload = getattr(self, "settings", None)
 		if settings_payload is not None:
 			if isinstance(settings_payload, dict):
@@ -46,11 +39,19 @@ class LocalSpaceMixin:
 						entry_id = entry.get("id")
 						if entry_id is not None and str(entry_id) == key:
 							return entry
-					if idx is not None:
-						try:
-							return source[idx]
-						except (IndexError, TypeError, ValueError):
-							continue
+		try:
+			idx = int(index)
+		except (TypeError, ValueError):
+			idx = None
+		if idx is not None and hasattr(self, "planets") and 0 <= idx < len(self.planets):
+			return self.planets[idx]
+		if settings_payload is not None:
+			for source in (planet_list, house_list):
+				if isinstance(source, list) and idx is not None:
+					try:
+						return source[idx]
+					except (IndexError, TypeError, ValueError):
+						continue
 		raise KeyError(f"settings_planet entry '{index}' not found")
 
 	def compute_destination_point(self, latitude, longitude, azimuth, distance):
@@ -535,18 +536,18 @@ class LocalSpaceMixin:
 				planet_code = i
 				try:
 					planet_pos = swe.calc_ut(jul_day_UT, planet_code)
-				except:
-					if planet_code >= 23 and planet_code <= 34:
-						houses_system = b'P'
-						if self.settings.settings["astrocfg"].get('houses_system', None):
-							houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
-							print(houses_system)
-						sh = swe.houses(jul_day_UT, lat, lon, houses_system)
-						planet_pos = []
-						h_i = planet_code-23
-						planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
-					else:
+				except Exception:
+					get_house_number = getattr(self, "get_house_number_by_id", lambda _: None)
+					h_i = get_house_number(planet_code)
+					if h_i is None:
 						continue
+					houses_system = b'P'
+					if self.settings.settings["astrocfg"].get('houses_system', None):
+						houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
+						print(houses_system)
+					sh = swe.houses(jul_day_UT, lat, lon, houses_system)
+					planet_pos = []
+					planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
 				# print (planet_pos)
 				# lat = planet_pos[0][0]
 				# lon = planet_pos[0][1]
@@ -716,18 +717,18 @@ class LocalSpaceMixin:
 				# planet_pos = swe.calc_ut(jul_day_UT, planet_code)
 				try:
 					planet_pos = swe.calc_ut(jul_day_UT, planet_code)
-				except:
-					if planet_code >= 23 and planet_code <= 34:
-						houses_system = b'P'
-						if self.settings.settings["astrocfg"].get('houses_system', None):
-							houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
-							print(houses_system)
-						sh = swe.houses(jul_day_UT, lat, lon, houses_system)
-						planet_pos = []
-						h_i = planet_code - 23
-						planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
-					else:
+				except Exception:
+					get_house_number = getattr(self, "get_house_number_by_id", lambda _: None)
+					h_i = get_house_number(planet_code)
+					if h_i is None:
 						continue
+					houses_system = b'P'
+					if self.settings.settings["astrocfg"].get('houses_system', None):
+						houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
+						print(houses_system)
+					sh = swe.houses(jul_day_UT, lat, lon, houses_system)
+					planet_pos = []
+					planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
 				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
 																	  [lon, lat, 287], 0, 0,
 																	  planet_pos[0])
@@ -810,18 +811,18 @@ class LocalSpaceMixin:
 				planet_code = i
 				try:
 					planet_pos = swe.calc_ut(jul_day_UT, planet_code)
-				except:
-					if planet_code >= 23 and planet_code <= 34:
-						houses_system = b'P'
-						if self.settings.settings["astrocfg"].get('houses_system', None):
-							houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
-							# print(houses_system)
-						sh = swe.houses(jul_day_UT, lat, lon, houses_system)
-						planet_pos = []
-						h_i = planet_code - 23
-						planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
-					else:
+				except Exception:
+					get_house_number = getattr(self, "get_house_number_by_id", lambda _: None)
+					h_i = get_house_number(planet_code)
+					if h_i is None:
 						continue
+					houses_system = b'P'
+					if self.settings.settings["astrocfg"].get('houses_system', None):
+						houses_system = self.settings.settings["astrocfg"]['houses_system'].encode("ascii")
+						# print(houses_system)
+					sh = swe.houses(jul_day_UT, lat, lon, houses_system)
+					planet_pos = []
+					planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
 
 				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
 																	   [lon, lat, 287], 0, 0,

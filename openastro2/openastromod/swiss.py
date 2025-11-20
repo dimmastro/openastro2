@@ -76,6 +76,7 @@ class ephData:
 		self.planet_distance = list(range(len(planets)))
 
 		self.openastrocfg = openastrocfg
+		self._set_planet_metadata(planets)
 
 
 		#iflag
@@ -304,7 +305,9 @@ class ephData:
 					if self.houses_degree_ut[i] <= deg_high:
 						self.houses_sign[i]=x
 						self.houses_degree[i] = self.houses_degree_ut[i] - deg_low
-						
+
+		self._assign_house_positions()
+		
 		
 		#mean apogee
 		bm=self.planets_degree_ut[12]
@@ -424,21 +427,6 @@ class ephData:
 		#c+= x * -0.005 * math.sin(math.radians(3*moon-pl-2*sun))
 		
 
-		#compute additional points and angles
-		#list index 23 is asc, 24 is Mc, 25 is Dsc, 26 is Ic
-		self.planets_degree_ut[23] = self.houses_degree_ut[0]
-		self.planets_degree_ut[24] = self.houses_degree_ut[1]
-		self.planets_degree_ut[25] = self.houses_degree_ut[2]
-		self.planets_degree_ut[26] = self.houses_degree_ut[3]
-		self.planets_degree_ut[27] = self.houses_degree_ut[4]
-		self.planets_degree_ut[28] = self.houses_degree_ut[5]
-		self.planets_degree_ut[29] = self.houses_degree_ut[6]
-		self.planets_degree_ut[30] = self.houses_degree_ut[7]
-		self.planets_degree_ut[31] = self.houses_degree_ut[8]
-		self.planets_degree_ut[32] = self.houses_degree_ut[9]
-		self.planets_degree_ut[33] = self.houses_degree_ut[10]
-		self.planets_degree_ut[34] = self.houses_degree_ut[11]
-
 		#list index 27 is day pars
 		self.planets_degree_ut[35] = asc + (moon - sun)
 		#list index 28 is night pars
@@ -460,7 +448,7 @@ class ephData:
 		#self.planets_degree_ut[34] = swe.nod_aps_ut(self.jul_day_UT,1,swe.NODBIT_OSCU,swe.FLG_SWIEPH)[3][0]
 
 		#adjust list index 32 and 33
-		for i in range(23,len_planets_total):
+		for i in range(self._extended_body_start_index(), len_planets_total):
 			while ( self.planets_degree_ut[i] < 0 ): self.planets_degree_ut[i]+=360.0
 			while ( self.planets_degree_ut[i] > 360.0): self.planets_degree_ut[i]-=360.0
 	
@@ -498,6 +486,43 @@ class ephData:
 		
 		#close swiss ephemeris
 		swe.close()
+
+	def _set_planet_metadata(self, planets: List[Any]) -> None:
+		self.planets_meta = planets or []
+		mappings: List[Tuple[int, Optional[int]]] = []
+		if isinstance(self.planets_meta, list):
+			for idx, entry in enumerate(self.planets_meta):
+				if isinstance(entry, dict) and entry.get("_is_house"):
+					house_number = entry.get("_house_number")
+					if house_number is None:
+						try:
+							house_number = int(entry.get("id"))
+						except (TypeError, ValueError):
+							house_number = None
+					mappings.append((idx, house_number))
+		self._house_body_mappings = mappings
+		self._first_house_start_index = min((idx for idx, _ in mappings), default=len(self.planets_meta))
+
+	def _extended_body_start_index(self) -> int:
+		return getattr(self, "_first_house_start_index", len(getattr(self, "planets_meta", [])))
+
+	def _assign_house_positions(self) -> None:
+		if not hasattr(self, "planets_degree_ut") or not hasattr(self, "_house_body_mappings"):
+			return
+		if not hasattr(self, "houses_degree_ut"):
+			return
+		for idx, house_number in self._house_body_mappings:
+			if house_number is None or house_number >= len(self.houses_degree_ut):
+				continue
+			if idx >= len(self.planets_degree_ut):
+				continue
+			self.planets_degree_ut[idx] = self.houses_degree_ut[house_number]
+			if hasattr(self, "houses_degree") and idx < len(self.planets_degree):
+				self.planets_degree[idx] = self.houses_degree[house_number]
+			if hasattr(self, "houses_sign") and idx < len(self.planets_sign):
+				self.planets_sign[idx] = self.houses_sign[house_number]
+			if hasattr(self, "planets_retrograde") and idx < len(self.planets_retrograde):
+				self.planets_retrograde[idx] = False
 
 	def modules_append_data_in_lists(self, *args, **kwargs):
 		"""
@@ -573,7 +598,7 @@ class ephData:
 		return results
 
 	def ephData_fixar(self, year, month, day, hour, t_year, t_month, t_day, t_hour, geolon, geolat, altitude, planets, zodiac, openastrocfg,
-				 houses_override=None):
+			 houses_override=None):
 		# ephemeris path (default "/usr/share/swisseph:/usr/local/share/swisseph")
 		swe.set_ephe_path(ephe_path)
 		# print (ephe_path)
@@ -764,6 +789,9 @@ class ephData:
 						self.houses_sign[i] = x
 						self.houses_degree[i] = self.houses_degree_ut[i] - deg_low
 
+		if hasattr(self, "_apply_house_positions_to_planets"):
+			self._apply_house_positions_to_planets()
+
 		# mean apogee
 		bm = self.planets_degree_ut[12]
 		# mean north node
@@ -888,21 +916,6 @@ class ephData:
 		# c+= x * 0.005 * math.sin(math.radians(3*moon-pl-2*bm))
 		# c+= x * -0.005 * math.sin(math.radians(3*moon-pl-2*sun))
 
-		# compute additional points and angles
-		# list index 23 is asc, 24 is Mc, 25 is Dsc, 26 is Ic
-		self.planets_degree_ut[23] = self.houses_degree_ut[0]
-		self.planets_degree_ut[24] = self.houses_degree_ut[1]
-		self.planets_degree_ut[25] = self.houses_degree_ut[2]
-		self.planets_degree_ut[26] = self.houses_degree_ut[3]
-		self.planets_degree_ut[27] = self.houses_degree_ut[4]
-		self.planets_degree_ut[28] = self.houses_degree_ut[5]
-		self.planets_degree_ut[29] = self.houses_degree_ut[6]
-		self.planets_degree_ut[30] = self.houses_degree_ut[7]
-		self.planets_degree_ut[31] = self.houses_degree_ut[8]
-		self.planets_degree_ut[32] = self.houses_degree_ut[9]
-		self.planets_degree_ut[33] = self.houses_degree_ut[10]
-		self.planets_degree_ut[34] = self.houses_degree_ut[11]
-
 		# list index 27 is day pars
 		self.planets_degree_ut[35] = asc + (moon - sun)
 		# list index 28 is night pars
@@ -924,7 +937,11 @@ class ephData:
 		# self.planets_degree_ut[34] = swe.nod_aps_ut(self.jul_day_UT,1,swe.NODBIT_OSCU,swe.FLG_SWIEPH)[3][0]
 
 		# adjust list index 32 and 33
-		for i in range(23, 43):
+		if hasattr(self, "_first_house_planet_index"):
+			start_index = self._first_house_planet_index()
+		else:
+			start_index = len(self.planets_degree_ut)
+		for i in range(start_index, len(self.planets_degree_ut)):
 			while (self.planets_degree_ut[i] < 0): self.planets_degree_ut[i] += 360.0
 			while (self.planets_degree_ut[i] > 360.0): self.planets_degree_ut[i] -= 360.0
 
@@ -967,7 +984,7 @@ class ephData:
 		swe.close()
 		return self
 	def ephData_fixar_earth(self, year, month, day, hour, t_year, t_month, t_day, t_hour, geolon, geolat, altitude, planets, zodiac, openastrocfg,
-				 houses_override=None):
+			 houses_override=None):
 		# ephemeris path (default "/usr/share/swisseph:/usr/local/share/swisseph")
 		swe.set_ephe_path(ephe_path)
 		# print (ephe_path)
@@ -1282,20 +1299,6 @@ class ephData:
 		# c+= x * -0.005 * math.sin(math.radians(3*moon-pl-2*sun))
 
 		# compute additional points and angles
-		# list index 23 is asc, 24 is Mc, 25 is Dsc, 26 is Ic
-		self.planets_degree_ut[23] = self.houses_degree_ut[0]
-		self.planets_degree_ut[24] = self.houses_degree_ut[1]
-		self.planets_degree_ut[25] = self.houses_degree_ut[2]
-		self.planets_degree_ut[26] = self.houses_degree_ut[3]
-		self.planets_degree_ut[27] = self.houses_degree_ut[4]
-		self.planets_degree_ut[28] = self.houses_degree_ut[5]
-		self.planets_degree_ut[29] = self.houses_degree_ut[6]
-		self.planets_degree_ut[30] = self.houses_degree_ut[7]
-		self.planets_degree_ut[31] = self.houses_degree_ut[8]
-		self.planets_degree_ut[32] = self.houses_degree_ut[9]
-		self.planets_degree_ut[33] = self.houses_degree_ut[10]
-		self.planets_degree_ut[34] = self.houses_degree_ut[11]
-
 		# list index 27 is day pars
 		self.planets_degree_ut[35] = asc + (moon - sun)
 		# list index 28 is night pars
@@ -1317,7 +1320,11 @@ class ephData:
 		# self.planets_degree_ut[34] = swe.nod_aps_ut(self.jul_day_UT,1,swe.NODBIT_OSCU,swe.FLG_SWIEPH)[3][0]
 
 		# adjust list index 32 and 33
-		for i in range(23, 43):
+		if hasattr(self, "_first_house_planet_index"):
+			start_index = self._first_house_planet_index()
+		else:
+			start_index = len(self.planets_degree_ut)
+		for i in range(start_index, len(self.planets_degree_ut)):
 			while (self.planets_degree_ut[i] < 0): self.planets_degree_ut[i] += 360.0
 			while (self.planets_degree_ut[i] > 360.0): self.planets_degree_ut[i] -= 360.0
 
@@ -1374,4 +1381,3 @@ def years_diff(y1: int, m1: int, d1: int, h1: float, y2: int, m2: int, d2: int, 
 	y, mth, d, hour = swe.revjul(jd, swe.GREG_CAL)
 	h, m, s = decHour(hour)  # Use imported decHour function
 	return datetime.datetime(y,mth,d,h,m,s)
-

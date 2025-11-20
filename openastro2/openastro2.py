@@ -18,7 +18,7 @@
 """
 
 #basics
-from typing import Dict, List, Any, Tuple, Optional, Union
+from typing import Dict, List, Any, Tuple, Optional, Union, Set
 import math, sys, os, os.path, tempfile, gettext, codecs, datetime
 
 # from icalendar import Calendar, Event
@@ -207,7 +207,6 @@ class openAstroSettings:
 		self.setLanguage(self.settings["astrocfg"]['language'])
 		self.lang_label = LANGUAGES_LABEL
 
-		self.settings_planet = self.settings["settings_planet"]
 		self.settings_planet_dict = self.settings["settings_planet_dict"]
 		self.settings_house = self.settings.get("settings_house", [])
 		self.settings_house_dict = self.settings.get("settings_house_dict", {})
@@ -257,6 +256,7 @@ class openAstroSettings:
 
 	def getSettingsHouseDict(self) -> Dict[str, Dict[str, Any]]:
 		return self.settings.get("settings_house_dict", {})
+
 
 	def getSettingsAspect(self) -> Dict[str, Any]:
 		dict = self.settings["settings_aspect"]
@@ -413,6 +413,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 	MODULE_EXTENDED_ATTRS = MODULE_BASE_ATTRS + (
 		"planet_longitude",
 		"planet_latitude",
+		"planet_lon_speed",
+		"planet_lat_speed",
 		"planet_hour_angle",
 		"planet_azimuth",
 		"planet_true_altitude",
@@ -429,6 +431,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		"planet_azimuth",
 		"planet_latitude",
 		"planet_longitude",
+		"planet_lon_speed",
+		"planet_lat_speed",
 	)
 
 	@staticmethod
@@ -523,6 +527,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 	def __init__(self, event1: Dict[str, Any], event2: List[Any] = [], type: str = "Radix", settings: Dict[str, Any] = {}, oa_args: Dict[str, Any] = {}, *args: Any, **kwargs: Any) -> None:
 		self.settings = openAstroSettings(settings=settings)
+		self._init_house_metadata()
 		self._renderer = ChartRenderer(self, dprint)
 
 		self.event1 = event1
@@ -641,47 +646,68 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 	def _copy_module_attrs(self, module_data, attrs, prefix: str = "") -> None:
 		for attr in attrs:
-			setattr(self, f"{prefix}{attr}", getattr(module_data, attr))
+			if hasattr(module_data, attr):
+				setattr(self, f"{prefix}{attr}", getattr(module_data, attr))
 
 	@property
 	def renderer(self) -> ChartRenderer:
 		return self._renderer
 
+	def _get_house_settings_with_numbers(self) -> List[Dict[str, Any]]:
+		house_list: List[Dict[str, Any]] = []
+		for idx, entry in enumerate(self.settings.getSettingsHouse()):
+			entry_copy = dict(entry)
+			entry_copy["_house_number"] = idx
+			house_list.append(entry_copy)
+		return house_list
+
 	def _build_body_settings(self) -> List[Dict[str, Any]]:
+		def clone_entry(entry: Dict[str, Any], is_house: bool) -> Dict[str, Any]:
+			entry_copy = dict(entry)
+			entry_copy["_is_house"] = is_house
+			return entry_copy
+
 		planet_list = list(self.settings.getSettingsPlanet())
 		house_entries: Dict[str, Dict[str, Any]] = {}
-		for entry in self.settings.getSettingsHouse():
+		orphan_houses: List[Dict[str, Any]] = []
+		for entry in self._get_house_settings_with_numbers():
 			entry_id = entry.get("id")
+			entry_copy = clone_entry(entry, True)
 			if entry_id is None:
+				orphan_houses.append(entry_copy)
 				continue
-			house_entries[str(entry_id)] = entry
+			house_entries[str(entry_id)] = entry_copy
 
 		bodies: List[Dict[str, Any]] = []
 		for entry in planet_list:
 			entry_id = entry.get("id")
+			entry_copy = clone_entry(entry, False)
 			if entry_id is None:
-				bodies.append(entry)
+				bodies.append(entry_copy)
 				continue
 			key = str(entry_id)
 			if key in house_entries:
-				# Prefer explicit entry defined in the current settings file.
-				bodies.append(entry)
-				house_entries.pop(key)
+				bodies.append(house_entries.pop(key))
 			else:
-				bodies.append(entry)
+				bodies.append(entry_copy)
 
-		if house_entries:
+		if house_entries or orphan_houses:
 			def parse_id(value: Any) -> Optional[int]:
 				try:
 					return int(value)
 				except (TypeError, ValueError):
 					return None
 
-			remaining = sorted(house_entries.values(), key=lambda item: (0, parse_id(item.get("id"))) if parse_id(item.get("id")) is not None else (1, 0))
+			remaining_entries = list(house_entries.values()) + orphan_houses
+			remaining = sorted(
+				remaining_entries,
+				key=lambda item: (0, parse_id(item.get("id"))) if parse_id(item.get("id")) is not None else (1, item.get("_house_number", 0)),
+			)
 			for entry in remaining:
 				entry_id = parse_id(entry.get("id"))
+				entry_copy = clone_entry(entry, True)
 				if entry_id is None:
-					bodies.append(entry)
+					bodies.append(entry_copy)
 					continue
 				inserted = False
 				for idx, current in enumerate(bodies):
@@ -689,13 +715,141 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					if current_id is None:
 						continue
 					if current_id > entry_id:
-						bodies.insert(idx, entry)
+						bodies.insert(idx, entry_copy)
 						inserted = True
 						break
 				if not inserted:
-					bodies.append(entry)
+					bodies.append(entry_copy)
 
 		return bodies
+
+	def _init_house_metadata(self) -> None:
+		house_list = self._get_house_settings_with_numbers()
+		self.house_entries: List[Dict[str, Any]] = house_list
+		self.house_id_set: Set[str] = set()
+		self.house_index_by_id: Dict[str, int] = {}
+		self.house_planet_index_by_number: Dict[int, int] = {}
+		for idx, entry in enumerate(house_list):
+			entry_id = entry.get("id")
+			if entry_id is None:
+				continue
+			key = str(entry_id)
+			self.house_id_set.add(key)
+			self.house_index_by_id[key] = idx
+		angle_ids = {"23", "26", "29", "32"}
+		detected_angles: Set[int] = set()
+		for key in angle_ids:
+			index_value = self.house_index_by_id.get(key)
+			if index_value is not None:
+				detected_angles.add(index_value)
+		if not detected_angles and house_list:
+			detected_angles = {n for n in (0, 1, 2, 3) if n < len(house_list)}
+		self.angle_house_numbers: Set[int] = detected_angles
+
+	def _sync_house_indices(self) -> None:
+		mapping: Dict[int, int] = {}
+		body_lookup: Dict[str, int] = {}
+		for idx, entry in enumerate(self.planets):
+			entry_id = entry.get("id")
+			if entry_id is None:
+				continue
+			key = str(entry_id)
+			body_lookup[key] = idx
+			house_number = self.house_index_by_id.get(key)
+			if house_number is not None:
+				mapping[house_number] = idx
+		self.house_planet_index_by_number = mapping
+		self.body_index_by_id = body_lookup
+
+	def get_house_planet_index(self, house_number: int) -> Optional[int]:
+		return self.house_planet_index_by_number.get(house_number)
+
+	def get_body_index_by_id(self, body_id: Union[int, str]) -> Optional[int]:
+		key = str(body_id)
+		return getattr(self, "body_index_by_id", {}).get(key)
+
+	def get_house_number_by_id(self, house_id: Union[int, str]) -> Optional[int]:
+		return self.house_index_by_id.get(str(house_id))
+
+	def get_house_planet_entry(self, house_number: int) -> Optional[Dict[str, Any]]:
+		idx = self.get_house_planet_index(house_number)
+		if idx is None:
+			return None
+		if 0 <= idx < len(self.planets):
+			return self.planets[idx]
+		return None
+
+	def _house_entry_by_number(self, house_number: int) -> Optional[Dict[str, Any]]:
+		if 0 <= house_number < len(self.house_entries):
+			return self.house_entries[house_number]
+		return None
+
+	def _house_name_by_number(self, house_number: int) -> str:
+		entry = self._house_entry_by_number(house_number)
+		if entry:
+			return entry.get("name", f"House {house_number + 1}")
+		return f"House {house_number + 1}"
+
+	def get_house_number_for_index(self, index: int) -> Optional[int]:
+		if index < 0 or index >= len(self.planets):
+			return None
+		entry_id = self.planets[index].get("id")
+		if entry_id is None:
+			return None
+		return self.house_index_by_id.get(str(entry_id))
+
+	def _is_angle_index(self, index: int) -> bool:
+		house_number = self.get_house_number_for_index(index)
+		return house_number in getattr(self, "angle_house_numbers", set())
+
+	def is_angle_house_number(self, house_number: int) -> bool:
+		return house_number in getattr(self, "angle_house_numbers", set())
+
+	def _first_house_planet_index(self) -> int:
+		if not hasattr(self, "house_planet_index_by_number") or not self.house_planet_index_by_number:
+			return len(getattr(self, "planets", []))
+		return min(self.house_planet_index_by_number.values())
+
+	def _refresh_retrograde_flags(self, prefix: str = "") -> None:
+		retro_attr = f"{prefix}planets_retrograde"
+		speed_attr = f"{prefix}planet_lon_speed"
+		retrograde_list = getattr(self, retro_attr, None)
+		speed_list = getattr(self, speed_attr, None)
+		if not isinstance(retrograde_list, list) or not isinstance(speed_list, list):
+			return
+		limit = min(len(retrograde_list), len(speed_list))
+		for idx in range(limit):
+			if idx >= len(self.planets) or self._is_house_index(idx):
+				continue
+			retrograde_list[idx] = bool(speed_list[idx] < 0)
+
+	def get_house_color(self, house_number: int, default: Optional[str] = None) -> str:
+		entry = self.get_house_planet_entry(house_number) or self._house_entry_by_number(house_number)
+		if entry and entry.get("color"):
+			return entry["color"]
+		if default is not None:
+			return default
+		return self.settings.settings["color_codes"].get('houses_radix_line', "#444444")
+
+	def _apply_house_positions_to_planets(self) -> None:
+		houses = getattr(self, "houses_degree_ut", [])
+		for house_number, degree in enumerate(houses):
+			idx = self.get_house_planet_index(house_number)
+			if idx is None:
+				continue
+			if hasattr(self, "planets_degree_ut") and idx < len(self.planets_degree_ut):
+				self.planets_degree_ut[idx] = degree
+			if hasattr(self, "planets_degree") and idx < len(self.planets_degree):
+				self.planets_degree[idx] = self.houses_degree[house_number]
+			if hasattr(self, "planets_sign") and idx < len(self.planets_sign):
+				self.planets_sign[idx] = self.houses_sign[house_number]
+			if hasattr(self, "planets_retrograde") and idx < len(self.planets_retrograde):
+				self.planets_retrograde[idx] = False
+
+	def _is_house_index(self, index: int) -> bool:
+		if index < 0 or index >= len(self.planets):
+			return False
+		return bool(self.planets[index].get("_is_house"))
 
 	@property
 	def settings_svg(self) -> Dict[str, Any]:
@@ -751,6 +905,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 		# get database planet + house settings
 		self.planets = self._build_body_settings()
+		self._sync_house_indices()
 
 		# get database aspect settings
 		self.aspects = self.settings.getSettingsAspect()
@@ -1112,10 +1267,12 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		if self.type == "Transit" or self.type == "Composite":
 			# grab transiting module data
 			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
+			self._refresh_retrograde_flags(prefix="t_")
 			self.t_makePlanetDict()
 
 		# grab normal module data
 		self._copy_module_attrs(module_data, self.MODULE_EXTENDED_ATTRS)
+		self._refresh_retrograde_flags()
 		self.makePlanetDict()
 
 		# make composite averages
@@ -1158,7 +1315,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				self.houses_sign[i], self.houses_degree[i] = get_zodiac_sign(self.houses_degree_ut[i])
 
 			# new planets
-			for i in range(23):
+			for i in range(len(self.planets)):
+				if self._is_house_index(i):
+					break
 				# difference in degrees
 				p1 = self.planets_degree_ut[i]
 				p2 = self.t_planets_degree_ut[i]
@@ -1211,10 +1370,10 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			planets_houses = self.get_house_for_planet(degree_ut, self.houses_degree_ut, one_house=False)
 			# foreach h in planets_houses:
 			if ("planet_in_one_house" in self.settings.settings["astrocfg"] and self.settings.settings["astrocfg"]["planet_in_one_house"] == 1):
-				house_name = [self.planets_name[i + 23] for i in planets_house]
+				house_name = [self._house_name_by_number(idx) for idx in planets_house]
 				house_str = ', '.join(house_name)
 			else:
-				houses_names = [self.planets_name[i + 23] for i in planets_houses]
+				houses_names = [self._house_name_by_number(idx) for idx in planets_houses]
 				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]} {house_str}{retrograde_str}"
 			self.planets_dict[name] = {
@@ -1236,7 +1395,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_id': i,
 			}
 
-			if 22 < i and i < 35:
+			if self._is_house_index(i):
 				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]}"
 				self.houses_dict[name] = {
 					'houses_name': name,
@@ -1284,17 +1443,17 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		hi = 0
 		# Цикл для заполнения словаря
 		for name, sign, degree, degree_ut, retrograde in zip(self.planets_name, self.t_planets_sign,
-															 self.t_planets_degree, self.t_planets_degree_ut,
-															 self.t_planets_retrograde):
+								 self.t_planets_degree, self.t_planets_degree_ut,
+								 self.t_planets_retrograde):
 			retrograde_str = ' retrograde' if self.t_planets_retrograde[i] else ''
 			planets_house = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut, one_house=True)
 			planets_houses = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut, one_house=False)
 			# foreach h in planets_houses:
 			if ("planet_in_one_house" in self.settings.settings["astrocfg"] and self.settings.settings["astrocfg"]["planet_in_one_house"] == 1):
-				house_name = [self.planets_name[i + 23] for i in planets_house]
+				house_name = [self._house_name_by_number(idx) for idx in planets_house]
 				house_str = ', '.join(house_name)
 			else:
-				houses_names = [self.planets_name[i + 23] for i in planets_houses]
+				houses_names = [self._house_name_by_number(idx) for idx in planets_houses]
 				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]} {house_str}{retrograde_str}"
 			self.t_planets_dict[name] = {
@@ -1316,7 +1475,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_id': i,
 			}
 
-			if 22 < i and i < 35:
+			if self._is_house_index(i):
 				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]}"
 				self.t_houses_dict[name] = {
 					'houses_name': name,
@@ -1580,7 +1739,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 		diff=range(len(self.planets))
 		for i in range(len(self.planets)):
-			if not (22 < i and i < 35):  # exclude houses
+			if not self._is_house_index(i):  # exclude houses
 				if flag_transit=="Transit":
 					# if 't_visible' in self.planets[i] and self.planets[i]['t_visible'] == 1:
 					# 	# if "visible2" exist and == 0 than pass

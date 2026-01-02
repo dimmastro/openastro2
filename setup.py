@@ -28,5 +28,6 @@ setup(
         "openpyxl==3.1.5",
         "ephem==4.2",
         "geographiclib==2.0",
+        "json5==0.12.1",
     ],
 )

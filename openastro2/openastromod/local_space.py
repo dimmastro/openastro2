@@ -703,7 +703,7 @@ class LocalSpaceMixin:
 		auto_highlight=True,
 		)
 		return layer
-	def makeLocalSpaceAspectSweDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120]):
+	def makeLocalSpaceAspectSweDataFrame(self, dt, lat, lon, num_planet=11, aspects = [60, 90, 120], planets=[0,1,2,3,4,5,6,7,8,9,10]):
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
@@ -711,7 +711,8 @@ class LocalSpaceMixin:
 		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
 		dfd= []
-		for i in range(num_planet):
+		planet_indices = planets if planets is not None else range(num_planet)
+		for i in planet_indices:
 			if 1:
 				planet_code = i
 				# planet_pos = swe.calc_ut(jul_day_UT, planet_code)
@@ -967,7 +968,7 @@ class LocalSpaceMixin:
 					dfd.append(dfdata)
 		return dfd
 
-	def makeLocalSpaceAntisZodiacDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1]):
+	def makeLocalSpaceAntisZodiacDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1], planets=[0,1,2,3,4,5,6,7,8,9,10]):
 		# aspects = [+1, -1]
 
 		tau = api.tau
@@ -992,7 +993,8 @@ class LocalSpaceMixin:
 		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
 		dfd= []
-		for i in range(num_planet):
+		planet_indices = planets if planets is not None else range(num_planet)
+		for i in planet_indices:
 			if 1:
 				planet_code = i
 				if (type_tr == "Radix"):
@@ -1153,7 +1155,7 @@ class LocalSpaceMixin:
 					dfd.append(dfdata)
 		return dfd
 
-	def makeLocalSpaceAntisHouseDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1]):
+	def makeLocalSpaceAntisHouseDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1], planets=[0,1,2,3,4,5,6,7,8,9,10]):
 
 		starting_latitude = lat  # Начальная широта
 		starting_longitude = lon  # Начальная долгота
@@ -1161,7 +1163,8 @@ class LocalSpaceMixin:
 		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
 		dfd= []
-		for i in range(num_planet):
+		planet_indices = planets if planets is not None else range(num_planet)
+		for i in planet_indices:
 			if 1:
 				planet_code = i
 				if (type_tr == "Radix"):
@@ -1301,17 +1304,17 @@ class LocalSpaceMixin:
 					dfd.append(dfdata)
 		return dfd
 
-	def makeLocalSpaceAspectLayer(self, type, type_tr, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11, aspects = [60, 90, 120]):
+	def makeLocalSpaceAspectLayer(self, type, type_tr, dt, lat, lon, color1 =[200, 200, 0], color2=[200, 200, 0], num_planet=11, aspects = [60, 90, 120], planets=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, ]):
 		if(type == "Sky"):
-			df = self.makeLocalSpaceAspectSkyDataFrame(type_tr, dt, lat, lon, num_planet, aspects)
+			df = self.makeLocalSpaceAspectSkyDataFrame(type_tr, dt, lat, lon, aspects, planets=planets)
 		elif (type == "SkyHouse"):
-			df = self.makeLocalSpaceAspectSkyHouseDataFrame(type_tr, dt, lat, lon, aspects)
+			df = self.makeLocalSpaceAspectSkyHouseDataFrame(type_tr, dt, lat, lon, aspects, planets=planets)
 		elif (type == "AntisZodiac"):
-			df = self.makeLocalSpaceAntisZodiacDataFrame(type_tr, dt, lat, lon, num_planet, aspects)
+			df = self.makeLocalSpaceAntisZodiacDataFrame(type_tr, dt, lat, lon, num_planet, aspects, planets=planets)
 		elif (type == "AntisHouse"):
-			df = self.makeLocalSpaceAntisHouseDataFrame(type_tr, dt, lat, lon, num_planet, aspects)
+			df = self.makeLocalSpaceAntisHouseDataFrame(type_tr, dt, lat, lon, num_planet, aspects, planets=planets)
 		elif(type == "Swe"):
-			df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet, aspects)
+			df = self.makeLocalSpaceAspectSweDataFrame(dt, lat, lon, num_planet, aspects, planets=planets)
 		layer = pdk.Layer(
 		"GreatCircleLayer",
 		df,
@@ -1325,8 +1328,8 @@ class LocalSpaceMixin:
 		)
 		return layer
 
-	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon, num_planet=11,
-										 aspects=[0, 60, 90, 120, 180, 240, 270, 300], local_aspects=False):
+	def makeLocalSpaceAspectSkyDataFrame(self, type_tr, dt, lat, lon,
+										 aspects=[0, 60, 90, 120, 180, 240, 270, 300], planets=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], local_aspects=False):
 		"""
 		Calculates Local Space directions via library.
 
@@ -1334,8 +1337,8 @@ class LocalSpaceMixin:
 		:param dt: date and time
 		:param lat: latitude
 		:param lon: longitude
-		:param num_planet: number of planets
 		:param aspects: list of aspects
+		:param planets: list of planet ids
 		:param local_aspects: True - use local aspects by azimuths. False - aspects on the ecliptic
 		:return: Dataframe with geographic coordinates of the planets and azimuths.
 		"""
@@ -1351,7 +1354,7 @@ class LocalSpaceMixin:
 		# jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
 
 		dfd = []
-		for i in range(num_planet):
+		for i in planets:
 
 			planet_code = i
 
@@ -1494,7 +1497,8 @@ class LocalSpaceMixin:
 				dfd.append(dfdata)
 		return dfd
 
-	def makeLocalSpaceAspectSkyHouseDataFrame(self, type_tr, dt, lat, lon, aspects = [0, 60, 90, 120, 180, 240, 270, 300]):
+	def makeLocalSpaceAspectSkyHouseDataFrame(self, type_tr, dt, lat, lon, aspects = [0, 60, 90, 120, 180, 240, 270, 300], planets=[23,24,25,26,27,28,29,30,31,32,33,34]):
+	# def makeLocalSpaceAspectSkyHouseDataFrame(self, type_tr, dt, lat, lon, aspects = [0, 60, 90, 120, 180, 240, 270, 300], houses=[0,1,2,3,4,5,6,7,8,9,10,11]):
 		#
 		# alt0, az0, distance0 = self.eclips_to_gorizont0(self.houses_degree_ut, dt, lat, lon)
 		# ts = api.load.timescale()
@@ -1558,7 +1562,12 @@ class LocalSpaceMixin:
 		starting_longitude = lon  # Начальная долгота
 
 		dfd = []
-		for i in range(len(self.houses_degree_ut)):
+
+		houses = [int(p)-23 for p in planets]
+		planet_indices = houses if houses is not None else range(len(self.houses_degree_ut))
+		for i in planet_indices:
+			if i < 0 or i >= len(self.houses_degree_ut):
+				continue
 			planet_code = i
 			if (type_tr == "Radix"):
 				lat_angle0 = 0

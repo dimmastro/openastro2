@@ -4556,6 +4556,126 @@
           "label_short": "Node-120",
           "name": "Vladimir Visotskiy/ mean node-120 ( az=335.9 az180=-155.9)"
         }
+      },
+      {
+        "azimuth": 23.602410733927826,
+        "from": {
+          "coordinates": [
+            37.628137530436106,
+            55.78472277151802
+          ],
+          "label_short": "Lilith-60",
+          "name": "Vladimir Visotskiy/ mean apogee-60 ( az=23.6)"
+        },
+        "name": "Vladimir Visotskiy/ mean apogee-60 ( az=23.6)",
+        "to": {
+          "coordinates": [
+            -159.1242596435937,
+            -13.226728067914072
+          ],
+          "label_short": "Lilith-60",
+          "name": "Vladimir Visotskiy/ mean apogee-60 ( az=23.6)"
+        }
+      },
+      {
+        "azimuth": 23.602410733927826,
+        "from": {
+          "coordinates": [
+            -142.3718624695639,
+            -55.78472277151802
+          ],
+          "label_short": "Lilith-60",
+          "name": "Vladimir Visotskiy/ mean apogee-60 ( az=23.6 az180=-203.6)"
+        },
+        "name": "Vladimir Visotskiy/ mean apogee-60 ( az=23.6 az180=-203.6)",
+        "to": {
+          "coordinates": [
+            -159.1242596435937,
+            -13.226728067914072
+          ],
+          "label_short": "Lilith-60",
+          "name": "Vladimir Visotskiy/ mean apogee-60 ( az=23.6 az180=-203.6)"
+        }
+      },
+      {
+        "azimuth": 345.52233772052324,
+        "from": {
+          "coordinates": [
+            37.628137530436106,
+            55.78472277151802
+          ],
+          "label_short": "Lilith-90",
+          "name": "Vladimir Visotskiy/ mean apogee-90 ( az=345.5)"
+        },
+        "name": "Vladimir Visotskiy/ mean apogee-90 ( az=345.5)",
+        "to": {
+          "coordinates": [
+            -130.70328887713524,
+            -2.7020955295396463
+          ],
+          "label_short": "Lilith-90",
+          "name": "Vladimir Visotskiy/ mean apogee-90 ( az=345.5)"
+        }
+      },
+      {
+        "azimuth": 345.52233772052324,
+        "from": {
+          "coordinates": [
+            -142.3718624695639,
+            -55.78472277151802
+          ],
+          "label_short": "Lilith-90",
+          "name": "Vladimir Visotskiy/ mean apogee-90 ( az=345.5 az180=-165.5)"
+        },
+        "name": "Vladimir Visotskiy/ mean apogee-90 ( az=345.5 az180=-165.5)",
+        "to": {
+          "coordinates": [
+            -130.70328887713524,
+            -2.7020955295396463
+          ],
+          "label_short": "Lilith-90",
+          "name": "Vladimir Visotskiy/ mean apogee-90 ( az=345.5 az180=-165.5)"
+        }
+      },
+      {
+        "azimuth": 318.51311903750354,
+        "from": {
+          "coordinates": [
+            37.628137530436106,
+            55.78472277151802
+          ],
+          "label_short": "Lilith-120",
+          "name": "Vladimir Visotskiy/ mean apogee-120 ( az=318.5)"
+        },
+        "name": "Vladimir Visotskiy/ mean apogee-120 ( az=318.5)",
+        "to": {
+          "coordinates": [
+            -102.77151275354831,
+            8.46211257619807
+          ],
+          "label_short": "Lilith-120",
+          "name": "Vladimir Visotskiy/ mean apogee-120 ( az=318.5)"
+        }
+      },
+      {
+        "azimuth": 318.51311903750354,
+        "from": {
+          "coordinates": [
+            -142.3718624695639,
+            -55.78472277151802
+          ],
+          "label_short": "Lilith-120",
+          "name": "Vladimir Visotskiy/ mean apogee-120 ( az=318.5 az180=-138.5)"
+        },
+        "name": "Vladimir Visotskiy/ mean apogee-120 ( az=318.5 az180=-138.5)",
+        "to": {
+          "coordinates": [
+            -102.77151275354831,
+            8.46211257619807
+          ],
+          "label_short": "Lilith-120",
+          "name": "Vladimir Visotskiy/ mean apogee-120 ( az=318.5 az180=-138.5)"
+        }
       }
     ],
     "getSourceColor": [

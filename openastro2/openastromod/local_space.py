@@ -5,7 +5,6 @@ import math
 from typing import Any
 
 import numpy as np
-import pandas as pd
 import pydeck as pdk
 import swisseph as swe
 from geographiclib.geodesic import Geodesic
@@ -218,11 +217,9 @@ class LocalSpaceMixin:
 				}
 				dfd.append(dfdata)
 			# print (azimuth)
-		df = pd.DataFrame(dfd)
-		# Use pandas to prepare data for tooltip
-		df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceApiDataFrame(self, dt, lat, lon):
 
 		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
@@ -429,11 +426,9 @@ class LocalSpaceMixin:
 				}
 				dfd.append(dfdata)
 			# print (azimuth)
-		df = pd.DataFrame(dfd)
-		# Use pandas to prepare data for tooltip
-		df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceEarthApiDataFrame(self, dt, lat, lon):
 
 		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
@@ -619,19 +614,16 @@ class LocalSpaceMixin:
 				}
 				dfd.append(dfdata)
 			# print (azimuth)
-		df = pd.DataFrame(dfd)
-		# Use pandas to prepare data for tooltip
-		df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceSweApiLayer(self, dt, lat, lon, color1 =[150, 150, 150], color2=[150, 150, 150], num_planet=11):
 		dfd = self.makeLocalSpaceSweApiDataFrame(dt, lat, lon, num_planet)
-		df = pd.DataFrame(dfd)
 		# print (color1)
 		# Define a layer to display on a map
 		layer = pdk.Layer(
 		"GreatCircleLayer",
-		df,
+		dfd,
 		pickable=True,
 		get_stroke_width=12,
 		get_source_position="from.lonlat",
@@ -781,10 +773,9 @@ class LocalSpaceMixin:
 					  }
 					}
 					dfd.append(dfdata)
-		df = pd.DataFrame(dfd)
-		# df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 
 	def makeLocalSpaceAspectSwePlanets(self, dt, lat, lon, planets=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, ],
 									   aspects=[0, 180], aspect_type='azimuth'):
@@ -1059,10 +1050,9 @@ class LocalSpaceMixin:
 					  }
 					}
 					dfd.append(dfdata)
-		df = pd.DataFrame(dfd)
-		# df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceAntisZodiacApiDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1]):
 		# aspects = [+1, -1]
 
@@ -1227,10 +1217,9 @@ class LocalSpaceMixin:
 					  }
 					}
 					dfd.append(dfdata)
-		df = pd.DataFrame(dfd)
-		# df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceAntisHouseApiDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [+1, -1]):
 
 		starting_latitude = lat  # Начальная широта
@@ -1429,10 +1418,9 @@ class LocalSpaceMixin:
 					"azimuth": azimuth
 				}
 				dfd.append(dfdata)
-		df = pd.DataFrame(dfd)
-		# df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 
 
 	def makeLocalSpaceAspectSkyApiDataFrame(self, type_tr, dt, lat, lon, num_planet=11, aspects = [0, 60, 90, 120, 180, 240, 270, 300]):
@@ -1620,11 +1608,12 @@ class LocalSpaceMixin:
 
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + " K" + str(i+1) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					# "name": self.name + "/"  + " K" + str(i+1) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"name": "K" + str(i+1) + "-" + str(aspect),
 					"coordinates": [ starting_longitude,  starting_latitude ]
 				  },
 				  "to": {
-					"name": self.name + "/"  + " K" + str(i+1) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"name": "K" + str(i+1) + "-" + str(aspect),
 					"coordinates": [ new_longitude, new_latitude ]
 				  }
 				}
@@ -1632,20 +1621,19 @@ class LocalSpaceMixin:
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					"name": self.name + "/"  + "K" + str(i) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"name": "K" + str(i) + "-" + str(aspect),
 					"coordinates": [starting_longitude-180, -starting_latitude]
 				  },
 				  "to": {
-					"name": self.name + "/"  + "K" + str(i) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
+					"name": "K" + str(i) + "-" + str(aspect),
 					"coordinates": [ new_longitude, new_latitude ]
 				  }
 				}
 				dfd.append(dfdata)
 
-		df = pd.DataFrame(dfd)
-		# df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceAspectSkyHouseApiDataFrame(self, type_tr, dt, lat, lon, aspects = [0, 60, 90, 120, 180, 240, 270, 300]):
 		ts = api.load.timescale()
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
@@ -1759,12 +1747,9 @@ class LocalSpaceMixin:
 				}
 				dfd.append(dfdata)
 
-		df = pd.DataFrame(dfd)
-		# Use pandas to prepare data for tooltip
-		df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		print (df)
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeZenitApiDataFrame(self, dt, lat, lon):
 
 		planet_names = { 1: 'mercuriy', 2: 'venus', 3: 'earth', 4: 'mars', 5: 'jupiter', 6: 'saturn', 7: 'uran', 8: 'neptun', 9: 'pluton', 10: 'sun', 301: 'moon'}
@@ -1925,13 +1910,9 @@ class LocalSpaceMixin:
 				}
 				dfd.append(dfdata)
 
-		# print (dfd)
-		df = pd.DataFrame(dfd)
-		# Use pandas to prepare data for tooltip
-		df["name"] = df["from"].apply(lambda f: f["name"])
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		# print (df)
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeAscApiDataFrame(self, dt, lat, lon, num_planet=11):
 		dfd= []
 		# planet_id = 3
@@ -2118,9 +2099,9 @@ class LocalSpaceMixin:
 				#   }
 				# }
 				# dfd.append(dfdata)
-		df = pd.DataFrame(dfd)
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceZodiakSkyApiDataFrame(self, dt, lat, lon):
 
 		tau = api.tau
@@ -2346,9 +2327,9 @@ class LocalSpaceMixin:
 				#   }
 				# }
 				# dfd.append(dfdata)
-		df = pd.DataFrame(dfd)
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceHouseSkyApiDataFrame(self, dt, lat, lon):
 		# print (self.houses_degree_ut)
 		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
@@ -2475,9 +2456,9 @@ class LocalSpaceMixin:
 				#   }
 				# }
 				# dfd.append(dfdata)
-		df = pd.DataFrame(dfd)
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceHouseSky2ApiDataFrame(self, dt, lat, lon):
 
 		alt0, az0, distance0 = self.eclips_to_gorizont0(self.houses_degree_ut, dt, lat, lon)
@@ -2610,9 +2591,9 @@ class LocalSpaceMixin:
 				#   }
 				# }
 				# dfd.append(dfdata)
-		df = pd.DataFrame(dfd)
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceHouseTransitSkyApiDataFrame(self, dt, lat, lon):
 		alt0, az0, distance0 = self.eclips_to_gorizont0(self.t_houses_degree_ut, dt, lat, lon)
 
@@ -2736,9 +2717,9 @@ class LocalSpaceMixin:
 				#   }
 				# }
 				# dfd.append(dfdata)
-		df = pd.DataFrame(dfd)
-		df["name"] = df["to"].apply(lambda t: t["name"])
-		return df
+		for item in dfd:
+			item["name"] = item["to"]["name"]
+		return dfd
 	def makeLocalSpaceHouseEquatorialSkyApiDataFrame(self, dt, lat, lon):
 		# print (self.houses_degree_ut)
 		# https: // astronomy.stackexchange.com / questions / 41482 / how - to - find - the - local - azimuth - of - the - highest - point - of - the - ecliptic
@@ -2811,11 +2792,9 @@ class LocalSpaceMixin:
 		icon_data = {"url": ICON_URL, "width": 305, "height": 400, "anchorY": 400,}
 
 		# df_data = [{"lat":47.29810329873421,"lon":39.710726380651636,"name":"Цирк"}]
-		data = pd.DataFrame(df_data)
-
-		data["icon_data"] = None
-		for i in data.index:
-		  data["icon_data"][i] = icon_data
+		data = copy.deepcopy(df_data)
+		for item in data:
+			item["icon_data"] = icon_data
 		# view_state = pdk.data_utils.compute_view(data[["lon", "lat"]])
 
 		layer = pdk.Layer(
@@ -2844,8 +2823,7 @@ class LocalSpaceMixin:
 			# df_data_t[i]["name"]= " " + "az=" + '{0:.1f}'.format(float(azimuth)) + " dist=" + '{0:.0f}'.format(float(arr["s12"]/1000))  +"km - " + df_data_t[i]["name"]
 			df_data_t[i]["name"]= " " + "az=" + '{0:.1f}'.format(float(azimuth)) + " - " + df_data_t[i]["name"]
 			df_data_t[i]["icon_data"]= icon_data
-		data = pd.DataFrame(df_data_t)
-		# print (data)
+		data = df_data_t
 
 		# data["icon_data"] = None
 		# for i in data.index:

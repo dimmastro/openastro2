@@ -16,11 +16,7 @@
     "language": "en",
     "round_aspects": 1,
     "planet_in_one_house": 0,
-    "geo_zodiac_start": 0,
-    "modules": {
-      "object": {
-      }
-    }
+    "geo_zodiac_start": 0
   },
   "color_codes": {
     "paper_0": "#000000",
@@ -2309,7 +2305,7 @@
     "24": {
       "id": 24,
       "name": "II",
-      "color": "#FF0000",
+      "color": "#444444",
       "visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
@@ -2414,7 +2410,7 @@
     "25": {
       "id": 25,
       "name": "III",
-      "color": "#FF0000",
+      "color": "#444444",
       "visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
@@ -2624,7 +2620,7 @@
     "27": {
       "id": 27,
       "name": "V",
-      "color": "#FF0000",
+      "color": "#444444",
       "visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
@@ -2729,7 +2725,7 @@
     "28": {
       "id": 28,
       "name": "VI",
-      "color": "#FF0000",
+      "color": "#444444",
       "visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
@@ -2939,7 +2935,7 @@
     "30": {
       "id": 30,
       "name": "VIII",
-      "color": "#FF0000",
+      "color": "#444444",
       "visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
@@ -3044,7 +3040,7 @@
     "31": {
       "id": 31,
       "name": "IX",
-      "color": "#FF0000",
+      "color": "#444444",
       "visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
@@ -3254,7 +3250,7 @@
     "33": {
       "id": 33,
       "name": "XI",
-      "color": "#FF0000",
+      "color": "#444444",
       "visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
@@ -3359,7 +3355,7 @@
     "34": {
       "id": 34,
       "name": "XII",
-      "color": "#FF0000",
+      "color": "#444444",
       "visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",

@@ -264,7 +264,7 @@ class ChartRenderer:
 
 			#coordinates
 			if self.type == "Transit" or self.type == "Direction":
-				if 22 < i < 27:
+				if self._is_angle_index(i):
 					rplanet = self.c2 - (self.c2-self.c3)/2
 				elif switch == 1:
 					rplanet = self.c2 - (self.c2-self.c3)/2
@@ -273,7 +273,7 @@ class ChartRenderer:
 					rplanet = self.c2 - (self.c2-self.c3)/2
 					switch = 1
 			else:
-				#if 22 < i < 27 it is asc,mc,dsc,ic (angles of chart)
+				#if angle houses (asc,mc,dsc,ic)
 				#put on special line (rplanet is range from outer ring)
 				amin,bmin,cmin=0,0,0
 				if self.settings.settings["astrocfg"]["chartview"] == "european":
@@ -281,7 +281,7 @@ class ChartRenderer:
 					bmin=94-30
 					cmin=40-30
 
-				if 22 < i < 27:
+				if self._is_angle_index(i):
 					rplanet = 50-cmin
 				elif switch == 1:
 					rplanet=84-amin
@@ -297,7 +297,7 @@ class ChartRenderer:
 				trueoffset = (float(self.get_chart_start_point()) / -1) + float(self.planets_degree_ut[i])
 			else:
 				# offset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i]+planets_delta[e])
-				offset = (float(self.get_chart_start_point()) / -1) + float(self.planets_degree_ut[i]+planets_delta[e])
+				offset = (float(self.get_chart_start_point()) / -1) + float(self.planets_degree_ut[i] + planets_delta[i])
 				# trueoffset = (int(self.houses_degree_ut[6]) / -1) + int(self.planets_degree_ut[i])
 				trueoffset = (float(self.get_chart_start_point()) / -1) + float(self.planets_degree_ut[i])
 			planet_x = self.sliceToX( 0 , (r-rplanet) , offset ) + rplanet
@@ -422,7 +422,7 @@ class ChartRenderer:
 			for i in range(len(self.planets)):
 				group_offset[i]=0
 				# if self.planets[i]['visible'] == 1:
-				if not (22 < i and i < 35): # exclude houses
+				if not self._is_house_index(i): # exclude houses
 					if 't_visible' in self.planets[i]:
 						# if self.planets[i]['t_visible'] == 1:
 						# if ( (('planet_orb' in self.planets[i]
@@ -450,7 +450,7 @@ class ChartRenderer:
 			for e in range(len(t_keys)):
 				i=t_planets_degut[t_keys[e]]
 
-				if 22 < i < 27:
+				if self._is_angle_index(i):
 					rplanet = self.c1 - 15
 				elif switch == 1:
 					rplanet=self.c1 - 15
@@ -472,7 +472,7 @@ class ChartRenderer:
 					t_offset = (float(self.t_houses_degree_ut[18]) / -1) + float(self.t_planets_degree_ut[i])
 					trueoffset = (float(self.t_houses_degree_ut[6]) / -1) + float(self.t_planets_degree_ut[i])
 				else:
-					offset = zeropoint + self.t_planets_degree_ut[i] + t_planets_delta[e]
+					offset = zeropoint + self.t_planets_degree_ut[i] + t_planets_delta[i]
 					trueoffset = (float(self.t_houses_degree_ut[6]) / -1) + float(self.t_planets_degree_ut[i])
 
 				# print(t_offset-360)
@@ -531,149 +531,90 @@ class ChartRenderer:
 
 
 	def getPlanetsDelta(self, temp_planets_degree_ut, flag_transit="Radix"):
-		# planets_degut={}
-		#
-		# diff=range(len(self.planets))
-		# for i in range(len(self.planets)):
-		# 	if flag_transit=="Transit":
-		# 		if 't_visible' in self.planets[i] and self.planets[i]['t_visible'] == 1:
-		# 			if ("planet_orb" in self.planets[i]
-		# 					and "visible2" in self.planets[i]['planet_orb'][self.type]
-		# 					and self.planets[i]['planet_orb'][self.type]["visible2"] == 1):
-		# 				if not (22 < i and i < 35): # exclude houses
-		# 					#list of planets sorted by degree
-		# 					planets_degut[temp_planets_degree_ut[i]]=i
-		# 	else:
-		# 		if self.planets[i]['visible'] == 1:
-		# 			if not (22 < i and i < 35): # exclude houses
-		# 				#list of planets sorted by degree
-		# 				planets_degut[temp_planets_degree_ut[i]]=i
-		#
-		# 	# planets_degut[temp_planets_degree_ut[i]]=i
+		"""
+		Compute angular offsets for visible planets to reduce overlap.
 
+		Strategy:
+		1) Sort bodies by their normalized longitudes (0..360).
+		2) Run a symmetric spread pass that pushes neighbors apart to a minimum separation.
+		   - forward pass enforces minimum spacing in ascending order
+		   - backward pass enforces minimum spacing in descending order
+		   - the final position is the average of both passes
+		3) Convert adjusted positions to per-planet deltas (signed angular shifts).
+
+		This keeps the original ordering (no swapping) and yields stable results.
+		"""
 		planets_degut = self.getPlanetsDegut(temp_planets_degree_ut, flag_transit=flag_transit)
-
 		keys = list(planets_degut.keys())
 		keys.sort()
-		switch = 0
+		planet_drange = self.settings.settings["settings_svg"].get("planet_drange", 3.4)
+		base_items = [(temp_planets_degree_ut[planets_degut[deg]] % 360.0, planets_degut[deg]) for deg in keys]
+		if not base_items:
+			return [0.0 for _ in range(len(self.planets))]
 
-		planets_degrouped = {}
-		groups = []
-		planets_by_pos = list(range(len(planets_degut)))
-		if "planet_drange" in self.settings.settings["settings_svg"]:
-			planet_drange = self.settings.settings["settings_svg"]["planet_drange"]
-		else:
-			planet_drange = 3.4
-		# get groups closely together
-		group_open = False
-		for e in range(len(keys)):
-			i = planets_degut[keys[e]]
-			# get distances between planets
-			if e == 0:
-				prev = temp_planets_degree_ut[planets_degut[keys[-1]]]
-				next = temp_planets_degree_ut[planets_degut[keys[1]]]
-				# next = temp_planets_degree_ut[planets_degut[keys[0]]]
-			elif e == (len(keys) - 1):
-				prev = temp_planets_degree_ut[planets_degut[keys[e - 1]]]
-				next = temp_planets_degree_ut[planets_degut[keys[0]]]
-			else:
-				prev = temp_planets_degree_ut[planets_degut[keys[e - 1]]]
-				next = temp_planets_degree_ut[planets_degut[keys[e + 1]]]
-			diffa = self.degreeDiff(prev, temp_planets_degree_ut[i])
-			diffb = self.degreeDiff(next, temp_planets_degree_ut[i])
-			planets_by_pos[e] = [i, diffa, diffb]
-			# dprint "%s %s %s" % (self.planets[i]['label'],diffa,diffb)
+		def spread_degrees(angles, min_separation):
+			"""
+			Spread a sorted list of angles so adjacent values are at least min_separation apart.
 
-			# TODO if group in 359-1 degr (need to work):
-			# if (diffa < planet_drange):
-			# 	if not group_open:
-			# 		group_open = True
-			# 		groups.append([])
-			# 		groups[-1].append([e, diffa, diffb, self.planets[planets_degut[keys[e]]]["label"]])
-
-			if (diffb < planet_drange):
-				if group_open:
-					groups[-1].append([e, diffa, diffb, self.planets[planets_degut[keys[e]]]["label"]])
+			We compute two constraint-satisfying sequences:
+			- advance: forward sweep, pushing each angle ahead if it is too close to its predecessor
+			- retreat: backward sweep, pushing each angle backward if it is too close to its successor
+			Then we average the two sequences to keep the result centered.
+			"""
+			step = min_separation + 0.1
+			n = len(angles)
+			advance = angles[:]
+			retreat = angles[::-1]
+			changed = True
+			while changed:
+				changed = False
+				for i in range(n):
+					prev_deg = advance[-1] - 360.0 if i == 0 else advance[i - 1]
+					delta = advance[i] - prev_deg
+					diff = min(delta, 360.0 - delta)
+					# If too close to the previous angle, push forward by a small step.
+					if (advance[i] < prev_deg) or (diff < min_separation):
+						advance[i] = prev_deg + step
+						changed = True
+			changed = True
+			while changed:
+				changed = False
+				for i in range(n):
+					prev_deg = retreat[-1] + 360.0 if i == 0 else retreat[i - 1]
+					delta = prev_deg - retreat[i]
+					diff = min(delta, 360.0 - delta)
+					# If too close to the next angle, push backward by a small step.
+					if (prev_deg < retreat[i]) or (diff < min_separation):
+						retreat[i] = prev_deg - step
+						changed = True
+			retreat.reverse()
+			balanced = []
+			for adv_deg, ret_deg in zip(advance, retreat):
+				adv_deg %= 360.0
+				ret_deg %= 360.0
+				# Average with wrap-aware logic to avoid jumping across 0/360.
+				if abs(adv_deg - ret_deg) < 180.0:
+					avg = (adv_deg + ret_deg) / 2.0
 				else:
-					group_open = True
-					groups.append([])
-					# e = index in planets_degut
-					groups[-1].append([e, diffa, diffb, self.planets[planets_degut[keys[e]]]["label"]])
-			else:
-				if group_open:
-					groups[-1].append([e, diffa, diffb, self.planets[planets_degut[keys[e]]]["label"]])
-				group_open = False
+					avg = ((adv_deg + ret_deg + 360.0) / 2.0) % 360.0
+				balanced.append(avg)
+			return balanced
 
-		def zero(x):
-			return 0
+		# Sort by original longitude (ascending) so order stays consistent.
+		base_items.sort(key=lambda item: item[0])
+		sorted_degrees = [deg for deg, _ in base_items]
+		# Spread only if more than one body is present.
+		adjusted = spread_degrees(sorted_degrees, planet_drange) if len(base_items) > 1 else sorted_degrees
 
-		planets_delta = list(map(zero, range(len(self.planets))))
-
-		# dprint (groups)
-		# dprint planets_by_pos
-		for a in range(len(groups)):
-			# Two grouped planets
-			if len(groups[a]) == 2:
-				next_to_a = groups[a][0][0] - 1
-				if groups[a][1][0] == (len(planets_by_pos) - 1):
-					next_to_b = 0
-				else:
-					next_to_b = groups[a][1][0] + 1
-				# if both planets have room
-				# if (groups[a][0][1] > (2 * planet_drange)) & (groups[a][1][2] > (2 * planet_drange)):
-				if (groups[a][0][1] > (1 * planet_drange)) & (groups[a][1][2] > (1 * planet_drange)):
-					planets_delta[groups[a][0][0]] = -(planet_drange - groups[a][0][2]) / 2
-					planets_delta[groups[a][1][0]] = +(planet_drange - groups[a][0][2]) / 2
-				# if planet a has room
-				elif (groups[a][0][1] > (2 * planet_drange)):
-					planets_delta[groups[a][0][0]] = -planet_drange
-				# if planet b has room
-				elif (groups[a][1][2] > (2 * planet_drange)):
-					planets_delta[groups[a][1][0]] = +planet_drange
-
-				# if planets next to a and b have room move them
-				elif (planets_by_pos[next_to_a][1] > (2.4 * planet_drange)) & (
-						planets_by_pos[next_to_b][2] > (2.4 * planet_drange)):
-					planets_delta[(next_to_a)] = (groups[a][0][1] - planet_drange * 2)
-					planets_delta[groups[a][0][0]] = -planet_drange * .5
-					planets_delta[next_to_b] = -(groups[a][1][2] - planet_drange * 2)
-					planets_delta[groups[a][1][0]] = +planet_drange * .5
-
-				# if planet next to a has room move them
-				elif (planets_by_pos[next_to_a][1] > (2 * planet_drange)):
-					planets_delta[(next_to_a)] = (groups[a][0][1] - planet_drange * 2.5)
-					planets_delta[groups[a][0][0]] = -planet_drange * 1.2
-
-				# if planet next to b has room move them
-				elif (planets_by_pos[next_to_b][2] > (2 * planet_drange)):
-					planets_delta[next_to_b] = -(groups[a][1][2] - planet_drange * 2.5)
-					planets_delta[groups[a][1][0]] = +planet_drange * 1.2
-
-			# Three grouped planets or more
-			xl = len(groups[a])
-			if xl >= 3:
-
-				available = groups[a][0][1]
-				for f in range(xl):
-					available += groups[a][f][2]
-				need = (3 * planet_drange) + (1.2 * (xl - 1) * planet_drange)
-				leftover = available - need
-				xa = groups[a][0][1]
-				xb = groups[a][(xl - 1)][2]
-
-				# center
-				if (xa > (need * .5)) & (xb > (need * .5)):
-					startA = xa - (need * .5)
-				# position relative to next planets
-				else:
-					startA = (leftover / (xa + xb)) * xa
-					startB = (leftover / (xa + xb)) * xb
-
-				if available > need:
-					planets_delta[groups[a][0][0]] = startA - groups[a][0][1] + (1.5 * planet_drange)
-					for f in range(xl - 1):
-						planets_delta[groups[a][(f + 1)][0]] = 1.2 * planet_drange + planets_delta[groups[a][f][0]] - \
-															   groups[a][f][2]
+		planets_delta = [0.0 for _ in range(len(self.planets))]
+		for (orig_deg, idx), adj_deg in zip(base_items, adjusted):
+			# Convert adjusted position to a signed delta (shortest angular direction).
+			delta = adj_deg - orig_deg
+			if delta > 180.0:
+				delta -= 360.0
+			elif delta < -180.0:
+				delta += 360.0
+			planets_delta[idx] = delta
 		return planets_delta
 
 	def makeSVG2(self, printing=None):

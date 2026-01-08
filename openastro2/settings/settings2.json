@@ -19,67 +19,6 @@
     "geo_zodiac_start": 0,
     "modules": {
       "object": {
-        "tno": {
-          "enabled": 1,
-          "params": {
-            "objects": [
-              {
-                "name": "Eris",
-                "naif_id": 920136199,
-                "kernel_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/tno/tnosat_v001_20136199_jpl080_20220908.bsp",
-                "elements": {
-                  "epoch": 2457709.5,
-                  "a": 67.6533145827283,
-                  "e": 0.4422028467648986,
-                  "inc_deg": 44.18677870482509,
-                  "raan_deg": 35.88579459831126,
-                  "argp_deg": 151.3771835065675,
-                  "mean_anom_deg": 204.6951495459583,
-                  "mean_motion_deg_per_day": 0.001771212
-                }
-              },
-              {
-                "name": "Makemake",
-                "elements": {
-                  "epoch": 2457709.5,
-                  "a": 45.49866120866383,
-                  "e": 0.1603879841910302,
-                  "inc_deg": 29.00202693350696,
-                  "raan_deg": 79.4418675869028,
-                  "argp_deg": 296.0661203432878,
-                  "mean_anom_deg": 159.9192027518438,
-                  "mean_motion_deg_per_day": 0.003213640771137068
-                }
-              },
-              {
-                "name": "Haumea",
-                "elements": {
-                  "epoch": 2457709.5,
-                  "a": 43.10250612192156,
-                  "e": 0.1950211646554932,
-                  "inc_deg": 28.20483916193155,
-                  "raan_deg": 121.9469007491838,
-                  "argp_deg": 239.9473330022495,
-                  "mean_anom_deg": 211.9113951443087,
-                  "mean_motion_deg_per_day": 0.003485310478500581
-                }
-              },
-              {
-                "name": "Sedna",
-                "elements": {
-                  "epoch": 2457709.5,
-                  "a": 506.4335420338442,
-                  "e": 0.8495527946611204,
-                  "inc_deg": 11.92852323331012,
-                  "raan_deg": 144.4016254215341,
-                  "argp_deg": 311.2846485322126,
-                  "mean_anom_deg": 358.1274476772543,
-                  "mean_motion_deg_per_day": 0.00008653893817938646
-                }
-              }
-            ]
-          }
-        }
       }
     }
   },
@@ -123,45 +62,6 @@
     "color_radix": "#444444",
     "color_transit_1": "#ff0000",
     "color_transit_2": "#0000FF",
-    "planet_0": "#444444",
-    "planet_1": "#444444",
-    "planet_2": "#444444",
-    "planet_3": "#444444",
-    "planet_4": "#444444",
-    "planet_5": "#444444",
-    "planet_6": "#444444",
-    "planet_7": "#444444",
-    "planet_8": "#444444",
-    "planet_9": "#444444",
-    "planet_10": "#444444",
-    "planet_11": "#444444",
-    "planet_12": "#444444",
-    "planet_13": "#444444",
-    "planet_14": "#444444",
-    "planet_15": "#444444",
-    "planet_16": "#000000",
-    "planet_17": "#000000",
-    "planet_18": "#000000",
-    "planet_19": "#000000",
-    "planet_20": "#000000",
-    "planet_21": "#000000",
-    "planet_22": "#444444",
-    "planet_23": "#444444",
-    "planet_24": "#444444",
-    "planet_25": "#444444",
-    "planet_26": "#444444",
-    "planet_27": "#444444",
-    "planet_28": "#000000",
-    "planet_29": "#000000",
-    "planet_30": "#000000",
-    "planet_31": "#000000",
-    "planet_32": "#000000",
-    "planet_33": "#000000",
-    "planet_34": "#000000",
-    "planet_43": "#444444",
-    "planet_44": "#444444",
-    "planet_45": "#444444",
-    "planet_46": "#444444",
     "lunar_phase_0": "#000000",
     "lunar_phase_1": "#FFFFFF",
     "lunar_phase_2": "#CCCCCC"
@@ -2298,62 +2198,6 @@
       "visible_aspect_line": 0,
       "visible_aspect_grid": 0,
       "visible_json": 0
-    },
-    "43": {
-      "id": 43,
-      "name": "eris",
-      "color": "#4a4a8a",
-      "visible": 1,
-      "t_visible": 1,
-      "element_points": 0,
-      "zodiac_relation": "-1",
-      "label": "Eris",
-      "label_short": "eris",
-      "visible_aspect_line": 1,
-      "visible_aspect_grid": 1,
-      "visible_json": 1
-    },
-    "44": {
-      "id": 44,
-      "name": "makemake",
-      "color": "#6a5a2a",
-      "visible": 1,
-      "t_visible": 1,
-      "element_points": 0,
-      "zodiac_relation": "-1",
-      "label": "Makemake",
-      "label_short": "makemake",
-      "visible_aspect_line": 1,
-      "visible_aspect_grid": 1,
-      "visible_json": 1
-    },
-    "45": {
-      "id": 45,
-      "name": "haumea",
-      "color": "#2b5d6a",
-      "visible": 1,
-      "t_visible": 1,
-      "element_points": 0,
-      "zodiac_relation": "-1",
-      "label": "Haumea",
-      "label_short": "haumea",
-      "visible_aspect_line": 1,
-      "visible_aspect_grid": 1,
-      "visible_json": 1
-    },
-    "46": {
-      "id": 46,
-      "name": "sedna",
-      "color": "#4b2b6a",
-      "visible": 1,
-      "t_visible": 1,
-      "element_points": 0,
-      "zodiac_relation": "-1",
-      "label": "Sedna",
-      "label_short": "sedna",
-      "visible_aspect_line": 1,
-      "visible_aspect_grid": 1,
-      "visible_json": 1
     }
   },
   "settings_house_dict": {

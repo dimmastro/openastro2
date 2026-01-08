@@ -855,9 +855,18 @@ class ChartRenderer:
 		td['paper_color_0'] = self.settings.settings["color_codes"]["paper_0"]
 		td['paper_color_1'] = self.settings.settings["color_codes"]["paper_1"]
 
-		for i in range(len(self.planets)):
-			# td['planets_color_%s'%(i)]=self.settings.settings["color_codes"]["planet_%s"%(i)]
-			td['planets_color_%s'%(i)]=self.settings.settings["color_codes"]["planet_all"]
+		# Planet color tokens for both numeric ids and names.
+		planet_color_default = self.settings.settings["color_codes"]["planet_all"]
+		for entry in self.settings.settings.get("settings_planet_dict", {}).values():
+			if not isinstance(entry, dict):
+				continue
+			entry_id = entry.get("id")
+			entry_name = entry.get("name")
+			entry_color = entry.get("color", planet_color_default)
+			if entry_id is not None:
+				td[f"planets_color_{entry_id}"] = entry_color
+			if entry_name:
+				td[f"planets_color_{entry_name}"] = entry_color
 
 		# zodiac_color_X
 		for i in range(12):
@@ -898,9 +907,18 @@ class ChartRenderer:
 
 		# read template
 		# f=open(self.settings.xml_svg)
-		f = open(self.settings.xml_svg2)
-		template = Template(f.read()).substitute(td)
-		f.close()
+		class _TemplateDefaults(dict):
+			def __init__(self, data, default_color):
+				super().__init__(data)
+				self._default_color = default_color
+
+			def __missing__(self, key):
+				if key.startswith("planets_color_"):
+					return self._default_color
+				raise KeyError(key)
+
+		with open(self.settings.xml_svg2, "r", encoding="utf-8") as f:
+			template = Template(f.read()).substitute(_TemplateDefaults(td, planet_color_default))
 
 		if self.settings.settings["settings_svg"]["saveSwgFile"] == 1:
 			try:

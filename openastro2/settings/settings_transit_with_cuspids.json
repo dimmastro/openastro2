@@ -5,9 +5,20 @@
                      "planet_in_one_house": 1
                      },
 
-
-"settings_planet": [
-  {"id": 0, "name": "sun", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 40, "zodiac_relation": "4", "label": "\u0421\u043e\u043b\u043d\u0446\u0435", "label_short": "sun", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+  "settings_planet_dict": {
+    "0": {
+      "id": 0,
+      "name": "sun",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 40,
+      "zodiac_relation": "4",
+      "label": "Sun",
+      "label_short": "sun",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix":   {"default": 10, "0": 10, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1.5, "51.5": 0, "60": 9, "72": 0, "80": 0, "90": 10, "100": 0, "108": 0, "120": 10, "135": 1, "144": 0, "150": 3, "180": 10},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -15,8 +26,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
    }
-  },
-  {"id": 1, "name": "moon", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 40, "zodiac_relation": "3", "label": "\u041b\u0443\u043d\u0430", "label_short": "moon", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "1": {
+      "id": 1,
+      "name": "moon",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 40,
+      "zodiac_relation": "3",
+      "label": "Moon",
+      "label_short": "moon",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix":   {"default": 9, "0": 9, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 9, "72": 0, "80": 0, "90": 9, "100": 0, "108": 0, "120": 9, "135": 0, "144": 0, "150": 0, "180": 9},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -24,8 +47,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 2, "name": "mercury", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 15, "zodiac_relation": "2,5", "label": "\u041c\u0435\u0440\u043a\u0443\u0440\u0438\u0439", "label_short": "mercury", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "2": {
+      "id": 2,
+      "name": "mercury",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 15,
+      "zodiac_relation": "2,5",
+      "label": "Mercury",
+      "label_short": "mercury",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -33,8 +68,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 3, "name": "venus", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 15, "zodiac_relation": "1,6", "label": "\u0412\u0435\u043d\u0435\u0440\u0430", "label_short": "venus", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "3": {
+      "id": 3,
+      "name": "venus",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 15,
+      "zodiac_relation": "1,6",
+      "label": "Venus",
+      "label_short": "venus",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -42,8 +89,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 4, "name": "mars", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 15, "zodiac_relation": "0", "label": "\u041c\u0430\u0440\u0441", "label_short": "mars", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "4": {
+      "id": 4,
+      "name": "mars",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 15,
+      "zodiac_relation": "0",
+      "label": "Mars",
+      "label_short": "mars",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -51,8 +110,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 5, "name": "jupiter", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 10, "zodiac_relation": "8", "label": "\u042e\u043f\u0438\u0442\u0435\u0440", "label_short": "jupiter", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "5": {
+      "id": 5,
+      "name": "jupiter",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 10,
+      "zodiac_relation": "8",
+      "label": "Jupiter",
+      "label_short": "jupiter",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 7, "0": 7, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 7, "72": 0, "80": 0, "90": 7, "100": 0, "108": 0, "120": 7, "135": 0, "144": 0, "150": 0, "180": 7},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -60,8 +131,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 6, "name": "saturn", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 10, "zodiac_relation": "9", "label": "\u0421\u0430\u0442\u0443\u0440\u043d", "label_short": "saturn", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "6": {
+      "id": 6,
+      "name": "saturn",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 10,
+      "zodiac_relation": "9",
+      "label": "Saturn",
+      "label_short": "saturn",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -69,8 +152,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 7, "name": "uranus", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 10, "zodiac_relation": "10", "label": "\u0423\u0440\u0430\u043d", "label_short": "uranus", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "7": {
+      "id": 7,
+      "name": "uranus",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 10,
+      "zodiac_relation": "10",
+      "label": "Uranus",
+      "label_short": "uranus",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -78,8 +173,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 8, "name": "neptune", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 10, "zodiac_relation": "11", "label": "\u041d\u0435\u043f\u0442\u0443\u043d", "label_short": "neptune", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "8": {
+      "id": 8,
+      "name": "neptune",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 10,
+      "zodiac_relation": "11",
+      "label": "Neptune",
+      "label_short": "neptune",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -87,8 +194,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 9, "name": "pluto", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 10, "zodiac_relation": "7", "label": "\u041f\u043b\u0443\u0442\u043e\u043d", "label_short": "pluto", "visible_aspect_line": 1, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "9": {
+      "id": 9,
+      "name": "pluto",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 10,
+      "zodiac_relation": "7",
+      "label": "Pluto",
+      "label_short": "pluto",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -96,9 +215,246 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 10, "name": "mean node", "color": "#444444", "visible": 0, "element_points": 20, "zodiac_relation": "-1", "label": "North Node", "label_short": "Node", "visible_aspect_line": 0, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "10": {
+      "id": 10,
+      "name": "mean node",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 20,
+      "zodiac_relation": "-1",
+      "label": "North Node",
+      "label_short": "Node",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 1,
+      "visible_json": 0,
+    "planet_orb": {
+      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
+      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
+    }
+    },
+    "11": {
+      "id": 11,
+      "name": "true node",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "?",
+      "label_short": "?",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0,
+    "planet_orb": {
+      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
+      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
+    }
+    },
+    "12": {
+      "id": 12,
+      "name": "mean apogee",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Lilith",
+      "label_short": "Lilith",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 1,
+      "visible_json": 0,
+    "planet_orb": {
+      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
+      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
+    }
+    },
+    "13": {
+      "id": 13,
+      "name": "osc. apogee",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Osc. Lilith",
+      "label_short": "?",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "14": {
+      "id": 14,
+      "name": "earth",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Earth",
+      "label_short": "earth",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "15": {
+      "id": 15,
+      "name": "chiron",
+      "color": "#444444",
+      "visible": 0,
+      "t_visible": 0,
+      "element_points": 5,
+      "zodiac_relation": "-1",
+      "label": "Chiron",
+      "label_short": "chiron",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 1,
+      "visible_json": 0,
+    "planet_orb": {
+      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
+      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
+    }
+    },
+    "16": {
+      "id": 16,
+      "name": "pholus",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Pholus",
+      "label_short": "pholus",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "17": {
+      "id": 17,
+      "name": "ceres",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Ceres",
+      "label_short": "ceres",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "18": {
+      "id": 18,
+      "name": "pallas",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Pallas",
+      "label_short": "pallas",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "19": {
+      "id": 19,
+      "name": "juno",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Juno",
+      "label_short": "juno",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "20": {
+      "id": 20,
+      "name": "vesta",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Vesta",
+      "label_short": "vesta",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "21": {
+      "id": 21,
+      "name": "intp. apogee",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "intp. apogee",
+      "label_short": "intp. apogee",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "22": {
+      "id": 22,
+      "name": "intp. perigee",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "intp. perigee",
+      "label_short": "intp. perigee",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
 
+    "35": {
+      "id": 35,
+      "name": "day pars",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Day Pars",
+      "label_short": "DP",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "36": {
+      "id": 36,
+      "name": "night pars",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Night Pars",
+      "label_short": "NP",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "37": {
+      "id": 37,
+      "name": "south node",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "South Node",
+      "label_short": "SNode",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -106,89 +462,87 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 11, "name": "true node", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "?", "label_short": "?", "visible_aspect_line": 0, "visible_aspect_grid": 0,
-    "planet_orb": {
-      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
-      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
+    },
+    "38": {
+      "id": 38,
+      "name": "marriage pars",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "South Node",
+      "label_short": "SNode",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "39": {
+      "id": 39,
+      "name": "black sun",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "South Node",
+      "label_short": "SNode",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "40": {
+      "id": 40,
+      "name": "vulcanus",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "South Node",
+      "label_short": "SNode",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "41": {
+      "id": 41,
+      "name": "persephone",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "South Node",
+      "label_short": "SNode",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
+    },
+    "42": {
+      "id": 42,
+      "name": "true lilith own",
+      "color": "#444444",
+      "visible": 0,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "South Node",
+      "label_short": "SNode",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 0
     }
   },
-  {"id": 12, "name": "mean apogee", "color": "#444444", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "Lilith", "label_short": "Lilith", "visible_aspect_line": 0, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
-    "planet_orb": {
-      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
-      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
-    }
-  },
-  {"id": 13, "name": "osc. apogee", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Osc. Lilith", "label_short": "?", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 14, "name": "earth", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Earth", "label_short": "earth", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 15, "name": "chiron", "color": "#444444", "visible": 0, "t_visible": 0, "element_points": 5, "zodiac_relation": "-1", "label": "Chiron", "label_short": "chiron", "visible_aspect_line": 0, "visible_aspect_grid": 1,
-    "planet_orb": {
-      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
-      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
-    }
-  },
-  {"id": 16, "name": "pholus", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Pholus", "label_short": "pholus", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 17, "name": "ceres", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Ceres", "label_short": "ceres", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 18, "name": "pallas", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Pallas", "label_short": "pallas", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 19, "name": "juno", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Juno", "label_short": "juno", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 20, "name": "vesta", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Vesta", "label_short": "vesta", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 21, "name": "intp. apogee", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "intp. apogee", "label_short": "intp. apogee", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 22, "name": "intp. perigee", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "intp. perigee", "label_short": "intp. perigee", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 23, "name": "Asc", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 40, "zodiac_relation": "-1", "label": "Asc", "label_short": "Asc", "visible_aspect_line": 0, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
-    "planet_orb": {
-      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
-      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
-    }
-  },
-  {"id": 24, "name": "II", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "II", "label_short": "II", "visible_aspect_line": 0, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
-    "planet_orb": {
-      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
-      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
-    }
-  },
-  {"id": 25, "name": "III", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "III", "label_short": "III", "visible_aspect_line": 0, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
-    "planet_orb": {
-      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
-      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
-    }
-  },
-  {"id": 26, "name": "Ic", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "Ic", "label_short": "Ic", "visible_aspect_line": 0, "visible_aspect_grid": 0, "visible_json": 1, "t_visible_json": 0,
-    "planet_orb": {
-      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
-      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
-    }
-  },
-  {"id": 27, "name": "V", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "V", "label_short": "V", "visible_aspect_line": 0, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
-    "planet_orb": {
-      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
-      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
-      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
-    }
-  },
-  {"id": 28, "name": "VI", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "VI", "label_short": "VI", "visible_aspect_line": 0, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+  "settings_house_dict": {
+    "23": {
+      "id": 23,
+      "name": "Asc",
+      "color": "#FF0000",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 40,
+      "zodiac_relation": "-1",
+      "label": "Asc",
+      "label_short": "Asc",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -196,8 +550,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 29, "name": "Dsc", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "Dsc", "label_short": "Dsc", "visible_aspect_line": 0, "visible_aspect_grid": 0, "visible_json": 1, "t_visible_json": 0,
+    },
+    "24": {
+      "id": 24,
+      "name": "II",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "II",
+      "label_short": "II",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -205,8 +571,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 30, "name": "VIII", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "VIII", "label_short": "VIII", "visible_aspect_line": 0, "visible_aspect_grid": 0, "visible_json": 1, "t_visible_json": 0,
+    },
+    "25": {
+      "id": 25,
+      "name": "III",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "III",
+      "label_short": "III",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -214,8 +592,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 31, "name": "IX", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "IX", "label_short": "IX", "visible_aspect_line": 0, "visible_aspect_grid": 0, "visible_json": 1, "t_visible_json": 0,
+    },
+    "26": {
+      "id": 26,
+      "name": "Ic",
+      "color": "#FF0000",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Ic",
+      "label_short": "Ic",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -223,8 +613,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 32, "name": "Mc", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 20, "zodiac_relation": "-1", "label": "Mc", "label_short": "Mc", "visible_aspect_line": 0, "visible_aspect_grid": 1, "visible_json": 1, "t_visible_json": 0,
+    },
+    "27": {
+      "id": 27,
+      "name": "V",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "V",
+      "label_short": "V",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -232,8 +634,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 33, "name": "XI", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "XI", "label_short": "XI", "visible_aspect_line": 0, "visible_aspect_grid": 0, "visible_json": 1, "t_visible_json": 0,
+    },
+    "28": {
+      "id": 28,
+      "name": "VI",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "VI",
+      "label_short": "VI",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -241,8 +655,20 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 34, "name": "XII", "color": "#FF0000", "visible": 1, "t_visible": 1, "element_points": 0, "zodiac_relation": "-1", "label": "XII", "label_short": "XII", "visible_aspect_line": 0, "visible_aspect_grid": 0, "visible_json": 1, "t_visible_json": 0,
+    },
+    "29": {
+      "id": 29,
+      "name": "Dsc",
+      "color": "#FF0000",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Dsc",
+      "label_short": "Dsc",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 1,
     "planet_orb": {
       "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
@@ -250,25 +676,115 @@
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
-  },
-  {"id": 35, "name": "day pars", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Day Pars", "label_short": "DP", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 36, "name": "night pars", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "Night Pars", "label_short": "NP", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 37, "name": "south node", "color": "#444444", "visible": 1, "t_visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "South Node", "label_short": "SNode", "visible_aspect_line": 0, "visible_aspect_grid": 0,
+    },
+    "30": {
+      "id": 30,
+      "name": "VIII",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "VIII",
+      "label_short": "VIII",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 1,
     "planet_orb": {
-      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 0, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 0, "144": 0, "150": 0, "180": 5},
+      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
       "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
       "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
     }
+    },
+    "31": {
+      "id": 31,
+      "name": "IX",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "IX",
+      "label_short": "IX",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 1,
+    "planet_orb": {
+      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
+      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
+    }
+    },
+    "32": {
+      "id": 32,
+      "name": "Mc",
+      "color": "#FF0000",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 20,
+      "zodiac_relation": "-1",
+      "label": "Mc",
+      "label_short": "Mc",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 1,
+      "visible_json": 1,
+    "planet_orb": {
+      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
+      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
+    }
+    },
+    "33": {
+      "id": 33,
+      "name": "XI",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "XI",
+      "label_short": "XI",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 1,
+    "planet_orb": {
+      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
+      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
+    }
+    },
+    "34": {
+      "id": 34,
+      "name": "XII",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "XII",
+      "label_short": "XII",
+      "visible_aspect_line": 0,
+      "visible_aspect_grid": 0,
+      "visible_json": 1,
+    "planet_orb": {
+      "Radix": {"default": 5, "0": 5, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45": 1, "51.5": 0, "60": 5, "72": 0, "80": 0, "90": 5, "100": 0, "108": 0, "120": 5, "135": 1, "144": 0, "150": 1, "180": 5},
+      "Transit": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "SecondaryProgression": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Direction": {"default":  1, "0":  1, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 1, "72": 0, "80": 0, "90":  1, "100": 0, "108": 0, "120":  1, "135": 0, "144": 0, "150": 0, "180":  1},
+      "Zemletochki": {"default":  4, "0":  4, "18": 0, "20": 0, "30": 0, "36": 0, "40": 0, "45":   0, "51.5": 0, "60": 4, "72": 0, "80": 0, "90":  4, "100": 0, "108": 0, "120":  4, "135": 0, "144": 0, "150": 0, "180":  4}
+    }
+    }
   },
-  {"id": 38, "name": "marriage pars", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "South Node", "label_short": "SNode", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 39, "name": "black sun", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "South Node", "label_short": "SNode", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 40, "name": "vulcanus", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "South Node", "label_short": "SNode", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 41, "name": "persephone", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "South Node", "label_short": "SNode", "visible_aspect_line": 0, "visible_aspect_grid": 0},
-  {"id": 42, "name": "true lilith own", "color": "#444444", "visible": 0, "element_points": 0, "zodiac_relation": "-1", "label": "South Node", "label_short": "SNode", "visible_aspect_line": 0, "visible_aspect_grid": 0}
 
-],
+
         "settings_svg": {
           "c1": 0, "c2": 20, "c3": 80, "r": 237, "roff": 0, "t_roff": 15, "roff_deg": -30, "t_roff_deg": 25, "circleX": 0, "circleY": 0, "offset_degree_planet_x": 4, "offset_degree_planet_y": -4,
           "t_rplanet": 25,

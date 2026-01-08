@@ -155,6 +155,44 @@
 </g>
 </symbol>
 
+<symbol id="eris">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M6 11V1M2.25 9.75a3.751 3.751 0 0 0 0-7.5m7.5 0a3.751 3.751 0 0 0 0 7.5"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="makemake">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M3.5 6C2.121 6 1 4.879 1 3.5S2.121 1 3.5 1h5C9.879 1 11 2.121 11 3.5S9.879 6 8.5 6M6 1v10"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+	<path
+	d="M4.75 3.5A1.249 1.249 0 1 0 3.5 4.75 1.25 1.25 0 0 0 4.75 3.5zm5 0A1.249 1.249 0 1 0 8.5 4.75 1.25 1.25 0 0 0 9.75 3.5zm0 0"
+	style="fill:#444444;stroke:none;" />
+</g>
+</symbol>
+
+<symbol id="haumea">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M7.25 2.25A1.249 1.249 0 1 0 6 3.5a1.25 1.25 0 0 0 1.25-1.25Zm0 5A1.249 1.249 0 1 0 6 8.5a1.25 1.25 0 0 0 1.25-1.25Zm0 0"
+	style="fill:#444444;stroke:none;" />
+	<path
+	d="M1 4.75h10m-7.5 0C3.5 8.203 2.379 11 1 11m7.5-6.25C8.5 8.203 9.621 11 11 11"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="sedna">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M5.875 1v5a5 5 0 0 1 5 5m-7.25-8.75a1.249 1.249 0 1 0-1.25 1.25 1.25 1.25 0 0 0 1.25-1.25zM2.375 3.5H7.75"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
 <symbol id="mean node">
 <g transform="translate(0,3)">
 	<path
@@ -705,9 +743,9 @@
 <text text-anchor="start" x="79.22284737030556" y="103.85994855573061"  style="fill:#444444; font-size: 7px;">27</text>
 	
 	<!-- Planets -->
-	<line x1="95.16296071390789" y1="304.3145919289092" x2="77.09454806599808" y2="312.8896991809995" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="95.16296071390789" cy="304.3145919289092" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="68.06034174204316" y="317.1772528070447" xlink:href="#saturn" /></g></g>
-<text text-anchor="start" x="75.39367507537649" y="313.1772528070447"  style="fill:#000000; font-size: 11.666666666666668px;"> 1</text><line x1="168.80884020003816" y1="378.4176994761832" x2="160.12206825099844" y2="396.4326930400282" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+	<line x1="95.16296071390789" y1="304.3145919289092" x2="77.96563304135067" y2="314.69858509690937" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="95.16296071390789" cy="304.3145919289092" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="68.98064055781116" y="319.0883356673562" xlink:href="#saturn" /></g></g>
+<text text-anchor="start" x="76.31397389114449" y="315.0883356673562"  style="fill:#000000; font-size: 11.666666666666668px;"> 1</text><line x1="168.80884020003816" y1="378.4176994761832" x2="160.12206825099844" y2="396.4326930400282" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="168.80884020003816" cy="378.4176994761832" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="155.77868227647855" y="405.4401898219507" xlink:href="#uranus" /></g></g>
 <text text-anchor="start" x="163.1120156098119" y="401.4401898219507"  style="fill:#000000; font-size: 11.666666666666668px;">10</text><line x1="233.75098405685966" y1="393.9663782324139" x2="233.3370966755679" y2="413.9620952046959" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="233.75098405685966" cy="393.9663782324139" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="233.13015298492203" y="423.9599536908369" xlink:href="#south node" /></g></g>
@@ -723,15 +761,15 @@
 <circle cx="189.22724225622974" cy="87.44478070774315" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="180.0986898211144" y="58.86735026973228" xlink:href="#mean apogee" /></g></g>
 <text text-anchor="start" x="187.43202315444773" y="54.86735026973228"  style="fill:#000000; font-size: 11.666666666666668px;">24</text><line x1="146.3338717029096" y1="108.82569220153539" x2="134.78404644213373" y2="92.49775490236793" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="146.3338717029096" cy="108.82569220153539" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="129.0091338117458" y="84.3337862527842" xlink:href="#mercury" /></g></g>
-<text text-anchor="start" x="136.34246714507915" y="80.3337862527842"  style="fill:#000000; font-size: 11.666666666666668px;">11</text><line x1="105.63847271404299" y1="151.01657631205438" x2="102.2216906151003" y2="122.26636360967086" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="105.63847271404299" cy="151.01657631205438" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="94.60709686454099" y="115.78423725993476" xlink:href="#venus" /></g></g>
-<text text-anchor="start" x="101.94043019787432" y="111.78423725993476"  style="fill:#000000; font-size: 11.666666666666668px;"> 3</text><line x1="102.18656955406917" y1="156.5367228395452" x2="88.9045201935389" y2="140.06327393142436" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="102.18656955406917" cy="156.5367228395452" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="80.53754393328687" y="134.58662274110935" xlink:href="#sun" /></g></g>
-<text text-anchor="start" x="87.8708772666202" y="130.58662274110935"  style="fill:#000000; font-size: 11.666666666666668px;"> 5</text><line x1="97.32777020503977" y1="165.3015465710464" x2="77.92290395647677" y2="159.38893433047264" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="97.32777020503977" cy="165.3015465710464" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="68.93549740034553" y="155.00412836044285" xlink:href="#jupiter" /></g></g>
-<text text-anchor="start" x="76.26883073367885" y="151.00412836044285"  style="fill:#000000; font-size: 11.666666666666668px;"> 9</text><line x1="90.02748173579037" y1="292.2094092983847" x2="71.30486794417132" y2="299.24245506887956" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="90.02748173579037" cy="292.2094092983847" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="61.94356104836179" y="302.758977954127" xlink:href="#mars" /></g></g>
-<text text-anchor="start" x="69.27689438169512" y="298.758977954127"  style="fill:#000000; font-size: 11.666666666666668px;">27</text>
+<text text-anchor="start" x="136.34246714507915" y="80.3337862527842"  style="fill:#000000; font-size: 11.666666666666668px;">11</text><line x1="105.63847271404299" y1="151.01657631205438" x2="94.33234556548564" y2="132.23865036114705" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="105.63847271404299" cy="151.01657631205438" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="86.27202610590857" y="126.31993004256779" xlink:href="#venus" /></g></g>
+<text text-anchor="start" x="93.6053594392419" y="122.31993004256779"  style="fill:#000000; font-size: 11.666666666666668px;"> 3</text><line x1="102.18656955406917" y1="156.5367228395452" x2="84.00777026397535" y2="147.99226078368548" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="102.18656955406917" cy="156.5367228395452" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="75.36414146532988" y="142.96357495225527" xlink:href="#sun" /></g></g>
+<text text-anchor="start" x="82.69747479866321" y="138.96357495225527"  style="fill:#000000; font-size: 11.666666666666668px;"> 5</text><line x1="97.32777020503977" y1="165.3015465710464" x2="75.41569606636702" y2="164.75380479026376" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="97.32777020503977" cy="165.3015465710464" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="66.28663934695274" y="160.67209884621084" xlink:href="#jupiter" /></g></g>
+<text text-anchor="start" x="73.61997268028607" y="156.67209884621084"  style="fill:#000000; font-size: 11.666666666666668px;"> 9</text><line x1="90.02748173579037" y1="292.2094092983847" x2="70.6095265223486" y2="297.35901205191306" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="90.02748173579037" cy="292.2094092983847" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="61.20893480044739" y="300.76912572716236" xlink:href="#mars" /></g></g>
+<text text-anchor="start" x="68.54226813378072" y="296.76912572716236"  style="fill:#000000; font-size: 11.666666666666668px;">27</text>
 	
 	<!-- Aspects -->
 				<line x1="102.18656955406917" y1="156.5367228395452" x2="102.18656955406917" y2="156.5367228395452" style="stroke: #4093f4; stroke-width: 1.0; stroke-opacity: .5;"/>

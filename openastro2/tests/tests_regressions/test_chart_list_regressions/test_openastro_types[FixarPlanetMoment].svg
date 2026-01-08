@@ -155,6 +155,44 @@
 </g>
 </symbol>
 
+<symbol id="eris">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M6 11V1M2.25 9.75a3.751 3.751 0 0 0 0-7.5m7.5 0a3.751 3.751 0 0 0 0 7.5"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="makemake">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M3.5 6C2.121 6 1 4.879 1 3.5S2.121 1 3.5 1h5C9.879 1 11 2.121 11 3.5S9.879 6 8.5 6M6 1v10"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+	<path
+	d="M4.75 3.5A1.249 1.249 0 1 0 3.5 4.75 1.25 1.25 0 0 0 4.75 3.5zm5 0A1.249 1.249 0 1 0 8.5 4.75 1.25 1.25 0 0 0 9.75 3.5zm0 0"
+	style="fill:#444444;stroke:none;" />
+</g>
+</symbol>
+
+<symbol id="haumea">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M7.25 2.25A1.249 1.249 0 1 0 6 3.5a1.25 1.25 0 0 0 1.25-1.25Zm0 5A1.249 1.249 0 1 0 6 8.5a1.25 1.25 0 0 0 1.25-1.25Zm0 0"
+	style="fill:#444444;stroke:none;" />
+	<path
+	d="M1 4.75h10m-7.5 0C3.5 8.203 2.379 11 1 11m7.5-6.25C8.5 8.203 9.621 11 11 11"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="sedna">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M5.875 1v5a5 5 0 0 1 5 5m-7.25-8.75a1.249 1.249 0 1 0-1.25 1.25 1.25 1.25 0 0 0 1.25-1.25zM2.375 3.5H7.75"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
 <symbol id="mean node">
 <g transform="translate(0,3)">
 	<path
@@ -717,11 +755,11 @@
 <circle cx="364.99556026011396" cy="327.9182960338542" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="389.4533106282886" y="345.2912188428709" xlink:href="#pluto" /></g></g>
 <text text-anchor="start" x="396.7866439616219" y="341.2912188428709"  style="fill:#000000; font-size: 11.666666666666668px;"> 1</text><text text-anchor="start" x="396.7866439616219" y="357.95788550953756"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="391.99748463476874" y1="261.9955947497679" x2="411.7423871360131" y2="265.17974694719055" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="391.99748463476874" cy="261.9955947497679" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="421.61483838663537" y="266.7718230459019" xlink:href="#moon" /></g></g>
-<text text-anchor="start" x="428.9481717199687" y="262.7718230459019"  style="fill:#000000; font-size: 11.666666666666668px;">27</text><line x1="390.66158011826224" y1="204.7956711673899" x2="411.36511211353985" y2="206.57291210725748" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="390.66158011826224" cy="204.7956711673899" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="421.21624839114094" y="204.8538675935432" xlink:href="#sun" /></g></g>
-<text text-anchor="start" x="428.54958172447425" y="200.8538675935432"  style="fill:#000000; font-size: 11.666666666666668px;">18</text><line x1="389.36262610670616" y1="199.12348793951486" x2="407.2294250461209" y2="188.51347766165225" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="389.36262610670616" cy="199.12348793951486" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="416.8469066871447" y="185.77412611711281" xlink:href="#neptune" /></g></g>
-<text text-anchor="start" x="424.18024002047804" y="181.77412611711281"  style="fill:#000000; font-size: 11.666666666666668px;">20</text><text text-anchor="start" x="424.18024002047804" y="198.44079278377947"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="378.2445115650351" y1="168.45083550651648" x2="396.2374429745937" y2="159.71845786403452" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<text text-anchor="start" x="428.9481717199687" y="262.7718230459019"  style="fill:#000000; font-size: 11.666666666666668px;">27</text><line x1="390.66158011826224" y1="204.7956711673899" x2="411.3915983601368" y2="206.72508593906943" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="390.66158011826224" cy="204.7956711673899" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="421.24423103585076" y="205.01463881698297" xlink:href="#sun" /></g></g>
+<text text-anchor="start" x="428.5775643691841" y="201.01463881698297"  style="fill:#000000; font-size: 11.666666666666668px;">18</text><line x1="389.36262610670616" y1="199.12348793951486" x2="407.1870477600529" y2="188.36494294526355" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="389.36262610670616" cy="199.12348793951486" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="416.80213520412366" y="185.61719960883778" xlink:href="#neptune" /></g></g>
+<text text-anchor="start" x="424.135468537457" y="181.61719960883778"  style="fill:#000000; font-size: 11.666666666666668px;">20</text><text text-anchor="start" x="424.135468537457" y="198.28386627550444"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="378.2445115650351" y1="168.45083550651648" x2="396.2374429745937" y2="159.71845786403452" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="378.2445115650351" cy="168.45083550651648" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="405.23390867937303" y="155.35226904279352" xlink:href="#mercury" /></g></g>
 <text text-anchor="start" x="412.56724201270634" y="151.35226904279352"  style="fill:#000000; font-size: 11.666666666666668px;"> 2</text><line x1="320.3334763460442" y1="103.94162288648153" x2="330.94920581687785" y2="86.99151115227535" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="320.3334763460442" cy="103.94162288648153" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="336.2570705522947" y="78.51645528517227" xlink:href="#venus" /></g></g>

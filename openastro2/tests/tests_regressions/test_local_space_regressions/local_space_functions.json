@@ -13938,15 +13938,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K1-0 ( az=6.5)"
+        "name": "K1-0"
       },
-      "name": "Vladimir Visotskiy/ K1-0 ( az=6.5)",
+      "name": "K1-0",
       "to": {
         "coordinates": [
           -147.16449095315136,
           -9.503971686792331
         ],
-        "name": "Vladimir Visotskiy/ K1-0 ( az=6.5)"
+        "name": "K1-0"
       }
     },
     {
@@ -13955,15 +13955,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K0-0 ( az=6.5)"
+        "name": "K0-0"
       },
-      "name": "Vladimir Visotskiy/K0-0 ( az=6.5)",
+      "name": "K0-0",
       "to": {
         "coordinates": [
           -147.16449095315136,
           -9.503971686792331
         ],
-        "name": "Vladimir Visotskiy/K0-0 ( az=6.5)"
+        "name": "K0-0"
       }
     },
     {
@@ -13972,15 +13972,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K1-60 ( az=310.0)"
+        "name": "K1-60"
       },
-      "name": "Vladimir Visotskiy/ K1-60 ( az=310.0)",
+      "name": "K1-60",
       "to": {
         "coordinates": [
           -91.27383717233116,
           13.351294492585216
         ],
-        "name": "Vladimir Visotskiy/ K1-60 ( az=310.0)"
+        "name": "K1-60"
       }
     },
     {
@@ -13989,15 +13989,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K0-60 ( az=310.0)"
+        "name": "K0-60"
       },
-      "name": "Vladimir Visotskiy/K0-60 ( az=310.0)",
+      "name": "K0-60",
       "to": {
         "coordinates": [
           -91.27383717233116,
           13.351294492585216
         ],
-        "name": "Vladimir Visotskiy/K0-60 ( az=310.0)"
+        "name": "K0-60"
       }
     },
     {
@@ -14006,15 +14006,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K1-90 ( az=289.0)"
+        "name": "K1-90"
       },
-      "name": "Vladimir Visotskiy/ K1-90 ( az=289.0)",
+      "name": "K1-90",
       "to": {
         "coordinates": [
           -60.89179025952124,
           21.221489243595112
         ],
-        "name": "Vladimir Visotskiy/ K1-90 ( az=289.0)"
+        "name": "K1-90"
       }
     },
     {
@@ -14023,15 +14023,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K0-90 ( az=289.0)"
+        "name": "K0-90"
       },
-      "name": "Vladimir Visotskiy/K0-90 ( az=289.0)",
+      "name": "K0-90",
       "to": {
         "coordinates": [
           -60.89179025952124,
           21.221489243595112
         ],
-        "name": "Vladimir Visotskiy/K0-90 ( az=289.0)"
+        "name": "K0-90"
       }
     },
     {
@@ -14040,15 +14040,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K1-120 ( az=264.2)"
+        "name": "K1-120"
       },
-      "name": "Vladimir Visotskiy/ K1-120 ( az=264.2)",
+      "name": "K1-120",
       "to": {
         "coordinates": [
           -28.485933713165604,
           23.33065555123319
         ],
-        "name": "Vladimir Visotskiy/ K1-120 ( az=264.2)"
+        "name": "K1-120"
       }
     },
     {
@@ -14057,15 +14057,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K0-120 ( az=264.2)"
+        "name": "K0-120"
       },
-      "name": "Vladimir Visotskiy/K0-120 ( az=264.2)",
+      "name": "K0-120",
       "to": {
         "coordinates": [
           -28.485933713165604,
           23.33065555123319
         ],
-        "name": "Vladimir Visotskiy/K0-120 ( az=264.2)"
+        "name": "K0-120"
       }
     },
     {
@@ -14074,15 +14074,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K1-180 ( az=186.5)"
+        "name": "K1-180"
       },
-      "name": "Vladimir Visotskiy/ K1-180 ( az=186.5)",
+      "name": "K1-180",
       "to": {
         "coordinates": [
           32.8355090468487,
           9.503971686792298
         ],
-        "name": "Vladimir Visotskiy/ K1-180 ( az=186.5)"
+        "name": "K1-180"
       }
     },
     {
@@ -14091,15 +14091,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K0-180 ( az=186.5)"
+        "name": "K0-180"
       },
-      "name": "Vladimir Visotskiy/K0-180 ( az=186.5)",
+      "name": "K0-180",
       "to": {
         "coordinates": [
           32.8355090468487,
           9.503971686792298
         ],
-        "name": "Vladimir Visotskiy/K0-180 ( az=186.5)"
+        "name": "K0-180"
       }
     },
     {
@@ -14108,15 +14108,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K1-240 ( az=130.0)"
+        "name": "K1-240"
       },
-      "name": "Vladimir Visotskiy/ K1-240 ( az=130.0)",
+      "name": "K1-240",
       "to": {
         "coordinates": [
           88.72616282766893,
           -13.351294492585225
         ],
-        "name": "Vladimir Visotskiy/ K1-240 ( az=130.0)"
+        "name": "K1-240"
       }
     },
     {
@@ -14125,15 +14125,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K0-240 ( az=130.0)"
+        "name": "K0-240"
       },
-      "name": "Vladimir Visotskiy/K0-240 ( az=130.0)",
+      "name": "K0-240",
       "to": {
         "coordinates": [
           88.72616282766893,
           -13.351294492585225
         ],
-        "name": "Vladimir Visotskiy/K0-240 ( az=130.0)"
+        "name": "K0-240"
       }
     },
     {
@@ -14142,15 +14142,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K1-270 ( az=109.0)"
+        "name": "K1-270"
       },
-      "name": "Vladimir Visotskiy/ K1-270 ( az=109.0)",
+      "name": "K1-270",
       "to": {
         "coordinates": [
           119.10820974047891,
           -21.22148924359514
         ],
-        "name": "Vladimir Visotskiy/ K1-270 ( az=109.0)"
+        "name": "K1-270"
       }
     },
     {
@@ -14159,15 +14159,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K0-270 ( az=109.0)"
+        "name": "K0-270"
       },
-      "name": "Vladimir Visotskiy/K0-270 ( az=109.0)",
+      "name": "K0-270",
       "to": {
         "coordinates": [
           119.10820974047891,
           -21.22148924359514
         ],
-        "name": "Vladimir Visotskiy/K0-270 ( az=109.0)"
+        "name": "K0-270"
       }
     },
     {
@@ -14176,15 +14176,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K1-300 ( az=84.2)"
+        "name": "K1-300"
       },
-      "name": "Vladimir Visotskiy/ K1-300 ( az=84.2)",
+      "name": "K1-300",
       "to": {
         "coordinates": [
           151.51406628683446,
           -23.33065555123319
         ],
-        "name": "Vladimir Visotskiy/ K1-300 ( az=84.2)"
+        "name": "K1-300"
       }
     },
     {
@@ -14193,15 +14193,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K0-300 ( az=84.2)"
+        "name": "K0-300"
       },
-      "name": "Vladimir Visotskiy/K0-300 ( az=84.2)",
+      "name": "K0-300",
       "to": {
         "coordinates": [
           151.51406628683446,
           -23.33065555123319
         ],
-        "name": "Vladimir Visotskiy/K0-300 ( az=84.2)"
+        "name": "K0-300"
       }
     },
     {
@@ -14210,15 +14210,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K2-0 ( az=307.7)"
+        "name": "K2-0"
       },
-      "name": "Vladimir Visotskiy/ K2-0 ( az=307.7)",
+      "name": "K2-0",
       "to": {
         "coordinates": [
           -88.10013392000025,
           14.416597535324742
         ],
-        "name": "Vladimir Visotskiy/ K2-0 ( az=307.7)"
+        "name": "K2-0"
       }
     },
     {
@@ -14227,15 +14227,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K1-0 ( az=307.7)"
+        "name": "K1-0"
       },
-      "name": "Vladimir Visotskiy/K1-0 ( az=307.7)",
+      "name": "K1-0",
       "to": {
         "coordinates": [
           -88.10013392000025,
           14.416597535324742
         ],
-        "name": "Vladimir Visotskiy/K1-0 ( az=307.7)"
+        "name": "K1-0"
       }
     },
     {
@@ -14244,15 +14244,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K2-60 ( az=261.0)"
+        "name": "K2-60"
       },
-      "name": "Vladimir Visotskiy/ K2-60 ( az=261.0)",
+      "name": "K2-60",
       "to": {
         "coordinates": [
           -24.943105071515447,
           23.155976557635565
         ],
-        "name": "Vladimir Visotskiy/ K2-60 ( az=261.0)"
+        "name": "K2-60"
       }
     },
     {
@@ -14261,15 +14261,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K1-60 ( az=261.0)"
+        "name": "K1-60"
       },
-      "name": "Vladimir Visotskiy/K1-60 ( az=261.0)",
+      "name": "K1-60",
       "to": {
         "coordinates": [
           -24.943105071515447,
           23.155976557635565
         ],
-        "name": "Vladimir Visotskiy/K1-60 ( az=261.0)"
+        "name": "K1-60"
       }
     },
     {
@@ -14278,15 +14278,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K2-90 ( az=224.3)"
+        "name": "K2-90"
       },
-      "name": "Vladimir Visotskiy/ K2-90 ( az=224.3)",
+      "name": "K2-90",
       "to": {
         "coordinates": [
           6.7136154999119855,
           18.078888406689856
         ],
-        "name": "Vladimir Visotskiy/ K2-90 ( az=224.3)"
+        "name": "K2-90"
       }
     },
     {
@@ -14295,15 +14295,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K1-90 ( az=224.3)"
+        "name": "K1-90"
       },
-      "name": "Vladimir Visotskiy/K1-90 ( az=224.3)",
+      "name": "K1-90",
       "to": {
         "coordinates": [
           6.7136154999119855,
           18.078888406689856
         ],
-        "name": "Vladimir Visotskiy/K1-90 ( az=224.3)"
+        "name": "K1-90"
       }
     },
     {
@@ -14312,15 +14312,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K2-120 ( az=182.3)"
+        "name": "K2-120"
       },
-      "name": "Vladimir Visotskiy/ K2-120 ( az=182.3)",
+      "name": "K2-120",
       "to": {
         "coordinates": [
           35.89977065999663,
           8.294726623012458
         ],
-        "name": "Vladimir Visotskiy/ K2-120 ( az=182.3)"
+        "name": "K2-120"
       }
     },
     {
@@ -14329,15 +14329,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K1-120 ( az=182.3)"
+        "name": "K1-120"
       },
-      "name": "Vladimir Visotskiy/K1-120 ( az=182.3)",
+      "name": "K1-120",
       "to": {
         "coordinates": [
           35.89977065999663,
           8.294726623012458
         ],
-        "name": "Vladimir Visotskiy/K1-120 ( az=182.3)"
+        "name": "K1-120"
       }
     },
     {
@@ -14346,15 +14346,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K2-180 ( az=127.7)"
+        "name": "K2-180"
       },
-      "name": "Vladimir Visotskiy/ K2-180 ( az=127.7)",
+      "name": "K2-180",
       "to": {
         "coordinates": [
           91.89986607999977,
           -14.416597535324735
         ],
-        "name": "Vladimir Visotskiy/ K2-180 ( az=127.7)"
+        "name": "K2-180"
       }
     },
     {
@@ -14363,15 +14363,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K1-180 ( az=127.7)"
+        "name": "K1-180"
       },
-      "name": "Vladimir Visotskiy/K1-180 ( az=127.7)",
+      "name": "K1-180",
       "to": {
         "coordinates": [
           91.89986607999977,
           -14.416597535324735
         ],
-        "name": "Vladimir Visotskiy/K1-180 ( az=127.7)"
+        "name": "K1-180"
       }
     },
     {
@@ -14380,15 +14380,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K2-240 ( az=81.0)"
+        "name": "K2-240"
       },
-      "name": "Vladimir Visotskiy/ K2-240 ( az=81.0)",
+      "name": "K2-240",
       "to": {
         "coordinates": [
           155.05689492848452,
           -23.155976557635565
         ],
-        "name": "Vladimir Visotskiy/ K2-240 ( az=81.0)"
+        "name": "K2-240"
       }
     },
     {
@@ -14397,15 +14397,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K1-240 ( az=81.0)"
+        "name": "K1-240"
       },
-      "name": "Vladimir Visotskiy/K1-240 ( az=81.0)",
+      "name": "K1-240",
       "to": {
         "coordinates": [
           155.05689492848452,
           -23.155976557635565
         ],
-        "name": "Vladimir Visotskiy/K1-240 ( az=81.0)"
+        "name": "K1-240"
       }
     },
     {
@@ -14414,15 +14414,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K2-270 ( az=44.3)"
+        "name": "K2-270"
       },
-      "name": "Vladimir Visotskiy/ K2-270 ( az=44.3)",
+      "name": "K2-270",
       "to": {
         "coordinates": [
           -173.28638450008805,
           -18.07888840668987
         ],
-        "name": "Vladimir Visotskiy/ K2-270 ( az=44.3)"
+        "name": "K2-270"
       }
     },
     {
@@ -14431,15 +14431,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K1-270 ( az=44.3)"
+        "name": "K1-270"
       },
-      "name": "Vladimir Visotskiy/K1-270 ( az=44.3)",
+      "name": "K1-270",
       "to": {
         "coordinates": [
           -173.28638450008805,
           -18.07888840668987
         ],
-        "name": "Vladimir Visotskiy/K1-270 ( az=44.3)"
+        "name": "K1-270"
       }
     },
     {
@@ -14448,15 +14448,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K2-300 ( az=2.3)"
+        "name": "K2-300"
       },
-      "name": "Vladimir Visotskiy/ K2-300 ( az=2.3)",
+      "name": "K2-300",
       "to": {
         "coordinates": [
           -144.10022934000338,
           -8.294726623012469
         ],
-        "name": "Vladimir Visotskiy/ K2-300 ( az=2.3)"
+        "name": "K2-300"
       }
     },
     {
@@ -14465,15 +14465,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K1-300 ( az=2.3)"
+        "name": "K1-300"
       },
-      "name": "Vladimir Visotskiy/K1-300 ( az=2.3)",
+      "name": "K1-300",
       "to": {
         "coordinates": [
           -144.10022934000338,
           -8.294726623012469
         ],
-        "name": "Vladimir Visotskiy/K1-300 ( az=2.3)"
+        "name": "K1-300"
       }
     },
     {
@@ -14482,15 +14482,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K3-0 ( az=289.3)"
+        "name": "K3-0"
       },
-      "name": "Vladimir Visotskiy/ K3-0 ( az=289.3)",
+      "name": "K3-0",
       "to": {
         "coordinates": [
           -61.35463146442563,
           21.143167506816106
         ],
-        "name": "Vladimir Visotskiy/ K3-0 ( az=289.3)"
+        "name": "K3-0"
       }
     },
     {
@@ -14499,15 +14499,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K2-0 ( az=289.3)"
+        "name": "K2-0"
       },
-      "name": "Vladimir Visotskiy/K2-0 ( az=289.3)",
+      "name": "K2-0",
       "to": {
         "coordinates": [
           -61.35463146442563,
           21.143167506816106
         ],
-        "name": "Vladimir Visotskiy/K2-0 ( az=289.3)"
+        "name": "K2-0"
       }
     },
     {
@@ -14516,15 +14516,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K3-60 ( az=229.5)"
+        "name": "K3-60"
       },
-      "name": "Vladimir Visotskiy/ K3-60 ( az=229.5)",
+      "name": "K3-60",
       "to": {
         "coordinates": [
           2.9381915835980372,
           19.010413891169936
         ],
-        "name": "Vladimir Visotskiy/ K3-60 ( az=229.5)"
+        "name": "K3-60"
       }
     },
     {
@@ -14533,15 +14533,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K2-60 ( az=229.5)"
+        "name": "K2-60"
       },
-      "name": "Vladimir Visotskiy/K2-60 ( az=229.5)",
+      "name": "K2-60",
       "to": {
         "coordinates": [
           2.9381915835980372,
           19.010413891169936
         ],
-        "name": "Vladimir Visotskiy/K2-60 ( az=229.5)"
+        "name": "K2-60"
       }
     },
     {
@@ -14550,15 +14550,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K3-90 ( az=187.1)"
+        "name": "K3-90"
       },
-      "name": "Vladimir Visotskiy/ K3-90 ( az=187.1)",
+      "name": "K3-90",
       "to": {
         "coordinates": [
           32.42162500365739,
           9.664705218581476
         ],
-        "name": "Vladimir Visotskiy/ K3-90 ( az=187.1)"
+        "name": "K3-90"
       }
     },
     {
@@ -14567,15 +14567,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K2-90 ( az=187.1)"
+        "name": "K2-90"
       },
-      "name": "Vladimir Visotskiy/K2-90 ( az=187.1)",
+      "name": "K2-90",
       "to": {
         "coordinates": [
           32.42162500365739,
           9.664705218581476
         ],
-        "name": "Vladimir Visotskiy/K2-90 ( az=187.1)"
+        "name": "K2-90"
       }
     },
     {
@@ -14584,15 +14584,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K3-120 ( az=153.9)"
+        "name": "K3-120"
       },
-      "name": "Vladimir Visotskiy/ K3-120 ( az=153.9)",
+      "name": "K3-120",
       "to": {
         "coordinates": [
           60.171536801682514,
           -2.0034461857244423
         ],
-        "name": "Vladimir Visotskiy/ K3-120 ( az=153.9)"
+        "name": "K3-120"
       }
     },
     {
@@ -14601,15 +14601,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K2-120 ( az=153.9)"
+        "name": "K2-120"
       },
-      "name": "Vladimir Visotskiy/K2-120 ( az=153.9)",
+      "name": "K2-120",
       "to": {
         "coordinates": [
           60.171536801682514,
           -2.0034461857244423
         ],
-        "name": "Vladimir Visotskiy/K2-120 ( az=153.9)"
+        "name": "K2-120"
       }
     },
     {
@@ -14618,15 +14618,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K3-180 ( az=109.3)"
+        "name": "K3-180"
       },
-      "name": "Vladimir Visotskiy/ K3-180 ( az=109.3)",
+      "name": "K3-180",
       "to": {
         "coordinates": [
           118.64536853557436,
           -21.143167506816102
         ],
-        "name": "Vladimir Visotskiy/ K3-180 ( az=109.3)"
+        "name": "K3-180"
       }
     },
     {
@@ -14635,15 +14635,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K2-180 ( az=109.3)"
+        "name": "K2-180"
       },
-      "name": "Vladimir Visotskiy/K2-180 ( az=109.3)",
+      "name": "K2-180",
       "to": {
         "coordinates": [
           118.64536853557436,
           -21.143167506816102
         ],
-        "name": "Vladimir Visotskiy/K2-180 ( az=109.3)"
+        "name": "K2-180"
       }
     },
     {
@@ -14652,15 +14652,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K3-240 ( az=49.5)"
+        "name": "K3-240"
       },
-      "name": "Vladimir Visotskiy/ K3-240 ( az=49.5)",
+      "name": "K3-240",
       "to": {
         "coordinates": [
           -177.061808416402,
           -19.010413891169932
         ],
-        "name": "Vladimir Visotskiy/ K3-240 ( az=49.5)"
+        "name": "K3-240"
       }
     },
     {
@@ -14669,15 +14669,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K2-240 ( az=49.5)"
+        "name": "K2-240"
       },
-      "name": "Vladimir Visotskiy/K2-240 ( az=49.5)",
+      "name": "K2-240",
       "to": {
         "coordinates": [
           -177.061808416402,
           -19.010413891169932
         ],
-        "name": "Vladimir Visotskiy/K2-240 ( az=49.5)"
+        "name": "K2-240"
       }
     },
     {
@@ -14686,15 +14686,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K3-270 ( az=7.1)"
+        "name": "K3-270"
       },
-      "name": "Vladimir Visotskiy/ K3-270 ( az=7.1)",
+      "name": "K3-270",
       "to": {
         "coordinates": [
           -147.5783749963426,
           -9.66470521858146
         ],
-        "name": "Vladimir Visotskiy/ K3-270 ( az=7.1)"
+        "name": "K3-270"
       }
     },
     {
@@ -14703,15 +14703,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K2-270 ( az=7.1)"
+        "name": "K2-270"
       },
-      "name": "Vladimir Visotskiy/K2-270 ( az=7.1)",
+      "name": "K2-270",
       "to": {
         "coordinates": [
           -147.5783749963426,
           -9.66470521858146
         ],
-        "name": "Vladimir Visotskiy/K2-270 ( az=7.1)"
+        "name": "K2-270"
       }
     },
     {
@@ -14720,15 +14720,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K3-300 ( az=333.9)"
+        "name": "K3-300"
       },
-      "name": "Vladimir Visotskiy/ K3-300 ( az=333.9)",
+      "name": "K3-300",
       "to": {
         "coordinates": [
           -119.8284631983174,
           2.0034461857244694
         ],
-        "name": "Vladimir Visotskiy/ K3-300 ( az=333.9)"
+        "name": "K3-300"
       }
     },
     {
@@ -14737,15 +14737,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K2-300 ( az=333.9)"
+        "name": "K2-300"
       },
-      "name": "Vladimir Visotskiy/K2-300 ( az=333.9)",
+      "name": "K2-300",
       "to": {
         "coordinates": [
           -119.8284631983174,
           2.0034461857244694
         ],
-        "name": "Vladimir Visotskiy/K2-300 ( az=333.9)"
+        "name": "K2-300"
       }
     },
     {
@@ -14754,15 +14754,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K4-0 ( az=276.1)"
+        "name": "K4-0"
       },
-      "name": "Vladimir Visotskiy/ K4-0 ( az=276.1)",
+      "name": "K4-0",
       "to": {
         "coordinates": [
           -42.910073938046,
           23.216478541171824
         ],
-        "name": "Vladimir Visotskiy/ K4-0 ( az=276.1)"
+        "name": "K4-0"
       }
     },
     {
@@ -14771,15 +14771,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K3-0 ( az=276.1)"
+        "name": "K3-0"
       },
-      "name": "Vladimir Visotskiy/K3-0 ( az=276.1)",
+      "name": "K3-0",
       "to": {
         "coordinates": [
           -42.910073938046,
           23.216478541171824
         ],
-        "name": "Vladimir Visotskiy/K3-0 ( az=276.1)"
+        "name": "K3-0"
       }
     },
     {
@@ -14788,15 +14788,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K4-60 ( az=204.9)"
+        "name": "K4-60"
       },
-      "name": "Vladimir Visotskiy/ K4-60 ( az=204.9)",
+      "name": "K4-60",
       "to": {
         "coordinates": [
           20.1407476027503,
           14.10265775579763
         ],
-        "name": "Vladimir Visotskiy/ K4-60 ( az=204.9)"
+        "name": "K4-60"
       }
     },
     {
@@ -14805,15 +14805,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K3-60 ( az=204.9)"
+        "name": "K3-60"
       },
-      "name": "Vladimir Visotskiy/K3-60 ( az=204.9)",
+      "name": "K3-60",
       "to": {
         "coordinates": [
           20.1407476027503,
           14.10265775579763
         ],
-        "name": "Vladimir Visotskiy/K3-60 ( az=204.9)"
+        "name": "K3-60"
       }
     },
     {
@@ -14822,15 +14822,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K4-90 ( az=166.5)"
+        "name": "K4-90"
       },
-      "name": "Vladimir Visotskiy/ K4-90 ( az=166.5)",
+      "name": "K4-90",
       "to": {
         "coordinates": [
           48.41317102625559,
           3.0816636653877207
         ],
-        "name": "Vladimir Visotskiy/ K4-90 ( az=166.5)"
+        "name": "K4-90"
       }
     },
     {
@@ -14839,15 +14839,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K3-90 ( az=166.5)"
+        "name": "K3-90"
       },
-      "name": "Vladimir Visotskiy/K3-90 ( az=166.5)",
+      "name": "K3-90",
       "to": {
         "coordinates": [
           48.41317102625559,
           3.0816636653877207
         ],
-        "name": "Vladimir Visotskiy/K3-90 ( az=166.5)"
+        "name": "K3-90"
       }
     },
     {
@@ -14856,15 +14856,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K4-120 ( az=139.7)"
+        "name": "K4-120"
       },
-      "name": "Vladimir Visotskiy/ K4-120 ( az=139.7)",
+      "name": "K4-120",
       "to": {
         "coordinates": [
           76.10297649076851,
           -8.658584024742977
         ],
-        "name": "Vladimir Visotskiy/ K4-120 ( az=139.7)"
+        "name": "K4-120"
       }
     },
     {
@@ -14873,15 +14873,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K3-120 ( az=139.7)"
+        "name": "K3-120"
       },
-      "name": "Vladimir Visotskiy/K3-120 ( az=139.7)",
+      "name": "K3-120",
       "to": {
         "coordinates": [
           76.10297649076851,
           -8.658584024742977
         ],
-        "name": "Vladimir Visotskiy/K3-120 ( az=139.7)"
+        "name": "K3-120"
       }
     },
     {
@@ -14890,15 +14890,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K4-180 ( az=96.1)"
+        "name": "K4-180"
       },
-      "name": "Vladimir Visotskiy/ K4-180 ( az=96.1)",
+      "name": "K4-180",
       "to": {
         "coordinates": [
           137.08992606195397,
           -23.216478541171824
         ],
-        "name": "Vladimir Visotskiy/ K4-180 ( az=96.1)"
+        "name": "K4-180"
       }
     },
     {
@@ -14907,15 +14907,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K3-180 ( az=96.1)"
+        "name": "K3-180"
       },
-      "name": "Vladimir Visotskiy/K3-180 ( az=96.1)",
+      "name": "K3-180",
       "to": {
         "coordinates": [
           137.08992606195397,
           -23.216478541171824
         ],
-        "name": "Vladimir Visotskiy/K3-180 ( az=96.1)"
+        "name": "K3-180"
       }
     },
     {
@@ -14924,15 +14924,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K4-240 ( az=24.9)"
+        "name": "K4-240"
       },
-      "name": "Vladimir Visotskiy/ K4-240 ( az=24.9)",
+      "name": "K4-240",
       "to": {
         "coordinates": [
           -159.8592523972497,
           -14.102657755797635
         ],
-        "name": "Vladimir Visotskiy/ K4-240 ( az=24.9)"
+        "name": "K4-240"
       }
     },
     {
@@ -14941,15 +14941,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K3-240 ( az=24.9)"
+        "name": "K3-240"
       },
-      "name": "Vladimir Visotskiy/K3-240 ( az=24.9)",
+      "name": "K3-240",
       "to": {
         "coordinates": [
           -159.8592523972497,
           -14.102657755797635
         ],
-        "name": "Vladimir Visotskiy/K3-240 ( az=24.9)"
+        "name": "K3-240"
       }
     },
     {
@@ -14958,15 +14958,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K4-270 ( az=346.5)"
+        "name": "K4-270"
       },
-      "name": "Vladimir Visotskiy/ K4-270 ( az=346.5)",
+      "name": "K4-270",
       "to": {
         "coordinates": [
           -131.58682897374445,
           -3.081663665387733
         ],
-        "name": "Vladimir Visotskiy/ K4-270 ( az=346.5)"
+        "name": "K4-270"
       }
     },
     {
@@ -14975,15 +14975,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K3-270 ( az=346.5)"
+        "name": "K3-270"
       },
-      "name": "Vladimir Visotskiy/K3-270 ( az=346.5)",
+      "name": "K3-270",
       "to": {
         "coordinates": [
           -131.58682897374445,
           -3.081663665387733
         ],
-        "name": "Vladimir Visotskiy/K3-270 ( az=346.5)"
+        "name": "K3-270"
       }
     },
     {
@@ -14992,15 +14992,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K4-300 ( az=319.7)"
+        "name": "K4-300"
       },
-      "name": "Vladimir Visotskiy/ K4-300 ( az=319.7)",
+      "name": "K4-300",
       "to": {
         "coordinates": [
           -103.8970235092316,
           8.658584024742945
         ],
-        "name": "Vladimir Visotskiy/ K4-300 ( az=319.7)"
+        "name": "K4-300"
       }
     },
     {
@@ -15009,15 +15009,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K3-300 ( az=319.7)"
+        "name": "K3-300"
       },
-      "name": "Vladimir Visotskiy/K3-300 ( az=319.7)",
+      "name": "K3-300",
       "to": {
         "coordinates": [
           -103.8970235092316,
           8.658584024742945
         ],
-        "name": "Vladimir Visotskiy/K3-300 ( az=319.7)"
+        "name": "K3-300"
       }
     },
     {
@@ -15026,15 +15026,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K5-0 ( az=261.9)"
+        "name": "K5-0"
       },
-      "name": "Vladimir Visotskiy/ K5-0 ( az=261.9)",
+      "name": "K5-0",
       "to": {
         "coordinates": [
           -25.946105651972573,
           23.21353915863281
         ],
-        "name": "Vladimir Visotskiy/ K5-0 ( az=261.9)"
+        "name": "K5-0"
       }
     },
     {
@@ -15043,15 +15043,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K4-0 ( az=261.9)"
+        "name": "K4-0"
       },
-      "name": "Vladimir Visotskiy/K4-0 ( az=261.9)",
+      "name": "K4-0",
       "to": {
         "coordinates": [
           -25.946105651972573,
           23.21353915863281
         ],
-        "name": "Vladimir Visotskiy/K4-0 ( az=261.9)"
+        "name": "K4-0"
       }
     },
     {
@@ -15060,15 +15060,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K5-60 ( az=183.5)"
+        "name": "K5-60"
       },
-      "name": "Vladimir Visotskiy/ K5-60 ( az=183.5)",
+      "name": "K5-60",
       "to": {
         "coordinates": [
           35.033453318086075,
           8.639922041919574
         ],
-        "name": "Vladimir Visotskiy/ K5-60 ( az=183.5)"
+        "name": "K5-60"
       }
     },
     {
@@ -15077,15 +15077,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K4-60 ( az=183.5)"
+        "name": "K4-60"
       },
-      "name": "Vladimir Visotskiy/K4-60 ( az=183.5)",
+      "name": "K4-60",
       "to": {
         "coordinates": [
           35.033453318086075,
           8.639922041919574
         ],
-        "name": "Vladimir Visotskiy/K4-60 ( az=183.5)"
+        "name": "K4-60"
       }
     },
     {
@@ -15094,15 +15094,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K5-90 ( az=151.4)"
+        "name": "K5-90"
       },
-      "name": "Vladimir Visotskiy/ K5-90 ( az=151.4)",
+      "name": "K5-90",
       "to": {
         "coordinates": [
           62.722329499606005,
           -3.1014367310655566
         ],
-        "name": "Vladimir Visotskiy/ K5-90 ( az=151.4)"
+        "name": "K5-90"
       }
     },
     {
@@ -15111,15 +15111,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K4-90 ( az=151.4)"
+        "name": "K4-90"
       },
-      "name": "Vladimir Visotskiy/K4-90 ( az=151.4)",
+      "name": "K4-90",
       "to": {
         "coordinates": [
           62.722329499606005,
           -3.1014367310655566
         ],
-        "name": "Vladimir Visotskiy/K4-90 ( az=151.4)"
+        "name": "K4-90"
       }
     },
     {
@@ -15128,15 +15128,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K5-120 ( az=128.3)"
+        "name": "K5-120"
       },
-      "name": "Vladimir Visotskiy/ K5-120 ( az=128.3)",
+      "name": "K5-120",
       "to": {
         "coordinates": [
           90.99752286471099,
           -14.118896089530203
         ],
-        "name": "Vladimir Visotskiy/ K5-120 ( az=128.3)"
+        "name": "K5-120"
       }
     },
     {
@@ -15145,15 +15145,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K4-120 ( az=128.3)"
+        "name": "K4-120"
       },
-      "name": "Vladimir Visotskiy/K4-120 ( az=128.3)",
+      "name": "K4-120",
       "to": {
         "coordinates": [
           90.99752286471099,
           -14.118896089530203
         ],
-        "name": "Vladimir Visotskiy/K4-120 ( az=128.3)"
+        "name": "K4-120"
       }
     },
     {
@@ -15162,15 +15162,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K5-180 ( az=81.9)"
+        "name": "K5-180"
       },
-      "name": "Vladimir Visotskiy/ K5-180 ( az=81.9)",
+      "name": "K5-180",
       "to": {
         "coordinates": [
           154.05389434802748,
           -23.21353915863281
         ],
-        "name": "Vladimir Visotskiy/ K5-180 ( az=81.9)"
+        "name": "K5-180"
       }
     },
     {
@@ -15179,15 +15179,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K4-180 ( az=81.9)"
+        "name": "K4-180"
       },
-      "name": "Vladimir Visotskiy/K4-180 ( az=81.9)",
+      "name": "K4-180",
       "to": {
         "coordinates": [
           154.05389434802748,
           -23.21353915863281
         ],
-        "name": "Vladimir Visotskiy/K4-180 ( az=81.9)"
+        "name": "K4-180"
       }
     },
     {
@@ -15196,15 +15196,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K5-240 ( az=3.5)"
+        "name": "K5-240"
       },
-      "name": "Vladimir Visotskiy/ K5-240 ( az=3.5)",
+      "name": "K5-240",
       "to": {
         "coordinates": [
           -144.9665466819139,
           -8.639922041919569
         ],
-        "name": "Vladimir Visotskiy/ K5-240 ( az=3.5)"
+        "name": "K5-240"
       }
     },
     {
@@ -15213,15 +15213,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K4-240 ( az=3.5)"
+        "name": "K4-240"
       },
-      "name": "Vladimir Visotskiy/K4-240 ( az=3.5)",
+      "name": "K4-240",
       "to": {
         "coordinates": [
           -144.9665466819139,
           -8.639922041919569
         ],
-        "name": "Vladimir Visotskiy/K4-240 ( az=3.5)"
+        "name": "K4-240"
       }
     },
     {
@@ -15230,15 +15230,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K5-270 ( az=331.4)"
+        "name": "K5-270"
       },
-      "name": "Vladimir Visotskiy/ K5-270 ( az=331.4)",
+      "name": "K5-270",
       "to": {
         "coordinates": [
           -117.27767050039401,
           3.1014367310655633
         ],
-        "name": "Vladimir Visotskiy/ K5-270 ( az=331.4)"
+        "name": "K5-270"
       }
     },
     {
@@ -15247,15 +15247,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K4-270 ( az=331.4)"
+        "name": "K4-270"
       },
-      "name": "Vladimir Visotskiy/K4-270 ( az=331.4)",
+      "name": "K4-270",
       "to": {
         "coordinates": [
           -117.27767050039401,
           3.1014367310655633
         ],
-        "name": "Vladimir Visotskiy/K4-270 ( az=331.4)"
+        "name": "K4-270"
       }
     },
     {
@@ -15264,15 +15264,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K5-300 ( az=308.3)"
+        "name": "K5-300"
       },
-      "name": "Vladimir Visotskiy/ K5-300 ( az=308.3)",
+      "name": "K5-300",
       "to": {
         "coordinates": [
           -89.002477135289,
           14.118896089530203
         ],
-        "name": "Vladimir Visotskiy/ K5-300 ( az=308.3)"
+        "name": "K5-300"
       }
     },
     {
@@ -15281,15 +15281,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K4-300 ( az=308.3)"
+        "name": "K4-300"
       },
-      "name": "Vladimir Visotskiy/K4-300 ( az=308.3)",
+      "name": "K4-300",
       "to": {
         "coordinates": [
           -89.002477135289,
           14.118896089530203
         ],
-        "name": "Vladimir Visotskiy/K4-300 ( az=308.3)"
+        "name": "K4-300"
       }
     },
     {
@@ -15298,15 +15298,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K6-0 ( az=240.3)"
+        "name": "K6-0"
       },
-      "name": "Vladimir Visotskiy/ K6-0 ( az=240.3)",
+      "name": "K6-0",
       "to": {
         "coordinates": [
           -5.5338247807826315,
           20.7852613157114
         ],
-        "name": "Vladimir Visotskiy/ K6-0 ( az=240.3)"
+        "name": "K6-0"
       }
     },
     {
@@ -15315,15 +15315,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K5-0 ( az=240.3)"
+        "name": "K5-0"
       },
-      "name": "Vladimir Visotskiy/K5-0 ( az=240.3)",
+      "name": "K5-0",
       "to": {
         "coordinates": [
           -5.5338247807826315,
           20.7852613157114
         ],
-        "name": "Vladimir Visotskiy/K5-0 ( az=240.3)"
+        "name": "K5-0"
       }
     },
     {
@@ -15332,15 +15332,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K6-60 ( az=161.7)"
+        "name": "K6-60"
       },
-      "name": "Vladimir Visotskiy/ K6-60 ( az=161.7)",
+      "name": "K6-60",
       "to": {
         "coordinates": [
           52.68253911833248,
           1.2404798299784634
         ],
-        "name": "Vladimir Visotskiy/ K6-60 ( az=161.7)"
+        "name": "K6-60"
       }
     },
     {
@@ -15349,15 +15349,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K5-60 ( az=161.7)"
+        "name": "K5-60"
       },
-      "name": "Vladimir Visotskiy/K5-60 ( az=161.7)",
+      "name": "K5-60",
       "to": {
         "coordinates": [
           52.68253911833248,
           1.2404798299784634
         ],
-        "name": "Vladimir Visotskiy/K5-60 ( az=161.7)"
+        "name": "K5-60"
       }
     },
     {
@@ -15366,15 +15366,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K6-90 ( az=136.2)"
+        "name": "K6-90"
       },
-      "name": "Vladimir Visotskiy/ K6-90 ( az=136.2)",
+      "name": "K6-90",
       "to": {
         "coordinates": [
           80.48602062995565,
           -10.363027686367268
         ],
-        "name": "Vladimir Visotskiy/ K6-90 ( az=136.2)"
+        "name": "K6-90"
       }
     },
     {
@@ -15383,15 +15383,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K5-90 ( az=136.2)"
+        "name": "K5-90"
       },
-      "name": "Vladimir Visotskiy/K5-90 ( az=136.2)",
+      "name": "K5-90",
       "to": {
         "coordinates": [
           80.48602062995565,
           -10.363027686367268
         ],
-        "name": "Vladimir Visotskiy/K5-90 ( az=136.2)"
+        "name": "K5-90"
       }
     },
     {
@@ -15400,15 +15400,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K6-120 ( az=115.1)"
+        "name": "K6-120"
       },
-      "name": "Vladimir Visotskiy/ K6-120 ( az=115.1)",
+      "name": "K6-120",
       "to": {
         "coordinates": [
           110.12922270328156,
           -19.464194423370348
         ],
-        "name": "Vladimir Visotskiy/ K6-120 ( az=115.1)"
+        "name": "K6-120"
       }
     },
     {
@@ -15417,15 +15417,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K5-120 ( az=115.1)"
+        "name": "K5-120"
       },
-      "name": "Vladimir Visotskiy/K5-120 ( az=115.1)",
+      "name": "K5-120",
       "to": {
         "coordinates": [
           110.12922270328156,
           -19.464194423370348
         ],
-        "name": "Vladimir Visotskiy/K5-120 ( az=115.1)"
+        "name": "K5-120"
       }
     },
     {
@@ -15434,15 +15434,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K6-180 ( az=60.3)"
+        "name": "K6-180"
       },
-      "name": "Vladimir Visotskiy/ K6-180 ( az=60.3)",
+      "name": "K6-180",
       "to": {
         "coordinates": [
           174.46617521921738,
           -20.7852613157114
         ],
-        "name": "Vladimir Visotskiy/ K6-180 ( az=60.3)"
+        "name": "K6-180"
       }
     },
     {
@@ -15451,15 +15451,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K5-180 ( az=60.3)"
+        "name": "K5-180"
       },
-      "name": "Vladimir Visotskiy/K5-180 ( az=60.3)",
+      "name": "K5-180",
       "to": {
         "coordinates": [
           174.46617521921738,
           -20.7852613157114
         ],
-        "name": "Vladimir Visotskiy/K5-180 ( az=60.3)"
+        "name": "K5-180"
       }
     },
     {
@@ -15468,15 +15468,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K6-240 ( az=341.7)"
+        "name": "K6-240"
       },
-      "name": "Vladimir Visotskiy/ K6-240 ( az=341.7)",
+      "name": "K6-240",
       "to": {
         "coordinates": [
           -127.31746088166746,
           -1.240479829978456
         ],
-        "name": "Vladimir Visotskiy/ K6-240 ( az=341.7)"
+        "name": "K6-240"
       }
     },
     {
@@ -15485,15 +15485,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K5-240 ( az=341.7)"
+        "name": "K5-240"
       },
-      "name": "Vladimir Visotskiy/K5-240 ( az=341.7)",
+      "name": "K5-240",
       "to": {
         "coordinates": [
           -127.31746088166746,
           -1.240479829978456
         ],
-        "name": "Vladimir Visotskiy/K5-240 ( az=341.7)"
+        "name": "K5-240"
       }
     },
     {
@@ -15502,15 +15502,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K6-270 ( az=316.2)"
+        "name": "K6-270"
       },
-      "name": "Vladimir Visotskiy/ K6-270 ( az=316.2)",
+      "name": "K6-270",
       "to": {
         "coordinates": [
           -99.51397937004431,
           10.363027686367282
         ],
-        "name": "Vladimir Visotskiy/ K6-270 ( az=316.2)"
+        "name": "K6-270"
       }
     },
     {
@@ -15519,15 +15519,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K5-270 ( az=316.2)"
+        "name": "K5-270"
       },
-      "name": "Vladimir Visotskiy/K5-270 ( az=316.2)",
+      "name": "K5-270",
       "to": {
         "coordinates": [
           -99.51397937004431,
           10.363027686367282
         ],
-        "name": "Vladimir Visotskiy/K5-270 ( az=316.2)"
+        "name": "K5-270"
       }
     },
     {
@@ -15536,15 +15536,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K6-300 ( az=295.1)"
+        "name": "K6-300"
       },
-      "name": "Vladimir Visotskiy/ K6-300 ( az=295.1)",
+      "name": "K6-300",
       "to": {
         "coordinates": [
           -69.87077729671844,
           19.46419442337034
         ],
-        "name": "Vladimir Visotskiy/ K6-300 ( az=295.1)"
+        "name": "K6-300"
       }
     },
     {
@@ -15553,15 +15553,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K5-300 ( az=295.1)"
+        "name": "K5-300"
       },
-      "name": "Vladimir Visotskiy/K5-300 ( az=295.1)",
+      "name": "K5-300",
       "to": {
         "coordinates": [
           -69.87077729671844,
           19.46419442337034
         ],
-        "name": "Vladimir Visotskiy/K5-300 ( az=295.1)"
+        "name": "K5-300"
       }
     },
     {
@@ -15570,15 +15570,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K7-0 ( az=186.5)"
+        "name": "K7-0"
       },
-      "name": "Vladimir Visotskiy/ K7-0 ( az=186.5)",
+      "name": "K7-0",
       "to": {
         "coordinates": [
           32.83550904684865,
           9.503971686792312
         ],
-        "name": "Vladimir Visotskiy/ K7-0 ( az=186.5)"
+        "name": "K7-0"
       }
     },
     {
@@ -15587,15 +15587,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K6-0 ( az=186.5)"
+        "name": "K6-0"
       },
-      "name": "Vladimir Visotskiy/K6-0 ( az=186.5)",
+      "name": "K6-0",
       "to": {
         "coordinates": [
           32.83550904684865,
           9.503971686792312
         ],
-        "name": "Vladimir Visotskiy/K6-0 ( az=186.5)"
+        "name": "K6-0"
       }
     },
     {
@@ -15604,15 +15604,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K7-60 ( az=130.0)"
+        "name": "K7-60"
       },
-      "name": "Vladimir Visotskiy/ K7-60 ( az=130.0)",
+      "name": "K7-60",
       "to": {
         "coordinates": [
           88.72616282766893,
           -13.351294492585232
         ],
-        "name": "Vladimir Visotskiy/ K7-60 ( az=130.0)"
+        "name": "K7-60"
       }
     },
     {
@@ -15621,15 +15621,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K6-60 ( az=130.0)"
+        "name": "K6-60"
       },
-      "name": "Vladimir Visotskiy/K6-60 ( az=130.0)",
+      "name": "K6-60",
       "to": {
         "coordinates": [
           88.72616282766893,
           -13.351294492585232
         ],
-        "name": "Vladimir Visotskiy/K6-60 ( az=130.0)"
+        "name": "K6-60"
       }
     },
     {
@@ -15638,15 +15638,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K7-90 ( az=109.0)"
+        "name": "K7-90"
       },
-      "name": "Vladimir Visotskiy/ K7-90 ( az=109.0)",
+      "name": "K7-90",
       "to": {
         "coordinates": [
           119.10820974047891,
           -21.221489243595137
         ],
-        "name": "Vladimir Visotskiy/ K7-90 ( az=109.0)"
+        "name": "K7-90"
       }
     },
     {
@@ -15655,15 +15655,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K6-90 ( az=109.0)"
+        "name": "K6-90"
       },
-      "name": "Vladimir Visotskiy/K6-90 ( az=109.0)",
+      "name": "K6-90",
       "to": {
         "coordinates": [
           119.10820974047891,
           -21.221489243595137
         ],
-        "name": "Vladimir Visotskiy/K6-90 ( az=109.0)"
+        "name": "K6-90"
       }
     },
     {
@@ -15672,15 +15672,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K7-120 ( az=84.2)"
+        "name": "K7-120"
       },
-      "name": "Vladimir Visotskiy/ K7-120 ( az=84.2)",
+      "name": "K7-120",
       "to": {
         "coordinates": [
           151.51406628683446,
           -23.33065555123319
         ],
-        "name": "Vladimir Visotskiy/ K7-120 ( az=84.2)"
+        "name": "K7-120"
       }
     },
     {
@@ -15689,15 +15689,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K6-120 ( az=84.2)"
+        "name": "K6-120"
       },
-      "name": "Vladimir Visotskiy/K6-120 ( az=84.2)",
+      "name": "K6-120",
       "to": {
         "coordinates": [
           151.51406628683446,
           -23.33065555123319
         ],
-        "name": "Vladimir Visotskiy/K6-120 ( az=84.2)"
+        "name": "K6-120"
       }
     },
     {
@@ -15706,15 +15706,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K7-180 ( az=6.5)"
+        "name": "K7-180"
       },
-      "name": "Vladimir Visotskiy/ K7-180 ( az=6.5)",
+      "name": "K7-180",
       "to": {
         "coordinates": [
           -147.16449095315136,
           -9.503971686792314
         ],
-        "name": "Vladimir Visotskiy/ K7-180 ( az=6.5)"
+        "name": "K7-180"
       }
     },
     {
@@ -15723,15 +15723,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K6-180 ( az=6.5)"
+        "name": "K6-180"
       },
-      "name": "Vladimir Visotskiy/K6-180 ( az=6.5)",
+      "name": "K6-180",
       "to": {
         "coordinates": [
           -147.16449095315136,
           -9.503971686792314
         ],
-        "name": "Vladimir Visotskiy/K6-180 ( az=6.5)"
+        "name": "K6-180"
       }
     },
     {
@@ -15740,15 +15740,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K7-240 ( az=310.0)"
+        "name": "K7-240"
       },
-      "name": "Vladimir Visotskiy/ K7-240 ( az=310.0)",
+      "name": "K7-240",
       "to": {
         "coordinates": [
           -91.27383717233106,
           13.351294492585245
         ],
-        "name": "Vladimir Visotskiy/ K7-240 ( az=310.0)"
+        "name": "K7-240"
       }
     },
     {
@@ -15757,15 +15757,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K6-240 ( az=310.0)"
+        "name": "K6-240"
       },
-      "name": "Vladimir Visotskiy/K6-240 ( az=310.0)",
+      "name": "K6-240",
       "to": {
         "coordinates": [
           -91.27383717233106,
           13.351294492585245
         ],
-        "name": "Vladimir Visotskiy/K6-240 ( az=310.0)"
+        "name": "K6-240"
       }
     },
     {
@@ -15774,15 +15774,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K7-270 ( az=289.0)"
+        "name": "K7-270"
       },
-      "name": "Vladimir Visotskiy/ K7-270 ( az=289.0)",
+      "name": "K7-270",
       "to": {
         "coordinates": [
           -60.89179025952113,
           21.221489243595133
         ],
-        "name": "Vladimir Visotskiy/ K7-270 ( az=289.0)"
+        "name": "K7-270"
       }
     },
     {
@@ -15791,15 +15791,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K6-270 ( az=289.0)"
+        "name": "K6-270"
       },
-      "name": "Vladimir Visotskiy/K6-270 ( az=289.0)",
+      "name": "K6-270",
       "to": {
         "coordinates": [
           -60.89179025952113,
           21.221489243595133
         ],
-        "name": "Vladimir Visotskiy/K6-270 ( az=289.0)"
+        "name": "K6-270"
       }
     },
     {
@@ -15808,15 +15808,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K7-300 ( az=264.2)"
+        "name": "K7-300"
       },
-      "name": "Vladimir Visotskiy/ K7-300 ( az=264.2)",
+      "name": "K7-300",
       "to": {
         "coordinates": [
           -28.485933713165604,
           23.33065555123319
         ],
-        "name": "Vladimir Visotskiy/ K7-300 ( az=264.2)"
+        "name": "K7-300"
       }
     },
     {
@@ -15825,15 +15825,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K6-300 ( az=264.2)"
+        "name": "K6-300"
       },
-      "name": "Vladimir Visotskiy/K6-300 ( az=264.2)",
+      "name": "K6-300",
       "to": {
         "coordinates": [
           -28.485933713165604,
           23.33065555123319
         ],
-        "name": "Vladimir Visotskiy/K6-300 ( az=264.2)"
+        "name": "K6-300"
       }
     },
     {
@@ -15842,15 +15842,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K8-0 ( az=127.7)"
+        "name": "K8-0"
       },
-      "name": "Vladimir Visotskiy/ K8-0 ( az=127.7)",
+      "name": "K8-0",
       "to": {
         "coordinates": [
           91.89986607999977,
           -14.416597535324735
         ],
-        "name": "Vladimir Visotskiy/ K8-0 ( az=127.7)"
+        "name": "K8-0"
       }
     },
     {
@@ -15859,15 +15859,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K7-0 ( az=127.7)"
+        "name": "K7-0"
       },
-      "name": "Vladimir Visotskiy/K7-0 ( az=127.7)",
+      "name": "K7-0",
       "to": {
         "coordinates": [
           91.89986607999977,
           -14.416597535324735
         ],
-        "name": "Vladimir Visotskiy/K7-0 ( az=127.7)"
+        "name": "K7-0"
       }
     },
     {
@@ -15876,15 +15876,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K8-60 ( az=81.0)"
+        "name": "K8-60"
       },
-      "name": "Vladimir Visotskiy/ K8-60 ( az=81.0)",
+      "name": "K8-60",
       "to": {
         "coordinates": [
           155.05689492848452,
           -23.155976557635565
         ],
-        "name": "Vladimir Visotskiy/ K8-60 ( az=81.0)"
+        "name": "K8-60"
       }
     },
     {
@@ -15893,15 +15893,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K7-60 ( az=81.0)"
+        "name": "K7-60"
       },
-      "name": "Vladimir Visotskiy/K7-60 ( az=81.0)",
+      "name": "K7-60",
       "to": {
         "coordinates": [
           155.05689492848452,
           -23.155976557635565
         ],
-        "name": "Vladimir Visotskiy/K7-60 ( az=81.0)"
+        "name": "K7-60"
       }
     },
     {
@@ -15910,15 +15910,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K8-90 ( az=44.3)"
+        "name": "K8-90"
       },
-      "name": "Vladimir Visotskiy/ K8-90 ( az=44.3)",
+      "name": "K8-90",
       "to": {
         "coordinates": [
           -173.28638450008805,
           -18.07888840668987
         ],
-        "name": "Vladimir Visotskiy/ K8-90 ( az=44.3)"
+        "name": "K8-90"
       }
     },
     {
@@ -15927,15 +15927,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K7-90 ( az=44.3)"
+        "name": "K7-90"
       },
-      "name": "Vladimir Visotskiy/K7-90 ( az=44.3)",
+      "name": "K7-90",
       "to": {
         "coordinates": [
           -173.28638450008805,
           -18.07888840668987
         ],
-        "name": "Vladimir Visotskiy/K7-90 ( az=44.3)"
+        "name": "K7-90"
       }
     },
     {
@@ -15944,15 +15944,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K8-120 ( az=2.3)"
+        "name": "K8-120"
       },
-      "name": "Vladimir Visotskiy/ K8-120 ( az=2.3)",
+      "name": "K8-120",
       "to": {
         "coordinates": [
           -144.10022934000338,
           -8.294726623012469
         ],
-        "name": "Vladimir Visotskiy/ K8-120 ( az=2.3)"
+        "name": "K8-120"
       }
     },
     {
@@ -15961,15 +15961,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K7-120 ( az=2.3)"
+        "name": "K7-120"
       },
-      "name": "Vladimir Visotskiy/K7-120 ( az=2.3)",
+      "name": "K7-120",
       "to": {
         "coordinates": [
           -144.10022934000338,
           -8.294726623012469
         ],
-        "name": "Vladimir Visotskiy/K7-120 ( az=2.3)"
+        "name": "K7-120"
       }
     },
     {
@@ -15978,15 +15978,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K8-180 ( az=307.7)"
+        "name": "K8-180"
       },
-      "name": "Vladimir Visotskiy/ K8-180 ( az=307.7)",
+      "name": "K8-180",
       "to": {
         "coordinates": [
           -88.10013392000019,
           14.416597535324739
         ],
-        "name": "Vladimir Visotskiy/ K8-180 ( az=307.7)"
+        "name": "K8-180"
       }
     },
     {
@@ -15995,15 +15995,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K7-180 ( az=307.7)"
+        "name": "K7-180"
       },
-      "name": "Vladimir Visotskiy/K7-180 ( az=307.7)",
+      "name": "K7-180",
       "to": {
         "coordinates": [
           -88.10013392000019,
           14.416597535324739
         ],
-        "name": "Vladimir Visotskiy/K7-180 ( az=307.7)"
+        "name": "K7-180"
       }
     },
     {
@@ -16012,15 +16012,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K8-240 ( az=261.0)"
+        "name": "K8-240"
       },
-      "name": "Vladimir Visotskiy/ K8-240 ( az=261.0)",
+      "name": "K8-240",
       "to": {
         "coordinates": [
           -24.943105071515525,
           23.155976557635565
         ],
-        "name": "Vladimir Visotskiy/ K8-240 ( az=261.0)"
+        "name": "K8-240"
       }
     },
     {
@@ -16029,15 +16029,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K7-240 ( az=261.0)"
+        "name": "K7-240"
       },
-      "name": "Vladimir Visotskiy/K7-240 ( az=261.0)",
+      "name": "K7-240",
       "to": {
         "coordinates": [
           -24.943105071515525,
           23.155976557635565
         ],
-        "name": "Vladimir Visotskiy/K7-240 ( az=261.0)"
+        "name": "K7-240"
       }
     },
     {
@@ -16046,15 +16046,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K8-270 ( az=224.3)"
+        "name": "K8-270"
       },
-      "name": "Vladimir Visotskiy/ K8-270 ( az=224.3)",
+      "name": "K8-270",
       "to": {
         "coordinates": [
           6.7136154999119855,
           18.07888840668986
         ],
-        "name": "Vladimir Visotskiy/ K8-270 ( az=224.3)"
+        "name": "K8-270"
       }
     },
     {
@@ -16063,15 +16063,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K7-270 ( az=224.3)"
+        "name": "K7-270"
       },
-      "name": "Vladimir Visotskiy/K7-270 ( az=224.3)",
+      "name": "K7-270",
       "to": {
         "coordinates": [
           6.7136154999119855,
           18.07888840668986
         ],
-        "name": "Vladimir Visotskiy/K7-270 ( az=224.3)"
+        "name": "K7-270"
       }
     },
     {
@@ -16080,15 +16080,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K8-300 ( az=182.3)"
+        "name": "K8-300"
       },
-      "name": "Vladimir Visotskiy/ K8-300 ( az=182.3)",
+      "name": "K8-300",
       "to": {
         "coordinates": [
           35.899770659996506,
           8.294726623012512
         ],
-        "name": "Vladimir Visotskiy/ K8-300 ( az=182.3)"
+        "name": "K8-300"
       }
     },
     {
@@ -16097,15 +16097,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K7-300 ( az=182.3)"
+        "name": "K7-300"
       },
-      "name": "Vladimir Visotskiy/K7-300 ( az=182.3)",
+      "name": "K7-300",
       "to": {
         "coordinates": [
           35.899770659996506,
           8.294726623012512
         ],
-        "name": "Vladimir Visotskiy/K7-300 ( az=182.3)"
+        "name": "K7-300"
       }
     },
     {
@@ -16114,15 +16114,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K9-0 ( az=109.3)"
+        "name": "K9-0"
       },
-      "name": "Vladimir Visotskiy/ K9-0 ( az=109.3)",
+      "name": "K9-0",
       "to": {
         "coordinates": [
           118.64536853557436,
           -21.143167506816102
         ],
-        "name": "Vladimir Visotskiy/ K9-0 ( az=109.3)"
+        "name": "K9-0"
       }
     },
     {
@@ -16131,15 +16131,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K8-0 ( az=109.3)"
+        "name": "K8-0"
       },
-      "name": "Vladimir Visotskiy/K8-0 ( az=109.3)",
+      "name": "K8-0",
       "to": {
         "coordinates": [
           118.64536853557436,
           -21.143167506816102
         ],
-        "name": "Vladimir Visotskiy/K8-0 ( az=109.3)"
+        "name": "K8-0"
       }
     },
     {
@@ -16148,15 +16148,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K9-60 ( az=49.5)"
+        "name": "K9-60"
       },
-      "name": "Vladimir Visotskiy/ K9-60 ( az=49.5)",
+      "name": "K9-60",
       "to": {
         "coordinates": [
           -177.061808416402,
           -19.010413891169932
         ],
-        "name": "Vladimir Visotskiy/ K9-60 ( az=49.5)"
+        "name": "K9-60"
       }
     },
     {
@@ -16165,15 +16165,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K8-60 ( az=49.5)"
+        "name": "K8-60"
       },
-      "name": "Vladimir Visotskiy/K8-60 ( az=49.5)",
+      "name": "K8-60",
       "to": {
         "coordinates": [
           -177.061808416402,
           -19.010413891169932
         ],
-        "name": "Vladimir Visotskiy/K8-60 ( az=49.5)"
+        "name": "K8-60"
       }
     },
     {
@@ -16182,15 +16182,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K9-90 ( az=7.1)"
+        "name": "K9-90"
       },
-      "name": "Vladimir Visotskiy/ K9-90 ( az=7.1)",
+      "name": "K9-90",
       "to": {
         "coordinates": [
           -147.5783749963426,
           -9.66470521858146
         ],
-        "name": "Vladimir Visotskiy/ K9-90 ( az=7.1)"
+        "name": "K9-90"
       }
     },
     {
@@ -16199,15 +16199,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K8-90 ( az=7.1)"
+        "name": "K8-90"
       },
-      "name": "Vladimir Visotskiy/K8-90 ( az=7.1)",
+      "name": "K8-90",
       "to": {
         "coordinates": [
           -147.5783749963426,
           -9.66470521858146
         ],
-        "name": "Vladimir Visotskiy/K8-90 ( az=7.1)"
+        "name": "K8-90"
       }
     },
     {
@@ -16216,15 +16216,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K9-120 ( az=333.9)"
+        "name": "K9-120"
       },
-      "name": "Vladimir Visotskiy/ K9-120 ( az=333.9)",
+      "name": "K9-120",
       "to": {
         "coordinates": [
           -119.8284631983174,
           2.0034461857244694
         ],
-        "name": "Vladimir Visotskiy/ K9-120 ( az=333.9)"
+        "name": "K9-120"
       }
     },
     {
@@ -16233,15 +16233,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K8-120 ( az=333.9)"
+        "name": "K8-120"
       },
-      "name": "Vladimir Visotskiy/K8-120 ( az=333.9)",
+      "name": "K8-120",
       "to": {
         "coordinates": [
           -119.8284631983174,
           2.0034461857244694
         ],
-        "name": "Vladimir Visotskiy/K8-120 ( az=333.9)"
+        "name": "K8-120"
       }
     },
     {
@@ -16250,15 +16250,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K9-180 ( az=289.3)"
+        "name": "K9-180"
       },
-      "name": "Vladimir Visotskiy/ K9-180 ( az=289.3)",
+      "name": "K9-180",
       "to": {
         "coordinates": [
           -61.35463146442558,
           21.14316750681611
         ],
-        "name": "Vladimir Visotskiy/ K9-180 ( az=289.3)"
+        "name": "K9-180"
       }
     },
     {
@@ -16267,15 +16267,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K8-180 ( az=289.3)"
+        "name": "K8-180"
       },
-      "name": "Vladimir Visotskiy/K8-180 ( az=289.3)",
+      "name": "K8-180",
       "to": {
         "coordinates": [
           -61.35463146442558,
           21.14316750681611
         ],
-        "name": "Vladimir Visotskiy/K8-180 ( az=289.3)"
+        "name": "K8-180"
       }
     },
     {
@@ -16284,15 +16284,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K9-240 ( az=229.5)"
+        "name": "K9-240"
       },
-      "name": "Vladimir Visotskiy/ K9-240 ( az=229.5)",
+      "name": "K9-240",
       "to": {
         "coordinates": [
           2.938191583597986,
           19.010413891169947
         ],
-        "name": "Vladimir Visotskiy/ K9-240 ( az=229.5)"
+        "name": "K9-240"
       }
     },
     {
@@ -16301,15 +16301,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K8-240 ( az=229.5)"
+        "name": "K8-240"
       },
-      "name": "Vladimir Visotskiy/K8-240 ( az=229.5)",
+      "name": "K8-240",
       "to": {
         "coordinates": [
           2.938191583597986,
           19.010413891169947
         ],
-        "name": "Vladimir Visotskiy/K8-240 ( az=229.5)"
+        "name": "K8-240"
       }
     },
     {
@@ -16318,15 +16318,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K9-270 ( az=187.1)"
+        "name": "K9-270"
       },
-      "name": "Vladimir Visotskiy/ K9-270 ( az=187.1)",
+      "name": "K9-270",
       "to": {
         "coordinates": [
           32.42162500365744,
           9.664705218581464
         ],
-        "name": "Vladimir Visotskiy/ K9-270 ( az=187.1)"
+        "name": "K9-270"
       }
     },
     {
@@ -16335,15 +16335,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K8-270 ( az=187.1)"
+        "name": "K8-270"
       },
-      "name": "Vladimir Visotskiy/K8-270 ( az=187.1)",
+      "name": "K8-270",
       "to": {
         "coordinates": [
           32.42162500365744,
           9.664705218581464
         ],
-        "name": "Vladimir Visotskiy/K8-270 ( az=187.1)"
+        "name": "K8-270"
       }
     },
     {
@@ -16352,15 +16352,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K9-300 ( az=153.9)"
+        "name": "K9-300"
       },
-      "name": "Vladimir Visotskiy/ K9-300 ( az=153.9)",
+      "name": "K9-300",
       "to": {
         "coordinates": [
           60.171536801682514,
           -2.0034461857244468
         ],
-        "name": "Vladimir Visotskiy/ K9-300 ( az=153.9)"
+        "name": "K9-300"
       }
     },
     {
@@ -16369,15 +16369,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K8-300 ( az=153.9)"
+        "name": "K8-300"
       },
-      "name": "Vladimir Visotskiy/K8-300 ( az=153.9)",
+      "name": "K8-300",
       "to": {
         "coordinates": [
           60.171536801682514,
           -2.0034461857244468
         ],
-        "name": "Vladimir Visotskiy/K8-300 ( az=153.9)"
+        "name": "K8-300"
       }
     },
     {
@@ -16386,15 +16386,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K10-0 ( az=96.1)"
+        "name": "K10-0"
       },
-      "name": "Vladimir Visotskiy/ K10-0 ( az=96.1)",
+      "name": "K10-0",
       "to": {
         "coordinates": [
           137.08992606195397,
           -23.216478541171824
         ],
-        "name": "Vladimir Visotskiy/ K10-0 ( az=96.1)"
+        "name": "K10-0"
       }
     },
     {
@@ -16403,15 +16403,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K9-0 ( az=96.1)"
+        "name": "K9-0"
       },
-      "name": "Vladimir Visotskiy/K9-0 ( az=96.1)",
+      "name": "K9-0",
       "to": {
         "coordinates": [
           137.08992606195397,
           -23.216478541171824
         ],
-        "name": "Vladimir Visotskiy/K9-0 ( az=96.1)"
+        "name": "K9-0"
       }
     },
     {
@@ -16420,15 +16420,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K10-60 ( az=24.9)"
+        "name": "K10-60"
       },
-      "name": "Vladimir Visotskiy/ K10-60 ( az=24.9)",
+      "name": "K10-60",
       "to": {
         "coordinates": [
           -159.8592523972497,
           -14.102657755797635
         ],
-        "name": "Vladimir Visotskiy/ K10-60 ( az=24.9)"
+        "name": "K10-60"
       }
     },
     {
@@ -16437,15 +16437,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K9-60 ( az=24.9)"
+        "name": "K9-60"
       },
-      "name": "Vladimir Visotskiy/K9-60 ( az=24.9)",
+      "name": "K9-60",
       "to": {
         "coordinates": [
           -159.8592523972497,
           -14.102657755797635
         ],
-        "name": "Vladimir Visotskiy/K9-60 ( az=24.9)"
+        "name": "K9-60"
       }
     },
     {
@@ -16454,15 +16454,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K10-90 ( az=346.5)"
+        "name": "K10-90"
       },
-      "name": "Vladimir Visotskiy/ K10-90 ( az=346.5)",
+      "name": "K10-90",
       "to": {
         "coordinates": [
           -131.58682897374445,
           -3.081663665387733
         ],
-        "name": "Vladimir Visotskiy/ K10-90 ( az=346.5)"
+        "name": "K10-90"
       }
     },
     {
@@ -16471,15 +16471,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K9-90 ( az=346.5)"
+        "name": "K9-90"
       },
-      "name": "Vladimir Visotskiy/K9-90 ( az=346.5)",
+      "name": "K9-90",
       "to": {
         "coordinates": [
           -131.58682897374445,
           -3.081663665387733
         ],
-        "name": "Vladimir Visotskiy/K9-90 ( az=346.5)"
+        "name": "K9-90"
       }
     },
     {
@@ -16488,15 +16488,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K10-120 ( az=319.7)"
+        "name": "K10-120"
       },
-      "name": "Vladimir Visotskiy/ K10-120 ( az=319.7)",
+      "name": "K10-120",
       "to": {
         "coordinates": [
           -103.8970235092316,
           8.658584024742945
         ],
-        "name": "Vladimir Visotskiy/ K10-120 ( az=319.7)"
+        "name": "K10-120"
       }
     },
     {
@@ -16505,15 +16505,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K9-120 ( az=319.7)"
+        "name": "K9-120"
       },
-      "name": "Vladimir Visotskiy/K9-120 ( az=319.7)",
+      "name": "K9-120",
       "to": {
         "coordinates": [
           -103.8970235092316,
           8.658584024742945
         ],
-        "name": "Vladimir Visotskiy/K9-120 ( az=319.7)"
+        "name": "K9-120"
       }
     },
     {
@@ -16522,15 +16522,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K10-180 ( az=276.1)"
+        "name": "K10-180"
       },
-      "name": "Vladimir Visotskiy/ K10-180 ( az=276.1)",
+      "name": "K10-180",
       "to": {
         "coordinates": [
           -42.91007393804604,
           23.216478541171824
         ],
-        "name": "Vladimir Visotskiy/ K10-180 ( az=276.1)"
+        "name": "K10-180"
       }
     },
     {
@@ -16539,15 +16539,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K9-180 ( az=276.1)"
+        "name": "K9-180"
       },
-      "name": "Vladimir Visotskiy/K9-180 ( az=276.1)",
+      "name": "K9-180",
       "to": {
         "coordinates": [
           -42.91007393804604,
           23.216478541171824
         ],
-        "name": "Vladimir Visotskiy/K9-180 ( az=276.1)"
+        "name": "K9-180"
       }
     },
     {
@@ -16556,15 +16556,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K10-240 ( az=204.9)"
+        "name": "K10-240"
       },
-      "name": "Vladimir Visotskiy/ K10-240 ( az=204.9)",
+      "name": "K10-240",
       "to": {
         "coordinates": [
           20.140747602750324,
           14.10265775579762
         ],
-        "name": "Vladimir Visotskiy/ K10-240 ( az=204.9)"
+        "name": "K10-240"
       }
     },
     {
@@ -16573,15 +16573,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K9-240 ( az=204.9)"
+        "name": "K9-240"
       },
-      "name": "Vladimir Visotskiy/K9-240 ( az=204.9)",
+      "name": "K9-240",
       "to": {
         "coordinates": [
           20.140747602750324,
           14.10265775579762
         ],
-        "name": "Vladimir Visotskiy/K9-240 ( az=204.9)"
+        "name": "K9-240"
       }
     },
     {
@@ -16590,15 +16590,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K10-270 ( az=166.5)"
+        "name": "K10-270"
       },
-      "name": "Vladimir Visotskiy/ K10-270 ( az=166.5)",
+      "name": "K10-270",
       "to": {
         "coordinates": [
           48.41317102625559,
           3.0816636653877167
         ],
-        "name": "Vladimir Visotskiy/ K10-270 ( az=166.5)"
+        "name": "K10-270"
       }
     },
     {
@@ -16607,15 +16607,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K9-270 ( az=166.5)"
+        "name": "K9-270"
       },
-      "name": "Vladimir Visotskiy/K9-270 ( az=166.5)",
+      "name": "K9-270",
       "to": {
         "coordinates": [
           48.41317102625559,
           3.0816636653877167
         ],
-        "name": "Vladimir Visotskiy/K9-270 ( az=166.5)"
+        "name": "K9-270"
       }
     },
     {
@@ -16624,15 +16624,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K10-300 ( az=139.7)"
+        "name": "K10-300"
       },
-      "name": "Vladimir Visotskiy/ K10-300 ( az=139.7)",
+      "name": "K10-300",
       "to": {
         "coordinates": [
           76.10297649076846,
           -8.65858402474296
         ],
-        "name": "Vladimir Visotskiy/ K10-300 ( az=139.7)"
+        "name": "K10-300"
       }
     },
     {
@@ -16641,15 +16641,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K9-300 ( az=139.7)"
+        "name": "K9-300"
       },
-      "name": "Vladimir Visotskiy/K9-300 ( az=139.7)",
+      "name": "K9-300",
       "to": {
         "coordinates": [
           76.10297649076846,
           -8.65858402474296
         ],
-        "name": "Vladimir Visotskiy/K9-300 ( az=139.7)"
+        "name": "K9-300"
       }
     },
     {
@@ -16658,15 +16658,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K11-0 ( az=81.9)"
+        "name": "K11-0"
       },
-      "name": "Vladimir Visotskiy/ K11-0 ( az=81.9)",
+      "name": "K11-0",
       "to": {
         "coordinates": [
           154.05389434802748,
           -23.21353915863281
         ],
-        "name": "Vladimir Visotskiy/ K11-0 ( az=81.9)"
+        "name": "K11-0"
       }
     },
     {
@@ -16675,15 +16675,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K10-0 ( az=81.9)"
+        "name": "K10-0"
       },
-      "name": "Vladimir Visotskiy/K10-0 ( az=81.9)",
+      "name": "K10-0",
       "to": {
         "coordinates": [
           154.05389434802748,
           -23.21353915863281
         ],
-        "name": "Vladimir Visotskiy/K10-0 ( az=81.9)"
+        "name": "K10-0"
       }
     },
     {
@@ -16692,15 +16692,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K11-60 ( az=3.5)"
+        "name": "K11-60"
       },
-      "name": "Vladimir Visotskiy/ K11-60 ( az=3.5)",
+      "name": "K11-60",
       "to": {
         "coordinates": [
           -144.9665466819139,
           -8.639922041919569
         ],
-        "name": "Vladimir Visotskiy/ K11-60 ( az=3.5)"
+        "name": "K11-60"
       }
     },
     {
@@ -16709,15 +16709,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K10-60 ( az=3.5)"
+        "name": "K10-60"
       },
-      "name": "Vladimir Visotskiy/K10-60 ( az=3.5)",
+      "name": "K10-60",
       "to": {
         "coordinates": [
           -144.9665466819139,
           -8.639922041919569
         ],
-        "name": "Vladimir Visotskiy/K10-60 ( az=3.5)"
+        "name": "K10-60"
       }
     },
     {
@@ -16726,15 +16726,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K11-90 ( az=331.4)"
+        "name": "K11-90"
       },
-      "name": "Vladimir Visotskiy/ K11-90 ( az=331.4)",
+      "name": "K11-90",
       "to": {
         "coordinates": [
           -117.27767050039401,
           3.1014367310655633
         ],
-        "name": "Vladimir Visotskiy/ K11-90 ( az=331.4)"
+        "name": "K11-90"
       }
     },
     {
@@ -16743,15 +16743,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K10-90 ( az=331.4)"
+        "name": "K10-90"
       },
-      "name": "Vladimir Visotskiy/K10-90 ( az=331.4)",
+      "name": "K10-90",
       "to": {
         "coordinates": [
           -117.27767050039401,
           3.1014367310655633
         ],
-        "name": "Vladimir Visotskiy/K10-90 ( az=331.4)"
+        "name": "K10-90"
       }
     },
     {
@@ -16760,15 +16760,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K11-120 ( az=308.3)"
+        "name": "K11-120"
       },
-      "name": "Vladimir Visotskiy/ K11-120 ( az=308.3)",
+      "name": "K11-120",
       "to": {
         "coordinates": [
           -89.002477135289,
           14.118896089530203
         ],
-        "name": "Vladimir Visotskiy/ K11-120 ( az=308.3)"
+        "name": "K11-120"
       }
     },
     {
@@ -16777,15 +16777,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K10-120 ( az=308.3)"
+        "name": "K10-120"
       },
-      "name": "Vladimir Visotskiy/K10-120 ( az=308.3)",
+      "name": "K10-120",
       "to": {
         "coordinates": [
           -89.002477135289,
           14.118896089530203
         ],
-        "name": "Vladimir Visotskiy/K10-120 ( az=308.3)"
+        "name": "K10-120"
       }
     },
     {
@@ -16794,15 +16794,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K11-180 ( az=261.9)"
+        "name": "K11-180"
       },
-      "name": "Vladimir Visotskiy/ K11-180 ( az=261.9)",
+      "name": "K11-180",
       "to": {
         "coordinates": [
           -25.946105651972548,
           23.21353915863281
         ],
-        "name": "Vladimir Visotskiy/ K11-180 ( az=261.9)"
+        "name": "K11-180"
       }
     },
     {
@@ -16811,15 +16811,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K10-180 ( az=261.9)"
+        "name": "K10-180"
       },
-      "name": "Vladimir Visotskiy/K10-180 ( az=261.9)",
+      "name": "K10-180",
       "to": {
         "coordinates": [
           -25.946105651972548,
           23.21353915863281
         ],
-        "name": "Vladimir Visotskiy/K10-180 ( az=261.9)"
+        "name": "K10-180"
       }
     },
     {
@@ -16828,15 +16828,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K11-240 ( az=183.5)"
+        "name": "K11-240"
       },
-      "name": "Vladimir Visotskiy/ K11-240 ( az=183.5)",
+      "name": "K11-240",
       "to": {
         "coordinates": [
           35.033453318085996,
           8.63992204191961
         ],
-        "name": "Vladimir Visotskiy/ K11-240 ( az=183.5)"
+        "name": "K11-240"
       }
     },
     {
@@ -16845,15 +16845,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K10-240 ( az=183.5)"
+        "name": "K10-240"
       },
-      "name": "Vladimir Visotskiy/K10-240 ( az=183.5)",
+      "name": "K10-240",
       "to": {
         "coordinates": [
           35.033453318085996,
           8.63992204191961
         ],
-        "name": "Vladimir Visotskiy/K10-240 ( az=183.5)"
+        "name": "K10-240"
       }
     },
     {
@@ -16862,15 +16862,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K11-270 ( az=151.4)"
+        "name": "K11-270"
       },
-      "name": "Vladimir Visotskiy/ K11-270 ( az=151.4)",
+      "name": "K11-270",
       "to": {
         "coordinates": [
           62.722329499606005,
           -3.1014367310655406
         ],
-        "name": "Vladimir Visotskiy/ K11-270 ( az=151.4)"
+        "name": "K11-270"
       }
     },
     {
@@ -16879,15 +16879,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K10-270 ( az=151.4)"
+        "name": "K10-270"
       },
-      "name": "Vladimir Visotskiy/K10-270 ( az=151.4)",
+      "name": "K10-270",
       "to": {
         "coordinates": [
           62.722329499606005,
           -3.1014367310655406
         ],
-        "name": "Vladimir Visotskiy/K10-270 ( az=151.4)"
+        "name": "K10-270"
       }
     },
     {
@@ -16896,15 +16896,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K11-300 ( az=128.3)"
+        "name": "K11-300"
       },
-      "name": "Vladimir Visotskiy/ K11-300 ( az=128.3)",
+      "name": "K11-300",
       "to": {
         "coordinates": [
           90.99752286471096,
           -14.118896089530184
         ],
-        "name": "Vladimir Visotskiy/ K11-300 ( az=128.3)"
+        "name": "K11-300"
       }
     },
     {
@@ -16913,15 +16913,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K10-300 ( az=128.3)"
+        "name": "K10-300"
       },
-      "name": "Vladimir Visotskiy/K10-300 ( az=128.3)",
+      "name": "K10-300",
       "to": {
         "coordinates": [
           90.99752286471096,
           -14.118896089530184
         ],
-        "name": "Vladimir Visotskiy/K10-300 ( az=128.3)"
+        "name": "K10-300"
       }
     },
     {
@@ -16930,15 +16930,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K12-0 ( az=60.3)"
+        "name": "K12-0"
       },
-      "name": "Vladimir Visotskiy/ K12-0 ( az=60.3)",
+      "name": "K12-0",
       "to": {
         "coordinates": [
           174.46617521921738,
           -20.7852613157114
         ],
-        "name": "Vladimir Visotskiy/ K12-0 ( az=60.3)"
+        "name": "K12-0"
       }
     },
     {
@@ -16947,15 +16947,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K11-0 ( az=60.3)"
+        "name": "K11-0"
       },
-      "name": "Vladimir Visotskiy/K11-0 ( az=60.3)",
+      "name": "K11-0",
       "to": {
         "coordinates": [
           174.46617521921738,
           -20.7852613157114
         ],
-        "name": "Vladimir Visotskiy/K11-0 ( az=60.3)"
+        "name": "K11-0"
       }
     },
     {
@@ -16964,15 +16964,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K12-60 ( az=341.7)"
+        "name": "K12-60"
       },
-      "name": "Vladimir Visotskiy/ K12-60 ( az=341.7)",
+      "name": "K12-60",
       "to": {
         "coordinates": [
           -127.31746088166746,
           -1.240479829978456
         ],
-        "name": "Vladimir Visotskiy/ K12-60 ( az=341.7)"
+        "name": "K12-60"
       }
     },
     {
@@ -16981,15 +16981,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K11-60 ( az=341.7)"
+        "name": "K11-60"
       },
-      "name": "Vladimir Visotskiy/K11-60 ( az=341.7)",
+      "name": "K11-60",
       "to": {
         "coordinates": [
           -127.31746088166746,
           -1.240479829978456
         ],
-        "name": "Vladimir Visotskiy/K11-60 ( az=341.7)"
+        "name": "K11-60"
       }
     },
     {
@@ -16998,15 +16998,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K12-90 ( az=316.2)"
+        "name": "K12-90"
       },
-      "name": "Vladimir Visotskiy/ K12-90 ( az=316.2)",
+      "name": "K12-90",
       "to": {
         "coordinates": [
           -99.51397937004431,
           10.363027686367282
         ],
-        "name": "Vladimir Visotskiy/ K12-90 ( az=316.2)"
+        "name": "K12-90"
       }
     },
     {
@@ -17015,15 +17015,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K11-90 ( az=316.2)"
+        "name": "K11-90"
       },
-      "name": "Vladimir Visotskiy/K11-90 ( az=316.2)",
+      "name": "K11-90",
       "to": {
         "coordinates": [
           -99.51397937004431,
           10.363027686367282
         ],
-        "name": "Vladimir Visotskiy/K11-90 ( az=316.2)"
+        "name": "K11-90"
       }
     },
     {
@@ -17032,15 +17032,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K12-120 ( az=295.1)"
+        "name": "K12-120"
       },
-      "name": "Vladimir Visotskiy/ K12-120 ( az=295.1)",
+      "name": "K12-120",
       "to": {
         "coordinates": [
           -69.87077729671844,
           19.46419442337034
         ],
-        "name": "Vladimir Visotskiy/ K12-120 ( az=295.1)"
+        "name": "K12-120"
       }
     },
     {
@@ -17049,15 +17049,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K11-120 ( az=295.1)"
+        "name": "K11-120"
       },
-      "name": "Vladimir Visotskiy/K11-120 ( az=295.1)",
+      "name": "K11-120",
       "to": {
         "coordinates": [
           -69.87077729671844,
           19.46419442337034
         ],
-        "name": "Vladimir Visotskiy/K11-120 ( az=295.1)"
+        "name": "K11-120"
       }
     },
     {
@@ -17066,15 +17066,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K12-180 ( az=240.3)"
+        "name": "K12-180"
       },
-      "name": "Vladimir Visotskiy/ K12-180 ( az=240.3)",
+      "name": "K12-180",
       "to": {
         "coordinates": [
           -5.533824780782606,
           20.785261315711388
         ],
-        "name": "Vladimir Visotskiy/ K12-180 ( az=240.3)"
+        "name": "K12-180"
       }
     },
     {
@@ -17083,15 +17083,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K11-180 ( az=240.3)"
+        "name": "K11-180"
       },
-      "name": "Vladimir Visotskiy/K11-180 ( az=240.3)",
+      "name": "K11-180",
       "to": {
         "coordinates": [
           -5.533824780782606,
           20.785261315711388
         ],
-        "name": "Vladimir Visotskiy/K11-180 ( az=240.3)"
+        "name": "K11-180"
       }
     },
     {
@@ -17100,15 +17100,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K12-240 ( az=161.7)"
+        "name": "K12-240"
       },
-      "name": "Vladimir Visotskiy/ K12-240 ( az=161.7)",
+      "name": "K12-240",
       "to": {
         "coordinates": [
           52.68253911833248,
           1.2404798299784792
         ],
-        "name": "Vladimir Visotskiy/ K12-240 ( az=161.7)"
+        "name": "K12-240"
       }
     },
     {
@@ -17117,15 +17117,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K11-240 ( az=161.7)"
+        "name": "K11-240"
       },
-      "name": "Vladimir Visotskiy/K11-240 ( az=161.7)",
+      "name": "K11-240",
       "to": {
         "coordinates": [
           52.68253911833248,
           1.2404798299784792
         ],
-        "name": "Vladimir Visotskiy/K11-240 ( az=161.7)"
+        "name": "K11-240"
       }
     },
     {
@@ -17134,15 +17134,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K12-270 ( az=136.2)"
+        "name": "K12-270"
       },
-      "name": "Vladimir Visotskiy/ K12-270 ( az=136.2)",
+      "name": "K12-270",
       "to": {
         "coordinates": [
           80.48602062995569,
           -10.363027686367282
         ],
-        "name": "Vladimir Visotskiy/ K12-270 ( az=136.2)"
+        "name": "K12-270"
       }
     },
     {
@@ -17151,15 +17151,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K11-270 ( az=136.2)"
+        "name": "K11-270"
       },
-      "name": "Vladimir Visotskiy/K11-270 ( az=136.2)",
+      "name": "K11-270",
       "to": {
         "coordinates": [
           80.48602062995569,
           -10.363027686367282
         ],
-        "name": "Vladimir Visotskiy/K11-270 ( az=136.2)"
+        "name": "K11-270"
       }
     },
     {
@@ -17168,15 +17168,15 @@
           37.628137530436106,
           55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/ K12-300 ( az=115.1)"
+        "name": "K12-300"
       },
-      "name": "Vladimir Visotskiy/ K12-300 ( az=115.1)",
+      "name": "K12-300",
       "to": {
         "coordinates": [
           110.12922270328156,
           -19.464194423370348
         ],
-        "name": "Vladimir Visotskiy/ K12-300 ( az=115.1)"
+        "name": "K12-300"
       }
     },
     {
@@ -17185,15 +17185,15 @@
           -142.3718624695639,
           -55.78472277151802
         ],
-        "name": "Vladimir Visotskiy/K11-300 ( az=115.1)"
+        "name": "K11-300"
       },
-      "name": "Vladimir Visotskiy/K11-300 ( az=115.1)",
+      "name": "K11-300",
       "to": {
         "coordinates": [
           110.12922270328156,
           -19.464194423370348
         ],
-        "name": "Vladimir Visotskiy/K11-300 ( az=115.1)"
+        "name": "K11-300"
       }
     }
   ],

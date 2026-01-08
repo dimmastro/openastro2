@@ -1944,7 +1944,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 										# # if	( float(self.settings.settings["settings_aspect"][z]['degree']) - orb_before ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + 1.0 ):
 										# if	( float(self.settings.settings["settings_aspect"][z]['degree']) - orb ) <= diff <= ( float(self.settings.settings["settings_aspect"][z]['degree']) + orb ):
 										if (self.planetsInAspect(diff, z, i, x)):
-											if self.settings.settings["settings_aspect"][z]['visible'] == 1:
+											aspect_entry = self.settings.settings["settings_aspect"][z]
+											show_aspect = aspect_entry.get("t_visible", aspect_entry.get("visible", 1)) == 1
+											if show_aspect:
 												# self.planets_aspects[z][i][x] = 1
 												# self.planets_aspects_arr[z][i][x] = 1
 

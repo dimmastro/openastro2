@@ -16,7 +16,17 @@
     "language": "en",
     "round_aspects": 1,
     "planet_in_one_house": 0,
-    "geo_zodiac_start": 0
+    "geo_zodiac_start": 0,
+    "modules": {
+      "object": {
+        "eris": {
+          "enabled": 1,
+          "params": {
+            "bsp_path": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/tno/tnosat_v001_20136199_jpl080_20220908.bsp"
+          }
+        }
+      }
+    }
   },
   "color_codes": {
     "paper_0": "#000000",
@@ -93,6 +103,7 @@
     "planet_32": "#000000",
     "planet_33": "#000000",
     "planet_34": "#000000",
+    "planet_43": "#444444",
     "lunar_phase_0": "#000000",
     "lunar_phase_1": "#FFFFFF",
     "lunar_phase_2": "#CCCCCC"
@@ -2197,6 +2208,19 @@
       "visible_aspect_line": 0,
       "visible_aspect_grid": 0,
       "visible_json": 0
+    },
+    "43": {
+      "id": 43,
+      "name": "eris",
+      "color": "#4a4a8a",
+      "visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Eris",
+      "label_short": "eris",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1
     }
   },
   "settings_house_dict": {

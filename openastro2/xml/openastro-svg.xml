@@ -162,7 +162,7 @@
 <g transform="translate(2,2) scale(1.6)">
 	<path
 	d="M6 11V1M2.25 9.75a3.751 3.751 0 0 0 0-7.5m7.5 0a3.751 3.751 0 0 0 0 7.5"
-	style="fill:none;stroke:$planets_color_43;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+	style="fill:none;stroke:$planets_color_eris;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
 </g>
 </symbol>
 
@@ -170,10 +170,10 @@
 <g transform="translate(2,2) scale(1.6)">
 	<path
 	d="M3.5 6C2.121 6 1 4.879 1 3.5S2.121 1 3.5 1h5C9.879 1 11 2.121 11 3.5S9.879 6 8.5 6M6 1v10"
-	style="fill:none;stroke:$planets_color_44;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+	style="fill:none;stroke:$planets_color_makemake;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
 	<path
 	d="M4.75 3.5A1.249 1.249 0 1 0 3.5 4.75 1.25 1.25 0 0 0 4.75 3.5zm5 0A1.249 1.249 0 1 0 8.5 4.75 1.25 1.25 0 0 0 9.75 3.5zm0 0"
-	style="fill:$planets_color_44;stroke:none;" />
+	style="fill:$planets_color_makemake;stroke:none;" />
 </g>
 </symbol>
 
@@ -181,10 +181,10 @@
 <g transform="translate(2,2) scale(1.6)">
 	<path
 	d="M7.25 2.25A1.249 1.249 0 1 0 6 3.5a1.25 1.25 0 0 0 1.25-1.25Zm0 5A1.249 1.249 0 1 0 6 8.5a1.25 1.25 0 0 0 1.25-1.25Zm0 0"
-	style="fill:$planets_color_45;stroke:none;" />
+	style="fill:$planets_color_haumea;stroke:none;" />
 	<path
 	d="M1 4.75h10m-7.5 0C3.5 8.203 2.379 11 1 11m7.5-6.25C8.5 8.203 9.621 11 11 11"
-	style="fill:none;stroke:$planets_color_45;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+	style="fill:none;stroke:$planets_color_haumea;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
 </g>
 </symbol>
 
@@ -192,7 +192,7 @@
 <g transform="translate(2,2) scale(1.6)">
 	<path
 	d="M5.875 1v5a5 5 0 0 1 5 5m-7.25-8.75a1.249 1.249 0 1 0-1.25 1.25 1.25 1.25 0 0 0 1.25-1.25zM2.375 3.5H7.75"
-	style="fill:none;stroke:$planets_color_46;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+	style="fill:none;stroke:$planets_color_sedna;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
 </g>
 </symbol>
 
@@ -333,7 +333,7 @@
 <g transform="scale(.75)">
 	<path
 	d="M 13.891439,23.899148 C 16.831061,23.16167 19.42871,20.957929 20.393204,18.051853 C 21.020409,16.655337 20.990829,15.041667 20.533362,13.600675 C 20.114218,11.835116 19.107819,10.284901 18.004613,8.8731359 C 17.010334,7.1652064 16.695528,4.9968194 17.378257,3.1191925 C 17.758616,2.134839 18.612459,1.1290194 19.747609,1.122205 C 20.856714,1.1522691 21.68807,2.1940507 21.762984,3.2502572 C 21.912267,4.7681974 20.969993,6.4261707 19.471746,6.8713331 C 19.067889,7.1616711 18.25164,6.6059847 18.085179,6.9788263 C 19.290894,8.1433226 21.294758,8.0903554 22.639135,7.1933294 C 23.815746,6.4142182 24.244753,4.8354574 23.866042,3.513777 C 23.579596,1.951978 22.299181,0.68814445 20.784404,0.28003765 C 19.338156,-0.21325355 17.636132,-0.074257846 16.389677,0.85208495 C 14.815514,1.7718962 14.147431,3.6918765 14.163087,5.4368764 C 14.158082,6.4844752 14.521263,7.4854719 14.829092,8.4735115 C 15.207397,9.5849835 15.743054,10.635344 16.373553,11.623268 C 17.391254,13.444769 18.097991,15.578055 17.73759,17.680935 C 17.264619,20.303885 14.771995,22.367369 12.114619,22.391402 C 10.221592,22.570108 8.4623977,21.408784 7.3640695,19.946934 C 5.9800493,18.024601 5.7632677,15.423089 6.5407261,13.21741 C 7.0447364,11.683217 7.9039267,10.303136 8.7551602,8.9442496 C 9.3673378,7.7170077 9.5453858,6.3050768 9.4520188,4.9498232 C 9.3273658,3.5827422 9.055649,2.055641 7.9264908,1.1408811 C 5.9170924,-0.45587205 2.5879904,-0.21634735 1.0121097,1.878869 C -0.10699561,3.3638861 -0.077071356,5.7321616 1.3439679,7.0142862 C 2.2628957,7.7723325 3.5523542,8.1172364 4.7082249,7.7533106 C 5.2902186,7.5823499 5.8305214,7.2547717 6.2290478,6.7948231 C 5.2075081,6.7604711 3.9811354,6.8872988 3.2192579,6.0602046 C 2.4586494,4.9643087 2.1899922,3.4530691 2.7277339,2.20348 C 3.1104121,1.3003657 4.160788,0.64048665 5.1397626,0.98349485 C 6.2468062,1.3370711 6.9552792,2.4455554 7.0537996,3.5696899 C 7.3808409,5.492555 7.1315,7.5939422 5.9619608,9.2041629 C 5.2025142,10.29701 4.2871193,11.315357 3.8562083,12.598809 C 2.7918212,15.240251 3.4299247,18.367596 5.1702811,20.571791 C 6.8286269,22.84876 9.6781638,24.154892 12.482992,23.997045 C 12.953784,23.989488 13.423977,23.955037 13.891439,23.899148 z "
-	style="fill: $planets_color_29;" />
+	style="fill: $planets_color_37;" />
 </g>
 </g>
 </symbol>

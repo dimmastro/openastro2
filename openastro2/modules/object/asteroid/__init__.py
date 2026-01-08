@@ -1,0 +1,1 @@
+"""Asteroid module package."""

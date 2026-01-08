@@ -7,6 +7,7 @@ requests==2.31.0
 numpy==1.26.4
 openpyxl==3.1.5
 pyswisseph==2.10.3.2
+spiceypy==8.0.1
 ephem==4.2
 geographiclib==2.0
 pytz==2025.2

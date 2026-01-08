@@ -155,6 +155,44 @@
 </g>
 </symbol>
 
+<symbol id="eris">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M6 11V1M2.25 9.75a3.751 3.751 0 0 0 0-7.5m7.5 0a3.751 3.751 0 0 0 0 7.5"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="makemake">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M3.5 6C2.121 6 1 4.879 1 3.5S2.121 1 3.5 1h5C9.879 1 11 2.121 11 3.5S9.879 6 8.5 6M6 1v10"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+	<path
+	d="M4.75 3.5A1.249 1.249 0 1 0 3.5 4.75 1.25 1.25 0 0 0 4.75 3.5zm5 0A1.249 1.249 0 1 0 8.5 4.75 1.25 1.25 0 0 0 9.75 3.5zm0 0"
+	style="fill:#444444;stroke:none;" />
+</g>
+</symbol>
+
+<symbol id="haumea">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M7.25 2.25A1.249 1.249 0 1 0 6 3.5a1.25 1.25 0 0 0 1.25-1.25Zm0 5A1.249 1.249 0 1 0 6 8.5a1.25 1.25 0 0 0 1.25-1.25Zm0 0"
+	style="fill:#444444;stroke:none;" />
+	<path
+	d="M1 4.75h10m-7.5 0C3.5 8.203 2.379 11 1 11m7.5-6.25C8.5 8.203 9.621 11 11 11"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="sedna">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M5.875 1v5a5 5 0 0 1 5 5m-7.25-8.75a1.249 1.249 0 1 0-1.25 1.25 1.25 1.25 0 0 0 1.25-1.25zM2.375 3.5H7.75"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
 <symbol id="mean node">
 <g transform="translate(0,3)">
 	<path
@@ -729,9 +767,9 @@
 <text text-anchor="start" x="79.22284737030556" y="103.85994855573061"  style="fill:#ff0000; font-size: 7px;">27</text>
 	
 	<!-- Planets -->
-	<line x1="95.16296071390789" y1="304.3145919289092" x2="77.09454806599808" y2="312.8896991809995" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
-<circle cx="95.16296071390789" cy="304.3145919289092" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="68.06034174204316" y="317.1772528070447" xlink:href="#saturn" /></g></g>
-<text text-anchor="start" x="75.39367507537649" y="313.1772528070447"  style="fill:#000000; font-size: 11.666666666666668px;"> 1</text><line x1="168.80884020003816" y1="378.4176994761832" x2="160.12206825099844" y2="396.4326930400282" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
+	<line x1="95.16296071390789" y1="304.3145919289092" x2="77.96563304135067" y2="314.69858509690937" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
+<circle cx="95.16296071390789" cy="304.3145919289092" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="68.98064055781116" y="319.0883356673562" xlink:href="#saturn" /></g></g>
+<text text-anchor="start" x="76.31397389114449" y="315.0883356673562"  style="fill:#000000; font-size: 11.666666666666668px;"> 1</text><line x1="168.80884020003816" y1="378.4176994761832" x2="160.12206825099844" y2="396.4326930400282" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
 <circle cx="168.80884020003816" cy="378.4176994761832" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="155.77868227647855" y="405.4401898219507" xlink:href="#uranus" /></g></g>
 <text text-anchor="start" x="163.1120156098119" y="401.4401898219507"  style="fill:#000000; font-size: 11.666666666666668px;">10</text><line x1="233.75098405685966" y1="393.9663782324139" x2="233.3370966755679" y2="413.9620952046959" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
 <circle cx="233.75098405685966" cy="393.9663782324139" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="233.13015298492203" y="423.9599536908369" xlink:href="#south node" /></g></g>
@@ -747,15 +785,15 @@
 <circle cx="189.22724225622974" cy="87.44478070774315" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="180.0986898211144" y="58.86735026973228" xlink:href="#mean apogee" /></g></g>
 <text text-anchor="start" x="187.43202315444773" y="54.86735026973228"  style="fill:#000000; font-size: 11.666666666666668px;">24</text><line x1="146.3338717029096" y1="108.82569220153539" x2="134.78404644213373" y2="92.49775490236793" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
 <circle cx="146.3338717029096" cy="108.82569220153539" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="129.0091338117458" y="84.3337862527842" xlink:href="#mercury" /></g></g>
-<text text-anchor="start" x="136.34246714507915" y="80.3337862527842"  style="fill:#000000; font-size: 11.666666666666668px;">11</text><line x1="105.63847271404299" y1="151.01657631205438" x2="102.2216906151003" y2="122.26636360967086" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
-<circle cx="105.63847271404299" cy="151.01657631205438" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="94.60709686454099" y="115.78423725993476" xlink:href="#venus" /></g></g>
-<text text-anchor="start" x="101.94043019787432" y="111.78423725993476"  style="fill:#000000; font-size: 11.666666666666668px;"> 3</text><line x1="102.18656955406917" y1="156.5367228395452" x2="88.9045201935389" y2="140.06327393142436" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
-<circle cx="102.18656955406917" cy="156.5367228395452" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="80.53754393328687" y="134.58662274110935" xlink:href="#sun" /></g></g>
-<text text-anchor="start" x="87.8708772666202" y="130.58662274110935"  style="fill:#000000; font-size: 11.666666666666668px;"> 5</text><line x1="97.32777020503977" y1="165.3015465710464" x2="77.92290395647677" y2="159.38893433047264" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
-<circle cx="97.32777020503977" cy="165.3015465710464" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="68.93549740034553" y="155.00412836044285" xlink:href="#jupiter" /></g></g>
-<text text-anchor="start" x="76.26883073367885" y="151.00412836044285"  style="fill:#000000; font-size: 11.666666666666668px;"> 9</text><line x1="90.02748173579037" y1="292.2094092983847" x2="71.30486794417132" y2="299.24245506887956" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
-<circle cx="90.02748173579037" cy="292.2094092983847" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="61.94356104836179" y="302.758977954127" xlink:href="#mars" /></g></g>
-<text text-anchor="start" x="69.27689438169512" y="298.758977954127"  style="fill:#000000; font-size: 11.666666666666668px;">27</text><circle cx="90.02748173579037" cy="292.2094092983847" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="98.47672410282894" cy="310.8938565424503" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="27.89161536541694" cy="348.5467770736352" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="5.83376888497569" y="360.31331473963047" xlink:href="#saturn" /></g></g>
+<text text-anchor="start" x="136.34246714507915" y="80.3337862527842"  style="fill:#000000; font-size: 11.666666666666668px;">11</text><line x1="105.63847271404299" y1="151.01657631205438" x2="94.33234556548564" y2="132.23865036114705" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
+<circle cx="105.63847271404299" cy="151.01657631205438" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="86.27202610590857" y="126.31993004256779" xlink:href="#venus" /></g></g>
+<text text-anchor="start" x="93.6053594392419" y="122.31993004256779"  style="fill:#000000; font-size: 11.666666666666668px;"> 3</text><line x1="102.18656955406917" y1="156.5367228395452" x2="84.00777026397535" y2="147.99226078368548" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
+<circle cx="102.18656955406917" cy="156.5367228395452" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="75.36414146532988" y="142.96357495225527" xlink:href="#sun" /></g></g>
+<text text-anchor="start" x="82.69747479866321" y="138.96357495225527"  style="fill:#000000; font-size: 11.666666666666668px;"> 5</text><line x1="97.32777020503977" y1="165.3015465710464" x2="75.41569606636702" y2="164.75380479026376" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
+<circle cx="97.32777020503977" cy="165.3015465710464" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="66.28663934695274" y="160.67209884621084" xlink:href="#jupiter" /></g></g>
+<text text-anchor="start" x="73.61997268028607" y="156.67209884621084"  style="fill:#000000; font-size: 11.666666666666668px;"> 9</text><line x1="90.02748173579037" y1="292.2094092983847" x2="70.6095265223486" y2="297.35901205191306" style="stroke-width:1px;stroke:#ff0000;stroke-opacity:0.5;"/>
+<circle cx="90.02748173579037" cy="292.2094092983847" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="61.20893480044739" y="300.76912572716236" xlink:href="#mars" /></g></g>
+<text text-anchor="start" x="68.54226813378072" y="296.76912572716236"  style="fill:#000000; font-size: 11.666666666666668px;">27</text><circle cx="90.02748173579037" cy="292.2094092983847" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #ff0000; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="98.47672410282894" cy="310.8938565424503" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="27.89161536541694" cy="348.5467770736352" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="5.83376888497569" y="360.31331473963047" xlink:href="#saturn" /></g></g>
 <text text-anchor="start" x="13.167102218309024" y="356.31331473963047"  style="fill:#0000FF; font-size: 11.666666666666668px;"> 4</text><line x1="27.89161536541694" y1="348.5467770736352" x2="14.656907477152188" y2="355.60669967323236" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
 <circle cx="117.38144319607801" cy="338.6877616439013" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="56.42931234057635" cy="390.5031815898383" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="37.38177144823209" y="406.6955003229436" xlink:href="#mars" /></g></g>
 <text text-anchor="start" x="44.71510478156542" y="402.6955003229436"  style="fill:#0000FF; font-size: 11.666666666666668px;">16</text><line x1="56.42931234057635" y1="390.5031815898383" x2="45.00078780516979" y2="400.2185728297015" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
@@ -771,14 +809,14 @@
 <text text-anchor="start" x="263.2183903697327" y="-28.31849268800694"  style="fill:#0000FF; font-size: 11.666666666666668px;"> 2</text><text text-anchor="start" x="263.2183903697327" y="-11.651826021340273"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="254.08304777720093" y1="0.616477988329598" x2="255.16425333271997" y2="-14.344504417472326" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
 <circle cx="181.5844007704903" cy="90.10510096659462" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="153.34715275545352" cy="15.254197000528173" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="144.5230127507545" y="-8.136710488867593" xlink:href="#mean apogee" /></g></g>
 <text text-anchor="start" x="151.85634608408785" y="-12.136710488867593"  style="fill:#0000FF; font-size: 11.666666666666668px;">27</text><line x1="153.34715275545352" y1="15.254197000528173" x2="148.0526687526341" y2="1.2196525068907142" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
-<circle cx="90.3140432258256" cy="181.03367007525827" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="15.569606652997875" cy="152.5157949543708" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="-6.765797042135535" y="140.96752532391767" xlink:href="#jupiter" /></g></g>
-<text text-anchor="start" x="0.5675362911977984" y="136.96752532391767"  style="fill:#0000FF; font-size: 11.666666666666668px;">15</text><line x1="15.569606652997875" y1="152.5157949543708" x2="2.5382410129078075" y2="144.63288695277578" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
-<circle cx="86.17328125129444" cy="193.4075590096303" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="9.318902271062303" cy="171.1948502247285" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="-15.468549501983231" y="166.9740654302662" xlink:href="#mercury" /></g></g>
-<text text-anchor="start" x="-8.135216168649897" y="162.9740654302662"  style="fill:#0000FF; font-size: 11.666666666666668px;">20</text><line x1="9.318902271062303" y1="171.1948502247285" x2="-5.832345322518222" y2="169.64681102453085" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
-<circle cx="80.35785114279348" cy="226.40579397044036" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="0.5401956741532213" cy="221.0074724267157" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="-24.06574096990091" y="214.89391731136863" xlink:href="#sun" /></g></g>
-<text text-anchor="start" x="-16.73240763656758" y="210.89391731136863"  style="fill:#0000FF; font-size: 11.666666666666668px;"> 2</text><line x1="0.5401956741532213" y1="221.0074724267157" x2="-14.101399711507746" y2="215.73766092543852" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
-<circle cx="80.0008551240253" cy="237.5181777809842" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="0.001290856012719832" cy="237.78221741460672" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="-24.946310377418857" y="242.30381746074926" xlink:href="#venus" /></g></g>
-<text text-anchor="start" x="-17.612977044085525" y="238.30381746074926"  style="fill:#0000FF; font-size: 11.666666666666668px;"> 6</text><line x1="0.001290856012719832" y1="237.78221741460672" x2="-14.94835959965478" y2="242.1013816798046" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
+<circle cx="90.3140432258256" cy="181.03367007525827" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="15.569606652997875" cy="152.5157949543708" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="-6.681900090046163" y="140.7548361292643" xlink:href="#jupiter" /></g></g>
+<text text-anchor="start" x="0.6514332432871703" y="136.7548361292643"  style="fill:#0000FF; font-size: 11.666666666666668px;">15</text><line x1="15.569606652997875" y1="152.5157949543708" x2="2.6189357912533104" y2="144.42831566631529" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
+<circle cx="86.17328125129444" cy="193.4075590096303" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="9.318902271062303" cy="171.1948502247285" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="-15.52956251733693" y="167.19441243852737" xlink:href="#mercury" /></g></g>
+<text text-anchor="start" x="-8.196229184003595" y="163.19441243852737"  style="fill:#0000FF; font-size: 11.666666666666668px;">20</text><line x1="9.318902271062303" y1="171.1948502247285" x2="-5.891029596827886" y2="169.858747841637" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
+<circle cx="80.35785114279348" cy="226.40579397044036" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="0.5401956741532213" cy="221.0074724267157" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="-24.046350369508456" y="214.6661029204522" xlink:href="#sun" /></g></g>
+<text text-anchor="start" x="-16.713017036175124" y="210.6661029204522"  style="fill:#0000FF; font-size: 11.666666666666668px;"> 2</text><line x1="0.5401956741532213" y1="221.0074724267157" x2="-14.082749210366913" y2="215.51854174028227" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
+<circle cx="80.0008551240253" cy="237.5181777809842" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><circle cx="0.001290856012719832" cy="237.78221741460672" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #0000FF; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="-24.941582182370432" y="242.53240669116832" xlink:href="#venus" /></g></g>
+<text text-anchor="start" x="-17.6082488490371" y="238.53240669116832"  style="fill:#0000FF; font-size: 11.666666666666668px;"> 6</text><line x1="0.001290856012719832" y1="237.78221741460672" x2="-14.943811870066217" y2="242.3212461304367" style="stroke-width:1px;stroke:#0000FF;stroke-opacity:.2;"/>
 
 	
 	<!-- Aspects -->

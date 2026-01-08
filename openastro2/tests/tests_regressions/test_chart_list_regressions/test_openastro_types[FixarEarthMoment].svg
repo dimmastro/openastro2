@@ -155,6 +155,44 @@
 </g>
 </symbol>
 
+<symbol id="eris">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M6 11V1M2.25 9.75a3.751 3.751 0 0 0 0-7.5m7.5 0a3.751 3.751 0 0 0 0 7.5"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="makemake">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M3.5 6C2.121 6 1 4.879 1 3.5S2.121 1 3.5 1h5C9.879 1 11 2.121 11 3.5S9.879 6 8.5 6M6 1v10"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+	<path
+	d="M4.75 3.5A1.249 1.249 0 1 0 3.5 4.75 1.25 1.25 0 0 0 4.75 3.5zm5 0A1.249 1.249 0 1 0 8.5 4.75 1.25 1.25 0 0 0 9.75 3.5zm0 0"
+	style="fill:#444444;stroke:none;" />
+</g>
+</symbol>
+
+<symbol id="haumea">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M7.25 2.25A1.249 1.249 0 1 0 6 3.5a1.25 1.25 0 0 0 1.25-1.25Zm0 5A1.249 1.249 0 1 0 6 8.5a1.25 1.25 0 0 0 1.25-1.25Zm0 0"
+	style="fill:#444444;stroke:none;" />
+	<path
+	d="M1 4.75h10m-7.5 0C3.5 8.203 2.379 11 1 11m7.5-6.25C8.5 8.203 9.621 11 11 11"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="sedna">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M5.875 1v5a5 5 0 0 1 5 5m-7.25-8.75a1.249 1.249 0 1 0-1.25 1.25 1.25 1.25 0 0 0 1.25-1.25zM2.375 3.5H7.75"
+	style="fill:none;stroke:#444444;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
 <symbol id="mean node">
 <g transform="translate(0,3)">
 	<path
@@ -711,25 +749,25 @@
 <circle cx="393.9385703322103" cy="232.60851482048784" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="423.92683217912946" y="231.76937752503966" xlink:href="#mars" /></g></g>
 <text text-anchor="start" x="431.2601655124628" y="227.76937752503966"  style="fill:#000000; font-size: 11.666666666666668px;">20</text><line x1="355.9347335230975" y1="134.51327324092267" x2="371.085654991008" y2="121.45763925887461" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="355.9347335230975" cy="134.51327324092267" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="378.6611157249633" y="114.92982226785057" xlink:href="#true node" /></g></g>
-<text text-anchor="start" x="385.9944490582966" y="110.92982226785057"  style="fill:#000000; font-size: 11.666666666666668px;">29</text><text text-anchor="start" x="385.9944490582966" y="127.59648893451724"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="172.07499198509305" y1="94.0533549387595" x2="168.42172102730143" y2="73.82518682976" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="172.07499198509305" cy="94.0533549387595" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="164.54724198929586" y="64.60627083144135" xlink:href="#uranus" /></g></g>
-<text text-anchor="start" x="171.8805753226292" y="60.60627083144135"  style="fill:#000000; font-size: 11.666666666666668px;">13</text><line x1="165.3221839041393" y1="97.31717829407951" x2="151.74098755030596" y2="81.88745764412565" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="165.3221839041393" cy="97.31717829407951" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="146.92409419156618" y="73.12403717204236" xlink:href="#pluto" /></g></g>
-<text text-anchor="start" x="154.25742752489953" y="69.12403717204236"  style="fill:#000000; font-size: 11.666666666666668px;">15</text><line x1="80.02514898600506" y1="239.81000874270734" x2="60.02835267848978" y2="240.1679716398675" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<text text-anchor="start" x="385.9944490582966" y="110.92982226785057"  style="fill:#000000; font-size: 11.666666666666668px;">29</text><text text-anchor="start" x="385.9944490582966" y="127.59648893451724"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="172.07499198509305" y1="94.0533549387595" x2="168.56414400920653" y2="73.7654031315439" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="172.07499198509305" cy="94.0533549387595" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="164.69771146735377" y="64.54310952315656" xlink:href="#uranus" /></g></g>
+<text text-anchor="start" x="172.0310448006871" y="60.54310952315656"  style="fill:#000000; font-size: 11.666666666666668px;">13</text><line x1="165.3221839041393" y1="97.31717829407951" x2="151.60565880294757" y2="81.96191922136873" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="165.3221839041393" cy="97.31717829407951" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="146.78111975226665" y="73.20270561805623" xlink:href="#pluto" /></g></g>
+<text text-anchor="start" x="154.1144530856" y="69.20270561805623"  style="fill:#000000; font-size: 11.666666666666668px;">15</text><line x1="80.02514898600506" y1="239.81000874270734" x2="60.02835267848978" y2="240.1679716398675" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="80.02514898600506" cy="239.81000874270734" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="50.02995452473214" y="240.34695308844758" xlink:href="#neptune" /></g></g>
-<text text-anchor="start" x="57.363287858065476" y="236.34695308844758"  style="fill:#000000; font-size: 11.666666666666668px;">19</text><line x1="115.07267420324385" y1="335.9076701982798" x2="95.45645313546852" y2="343.27522919762714" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="115.07267420324385" cy="335.9076701982798" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="87.45964257815035" y="349.27947943478125" xlink:href="#mean apogee" /></g></g>
-<text text-anchor="start" x="94.79297591148368" y="345.27947943478125"  style="fill:#000000; font-size: 11.666666666666668px;">27</text><line x1="118.06526647690245" y1="339.4867267590773" x2="107.34062988658377" y2="357.48837181152436" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="118.06526647690245" cy="339.4867267590773" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="100.01524174458285" y="364.2956244562433" xlink:href="#south node" /></g></g>
-<text text-anchor="start" x="107.34857507791618" y="360.2956244562433"  style="fill:#000000; font-size: 11.666666666666668px;">29</text><line x1="201.75008134478227" y1="389.9916443300108" x2="197.2596458473023" y2="409.4810257733243" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<text text-anchor="start" x="57.363287858065476" y="236.34695308844758"  style="fill:#000000; font-size: 11.666666666666668px;">19</text><line x1="115.07267420324385" y1="335.9076701982798" x2="95.36376440988354" y2="343.15166870031305" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="115.07267420324385" cy="335.9076701982798" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="87.3617172014024" y="349.14893811840983" xlink:href="#mean apogee" /></g></g>
+<text text-anchor="start" x="94.69505053473573" y="345.14893811840983"  style="fill:#000000; font-size: 11.666666666666668px;">27</text><line x1="118.06526647690245" y1="339.4867267590773" x2="107.44582518378763" y2="357.601475064322" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="118.06526647690245" cy="339.4867267590773" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="100.12638027891687" y="364.41511772332325" xlink:href="#south node" /></g></g>
+<text text-anchor="start" x="107.4597136122502" y="360.41511772332325"  style="fill:#000000; font-size: 11.666666666666668px;">29</text><line x1="201.75008134478227" y1="389.9916443300108" x2="197.2596458473023" y2="409.4810257733243" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="201.75008134478227" cy="389.9916443300108" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="195.01442809856232" y="419.22571649498104" xlink:href="#sun" /></g></g>
-<text text-anchor="start" x="202.34776143189566" y="415.22571649498104"  style="fill:#000000; font-size: 11.666666666666668px;"> 5</text><line x1="246.5666096321825" y1="393.7082639178465" x2="234.0640271394391" y2="413.9756482213359" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="246.5666096321825" cy="393.7082639178465" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="233.89815296652608" y="423.97427241463174" xlink:href="#mercury" /></g></g>
-<text text-anchor="start" x="241.23148629985943" y="419.97427241463174"  style="fill:#000000; font-size: 11.666666666666668px;">22</text><text text-anchor="start" x="241.23148629985943" y="436.6409390812984"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="260.2829737500182" y1="392.26397886617474" x2="256.2681084160961" y2="412.9481173473179" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="260.2829737500182" cy="392.26397886617474" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="257.35670211192075" y="422.88868894886133" xlink:href="#moon" /></g></g>
-<text text-anchor="start" x="264.69003544525407" y="418.88868894886133"  style="fill:#000000; font-size: 11.666666666666668px;">27</text><line x1="269.04494506451374" y1="390.69489742933007" x2="278.16832011282105" y2="409.14577955642216" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
-<circle cx="269.04494506451374" cy="390.69489742933007" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="280.49421390450584" y="418.87152981384713" xlink:href="#saturn" /></g></g>
-<text text-anchor="start" x="287.82754723783916" y="414.87152981384713"  style="fill:#000000; font-size: 11.666666666666668px;">30</text><text text-anchor="start" x="287.82754723783916" y="431.5381964805138"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="302.979326554095" y1="379.46307755860147" x2="311.384336306209" y2="397.61124030492016" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<text text-anchor="start" x="202.34776143189566" y="415.22571649498104"  style="fill:#000000; font-size: 11.666666666666668px;"> 5</text><line x1="246.5666096321825" y1="393.7082639178465" x2="241.74248265420533" y2="413.93645429440073" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="246.5666096321825" cy="393.7082639178465" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="242.01041952732427" y="423.932864141542" xlink:href="#mercury" /></g></g>
+<text text-anchor="start" x="249.34375286065762" y="419.932864141542"  style="fill:#000000; font-size: 11.666666666666668px;">22</text><text text-anchor="start" x="249.34375286065762" y="436.59953080820867"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="260.2829737500182" y1="392.26397886617474" x2="260.5176184535902" y2="412.43067469023583" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="260.2829737500182" cy="392.26397886617474" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="261.84629746226767" y="422.3420122433565" xlink:href="#moon" /></g></g>
+<text text-anchor="start" x="269.179630795601" y="418.3420122433565"  style="fill:#000000; font-size: 11.666666666666668px;">27</text><line x1="269.04494506451374" y1="390.69489742933007" x2="279.02643811389885" y2="408.9382985243795" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
+<circle cx="269.04494506451374" cy="390.69489742933007" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="281.40081314858236" y="418.6523266895987" xlink:href="#saturn" /></g></g>
+<text text-anchor="start" x="288.7341464819157" y="414.6523266895987"  style="fill:#000000; font-size: 11.666666666666668px;">30</text><text text-anchor="start" x="288.7341464819157" y="431.31899335626537"  style="fill:#000000; font-size: 11.666666666666668px;">r</text><line x1="302.979326554095" y1="379.46307755860147" x2="311.384336306209" y2="397.61124030492016" style="stroke-width:1px;stroke:#444444;stroke-opacity:.5;"/>
 <circle cx="302.979326554095" cy="379.46307755860147" r="1.5" style="fill: #ffffff; fill-opacity:1.0; stroke: #444444; stroke-width: 1px; stroke-opacity: 0.5;"/><g transform="translate(-12,-12)"><g transform="scale(1)"><use x="315.58684118226597" y="406.6853216780795" xlink:href="#venus" /></g></g>
 <text text-anchor="start" x="322.9201745155993" y="402.6853216780795"  style="fill:#000000; font-size: 11.666666666666668px;">13</text>
 	

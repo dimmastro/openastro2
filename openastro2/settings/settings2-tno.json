@@ -24,18 +24,42 @@
           "params": {
             "objects": [
               {
-                "name": "Eris",
-                "naif_id": 920136199,
-                "kernel_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/tno/tnosat_v001_20136199_jpl080_20220908.bsp",
+                "name": "Orcus",
+                "elements": {
+                  "epoch": 2461000.5,
+                  "a": 39.33577647200568,
+                  "e": 0.2217300030420161,
+                  "inc_deg": 20.55552551599616,
+                  "raan_deg": 268.3859416278478,
+                  "argp_deg": 73.72249191891537,
+                  "mean_anom_deg": 188.1111318293787,
+                  "mean_motion_deg_per_day": 0.003995052426031791
+                }
+              },
+              {
+                "name": "Haumea",
                 "elements": {
                   "epoch": 2457709.5,
-                  "a": 67.6533145827283,
-                  "e": 0.4422028467648986,
-                  "inc_deg": 44.18677870482509,
-                  "raan_deg": 35.88579459831126,
-                  "argp_deg": 151.3771835065675,
-                  "mean_anom_deg": 204.6951495459583,
-                  "mean_motion_deg_per_day": 0.001771212
+                  "a": 43.10250612192156,
+                  "e": 0.1950211646554932,
+                  "inc_deg": 28.20483916193155,
+                  "raan_deg": 121.9469007491838,
+                  "argp_deg": 239.9473330022495,
+                  "mean_anom_deg": 211.9113951443087,
+                  "mean_motion_deg_per_day": 0.003485310478500581
+                }
+              },
+              {
+                "name": "Quaoar",
+                "elements": {
+                  "epoch": 2461000.5,
+                  "a": 43.1476797802032,
+                  "e": 0.03583878353429052,
+                  "inc_deg": 7.991371294217068,
+                  "raan_deg": 188.9632800603184,
+                  "argp_deg": 163.9231384883233,
+                  "mean_anom_deg": 291.4818844949103,
+                  "mean_motion_deg_per_day": 0.003477506123841158
                 }
               },
               {
@@ -52,16 +76,31 @@
                 }
               },
               {
-                "name": "Haumea",
+                "name": "Gonggong",
+                "elements": {
+                  "epoch": 2461000.5,
+                  "a": 66.89366871435344,
+                  "e": 0.5031674399617051,
+                  "inc_deg": 30.86626129015389,
+                  "raan_deg": 336.8400960976296,
+                  "argp_deg": 206.6416070091921,
+                  "mean_anom_deg": 111.3903730396343,
+                  "mean_motion_deg_per_day": 0.001801467997135536
+                }
+              },
+              {
+                "name": "Eris",
+                "naif_id": 920136199,
+                "kernel_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/tno/tnosat_v001_20136199_jpl080_20220908.bsp",
                 "elements": {
                   "epoch": 2457709.5,
-                  "a": 43.10250612192156,
-                  "e": 0.1950211646554932,
-                  "inc_deg": 28.20483916193155,
-                  "raan_deg": 121.9469007491838,
-                  "argp_deg": 239.9473330022495,
-                  "mean_anom_deg": 211.9113951443087,
-                  "mean_motion_deg_per_day": 0.003485310478500581
+                  "a": 67.6533145827283,
+                  "e": 0.4422028467648986,
+                  "inc_deg": 44.18677870482509,
+                  "raan_deg": 35.88579459831126,
+                  "argp_deg": 151.3771835065675,
+                  "mean_anom_deg": 204.6951495459583,
+                  "mean_motion_deg_per_day": 0.001771212
                 }
               },
               {
@@ -503,7 +542,7 @@
     "printPlanetGrid_t": 1,
     "printHousesGrid": 1,
     "printHousesGrid_t": 1,
-    "saveSwgFile": 1,
+    "saveSwgFile": 0,
     "planet_drange": 6,
     "planet_symbol_scale": 0.6,
     "t_planet_symbol_scale_1": 0.6,
@@ -2301,34 +2340,20 @@
     },
     "43": {
       "id": 43,
-      "name": "eris",
+      "name": "orcus",
       "color": "#444444",
       "visible": 1,
       "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
-      "label": "Eris",
-      "label_short": "eris",
+      "label": "Orcus",
+      "label_short": "orcus",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 1,
       "visible_json": 1
     },
     "44": {
       "id": 44,
-      "name": "makemake",
-      "color": "#444444",
-      "visible": 1,
-      "t_visible": 1,
-      "element_points": 0,
-      "zodiac_relation": "-1",
-      "label": "Makemake",
-      "label_short": "makemake",
-      "visible_aspect_line": 1,
-      "visible_aspect_grid": 1,
-      "visible_json": 1
-    },
-    "45": {
-      "id": 45,
       "name": "haumea",
       "color": "#444444",
       "visible": 1,
@@ -2341,8 +2366,64 @@
       "visible_aspect_grid": 1,
       "visible_json": 1
     },
+    "45": {
+      "id": 45,
+      "name": "quaoar",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Quaoar",
+      "label_short": "quaoar",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1
+    },
     "46": {
       "id": 46,
+      "name": "makemake",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Makemake",
+      "label_short": "makemake",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1
+    },
+    "47": {
+      "id": 47,
+      "name": "gonggong",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Gonggong",
+      "label_short": "gonggong",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1
+    },
+    "48": {
+      "id": 48,
+      "name": "eris",
+      "color": "#444444",
+      "visible": 1,
+      "t_visible": 1,
+      "element_points": 0,
+      "zodiac_relation": "-1",
+      "label": "Eris",
+      "label_short": "eris",
+      "visible_aspect_line": 1,
+      "visible_aspect_grid": 1,
+      "visible_json": 1
+    },
+    "49": {
+      "id": 49,
       "name": "sedna",
       "color": "#444444",
       "visible": 1,

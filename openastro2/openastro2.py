@@ -64,6 +64,8 @@ from gettext import gettext as _
 
 import json5
 
+_SETTINGS0_CACHE = None
+
 #debug
 LOCAL=True
 DEBUG=False
@@ -182,8 +184,11 @@ class openAstroSettings:
 
 		DATADIR = Path(__file__).parent
 		json_path = DATADIR / 'settings/settings2.json'
-		with open(json_path, 'r', encoding='utf-8') as f:
-			settings0 = json5.load(f)
+		global _SETTINGS0_CACHE
+		if _SETTINGS0_CACHE is None:
+			with open(json_path, 'r', encoding='utf-8') as f:
+				_SETTINGS0_CACHE = json5.load(f)
+		settings0 = _SETTINGS0_CACHE
 		def merge_dicts(dict1, dict2):
 			for key, value in dict2.items():
 				if isinstance(value, dict):

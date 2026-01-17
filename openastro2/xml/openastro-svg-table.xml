@@ -131,6 +131,30 @@ $pagesRect
 </g>
 </symbol>
 
+<symbol id="orcus">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="m4.82 7.18 3.336 3.332M6 7.668h4.715M7.668 6a1.667 1.667 0 1 0-3.336 0 1.667 1.667 0 1 0 3.336 0ZM11 6A5 5 0 1 0 1 6a5 5 0 0 0 10 0zm0 0"
+	style="fill:none;stroke:$planets_color_orcus;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="quaoar">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="m11 6-5 5-5-5 5-5Zm0 5L7.875 9.125 6 6l3.125 1.875Z"
+	style="fill:none;stroke:$planets_color_quaoar;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
+<symbol id="gonggong">
+<g transform="translate(2,2) scale(1.6)">
+	<path
+	d="M7.668 1v8.332a1.666 1.666 0 1 0 1.664-1.664C6 7.668 6 11 2.668 11a1.667 1.667 0 1 1 0-3.332M4.332 1v5M1 6h10M1 3.5h10"
+	style="fill:none;stroke:$planets_color_gonggong;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+</g>
+</symbol>
+
 <symbol id="mean node">
 <g transform="translate(0,3)">
 	<path

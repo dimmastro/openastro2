@@ -29,5 +29,6 @@ setup(
         "ephem==4.2",
         "geographiclib==2.0",
         "json5==0.12.1",
+        "spiceypy==8.0.1",
     ],
 )

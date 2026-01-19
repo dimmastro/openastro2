@@ -1426,6 +1426,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				houses_names = [self._house_name_by_number(idx) for idx in planets_houses]
 				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]} {house_str}{retrograde_str}"
+			planet_orb_default = self.getPlanetOrbDefault(i)
 			self.planets_dict[name] = {
 				'planets_name': name,
 				'planets_position_str': planets_position_str,
@@ -1443,6 +1444,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_zodiac_yinyang': self.zodiac_yinyang[self.planets_sign[i]],
 				'planets_zodiac_attention': self.zodiac_attention[self.planets_sign[i]],
 				'planets_id': i,
+				'aspects_orbis_planet': planet_orb_default,
 			}
 
 			if self._is_house_index(i):
@@ -1506,6 +1508,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				houses_names = [self._house_name_by_number(idx) for idx in planets_houses]
 				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]} {house_str}{retrograde_str}"
+			planet_orb_default = self.getPlanetOrbDefault(i)
 			self.t_planets_dict[name] = {
 				'planets_name': name,
 				'planets_position_str': planets_position_str,
@@ -1523,6 +1526,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_zodiac_yinyang': self.zodiac_yinyang[self.t_planets_sign[i]],
 				'planets_zodiac_attention': self.zodiac_attention[self.t_planets_sign[i]],
 				'planets_id': i,
+				'aspects_orbis_planet': planet_orb_default,
 			}
 
 			if self._is_house_index(i):
@@ -1553,6 +1557,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					self.t_planets_all_str = self.t_planets_all_str + planets_position_str + """
 """
 			i += 1
+		# Placeholder for natal->transit aspects dict, built in renderer during transit aspects.
+		self.planets_dict_t = {}
 		return self.t_planets_dict
 
 
@@ -1994,21 +2000,22 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 	def makeAspectGrid( self , r ):
 		return self.renderer.makeAspectGrid(r)
 
-	def planetsInAspect( self , diff, aspect_id, p1_id, p2_id ):
-		if(p1_id==2 and p2_id==3 and self.settings.settings["settings_aspect"][aspect_id]['degree']==108 ):
-			1
+	def getAspectOrbs(self, aspect_id, p1_id, p2_id):
+		"""
+		Return per-planet orbs and max orb for a planet pair/aspect.
+		Returns (None, None, None) if the aspect should be disabled (orb < 0).
+		"""
 		z = aspect_id
 		i = p1_id
 		x = p2_id
-		orb = self.settings.settings["settings_aspect"][z]['orb']
-		orb1 = self.settings.settings["settings_aspect"][z]['orb']
-		orb2 = self.settings.settings["settings_aspect"][z]['orb']
+		orb_default = self.settings.settings["settings_aspect"][z]['orb']
+		orb1 = orb_default
+		orb2 = orb_default
 		if ('planet_orb' in self.planets[i]):
 			if (self.type in self.planets[i]['planet_orb']):
 				if ("default" in self.planets[i]['planet_orb'][self.type]):
 					orb1 = self.planets[i]['planet_orb'][self.type]["default"]
 				aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
-				# dprint (aspect)
 				if (aspect in self.planets[i]['planet_orb'][self.type]):
 					orb1 = self.planets[i]['planet_orb'][self.type][aspect]
 		if ('planet_orb' in self.planets[x]):
@@ -2016,16 +2023,37 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				if ("default" in self.planets[x]['planet_orb'][self.type]):
 					orb2 = self.planets[x]['planet_orb'][self.type]["default"]
 				aspect = str(self.settings.settings["settings_aspect"][z]['degree'])
-				# dprint (aspect)
 				if (aspect in self.planets[x]['planet_orb'][self.type]):
 					orb2 = self.planets[x]['planet_orb'][self.type][aspect]
-		orb = max([orb1, orb2])
-		# orb = max([orb1, orb2]) + min([orb1, orb2])/2
-		# orb = (orb1 + orb2)/2
-
-		# if orb == -1 False
 		if orb1 < 0 or orb2 < 0:
-			# orb = -1
+			return None, None, None
+		return orb1, orb2, max([orb1, orb2])
+
+	def getAspectOrb(self, aspect_id, p1_id, p2_id):
+		"""
+		Calculate orb for a planet pair/aspect based on settings and per-planet overrides.
+		Returns None if the aspect should be disabled (orb < 0).
+		"""
+		_, _, orb = self.getAspectOrbs(aspect_id, p1_id, p2_id)
+		return orb
+
+	def getPlanetOrbDefault(self, planet_id):
+		orb_default = None
+		if 'planet_orb' in self.planets[planet_id]:
+			if (self.type in self.planets[planet_id]['planet_orb']):
+				if ("default" in self.planets[planet_id]['planet_orb'][self.type]):
+					orb_default = self.planets[planet_id]['planet_orb'][self.type]["default"]
+		if orb_default is None:
+			# Fallback: use a neutral default orb from aspect settings.
+			orb_default = self.settings.settings["settings_aspect"][0]['orb']
+		return orb_default
+
+	def planetsInAspect( self , diff, aspect_id, p1_id, p2_id ):
+		# if(p1_id==2 and p2_id==3 and self.settings.settings["settings_aspect"][aspect_id]['degree']==108 ):
+		# 	1
+		z = aspect_id
+		orb = self.getAspectOrb(aspect_id, p1_id, p2_id)
+		if orb is None:
 			return False
 
 		# check if we want to display this aspect

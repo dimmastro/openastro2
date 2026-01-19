@@ -1277,17 +1277,33 @@ class ChartRenderer:
 									asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree'])))
 									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
 									asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']} orb={asp_orb_deg}"
-									asp_dict = {
+									orb1, orb2, aspect_orb_default = self.getAspectOrbs(z, a, b)
+									aspect_accuracy = None
+									aspect_score = None
+									if aspect_orb_default and aspect_orb_default != 0:
+										aspect_accuracy = asp_orb / aspect_orb_default
+										aspect_score = 1 - aspect_accuracy
+									asp_dict_a = {
 										'aspects_str': asp_str,
 										'planets_name1': self.planets[a]['name'],
 										'planets_name2': self.planets[b]['name'],
+										'planets_id1': a,
+										'planets_id2': b,
 										'aspects_degree': self.settings.settings["settings_aspect"][z]['degree'],
 										'aspects_diff': diff,
 										'aspects_orbis': asp_orb,
+										'aspects_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
+										'aspects_id': aspects_degree_id,
+										'aspects_orbis_calc': aspect_orb_default,
+										'aspects_orbis_accuracy': aspect_accuracy,
+										'aspects_orbis_score': aspect_score,
+										'aspects_orbis_planet': orb2,
 										'aspects_orbis_deg': asp_orb_deg,
 									}
+									asp_dict_b = dict(asp_dict_a)
+									asp_dict_b['aspects_orbis_planet'] = orb1
 
-									self.planets_aspects_list.append(asp_dict)
+									self.planets_aspects_list.append(asp_dict_a)
 
 									if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
 										if ('visible_json' in self.planets[b] and self.planets[b]['visible_json'] == 1):
@@ -1297,21 +1313,21 @@ class ChartRenderer:
 
 									if 'aspects' not in self.planets_dict[self.planets[a]['name']]:
 										self.planets_dict[self.planets[a]['name']]['aspects'] = {}
-									self.planets_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict
+									self.planets_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict_a
 									if 'aspects' not in self.planets_dict[self.planets[b]['name']]:
 										self.planets_dict[self.planets[b]['name']]['aspects'] = {}
-									self.planets_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict
+									self.planets_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict_b
 
 									# Houses aspects
 									if (22 < a and a < 35):
 										if 'aspects' not in self.houses_dict[self.planets[a]['name']]:
 											self.houses_dict[self.planets[a]['name']]['aspects'] = {}
-										self.houses_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict
+										self.houses_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict_a
 									# Houses aspects
 									if (22 < b and b < 35):
 										if 'aspects' not in self.houses_dict[self.planets[b]['name']]:
 											self.houses_dict[self.planets[b]['name']]['aspects'] = {}
-										self.houses_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict
+										self.houses_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict_b
 
 		if self.type == "Transit" or self.type == "Direction":
 			box = 12
@@ -1391,17 +1407,33 @@ class ChartRenderer:
 									asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree'])))
 									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
 									asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect'][z]['degree']} {self.planets[b]['name']} orb={asp_orb_deg}"
-									asp_dict = {
+									orb1, orb2, aspect_orb_default = self.getAspectOrbs(z, a, b)
+									aspect_accuracy = None
+									aspect_score = None
+									if aspect_orb_default and aspect_orb_default != 0:
+										aspect_accuracy = asp_orb / aspect_orb_default
+										aspect_score = 1 - aspect_accuracy
+									asp_dict_a = {
 										'aspects_str': asp_str,
 										'planets_name1': self.planets[a]['name'],
 										'planets_name2': self.planets[b]['name'],
+										'planets_id1': a,
+										'planets_id2': b,
 										'aspects_degree': self.settings.settings["settings_aspect"][z]['degree'],
 										'aspects_diff': diff,
 										'aspects_orbis': asp_orb,
+										'aspects_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
+										'aspects_id': aspects_degree_id,
+										'aspects_orbis_calc': aspect_orb_default,
+										'aspects_orbis_accuracy': aspect_accuracy,
+										'aspects_orbis_score': aspect_score,
+										'aspects_orbis_planet': orb2,
 										'aspects_orbis_deg': asp_orb_deg,
 									}
+									asp_dict_b = dict(asp_dict_a)
+									asp_dict_b['aspects_orbis_planet'] = orb1
 
-									self.t_planets_aspects_list.append(asp_dict)
+									self.t_planets_aspects_list.append(asp_dict_a)
 									if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
 										if ('t_visible_json' in self.planets[b] and self.planets[b]['t_visible_json'] == 1):
 											if ('visible_json' in self.settings.settings["settings_aspect_dic"][
@@ -1410,6 +1442,21 @@ class ChartRenderer:
 														'visible_json'] == 1):
 												self.t_aspect_all_str = self.t_aspect_all_str + asp_str + """
 """
+									# Add transit aspects to natal->transit dictionary.
+									if hasattr(self, "planets_dict"):
+										if not getattr(self, "planets_dict_t", None):
+											self.planets_dict_t = {}
+											for pname, pdata in self.planets_dict.items():
+												base = dict(pdata)
+												if 'aspects' in base:
+													base.pop('aspects')
+												self.planets_dict_t[pname] = base
+										planet_n_name = self.planets[a]['name']
+										planet_t_name = self.planets[b]['name']
+										if planet_n_name in self.planets_dict_t:
+											if 'aspects' not in self.planets_dict_t[planet_n_name]:
+												self.planets_dict_t[planet_n_name]['aspects'] = {}
+											self.planets_dict_t[planet_n_name]['aspects'][planet_t_name] = asp_dict_a
 
 		return out
 

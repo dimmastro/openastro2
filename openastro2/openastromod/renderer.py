@@ -1157,29 +1157,41 @@ class ChartRenderer:
 		out += '<text y="-15" x="0" style="fill:%s; font-size: 12px;">%s</text>\n' % (self.settings.settings["color_codes"]['paper_0'],_("Planets in Transit"))
 		line = 0
 		nl = 0
-		for i in range(len(self.atgrid)):
+		order = [i for i in range(len(self.planets)) if not self._is_house_index(i)]
+		order.extend([i for i in range(len(self.planets)) if self._is_house_index(i)])
+		order_index = {pid: idx for idx, pid in enumerate(order)}
+		atgrid_sorted = sorted(
+			self.atgrid,
+			key=lambda item: (
+				order_index.get(item.get('p2'), len(order)),
+				order_index.get(item.get('p1'), len(order)),
+				item.get('aid', 0),
+				item.get('diff', 0),
+			),
+		)
+		for i in range(len(atgrid_sorted)):
 			if i == 12:
 				nl = 100
-				if len(self.atgrid) > 24:
-					line = -1 * ( len(self.atgrid) - 24) * 14
+				if len(atgrid_sorted) > 24:
+					line = -1 * ( len(atgrid_sorted) - 24) * 14
 				else:
 					line = 0
 			out += '<g transform="translate(%s,%s)">' % (nl,line)
 			#first planet symbol
 			out += '<use transform="scale(0.4)" x="0" y="3" xlink:href="#%s" />\n' % (
-				self.planets[self.atgrid[i]['p2']]['name'])
+				self.planets[atgrid_sorted[i]['p2']]['name'])
 			#aspect symbol
 			out += '<use  x="15" y="0" xlink:href="#orb%s" />\n' % (
-				self.settings.settings["settings_aspect"][self.atgrid[i]['aid']]['degree'])
+				self.settings.settings["settings_aspect"][atgrid_sorted[i]['aid']]['degree'])
 			#second planet symbol
 			out += '<g transform="translate(30,0)">'
 			out += '<use transform="scale(0.4)" x="0" y="3" xlink:href="#%s" />\n' % (
-				self.planets[self.atgrid[i]['p1']]['name'])
+				self.planets[atgrid_sorted[i]['p1']]['name'])
 			out += '</g>'
 			#difference in degrees
 			out += '<text y="8" x="45" style="fill:%s; font-size: 10px;">%s</text>' % (
 				self.settings.settings["color_codes"]['paper_0'],
-				self.dec2deg(self.atgrid[i]['diff']) )
+				self.dec2deg(atgrid_sorted[i]['diff']) )
 			#line
 			out += '</g>'
 			line = line + 14
@@ -1195,9 +1207,10 @@ class ChartRenderer:
 		if self.type == "Radix":
 			xindent = 380
 			yindent = 468
-			revr=list(range(len(self.planets)))
+			revr=[i for i in range(len(self.planets)) if not self._is_house_index(i)]
+			revr.extend([i for i in range(len(self.planets)) if self._is_house_index(i)])
 			revr.reverse()
-			for a in revr:
+			for idx_a, a in enumerate(revr):
 				if self.planets[a]['visible_aspect_grid'] == 1:
 					start=self.planets_degree_ut[a]
 					#first planet
@@ -1205,9 +1218,7 @@ class ChartRenderer:
 					out = out + '<use transform="scale(0.4)" x="'+str((xindent+2)*2.5)+'" y="'+str((yindent+1)*2.5)+'" xlink:href="#'+self.planets[a]['name']+'" />\n'
 					xindent = xindent + box
 					yindent = yindent - box
-					revr2=list(range(a))
-					revr2=list(range(a))
-					revr2.reverse()
+					revr2 = revr[idx_a + 1:]
 					xorb=xindent
 					yorb=yindent + box
 					for b in revr2:
@@ -1257,15 +1268,16 @@ class ChartRenderer:
 
 			# Make self.planets_aspects_list and add aspects in self.planets_dict, self.houses_dict
 			self.aspect_all_str=""
-			revr=list(range(len(self.planets)))
+			revr=[i for i in range(len(self.planets)) if not self._is_house_index(i)]
+			revr.extend([i for i in range(len(self.planets)) if self._is_house_index(i)])
 			i=0
 			hi=0
 			# revr.reverse()
-			for a in revr:
+			for idx_a, a in enumerate(revr):
 				if self.planets[a]['visible_aspect_grid'] == 1:
 					start=self.planets_degree_ut[a]
 					#first planet
-					revr2=list(range(a+1, len(revr)))
+					revr2 = revr[idx_a + 1:]
 					# revr2.reverse()
 					for b in revr2:
 						if self.planets[b]['visible_aspect_grid'] == 1:
@@ -1335,7 +1347,8 @@ class ChartRenderer:
 			ystart = 280
 			xindent = xstart
 			yindent = ystart
-			revr = list(range(len(self.planets)))
+			revr = [i for i in range(len(self.planets)) if not self._is_house_index(i)]
+			revr.extend([i for i in range(len(self.planets)) if self._is_house_index(i)])
 			# revr.reverse()
 			ii=0
 			# Make self.planets_aspects_list and add aspects in self.planets_dict, self.houses_dict
@@ -1361,7 +1374,7 @@ class ChartRenderer:
 					# revr2.reverse()
 					xorb = xindent
 					yorb = yindent
-					for b in list(range(len(self.planets))):
+					for b in revr:
 						if self.planets[b]['visible_aspect_grid'] == 1:
 							end = self.t_planets_degree_ut[b]
 							diff = self.degreeDiff(start, end)

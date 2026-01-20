@@ -1409,10 +1409,27 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		:return:
 		"""
 		self.planets_dict = {}
-		self.astro_dict = {"planets_dict": {}}
+		self.astro_dict = {"planet_dict": {}, "house_dict": {}}
 		self.houses_dict = {}
 		self.planets_all_str = ""
 		self.houses_all_str = ""
+		house_id_set = set()
+		house_dict = getattr(self, "settings_house_dict", None)
+		if not house_dict:
+			settings_payload = getattr(self, "settings", None)
+			if isinstance(settings_payload, dict):
+				house_dict = settings_payload.get("settings_house_dict", {})
+			else:
+				house_dict = getattr(settings_payload, "settings_house_dict", {}) if settings_payload is not None else {}
+		for key, entry in house_dict.items():
+			try:
+				house_id_set.add(int(key))
+			except (TypeError, ValueError):
+				if isinstance(entry, dict) and "id" in entry:
+					try:
+						house_id_set.add(int(entry["id"]))
+					except (TypeError, ValueError):
+						pass
 		i=0
 		hi =0
 		# Цикл для заполнения словаря
@@ -1450,13 +1467,28 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_id': i,
 				'aspects_orbis_planet': planet_orb_default,
 			}
+			astro_entry = {"planet_type": "planet"}
+			for key, value in planet_entry.items():
+				if key.startswith("planets_"):
+					astro_key = "planet_" + key[len("planets_"):]
+				elif key.startswith("aspects_"):
+					astro_key = "aspect_" + key[len("aspects_"):]
+				else:
+					astro_key = key
+				astro_entry[astro_key] = value
 			self.planets_dict[name] = planet_entry
 			planet_id = self.planets[i].get("id", i) if isinstance(self.planets[i], dict) else i
-			self.astro_dict["planets_dict"][planet_id] = planet_entry
+			try:
+				planet_id_key = int(planet_id)
+			except (TypeError, ValueError):
+				planet_id_key = planet_id
+			if planet_id_key in house_id_set:
+				astro_entry["planet_type"] = "house"
+			self.astro_dict["planet_dict"][planet_id] = astro_entry
 
 			if self._is_house_index(i):
 				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]}"
-				self.houses_dict[name] = {
+				house_entry = {
 					'houses_name': name,
 					'houses_position_str': houses_position_str,
 					'houses_sign': sign,
@@ -1472,6 +1504,18 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					'houses_zodiac_attention': self.zodiac_attention[self.planets_sign[i]],
 					'houses_id': hi,
 				}
+				self.houses_dict[name] = house_entry
+				astro_house_entry = {"planet_type": "house"}
+				for key, value in house_entry.items():
+					if key.startswith("houses_"):
+						astro_key = "house_" + key[len("houses_"):]
+					else:
+						astro_key = key
+					astro_house_entry[astro_key] = value
+				house_id = self.planets[i].get("id", hi) if isinstance(self.planets[i], dict) else hi
+				astro_house_entry["house_id"] = house_id
+				astro_house_entry["house_number"] = hi
+				self.astro_dict["house_dict"][house_id] = astro_house_entry
 				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
 					self.houses_all_str = self.houses_all_str + houses_position_str + """
 """
@@ -1494,11 +1538,28 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		:return:
 		"""
 		self.t_planets_dict = {}
-		self.t_astro_dict = {"planets_dict": {}}
+		self.t_astro_dict = {"t_planet_dict": {}, "t_house_dict": {}}
 		self.t_houses_dict = {}
 		self.t_planets_all_str = ""
 		self.t_houses_all_str = ""
 		self.t_aspect_all_str = ""
+		house_id_set = set()
+		house_dict = getattr(self, "settings_house_dict", None)
+		if not house_dict:
+			settings_payload = getattr(self, "settings", None)
+			if isinstance(settings_payload, dict):
+				house_dict = settings_payload.get("settings_house_dict", {})
+			else:
+				house_dict = getattr(settings_payload, "settings_house_dict", {}) if settings_payload is not None else {}
+		for key, entry in house_dict.items():
+			try:
+				house_id_set.add(int(key))
+			except (TypeError, ValueError):
+				if isinstance(entry, dict) and "id" in entry:
+					try:
+						house_id_set.add(int(entry["id"]))
+					except (TypeError, ValueError):
+						pass
 		i = 0
 		hi = 0
 		# Цикл для заполнения словаря
@@ -1538,13 +1599,28 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_id': i,
 				'aspects_orbis_planet': planet_orb_default,
 			}
+			astro_entry = {"planet_type": "planet"}
+			for key, value in planet_entry.items():
+				if key.startswith("planets_"):
+					astro_key = "planet_" + key[len("planets_"):]
+				elif key.startswith("aspects_"):
+					astro_key = "aspect_" + key[len("aspects_"):]
+				else:
+					astro_key = key
+				astro_entry[astro_key] = value
 			self.t_planets_dict[name] = planet_entry
 			planet_id = self.planets[i].get("id", i) if isinstance(self.planets[i], dict) else i
-			self.t_astro_dict["planets_dict"][planet_id] = planet_entry
+			try:
+				planet_id_key = int(planet_id)
+			except (TypeError, ValueError):
+				planet_id_key = planet_id
+			if planet_id_key in house_id_set:
+				astro_entry["planet_type"] = "house"
+			self.t_astro_dict["t_planet_dict"][planet_id] = astro_entry
 
 			if self._is_house_index(i):
 				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]}"
-				self.t_houses_dict[name] = {
+				house_entry = {
 					'houses_name': name,
 					'houses_position_str': houses_position_str,
 					'houses_sign': sign,
@@ -1560,6 +1636,18 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					'houses_zodiac_attention': self.zodiac_attention[self.t_planets_sign[i]],
 					'houses_id': hi,
 				}
+				self.t_houses_dict[name] = house_entry
+				astro_house_entry = {"planet_type": "house"}
+				for key, value in house_entry.items():
+					if key.startswith("houses_"):
+						astro_key = "house_" + key[len("houses_"):]
+					else:
+						astro_key = key
+					astro_house_entry[astro_key] = value
+				house_id = self.planets[i].get("id", hi) if isinstance(self.planets[i], dict) else hi
+				astro_house_entry["house_id"] = house_id
+				astro_house_entry["house_number"] = hi
+				self.t_astro_dict["t_house_dict"][house_id] = astro_house_entry
 				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
 					self.t_houses_all_str = self.t_houses_all_str + houses_position_str + """
 """

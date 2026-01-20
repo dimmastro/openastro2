@@ -19,6 +19,7 @@
 
 #basics
 from typing import Dict, List, Any, Tuple, Optional, Union, Set
+import copy
 import math, sys, os, os.path, tempfile, gettext, codecs, datetime
 
 # from icalendar import Calendar, Event
@@ -188,7 +189,7 @@ class openAstroSettings:
 		if _SETTINGS0_CACHE is None:
 			with open(json_path, 'r', encoding='utf-8') as f:
 				_SETTINGS0_CACHE = json5.load(f)
-		settings0 = _SETTINGS0_CACHE
+		settings0 = copy.deepcopy(_SETTINGS0_CACHE)
 		def merge_dicts(dict1, dict2):
 			for key, value in dict2.items():
 				if isinstance(value, dict):
@@ -1408,6 +1409,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		:return:
 		"""
 		self.planets_dict = {}
+		self.astro_dict = {"planets_dict": {}}
 		self.houses_dict = {}
 		self.planets_all_str = ""
 		self.houses_all_str = ""
@@ -1427,12 +1429,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]} {house_str}{retrograde_str}"
 			planet_orb_default = self.getPlanetOrbDefault(i)
-			self.planets_dict[name] = {
+			planet_entry = {
 				'planets_name': name,
 				'planets_position_str': planets_position_str,
 				'planets_sign': sign,
 				'planets_degree': degree,
 				'planets_degree_ut': degree_ut,
+				'planet_longitude': self.planet_longitude[i] if hasattr(self, "planet_longitude") and i < len(self.planet_longitude) else None,
+				'planet_latitude': self.planet_latitude[i] if hasattr(self, "planet_latitude") and i < len(self.planet_latitude) else None,
 				'planets_house': planets_house,
 				'planets_houses': planets_houses,
 				'planets_retrograde': retrograde,
@@ -1446,6 +1450,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_id': i,
 				'aspects_orbis_planet': planet_orb_default,
 			}
+			self.planets_dict[name] = planet_entry
+			planet_id = self.planets[i].get("id", i) if isinstance(self.planets[i], dict) else i
+			self.astro_dict["planets_dict"][planet_id] = planet_entry
 
 			if self._is_house_index(i):
 				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]}"
@@ -1475,7 +1482,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					self.planets_all_str = self.planets_all_str  + planets_position_str + """
 """
 			i+=1
-		return self.planets_dict
+		return self.astro_dict
 
 	def t_makePlanetDict(self):
 		"""
@@ -1487,6 +1494,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		:return:
 		"""
 		self.t_planets_dict = {}
+		self.t_astro_dict = {"planets_dict": {}}
 		self.t_houses_dict = {}
 		self.t_planets_all_str = ""
 		self.t_houses_all_str = ""
@@ -1509,12 +1517,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]} {house_str}{retrograde_str}"
 			planet_orb_default = self.getPlanetOrbDefault(i)
-			self.t_planets_dict[name] = {
+			planet_entry = {
 				'planets_name': name,
 				'planets_position_str': planets_position_str,
 				'planets_sign': sign,
 				'planets_degree': degree,
 				'planets_degree_ut': degree_ut,
+				'planet_longitude': self.t_planet_longitude[i] if hasattr(self, "t_planet_longitude") and i < len(self.t_planet_longitude) else None,
+				'planet_latitude': self.t_planet_latitude[i] if hasattr(self, "t_planet_latitude") and i < len(self.t_planet_latitude) else None,
 				'planets_house': planets_house,
 				'planets_houses': planets_houses,
 				'planets_retrograde': retrograde,
@@ -1528,6 +1538,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_id': i,
 				'aspects_orbis_planet': planet_orb_default,
 			}
+			self.t_planets_dict[name] = planet_entry
+			planet_id = self.planets[i].get("id", i) if isinstance(self.planets[i], dict) else i
+			self.t_astro_dict["planets_dict"][planet_id] = planet_entry
 
 			if self._is_house_index(i):
 				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]}"
@@ -1559,7 +1572,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			i += 1
 		# Placeholder for natal->transit aspects dict, built in renderer during transit aspects.
 		self.planets_dict_t = {}
-		return self.t_planets_dict
+		return self.t_astro_dict
 
 
 	def get_house_for_planet(self, planet_degree, houses_degree_ut, one_house=True):

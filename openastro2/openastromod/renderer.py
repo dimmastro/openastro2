@@ -174,6 +174,11 @@ class ChartRenderer:
 						show_transit_house = house_entry['t_visible'] == 1
 					else:
 						show_transit_house = house_entry.get('visible', 1) == 1
+				house_planet_index = self.get_house_planet_index(i)
+				if house_planet_index is not None:
+					house_planet = self.planets[house_planet_index]
+					if 't_visible' in house_planet or 'planet_orb' in house_planet:
+						show_transit_house = show_transit_house and self.ifShowPlanetInTransit(house_planet_index)
 				if show_transit_house:
 					path = path + '<line x1="' + str(t_x1) + '" y1="' + str(t_y1) + '" x2="' + str(t_x2) + '" y2="' + str(
 						t_y2) + '" style="stroke: ' + t_linecolor + '; stroke-width: 1px; stroke-dasharray:0; stroke-opacity:.4;"/>\n'
@@ -1157,14 +1162,27 @@ class ChartRenderer:
 		out += '<text y="-15" x="0" style="fill:%s; font-size: 12px;">%s</text>\n' % (self.settings.settings["color_codes"]['paper_0'],_("Planets in Transit"))
 		line = 0
 		nl = 0
-		order = [i for i in range(len(self.planets)) if not self._is_house_index(i)]
-		order.extend([i for i in range(len(self.planets)) if self._is_house_index(i)])
-		order_index = {pid: idx for idx, pid in enumerate(order)}
+		def _visible_natal(idx):
+			return self.planets[idx].get('visible', 1) == 1
+		def _visible_transit(idx):
+			return self.planets[idx].get('t_visible', self.planets[idx].get('visible', 1)) == 1
+
+		order_natal = [i for i in range(len(self.planets)) if not self._is_house_index(i) and _visible_natal(i)]
+		order_natal.extend([i for i in range(len(self.planets)) if self._is_house_index(i) and _visible_natal(i)])
+		order_transit = [i for i in range(len(self.planets)) if not self._is_house_index(i) and _visible_transit(i)]
+		order_transit.extend([i for i in range(len(self.planets)) if self._is_house_index(i) and _visible_transit(i)])
+		order_natal_index = {pid: idx for idx, pid in enumerate(order_natal)}
+		order_transit_index = {pid: idx for idx, pid in enumerate(order_transit)}
+
+		atgrid_filtered = [
+			item for item in self.atgrid
+			if _visible_natal(item.get('p1', -1)) and _visible_transit(item.get('p2', -1))
+		]
 		atgrid_sorted = sorted(
-			self.atgrid,
+			atgrid_filtered,
 			key=lambda item: (
-				order_index.get(item.get('p2'), len(order)),
-				order_index.get(item.get('p1'), len(order)),
+				order_transit_index.get(item.get('p2'), len(order_transit)),
+				order_natal_index.get(item.get('p1'), len(order_natal)),
 				item.get('aid', 0),
 				item.get('diff', 0),
 			),
@@ -1202,13 +1220,17 @@ class ChartRenderer:
 		self.planets_aspects_list = []
 		out=""
 		style='stroke:%s; stroke-width: 0.25px; stroke-opacity:.6; fill:none' % (self.settings.settings["color_codes"]['paper_0'])
+		def _visible_natal(idx):
+			return self.planets[idx].get('visible', 1) == 1 and self.planets[idx].get('visible_aspect_grid', 1) == 1
+		def _visible_transit(idx):
+			return self.planets[idx].get('t_visible', self.planets[idx].get('visible', 1)) == 1 and self.planets[idx].get('visible_aspect_grid', 1) == 1
 
 		box=14
 		if self.type == "Radix":
 			xindent = 380
 			yindent = 468
-			revr=[i for i in range(len(self.planets)) if not self._is_house_index(i)]
-			revr.extend([i for i in range(len(self.planets)) if self._is_house_index(i)])
+			revr=[i for i in range(len(self.planets)) if not self._is_house_index(i) and _visible_natal(i)]
+			revr.extend([i for i in range(len(self.planets)) if self._is_house_index(i) and _visible_natal(i)])
 			revr.reverse()
 			for idx_a, a in enumerate(revr):
 				if self.planets[a]['visible_aspect_grid'] == 1:
@@ -1268,8 +1290,8 @@ class ChartRenderer:
 
 			# Make self.planets_aspects_list and add aspects in self.planets_dict, self.houses_dict
 			self.aspect_all_str=""
-			revr=[i for i in range(len(self.planets)) if not self._is_house_index(i)]
-			revr.extend([i for i in range(len(self.planets)) if self._is_house_index(i)])
+			revr=[i for i in range(len(self.planets)) if not self._is_house_index(i) and _visible_natal(i)]
+			revr.extend([i for i in range(len(self.planets)) if self._is_house_index(i) and _visible_natal(i)])
 			i=0
 			hi=0
 			# revr.reverse()
@@ -1347,14 +1369,16 @@ class ChartRenderer:
 			ystart = 280
 			xindent = xstart
 			yindent = ystart
-			revr = [i for i in range(len(self.planets)) if not self._is_house_index(i)]
-			revr.extend([i for i in range(len(self.planets)) if self._is_house_index(i)])
+			revr_natal = [i for i in range(len(self.planets)) if not self._is_house_index(i) and _visible_natal(i)]
+			revr_natal.extend([i for i in range(len(self.planets)) if self._is_house_index(i) and _visible_natal(i)])
+			revr_transit = [i for i in range(len(self.planets)) if not self._is_house_index(i) and _visible_transit(i)]
+			revr_transit.extend([i for i in range(len(self.planets)) if self._is_house_index(i) and _visible_transit(i)])
 			# revr.reverse()
 			ii=0
 			# Make self.planets_aspects_list and add aspects in self.planets_dict, self.houses_dict
 			self.t_aspect_all_str=""
 			self.t_planets_aspects_list=[]
-			for a in revr:
+			for a in revr_natal:
 				if self.planets[a]['visible_aspect_grid'] == 1:
 					ii=ii+1
 					start = self.planets_degree_ut[a]
@@ -1374,7 +1398,7 @@ class ChartRenderer:
 					# revr2.reverse()
 					xorb = xindent
 					yorb = yindent
-					for b in revr:
+					for b in revr_transit:
 						if self.planets[b]['visible_aspect_grid'] == 1:
 							end = self.t_planets_degree_ut[b]
 							diff = self.degreeDiff(start, end)

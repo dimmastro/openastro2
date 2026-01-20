@@ -2009,10 +2009,12 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 	def ifShowPlanetInTransit(self, i):
 		if 't_visible' in self.planets[i]:
 			if self.planets[i]['t_visible'] == 1:
-				if ((('planet_orb' in self.planets[i]
-					  and "visible2" in self.planets[i]['planet_orb'][self.type]
-					  and self.planets[i]['planet_orb'][self.type]["visible2"] == 1))
-						or self.planets[i]['t_visible'] == 1):
+				if ('planet_orb' in self.planets[i] and "visible2" in self.planets[i]['planet_orb'][self.type]):
+					if self.planets[i]['planet_orb'][self.type]["visible2"] == 1:
+						return True
+					else:
+						return False
+				else: # t_visible = 1 only
 					return True
 		return False
 
@@ -2036,9 +2038,23 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				end=self.t_planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs
+				# if ((self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1) or \
+				# 		(self.planets[i]['visible'] == 1) & ('t_visible' not in self.planets[x])) and \
+				# 	((self.planets[i]['visible_aspect_line'] == 1) & (self.planets[x]['visible_aspect_line'] == 1)):
+				asp_visible = False
+				if (self.planets[i]['visible'] == 1) & (self.planets[x]['visible'] == 1):
+					if ('planet_orb' in self.planets[i] and "visible_aspect_line2" in self.planets[i]['planet_orb'][self.type]) and \
+							('planet_orb' in self.planets[x] and "visible_aspect_line2" in self.planets[x]['planet_orb'][self.type]) :
+						if self.planets[i]['planet_orb'][self.type]["visible_aspect_line2"] == 1  & \
+							self.planets[x]['planet_orb'][self.type]["visible_aspect_line2"] == 1:
+							asp_visible = True
+				# OR
 				if ((self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1) or \
 						(self.planets[i]['visible'] == 1) & ('t_visible' not in self.planets[x])) and \
 					((self.planets[i]['visible_aspect_line'] == 1) & (self.planets[x]['visible_aspect_line'] == 1)):
+					asp_visible = True
+
+				if 	asp_visible == True:
 					if ('planet_orb' in self.planets[x]):
 						if (self.type in self.planets[x]['planet_orb']):
 							# if (("visible2" in self.planets[x]['planet_orb'][self.type] and self.planets[x]['planet_orb'][self.type]["visible2"] == 1)):

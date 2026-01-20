@@ -20589,507 +20589,507 @@
   },
   "makeLocalSpaceAspectSwePlanets": [
     {
-      "azimuth": 171.5348662602919,
+      "azimuth": 49.996121362645226,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "sun-0",
-        "name": "Vladimir Visotskiy/+sun-0 ( az=171.5)"
+        "name": "Vladimir Visotskiy/+sun-0 ( az=50.0)"
       },
       "label_short": "sun-0",
-      "name": "Vladimir Visotskiy/+sun-0 ( az=171.5)",
+      "name": "Vladimir Visotskiy/+sun-0 ( az=50.0)",
       "to": {
         "coordinates": [
-          216.96370824197348,
-          -58.14014635266433
+          214.50595035278764,
+          -54.211899849138355
         ],
         "label_short": "sun-0",
-        "name": "Vladimir Visotskiy/+sun-0 ( az=171.5)"
+        "name": "Vladimir Visotskiy/+sun-0 ( az=50.0)"
       }
     },
     {
-      "azimuth": 351.5348662602919,
+      "azimuth": 229.99612136264523,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "sun-180",
-        "name": "Vladimir Visotskiy/+sun-180 ( az=351.5)"
+        "name": "Vladimir Visotskiy/+sun-180 ( az=230.0)"
       },
       "label_short": "sun-180",
-      "name": "Vladimir Visotskiy/+sun-180 ( az=351.5)",
+      "name": "Vladimir Visotskiy/+sun-180 ( az=230.0)",
       "to": {
         "coordinates": [
-          -141.78327854037755,
-          -53.42612532745702
+          -138.99451103478697,
+          -57.2718982857625
         ],
         "label_short": "sun-180",
-        "name": "Vladimir Visotskiy/+sun-180 ( az=351.5)"
+        "name": "Vladimir Visotskiy/+sun-180 ( az=230.0)"
       }
     },
     {
-      "azimuth": 124.87746167514888,
+      "azimuth": 116.28344411006157,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "moon-0",
-        "name": "Vladimir Visotskiy/+moon-0 ( az=124.9)"
+        "name": "Vladimir Visotskiy/+moon-0 ( az=116.3)"
       },
       "label_short": "moon-0",
-      "name": "Vladimir Visotskiy/+moon-0 ( az=124.9)",
+      "name": "Vladimir Visotskiy/+moon-0 ( az=116.3)",
       "to": {
         "coordinates": [
-          214.02789956890788,
-          -57.0963522594824
+          213.72616219309316,
+          -56.77955561093561
         ],
         "label_short": "moon-0",
-        "name": "Vladimir Visotskiy/+moon-0 ( az=124.9)"
+        "name": "Vladimir Visotskiy/+moon-0 ( az=116.3)"
       }
     },
     {
-      "azimuth": 304.8774616751489,
+      "azimuth": 296.28344411006157,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "moon-180",
-        "name": "Vladimir Visotskiy/+moon-180 ( az=304.9)"
+        "name": "Vladimir Visotskiy/+moon-180 ( az=296.3)"
       },
       "label_short": "moon-180",
-      "name": "Vladimir Visotskiy/+moon-180 ( az=304.9)",
+      "name": "Vladimir Visotskiy/+moon-180 ( az=296.3)",
       "to": {
         "coordinates": [
-          -139.0145195514576,
-          -54.37490522832404
+          -138.67521443526118,
+          -54.67269626144999
         ],
         "label_short": "moon-180",
-        "name": "Vladimir Visotskiy/+moon-180 ( az=304.9)"
+        "name": "Vladimir Visotskiy/+moon-180 ( az=296.3)"
       }
     },
     {
-      "azimuth": 188.49720836520908,
+      "azimuth": 78.52333095039393,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "mercury-0",
-        "name": "Vladimir Visotskiy/+mercury-0 ( az=188.5)"
+        "name": "Vladimir Visotskiy/+mercury-0 ( az=78.5)"
       },
       "label_short": "mercury-0",
-      "name": "Vladimir Visotskiy/+mercury-0 ( az=188.5)",
+      "name": "Vladimir Visotskiy/+mercury-0 ( az=78.5)",
       "to": {
         "coordinates": [
-          -141.70493790122538,
-          -58.139936814180444
+          213.52940986431477,
+          -55.2416053093582
         ],
         "label_short": "mercury-0",
-        "name": "Vladimir Visotskiy/+mercury-0 ( az=188.5)"
+        "name": "Vladimir Visotskiy/+mercury-0 ( az=78.5)"
       }
     },
     {
-      "azimuth": 8.497208365209076,
+      "azimuth": 258.5233309503939,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "mercury-180",
-        "name": "Vladimir Visotskiy/+mercury-180 ( az=8.5)"
+        "name": "Vladimir Visotskiy/+mercury-180 ( az=258.5)"
       },
       "label_short": "mercury-180",
-      "name": "Vladimir Visotskiy/+mercury-180 ( az=8.5)",
+      "name": "Vladimir Visotskiy/+mercury-180 ( az=258.5)",
       "to": {
         "coordinates": [
-          217.0373371253639,
-          -53.426310948731555
+          -138.17243871538173,
+          -56.187963540078854
         ],
         "label_short": "mercury-180",
-        "name": "Vladimir Visotskiy/+mercury-180 ( az=8.5)"
+        "name": "Vladimir Visotskiy/+mercury-180 ( az=258.5)"
       }
     },
     {
-      "azimuth": 232.5974221206916,
+      "azimuth": 53.60197084788604,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "venus-0",
-        "name": "Vladimir Visotskiy/+venus-0 ( az=232.6)"
+        "name": "Vladimir Visotskiy/+venus-0 ( az=53.6)"
       },
       "label_short": "venus-0",
-      "name": "Vladimir Visotskiy/+venus-0 ( az=232.6)",
+      "name": "Vladimir Visotskiy/+venus-0 ( az=53.6)",
       "to": {
         "coordinates": [
-          -138.87752684456666,
-          -57.184219373132414
+          214.33812070103568,
+          -54.32533139760849
         ],
         "label_short": "venus-0",
-        "name": "Vladimir Visotskiy/+venus-0 ( az=232.6)"
+        "name": "Vladimir Visotskiy/+venus-0 ( az=53.6)"
       }
     },
     {
-      "azimuth": 52.59742212069159,
+      "azimuth": 233.60197084788604,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "venus-180",
-        "name": "Vladimir Visotskiy/+venus-180 ( az=52.6)"
+        "name": "Vladimir Visotskiy/+venus-180 ( az=233.6)"
       },
       "label_short": "venus-180",
-      "name": "Vladimir Visotskiy/+venus-180 ( az=52.6)",
+      "name": "Vladimir Visotskiy/+venus-180 ( az=233.6)",
       "to": {
         "coordinates": [
-          214.3837365112059,
-          -54.29313769902215
+          -138.8344827796309,
+          -57.14957836800695
         ],
         "label_short": "venus-180",
-        "name": "Vladimir Visotskiy/+venus-180 ( az=52.6)"
+        "name": "Vladimir Visotskiy/+venus-180 ( az=233.6)"
       }
     },
     {
-      "azimuth": 240.58451735557423,
+      "azimuth": 342.1677929744881,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "mars-0",
-        "name": "Vladimir Visotskiy/+mars-0 ( az=240.6)"
+        "name": "Vladimir Visotskiy/+mars-0 ( az=342.2)"
       },
       "label_short": "mars-0",
-      "name": "Vladimir Visotskiy/+mars-0 ( az=240.6)",
+      "name": "Vladimir Visotskiy/+mars-0 ( az=342.2)",
       "to": {
         "coordinates": [
-          -138.56914981686631,
-          -56.897911541054185
+          -141.14496670604743,
+          -53.50972550977917
         ],
         "label_short": "mars-0",
-        "name": "Vladimir Visotskiy/+mars-0 ( az=240.6)"
+        "name": "Vladimir Visotskiy/+mars-0 ( az=342.2)"
       }
     },
     {
-      "azimuth": 60.584517355574235,
+      "azimuth": 162.16779297448807,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "mars-180",
-        "name": "Vladimir Visotskiy/+mars-180 ( az=60.6)"
+        "name": "Vladimir Visotskiy/+mars-180 ( az=162.2)"
       },
       "label_short": "mars-180",
-      "name": "Vladimir Visotskiy/+mars-180 ( az=60.6)",
+      "name": "Vladimir Visotskiy/+mars-180 ( az=162.2)",
       "to": {
         "coordinates": [
-          214.04676722458032,
-          -54.56089027655859
+          216.24949072572792,
+          -58.045991113804384
         ],
         "label_short": "mars-180",
-        "name": "Vladimir Visotskiy/+mars-180 ( az=60.6)"
+        "name": "Vladimir Visotskiy/+mars-180 ( az=162.2)"
       }
     },
     {
-      "azimuth": 294.8034576560472,
+      "azimuth": 45.033546352444205,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "jupiter-0",
-        "name": "Vladimir Visotskiy/+jupiter-0 ( az=294.8)"
+        "name": "Vladimir Visotskiy/+jupiter-0 ( az=45.0)"
       },
       "label_short": "jupiter-0",
-      "name": "Vladimir Visotskiy/+jupiter-0 ( az=294.8)",
+      "name": "Vladimir Visotskiy/+jupiter-0 ( az=45.0)",
       "to": {
         "coordinates": [
-          -138.62423487506626,
-          -54.72672380524451
+          214.75468035557344,
+          -54.06588337201298
         ],
         "label_short": "jupiter-0",
-        "name": "Vladimir Visotskiy/+jupiter-0 ( az=294.8)"
+        "name": "Vladimir Visotskiy/+jupiter-0 ( az=45.0)"
       }
     },
     {
-      "azimuth": 114.80345765604721,
+      "azimuth": 225.0335463524442,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "jupiter-180",
-        "name": "Vladimir Visotskiy/+jupiter-180 ( az=114.8)"
+        "name": "Vladimir Visotskiy/+jupiter-180 ( az=225.0)"
       },
       "label_short": "jupiter-180",
-      "name": "Vladimir Visotskiy/+jupiter-180 ( az=114.8)",
+      "name": "Vladimir Visotskiy/+jupiter-180 ( az=225.0)",
       "to": {
         "coordinates": [
-          213.68360899499817,
-          -56.722612809459044
+          -139.23910538812612,
+          -57.43045538094213
         ],
         "label_short": "jupiter-180",
-        "name": "Vladimir Visotskiy/+jupiter-180 ( az=114.8)"
+        "name": "Vladimir Visotskiy/+jupiter-180 ( az=225.0)"
       }
     },
     {
-      "azimuth": 12.695747950620955,
+      "azimuth": 336.1952743898553,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "saturn-0",
-        "name": "Vladimir Visotskiy/+saturn-0 ( az=12.7)"
+        "name": "Vladimir Visotskiy/+saturn-0 ( az=336.2)"
       },
       "label_short": "saturn-0",
-      "name": "Vladimir Visotskiy/+saturn-0 ( az=12.7)",
+      "name": "Vladimir Visotskiy/+saturn-0 ( az=336.2)",
       "to": {
         "coordinates": [
-          216.7487601127403,
-          -53.4566105754597
+          -140.7514915959256,
+          -53.59322639518826
         ],
         "label_short": "saturn-0",
-        "name": "Vladimir Visotskiy/+saturn-0 ( az=12.7)"
+        "name": "Vladimir Visotskiy/+saturn-0 ( az=336.2)"
       }
     },
     {
-      "azimuth": 192.69574795062096,
+      "azimuth": 156.19527438985529,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "saturn-180",
-        "name": "Vladimir Visotskiy/+saturn-180 ( az=192.7)"
+        "name": "Vladimir Visotskiy/+saturn-180 ( az=156.2)"
       },
       "label_short": "saturn-180",
-      "name": "Vladimir Visotskiy/+saturn-180 ( az=192.7)",
+      "name": "Vladimir Visotskiy/+saturn-180 ( az=156.2)",
       "to": {
         "coordinates": [
-          -141.38083091824114,
-          -58.105761859483245
+          215.81565789668136,
+          -57.95237916196018
         ],
         "label_short": "saturn-180",
-        "name": "Vladimir Visotskiy/+saturn-180 ( az=192.7)"
+        "name": "Vladimir Visotskiy/+saturn-180 ( az=156.2)"
       }
     },
     {
-      "azimuth": 179.17854521752702,
+      "azimuth": 306.6867214471316,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "uranus-0",
-        "name": "Vladimir Visotskiy/+uranus-0 ( az=179.2)"
+        "name": "Vladimir Visotskiy/+uranus-0 ( az=306.7)"
       },
       "label_short": "uranus-0",
-      "name": "Vladimir Visotskiy/+uranus-0 ( az=179.2)",
+      "name": "Vladimir Visotskiy/+uranus-0 ( az=306.7)",
       "to": {
         "coordinates": [
-          217.56338010354298,
-          -58.16754524481861
+          -139.0948631611786,
+          -54.31603349894773
         ],
         "label_short": "uranus-0",
-        "name": "Vladimir Visotskiy/+uranus-0 ( az=179.2)"
+        "name": "Vladimir Visotskiy/+uranus-0 ( az=306.7)"
       }
     },
     {
-      "azimuth": 359.178545217527,
+      "azimuth": 126.68672144713162,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "uranus-180",
-        "name": "Vladimir Visotskiy/+uranus-180 ( az=359.2)"
+        "name": "Vladimir Visotskiy/+uranus-180 ( az=126.7)"
       },
       "label_short": "uranus-180",
-      "name": "Vladimir Visotskiy/+uranus-180 ( az=359.2)",
+      "name": "Vladimir Visotskiy/+uranus-180 ( az=126.7)",
       "to": {
         "coordinates": [
-          -142.31457373129533,
-          -53.40187019059059
+          214.10300511616052,
+          -57.159576961089904
         ],
         "label_short": "uranus-180",
-        "name": "Vladimir Visotskiy/+uranus-180 ( az=359.2)"
+        "name": "Vladimir Visotskiy/+uranus-180 ( az=126.7)"
       }
     },
     {
-      "azimuth": 121.66249687498737,
+      "azimuth": 167.26935738174393,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "neptune-0",
-        "name": "Vladimir Visotskiy/+neptune-0 ( az=121.7)"
+        "name": "Vladimir Visotskiy/+neptune-0 ( az=167.3)"
       },
       "label_short": "neptune-0",
-      "name": "Vladimir Visotskiy/+neptune-0 ( az=121.7)",
+      "name": "Vladimir Visotskiy/+neptune-0 ( az=167.3)",
       "to": {
         "coordinates": [
-          213.90425250690834,
-          -56.98085291263644
+          216.63443621118253,
+          -58.10542203247676
         ],
         "label_short": "neptune-0",
-        "name": "Vladimir Visotskiy/+neptune-0 ( az=121.7)"
+        "name": "Vladimir Visotskiy/+neptune-0 ( az=167.3)"
       }
     },
     {
-      "azimuth": 301.66249687498737,
+      "azimuth": 347.26935738174393,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "neptune-180",
-        "name": "Vladimir Visotskiy/+neptune-180 ( az=301.7)"
+        "name": "Vladimir Visotskiy/+neptune-180 ( az=347.3)"
       },
       "label_short": "neptune-180",
-      "name": "Vladimir Visotskiy/+neptune-180 ( az=301.7)",
+      "name": "Vladimir Visotskiy/+neptune-180 ( az=347.3)",
       "to": {
         "coordinates": [
-          -138.87920280543622,
-          -54.482931398802585
+          -141.4901014560613,
+          -53.45691212171091
         ],
         "label_short": "neptune-180",
-        "name": "Vladimir Visotskiy/+neptune-180 ( az=301.7)"
+        "name": "Vladimir Visotskiy/+neptune-180 ( az=347.3)"
       }
     },
     {
-      "azimuth": 166.23753059854698,
+      "azimuth": 239.10901485684133,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "pluto-0",
-        "name": "Vladimir Visotskiy/+pluto-0 ( az=166.2)"
+        "name": "Vladimir Visotskiy/+pluto-0 ( az=239.1)"
       },
       "label_short": "pluto-0",
-      "name": "Vladimir Visotskiy/+pluto-0 ( az=166.2)",
+      "name": "Vladimir Visotskiy/+pluto-0 ( az=239.1)",
       "to": {
         "coordinates": [
-          216.55569703807842,
-          -58.09496096721418
+          -138.6202013899156,
+          -56.952571377364414
         ],
         "label_short": "pluto-0",
-        "name": "Vladimir Visotskiy/+pluto-0 ( az=166.2)"
+        "name": "Vladimir Visotskiy/+pluto-0 ( az=239.1)"
       }
     },
     {
-      "azimuth": 346.237530598547,
+      "azimuth": 59.10901485684133,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "pluto-180",
-        "name": "Vladimir Visotskiy/+pluto-180 ( az=346.2)"
+        "name": "Vladimir Visotskiy/+pluto-180 ( az=59.1)"
       },
       "label_short": "pluto-180",
-      "name": "Vladimir Visotskiy/+pluto-180 ( az=346.2)",
+      "name": "Vladimir Visotskiy/+pluto-180 ( az=59.1)",
       "to": {
         "coordinates": [
-          -141.41974648048563,
-          -53.46619722533127
+          214.104464824904,
+          -54.509477800867494
         ],
         "label_short": "pluto-180",
-        "name": "Vladimir Visotskiy/+pluto-180 ( az=346.2)"
+        "name": "Vladimir Visotskiy/+pluto-180 ( az=59.1)"
       }
     },
     {
-      "azimuth": 271.18337019080695,
+      "azimuth": 110.83109472823412,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "Node-0",
-        "name": "Vladimir Visotskiy/+mean node-0 ( az=271.2)"
+        "name": "Vladimir Visotskiy/+mean node-0 ( az=110.8)"
       },
       "label_short": "Node-0",
-      "name": "Vladimir Visotskiy/+mean node-0 ( az=271.2)",
+      "name": "Vladimir Visotskiy/+mean node-0 ( az=110.8)",
       "to": {
         "coordinates": [
-          -138.14528603011544,
-          -55.662839407891965
+          213.58336658000024,
+          -56.56694135292238
         ],
         "label_short": "Node-0",
-        "name": "Vladimir Visotskiy/+mean node-0 ( az=271.2)"
+        "name": "Vladimir Visotskiy/+mean node-0 ( az=110.8)"
       }
     },
     {
-      "azimuth": 91.18337019080695,
+      "azimuth": 290.8310947282341,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "Node-180",
-        "name": "Vladimir Visotskiy/+mean node-180 ( az=91.2)"
+        "name": "Vladimir Visotskiy/+mean node-180 ( az=290.8)"
       },
       "label_short": "Node-180",
-      "name": "Vladimir Visotskiy/+mean node-180 ( az=91.2)",
+      "name": "Vladimir Visotskiy/+mean node-180 ( az=290.8)",
       "to": {
         "coordinates": [
-          213.3909020618304,
-          -55.76105967279358
+          -138.49886829333846,
+          -54.87521408485324
         ],
         "label_short": "Node-180",
-        "name": "Vladimir Visotskiy/+mean node-180 ( az=91.2)"
+        "name": "Vladimir Visotskiy/+mean node-180 ( az=290.8)"
       }
     },
     {
-      "azimuth": 92.20803439657521,
+      "azimuth": 93.99970322384269,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "Lilith-0",
-        "name": "Vladimir Visotskiy/+mean apogee-0 ( az=92.2)"
+        "name": "Vladimir Visotskiy/+mean apogee-0 ( az=94.0)"
       },
       "label_short": "Lilith-0",
-      "name": "Vladimir Visotskiy/+mean apogee-0 ( az=92.2)",
+      "name": "Vladimir Visotskiy/+mean apogee-0 ( az=94.0)",
       "to": {
         "coordinates": [
-          213.38850947469527,
-          -55.803644073297136
+          213.38757381438364,
+          -55.87813796739114
         ],
         "label_short": "Lilith-0",
-        "name": "Vladimir Visotskiy/+mean apogee-0 ( az=92.2)"
+        "name": "Vladimir Visotskiy/+mean apogee-0 ( az=94.0)"
       }
     },
     {
-      "azimuth": 272.2080343965752,
+      "azimuth": 273.9997032238427,
       "from": {
         "coordinates": [
           37.628137530436106,
           55.78472277151802
         ],
         "label_short": "Lilith-180",
-        "name": "Vladimir Visotskiy/+mean apogee-180 ( az=272.2)"
+        "name": "Vladimir Visotskiy/+mean apogee-180 ( az=274.0)"
       },
       "label_short": "Lilith-180",
-      "name": "Vladimir Visotskiy/+mean apogee-180 ( az=272.2)",
+      "name": "Vladimir Visotskiy/+mean apogee-180 ( az=274.0)",
       "to": {
         "coordinates": [
-          -138.15210911001287,
-          -55.62040813037954
+          -138.16722022320133,
+          -55.546403606723125
         ],
         "label_short": "Lilith-180",
-        "name": "Vladimir Visotskiy/+mean apogee-180 ( az=272.2)"
+        "name": "Vladimir Visotskiy/+mean apogee-180 ( az=274.0)"
       }
     }
   ],

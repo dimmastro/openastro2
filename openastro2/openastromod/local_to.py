@@ -58,10 +58,11 @@ class LocalToMixin:
 												self.geolat, self.altitude, self.planets, self.zodiac,
 												self.settings.settings["astrocfg"])
 			_dprint(mdata.planets_degree_ut)
-			for i in range(0,43):
+			for i in range(len(self.planets_degree_ut)):
 				mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
 				while ( mdata.planets_degree_ut[i] < 0 ): mdata.planets_degree_ut[i]+=360.0
 				while ( mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i]-=360.0
+				mdata.planet_longitude[i] = mdata.planets_degree_ut[i]
 
 			for i in range(len(self.houses_degree_ut)):
 				mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] + gradus_delta
@@ -71,7 +72,7 @@ class LocalToMixin:
 					mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] + 360.0
 
 			# adjust list index 32 and 33
-			for i in range(0, 43):
+			for i in range(len(self.planets_degree_ut)):
 				while (mdata.planets_degree_ut[i] < 0): mdata.planets_degree_ut[i] += 360.0
 				while (mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i] -= 360.0
 
@@ -132,10 +133,11 @@ class LocalToMixin:
 												self.geolat, self.altitude, self.planets, self.zodiac,
 												self.settings.settings["astrocfg"])
 			_dprint(mdata.planets_degree_ut)
-			for i in range(0,43):
+			for i in range(len(self.planets_degree_ut)):
 				mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
 				while ( mdata.planets_degree_ut[i] < 0 ): mdata.planets_degree_ut[i]+=360.0
 				while ( mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i]-=360.0
+				mdata.planet_longitude[i] = mdata.planets_degree_ut[i]
 
 			for i in range(len(self.houses_degree_ut)):
 				mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] + gradus_delta
@@ -145,7 +147,7 @@ class LocalToMixin:
 					mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] + 360.0
 
 			# adjust list index 32 and 33
-			for i in range(0, 43):
+			for i in range(len(self.planets_degree_ut)):
 				while (mdata.planets_degree_ut[i] < 0): mdata.planets_degree_ut[i] += 360.0
 				while (mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i] -= 360.0
 
@@ -206,10 +208,11 @@ class LocalToMixin:
 												self.geolat, self.altitude, self.planets, self.zodiac,
 												self.settings.settings["astrocfg"])
 			_dprint(mdata.planets_degree_ut)
-			for i in range(0,43):
+			for i in range(len(self.planets_degree_ut)):
 				mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
 				while ( mdata.planets_degree_ut[i] < 0 ): mdata.planets_degree_ut[i]+=360.0
 				while ( mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i]-=360.0
+				mdata.planet_longitude[i] = mdata.planets_degree_ut[i]
 
 			for i in range(len(self.houses_degree_ut)):
 				mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] + gradus_delta
@@ -219,7 +222,7 @@ class LocalToMixin:
 					mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] + 360.0
 
 			# adjust list index 32 and 33
-			for i in range(0, 43):
+			for i in range(len(self.planets_degree_ut)):
 				while (mdata.planets_degree_ut[i] < 0): mdata.planets_degree_ut[i] += 360.0
 				while (mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i] -= 360.0
 
@@ -404,7 +407,7 @@ class LocalToMixin:
 			# 									self.geolat, self.altitude, self.planets, self.zodiac,
 			# 									self.settings.settings["astrocfg"])
 			# _dprint(mdata.planets_degree_ut)
-			# for i in range(0,43):
+			# for i in range(len(self.planets_degree_ut)):
 			# 	mdata.planets_degree_ut[i] = mdata.planets_degree_ut[i] + gradus_delta
 			# 	while ( mdata.planets_degree_ut[i] < 0 ): mdata.planets_degree_ut[i]+=360.0
 			# 	while ( mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i]-=360.0
@@ -417,7 +420,7 @@ class LocalToMixin:
 			# 		mdata.houses_degree_ut[i] = mdata.houses_degree_ut[i] + 360.0
 			#
 			# # adjust list index 32 and 33
-			# for i in range(0, 43):
+			# for i in range(len(self.planets_degree_ut)):
 			# 	while (mdata.planets_degree_ut[i] < 0): mdata.planets_degree_ut[i] += 360.0
 			# 	while (mdata.planets_degree_ut[i] > 360.0): mdata.planets_degree_ut[i] -= 360.0
 			#

@@ -804,29 +804,24 @@ class LocalSpaceMixin:
 				planet_pos = None
 				astro_dict = getattr(self, "astro_dict", None)
 				if isinstance(astro_dict, dict):
-					astro_planets = astro_dict.get("planets_dict", {})
+					astro_planets = astro_dict.get("planet_dict", {})
 					planet_entry = astro_planets.get(planet_code)
 					if planet_entry:
 						planet_lon = planet_entry.get("planet_longitude")
 						planet_lat = planet_entry.get("planet_latitude", 0.0)
 						if planet_lon is None:
-							planet_lon = planet_entry.get("planets_degree_ut")
-						# if lon is None:
-						# 	lon = planet_entry.get("planets_degree")
+							planet_lon = planet_entry.get("planet_degree_ut")
+						if planet_lon is None:
+							planet_lon = planet_entry.get("planet_degree")
 						if planet_lon is not None:
 							planet_pos = [[planet_lon, planet_lat, 1, 1, 1, 1]]
-							print (planet_pos)
-							try:
-								planet_pos = swe.calc_ut(jul_day_UT, planet_code)
-								print(planet_pos)
-							except:
-								pass
 				if planet_pos is None:
 					try:
 						planet_pos = swe.calc_ut(jul_day_UT, planet_code)
 					except Exception:
 						planet_pos = None
-				if planet_pos is None:
+				# if planet_pos is None:
+				if planet_entry.get("planet_type") is 'house':
 					get_house_number = getattr(self, "get_house_number_by_id", lambda _: None)
 					h_i = get_house_number(planet_code)
 					if h_i is None:

@@ -821,7 +821,7 @@ class LocalSpaceMixin:
 					except Exception:
 						planet_pos = None
 				# if planet_pos is None:
-				if planet_entry.get("planet_type") is 'house':
+				if planet_entry.get("planet_type") == 'house':
 					get_house_number = getattr(self, "get_house_number_by_id", lambda _: None)
 					h_i = get_house_number(planet_code)
 					if h_i is None:
@@ -1366,11 +1366,30 @@ class LocalSpaceMixin:
 			planet_code = i
 
 			if (type_tr == "Radix"):
-				lat_angle0 = self.planet_latitude[i]
-				lon_angle0 = self.planets_degree_ut[i]
+				astro_dict = getattr(self, "astro_dict", None)
 			elif (type_tr == "Transit"):
-				lat_angle0 = self.t_planet_latitude[i]
-				lon_angle0 = self.t_planets_degree_ut[i]
+				astro_dict = getattr(self, "t_astro_dict", None)
+			else:
+				astro_dict = getattr(self, "astro_dict", None)
+
+			planet_entry = None
+			if isinstance(astro_dict, dict):
+				astro_planets = astro_dict.get("planet_dict") or astro_dict.get("t_planet_dict") or {}
+				planet_entry = astro_planets.get(planet_code)
+			if not planet_entry:
+				continue
+
+			if planet_entry.get("planet_type") == 'house':
+				continue
+
+			lat_angle0 = planet_entry.get("planet_latitude", 0.0)
+			lon_angle0 = planet_entry.get("planet_longitude")
+			if lon_angle0 is None:
+				lon_angle0 = planet_entry.get("planet_degree_ut")
+			if lon_angle0 is None:
+				lon_angle0 = planet_entry.get("planet_degree")
+			if lon_angle0 is None:
+				continue
 
 			label_short = self._settings_planet_entry(i)['label_short']
 			azimuth0 = False
@@ -1569,18 +1588,39 @@ class LocalSpaceMixin:
 
 		dfd = []
 
-		houses = [int(p)-23 for p in planets]
-		planet_indices = houses if houses is not None else range(len(self.houses_degree_ut))
-		for i in planet_indices:
-			if i < 0 or i >= len(self.houses_degree_ut):
+		if type_tr == "Radix":
+			astro_dict = getattr(self, "astro_dict", None)
+		elif type_tr == "Transit":
+			astro_dict = getattr(self, "t_astro_dict", None)
+		else:
+			astro_dict = getattr(self, "astro_dict", None)
+
+		if not isinstance(astro_dict, dict):
+			return dfd
+
+		astro_houses = astro_dict.get("house_dict") or astro_dict.get("t_house_dict") or {}
+		if planets is None:
+			house_ids = list(astro_houses.keys())
+		else:
+			house_ids = [int(p) for p in planets]
+
+		for house_id in house_ids:
+			house_entry = astro_houses.get(house_id)
+			if not house_entry:
 				continue
-			planet_code = i
-			if (type_tr == "Radix"):
-				lat_angle0 = 0
-				lon_angle0 = self.houses_degree_ut[i]
-			elif (type_tr == "Transit"):
-				lat_angle0 = 0
-				lon_angle0 = self.t_houses_degree_ut[i]
+			house_number = house_entry.get("house_number")
+			if house_number is None:
+				house_number = house_id - 23
+			try:
+				house_number = int(house_number)
+			except (TypeError, ValueError):
+				house_number = house_id - 23
+			lat_angle0 = 0
+			lon_angle0 = house_entry.get("house_degree_ut")
+			if lon_angle0 is None:
+				lon_angle0 = house_entry.get("house_degree")
+			if lon_angle0 is None:
+				continue
 
 			for aspect in aspects:
 				if(aspect<=180):
@@ -1627,11 +1667,11 @@ class LocalSpaceMixin:
 				dfdata= {
 				  "from": {
 					# "name": self.name + "/"  + " K" + str(i+1) + "-" + str(aspect) + " (" + " az=" + '{0:.1f}'.format(float(azimuth)) + ")",
-					"name": "K" + str(i+1) + "-" + str(aspect),
+					"name": "K" + str(house_number + 1) + "-" + str(aspect),
 					"coordinates": [ starting_longitude,  starting_latitude ]
 				  },
 				  "to": {
-					"name": "K" + str(i+1) + "-" + str(aspect),
+					"name": "K" + str(house_number + 1) + "-" + str(aspect),
 					"coordinates": [ new_longitude, new_latitude ]
 				  }
 				}
@@ -1639,11 +1679,11 @@ class LocalSpaceMixin:
 				dfd.append(dfdata)
 				dfdata= {
 				  "from": {
-					"name": "K" + str(i) + "-" + str(aspect),
+					"name": "K" + str(house_number) + "-" + str(aspect),
 					"coordinates": [starting_longitude-180, -starting_latitude]
 				  },
 				  "to": {
-					"name": "K" + str(i) + "-" + str(aspect),
+					"name": "K" + str(house_number) + "-" + str(aspect),
 					"coordinates": [ new_longitude, new_latitude ]
 				  }
 				}

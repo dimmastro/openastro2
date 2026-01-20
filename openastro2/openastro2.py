@@ -1315,7 +1315,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		self.makePlanetNames()
 
 		# Transit module data
-		if self.type == "Transit" or self.type == "Composite":
+		# if self.type == "Transit" or self.type == "Composite":
+		if self.type != "Radix":
 			# grab transiting module data
 			self._copy_module_attrs(t_module_data, self.TRANSIT_ATTRS, prefix="t_")
 			self._refresh_retrograde_flags(prefix="t_")
@@ -1954,7 +1955,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				end=self.planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs
-				if (self.planets[i]['visible_aspect_line'] == 1) & (self.planets[x]['visible_aspect_line'] == 1):
+				if (self.planets[i]['visible_aspect_line'] == 1) & (self.planets[x]['visible_aspect_line'] == 1) & \
+					(self.planets[i]['visible'] == 1) & (self.planets[x]['visible'] == 1):
 					for z in range(len(self.settings.settings["settings_aspect"])):
 
 						# orb = self.settings.settings["settings_aspect"][z]['orb']
@@ -2034,7 +2036,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				end=self.t_planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
 				#loop orbs
-				if (self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1) or (self.planets[i]['visible'] == 1) & ('t_visible' not in self.planets[x]):
+				if ((self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1) or \
+						(self.planets[i]['visible'] == 1) & ('t_visible' not in self.planets[x])) and \
+					((self.planets[i]['visible_aspect_line'] == 1) & (self.planets[x]['visible_aspect_line'] == 1)):
 					if ('planet_orb' in self.planets[x]):
 						if (self.type in self.planets[x]['planet_orb']):
 							# if (("visible2" in self.planets[x]['planet_orb'][self.type] and self.planets[x]['planet_orb'][self.type]["visible2"] == 1)):

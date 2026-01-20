@@ -1446,6 +1446,12 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]} {house_str}{retrograde_str}"
 			planet_orb_default = self.getPlanetOrbDefault(i)
+			planet_lon_speed = self.planet_lon_speed[i] if hasattr(self, "planet_lon_speed") and i < len(self.planet_lon_speed) else None
+			planet_lat_speed = self.planet_lat_speed[i] if hasattr(self, "planet_lat_speed") and i < len(self.planet_lat_speed) else None
+			if planet_lon_speed is not None and planet_lat_speed is not None:
+				planet_speed = math.hypot(planet_lon_speed, planet_lat_speed)
+			else:
+				planet_speed = planet_lon_speed if planet_lon_speed is not None else 0
 			planet_entry = {
 				'planets_name': name,
 				'planets_position_str': planets_position_str,
@@ -1454,6 +1460,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_degree_ut': degree_ut,
 				'planet_longitude': self.planet_longitude[i] if hasattr(self, "planet_longitude") and i < len(self.planet_longitude) else None,
 				'planet_latitude': self.planet_latitude[i] if hasattr(self, "planet_latitude") and i < len(self.planet_latitude) else None,
+				'planet_lon_speed': planet_lon_speed,
+				'planet_lat_speed': planet_lat_speed,
+				'planet_speed': planet_speed,
 				'planets_house': planets_house,
 				'planets_houses': planets_houses,
 				'planets_retrograde': retrograde,
@@ -1578,6 +1587,12 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				house_str = ', '.join(houses_names)
 			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]} {house_str}{retrograde_str}"
 			planet_orb_default = self.getPlanetOrbDefault(i)
+			planet_lon_speed = self.t_planet_lon_speed[i] if hasattr(self, "t_planet_lon_speed") and i < len(self.t_planet_lon_speed) else None
+			planet_lat_speed = self.t_planet_lat_speed[i] if hasattr(self, "t_planet_lat_speed") and i < len(self.t_planet_lat_speed) else None
+			if planet_lon_speed is not None and planet_lat_speed is not None:
+				planet_speed = math.hypot(planet_lon_speed, planet_lat_speed)
+			else:
+				planet_speed = planet_lon_speed if planet_lon_speed is not None else planet_lat_speed
 			planet_entry = {
 				'planets_name': name,
 				'planets_position_str': planets_position_str,
@@ -1586,6 +1601,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_degree_ut': degree_ut,
 				'planet_longitude': self.t_planet_longitude[i] if hasattr(self, "t_planet_longitude") and i < len(self.t_planet_longitude) else None,
 				'planet_latitude': self.t_planet_latitude[i] if hasattr(self, "t_planet_latitude") and i < len(self.t_planet_latitude) else None,
+				'planet_lon_speed': planet_lon_speed,
+				'planet_lat_speed': planet_lat_speed,
+				'planet_speed': planet_speed,
 				'planets_house': planets_house,
 				'planets_houses': planets_houses,
 				'planets_retrograde': retrograde,

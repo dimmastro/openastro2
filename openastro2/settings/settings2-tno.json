@@ -621,7 +621,7 @@
           "135": 0,
           "144": 0,
           "150": 0,
-          "180": 0
+          "180": 2
         },
         "SecondaryProgression": {
           "default": 2,
@@ -643,9 +643,10 @@
           "135": 0,
           "144": 0,
           "150": 0,
-          "180": 0
+          "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 2,
           "18": 1,
@@ -750,6 +751,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1.5,
           "18": 1,
@@ -854,6 +856,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -958,6 +961,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1062,6 +1066,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1166,6 +1171,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1270,6 +1276,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1374,6 +1381,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1478,6 +1486,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1582,6 +1591,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1614,7 +1624,7 @@
       "zodiac_relation": "-1",
       "label": "North Node",
       "label_short": "Node",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 1,
       "visible_json": 0,
       "planet_orb": {
@@ -1685,6 +1695,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1718,7 +1729,7 @@
       "zodiac_relation": "-1",
       "label": "?",
       "label_short": "?",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0,
       "planet_orb": {
@@ -1789,6 +1800,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1822,7 +1834,7 @@
       "zodiac_relation": "-1",
       "label": "Lilith",
       "label_short": "Lilith",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 1,
       "visible_json": 0,
       "planet_orb": {
@@ -1893,6 +1905,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1925,7 +1938,7 @@
       "zodiac_relation": "-1",
       "label": "Osc. Lilith",
       "label_short": "?",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -1938,7 +1951,7 @@
       "zodiac_relation": "-1",
       "label": "Earth",
       "label_short": "earth",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -1952,7 +1965,7 @@
       "zodiac_relation": "-1",
       "label": "Chiron",
       "label_short": "chiron",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 1,
       "visible_json": 0,
       "planet_orb": {
@@ -2023,6 +2036,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2055,7 +2069,7 @@
       "zodiac_relation": "-1",
       "label": "Pholus",
       "label_short": "pholus",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2068,7 +2082,7 @@
       "zodiac_relation": "-1",
       "label": "Ceres",
       "label_short": "ceres",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2081,7 +2095,7 @@
       "zodiac_relation": "-1",
       "label": "Pallas",
       "label_short": "pallas",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2094,7 +2108,7 @@
       "zodiac_relation": "-1",
       "label": "Juno",
       "label_short": "juno",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2107,7 +2121,7 @@
       "zodiac_relation": "-1",
       "label": "Vesta",
       "label_short": "vesta",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2120,7 +2134,7 @@
       "zodiac_relation": "-1",
       "label": "intp. apogee",
       "label_short": "intp. apogee",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2133,7 +2147,7 @@
       "zodiac_relation": "-1",
       "label": "intp. perigee",
       "label_short": "intp. perigee",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2147,7 +2161,7 @@
       "zodiac_relation": "-1",
       "label": "Day Pars",
       "label_short": "DP",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2160,7 +2174,7 @@
       "zodiac_relation": "-1",
       "label": "Night Pars",
       "label_short": "NP",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2174,7 +2188,7 @@
       "zodiac_relation": "-1",
       "label": "South Node",
       "label_short": "SNode",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "planet_orb": {
         "Radix": {
@@ -2244,6 +2258,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2298,7 +2313,7 @@
       "zodiac_relation": "-1",
       "label": "South Node",
       "label_short": "SNode",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2311,7 +2326,7 @@
       "zodiac_relation": "-1",
       "label": "South Node",
       "label_short": "SNode",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2324,7 +2339,7 @@
       "zodiac_relation": "-1",
       "label": "South Node",
       "label_short": "SNode",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2337,7 +2352,7 @@
       "zodiac_relation": "-1",
       "label": "South Node",
       "label_short": "SNode",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2350,7 +2365,7 @@
       "zodiac_relation": "-1",
       "label": "South Node",
       "label_short": "SNode",
-      "visible_aspect_line": 0,
+      "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
       "visible_json": 0
     },
@@ -2435,6 +2450,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2540,6 +2556,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2645,6 +2662,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2750,6 +2768,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2855,6 +2874,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2960,6 +2980,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3065,6 +3086,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3096,6 +3118,7 @@
       "name": "Asc",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 40,
       "zodiac_relation": "-1",
       "label": "Asc",
@@ -3173,6 +3196,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3201,6 +3225,7 @@
       "name": "II",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "II",
@@ -3278,6 +3303,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3306,6 +3332,7 @@
       "name": "III",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "III",
@@ -3383,6 +3410,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3411,6 +3439,7 @@
       "name": "Ic",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "Ic",
@@ -3488,6 +3517,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3516,6 +3546,7 @@
       "name": "V",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "V",
@@ -3593,6 +3624,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3621,6 +3653,7 @@
       "name": "VI",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "VI",
@@ -3698,6 +3731,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3726,6 +3760,7 @@
       "name": "Dsc",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "Dsc",
@@ -3803,6 +3838,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3831,6 +3867,7 @@
       "name": "VIII",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "VIII",
@@ -3908,6 +3945,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3936,6 +3974,7 @@
       "name": "IX",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "IX",
@@ -4013,6 +4052,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -4041,6 +4081,7 @@
       "name": "Mc",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 20,
       "zodiac_relation": "-1",
       "label": "Mc",
@@ -4118,6 +4159,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -4146,6 +4188,7 @@
       "name": "XI",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "XI",
@@ -4223,6 +4266,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -4251,6 +4295,7 @@
       "name": "XII",
       "color": "#FF0000",
       "visible": 1,
+      "t_visible": 1,
       "element_points": 0,
       "zodiac_relation": "-1",
       "label": "XII",
@@ -4328,6 +4373,7 @@
           "180": 2
         },
         "Direction": {
+          "visible_aspect_line2": 1,
           "default": 1,
           "0": 1,
           "18": 1,

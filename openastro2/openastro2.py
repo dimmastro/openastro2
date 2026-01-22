@@ -1547,7 +1547,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				astro_house_entry = {"planet_type": "house"}
 				for key, value in house_entry.items():
 					if key.startswith("houses_"):
-						astro_key = "house_" + key[len("houses_"):]
+						astro_key = "planet_" + key[len("houses_"):]
 					else:
 						astro_key = key
 					astro_house_entry[astro_key] = value
@@ -1713,7 +1713,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				astro_house_entry = {"planet_type": "house"}
 				for key, value in house_entry.items():
 					if key.startswith("houses_"):
-						astro_key = "house_" + key[len("houses_"):]
+						astro_key = "planet_" + key[len("houses_"):]
 					else:
 						astro_key = key
 					astro_house_entry[astro_key] = value

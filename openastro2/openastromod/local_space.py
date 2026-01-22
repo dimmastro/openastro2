@@ -1590,15 +1590,18 @@ class LocalSpaceMixin:
 
 		if type_tr == "Radix":
 			astro_dict = getattr(self, "astro_dict", None)
+			astro_houses = astro_dict.get("house_dict")or {}
 		elif type_tr == "Transit":
 			astro_dict = getattr(self, "astro_dict", None)
+			astro_houses = astro_dict.get("t_house_dict") or {}
+
 		else:
 			astro_dict = getattr(self, "astro_dict", None)
+			astro_houses = astro_dict.get("house_dict") or {}
 
 		if not isinstance(astro_dict, dict):
 			return dfd
 
-		astro_houses = astro_dict.get("house_dict") or astro_dict.get("t_house_dict") or {}
 		if planets is None:
 			house_ids = list(astro_houses.keys())
 		else:
@@ -1608,7 +1611,7 @@ class LocalSpaceMixin:
 			house_entry = astro_houses.get(house_id)
 			if not house_entry:
 				continue
-			house_number = house_entry.get("house_number")
+			house_number = house_entry.get("planet_number")
 			if house_number is None:
 				house_number = house_id - 23
 			try:
@@ -1616,9 +1619,9 @@ class LocalSpaceMixin:
 			except (TypeError, ValueError):
 				house_number = house_id - 23
 			lat_angle0 = 0
-			lon_angle0 = house_entry.get("house_degree_ut")
+			lon_angle0 = house_entry.get("planet_degree_ut")
 			if lon_angle0 is None:
-				lon_angle0 = house_entry.get("house_degree")
+				lon_angle0 = house_entry.get("planet_degree")
 			if lon_angle0 is None:
 				continue
 

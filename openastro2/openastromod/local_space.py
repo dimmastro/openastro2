@@ -1368,7 +1368,7 @@ class LocalSpaceMixin:
 			if (type_tr == "Radix"):
 				astro_dict = getattr(self, "astro_dict", None)
 			elif (type_tr == "Transit"):
-				astro_dict = getattr(self, "t_astro_dict", None)
+				astro_dict = getattr(self, "astro_dict", None)
 			else:
 				astro_dict = getattr(self, "astro_dict", None)
 
@@ -1591,7 +1591,7 @@ class LocalSpaceMixin:
 		if type_tr == "Radix":
 			astro_dict = getattr(self, "astro_dict", None)
 		elif type_tr == "Transit":
-			astro_dict = getattr(self, "t_astro_dict", None)
+			astro_dict = getattr(self, "astro_dict", None)
 		else:
 			astro_dict = getattr(self, "astro_dict", None)
 

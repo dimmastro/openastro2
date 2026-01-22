@@ -646,7 +646,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 2,
           "18": 1,
@@ -751,7 +752,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1.5,
           "18": 1,
@@ -856,7 +858,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -961,7 +964,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1066,7 +1070,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1171,7 +1176,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1276,7 +1282,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1381,7 +1388,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1486,7 +1494,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1591,7 +1600,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1695,7 +1705,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1800,7 +1811,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -1905,7 +1917,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2036,7 +2049,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2258,7 +2272,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2450,7 +2465,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2556,7 +2572,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2662,7 +2679,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2768,7 +2786,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2874,7 +2893,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -2980,7 +3000,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3086,7 +3107,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3150,7 +3172,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3173,7 +3196,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3196,7 +3219,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3257,7 +3281,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3280,7 +3305,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3303,7 +3328,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3364,7 +3390,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3387,7 +3414,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3410,7 +3437,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3471,7 +3499,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3494,7 +3523,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3517,7 +3546,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3578,7 +3608,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3601,7 +3632,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3624,7 +3655,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3685,7 +3717,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3708,7 +3741,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3731,7 +3764,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3792,7 +3826,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3815,7 +3850,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3838,7 +3873,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -3899,7 +3935,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3922,7 +3959,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -3945,7 +3982,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -4006,7 +4044,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -4029,7 +4068,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -4052,7 +4091,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -4113,7 +4153,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -4136,7 +4177,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -4159,7 +4200,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -4220,7 +4262,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -4243,7 +4286,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -4266,7 +4309,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,
@@ -4327,7 +4371,8 @@
           "180": 5
         },
         "Transit": {
-          "visible2": 0,
+          "visible2": 1,
+          "visible_aspect_line12": 0,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -4350,7 +4395,7 @@
           "180": 2
         },
         "SecondaryProgression": {
-          "visible2": 0,
+          "visible2": 1,
           "default": 2,
           "0": 2,
           "18": 0,
@@ -4373,7 +4418,8 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line2": 1,
+          "visible_aspect_line21": 1,
+          "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
           "18": 1,

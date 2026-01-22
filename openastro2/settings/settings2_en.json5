@@ -495,6 +495,8 @@
           "180": 10
         },
         // Transit — orbs for transit calculations; visible2 can hide the object in the second ring (openastro2.py:1569).
+        // visible_aspect_line12 - visibility of aspects from a natal planet to a transiting planet, for example, from the natal Sun to the transiting cusp.
+        // visible_aspect_line21 - visibility of aspects from a transiting planet to a natal planet, for example, from the transiting Sun to the natal cusp.
         "Transit": {
           "default": 2,
           "0": 2,

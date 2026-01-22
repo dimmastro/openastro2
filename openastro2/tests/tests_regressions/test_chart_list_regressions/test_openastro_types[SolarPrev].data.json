@@ -309,7 +309,8 @@
           "house_zodiac_quality": "mutable",
           "house_zodiac_short": "Psc",
           "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "24": {
           "house_degree": 8.73959625614593,
@@ -327,7 +328,8 @@
           "house_zodiac_quality": "fixed",
           "house_zodiac_short": "Tau",
           "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "25": {
           "house_degree": 5.041093848107579,
@@ -345,7 +347,8 @@
           "house_zodiac_quality": "mutable",
           "house_zodiac_short": "Gem",
           "house_zodiac_yinyang": "yang",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "26": {
           "house_degree": 22.234284580695544,
@@ -363,7 +366,8 @@
           "house_zodiac_quality": "mutable",
           "house_zodiac_short": "Gem",
           "house_zodiac_yinyang": "yang",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "27": {
           "house_degree": 7.815804599070589,
@@ -381,7 +385,8 @@
           "house_zodiac_quality": "сardinal",
           "house_zodiac_short": "Cnc",
           "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "28": {
           "house_degree": 26.88078390652015,
@@ -399,7 +404,8 @@
           "house_zodiac_quality": "сardinal",
           "house_zodiac_short": "Cnc",
           "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "29": {
           "house_degree": 5.479712523469061,
@@ -417,7 +423,8 @@
           "house_zodiac_quality": "mutable",
           "house_zodiac_short": "Vir",
           "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "30": {
           "house_degree": 8.739596256145944,
@@ -435,7 +442,8 @@
           "house_zodiac_quality": "fixed",
           "house_zodiac_short": "Sco",
           "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "31": {
           "house_degree": 5.041093848107579,
@@ -453,7 +461,8 @@
           "house_zodiac_quality": "mutable",
           "house_zodiac_short": "Sgr",
           "house_zodiac_yinyang": "yang",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "32": {
           "house_degree": 22.234284580695544,
@@ -471,7 +480,8 @@
           "house_zodiac_quality": "mutable",
           "house_zodiac_short": "Sgr",
           "house_zodiac_yinyang": "yang",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "33": {
           "house_degree": 7.815804599070589,
@@ -489,7 +499,8 @@
           "house_zodiac_quality": "сardinal",
           "house_zodiac_short": "Cap",
           "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         },
         "34": {
           "house_degree": 26.88078390652015,
@@ -507,7 +518,8 @@
           "house_zodiac_quality": "сardinal",
           "house_zodiac_short": "Cap",
           "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
+          "planet_type": "house",
+          "planet_visible_json": 1
         }
       },
       "planet_dict": {
@@ -532,6 +544,7 @@
           "planet_sign": 10,
           "planet_speed": 1.0168835018432572,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "aquarius",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -561,6 +574,7 @@
           "planet_sign": 7,
           "planet_speed": 11.89050199262013,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "scorpio",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -590,6 +604,7 @@
           "planet_sign": 9,
           "planet_speed": 1.1912082718929837,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "capricorn",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -619,6 +634,7 @@
           "planet_sign": 10,
           "planet_speed": 1.256886066373973,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "aquarius",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -648,6 +664,7 @@
           "planet_sign": 11,
           "planet_speed": 0.7497753382058109,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "pisces",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -677,6 +694,7 @@
           "planet_sign": 10,
           "planet_speed": 0.2372535289286567,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "aquarius",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -706,6 +724,7 @@
           "planet_sign": 0,
           "planet_speed": 0.0870980818017022,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "aries",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -735,6 +754,7 @@
           "planet_sign": 1,
           "planet_speed": 0.006239987938917475,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "taurus",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -764,6 +784,7 @@
           "planet_sign": 5,
           "planet_speed": 0.017150047396652414,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "virgo",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -793,6 +814,7 @@
           "planet_sign": 3,
           "planet_speed": 0.022191185670371455,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "cancer",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -823,6 +845,7 @@
           "planet_sign": 8,
           "planet_speed": 0.052941468077066144,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -853,6 +876,7 @@
           "planet_sign": 8,
           "planet_speed": 0.011830882328481337,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -882,6 +906,7 @@
           "planet_sign": 8,
           "planet_speed": 0.11177252957954954,
           "planet_type": "planet",
+          "planet_visible_json": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -912,6 +937,7 @@
           "planet_sign": 8,
           "planet_speed": 0.28044586699035273,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -941,6 +967,7 @@
           "planet_sign": 0,
           "planet_speed": 0.0,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "aries",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -970,6 +997,7 @@
           "planet_sign": 2,
           "planet_speed": 0.045775022814298356,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "gemini",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -999,6 +1027,7 @@
           "planet_sign": 9,
           "planet_speed": 0.03322805273676588,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "capricorn",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1028,6 +1057,7 @@
           "planet_sign": 11,
           "planet_speed": 0.36638634874460657,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "pisces",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1057,6 +1087,7 @@
           "planet_sign": 10,
           "planet_speed": 0.3426672877993307,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "aquarius",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1087,6 +1118,7 @@
           "planet_sign": 8,
           "planet_speed": 0.2642707968749054,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1116,6 +1148,7 @@
           "planet_sign": 7,
           "planet_speed": 0.39718839923248667,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "scorpio",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1146,6 +1179,7 @@
           "planet_sign": 8,
           "planet_speed": 0.1671163317324284,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1175,6 +1209,7 @@
           "planet_sign": 3,
           "planet_speed": 0.4572346245893798,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "cancer",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1206,6 +1241,7 @@
           "planet_sign": 11,
           "planet_speed": 32.526911934581186,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "pisces",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1237,6 +1273,7 @@
           "planet_sign": 1,
           "planet_speed": 33.94112549695428,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "taurus",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1268,6 +1305,7 @@
           "planet_sign": 2,
           "planet_speed": 35.35533905932738,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "gemini",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1299,6 +1337,7 @@
           "planet_sign": 2,
           "planet_speed": 36.76955262170047,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "gemini",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1330,6 +1369,7 @@
           "planet_sign": 3,
           "planet_speed": 38.18376618407357,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "cancer",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1361,6 +1401,7 @@
           "planet_sign": 3,
           "planet_speed": 39.59797974644666,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "cancer",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1392,6 +1433,7 @@
           "planet_sign": 5,
           "planet_speed": 41.012193308819754,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "virgo",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1423,6 +1465,7 @@
           "planet_sign": 7,
           "planet_speed": 42.42640687119285,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "scorpio",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1454,6 +1497,7 @@
           "planet_sign": 8,
           "planet_speed": 43.840620433565945,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1485,6 +1529,7 @@
           "planet_sign": 8,
           "planet_speed": 45.254833995939045,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1516,6 +1561,7 @@
           "planet_sign": 9,
           "planet_speed": 46.66904755831214,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "capricorn",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1547,6 +1593,7 @@
           "planet_sign": 9,
           "planet_speed": 48.08326112068523,
           "planet_type": "house",
+          "planet_visible_json": 0,
           "planet_zodiac": "capricorn",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1576,6 +1623,7 @@
           "planet_sign": 8,
           "planet_speed": 49.49747468305833,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1605,6 +1653,7 @@
           "planet_sign": 1,
           "planet_speed": 50.91168824543142,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "taurus",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1635,6 +1684,7 @@
           "planet_sign": 2,
           "planet_speed": 52.32590180780452,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "gemini",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1664,6 +1714,7 @@
           "planet_sign": 6,
           "planet_speed": 53.74011537017761,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "libra",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1693,6 +1744,7 @@
           "planet_sign": 3,
           "planet_speed": 55.154328932550705,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "cancer",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1723,6 +1775,7 @@
           "planet_sign": 1,
           "planet_speed": 56.568542494923804,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "taurus",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1752,6 +1805,7 @@
           "planet_sign": 8,
           "planet_speed": 57.982756057296896,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1782,6 +1836,7 @@
           "planet_sign": 9,
           "planet_speed": 59.39696961966999,
           "planet_type": "planet",
+          "planet_visible_json": 0,
           "planet_zodiac": "capricorn",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1790,17 +1845,1559 @@
           "planet_zodiac_short": "Cap",
           "planet_zodiac_yinyang": "ying"
         }
+      },
+      "t_house_dict": {
+        "23": {
+          "house_degree": 20.16407603448374,
+          "house_degree_ut": 50.16407603448374,
+          "house_id": 23,
+          "house_name": "Asc",
+          "house_number": 0,
+          "house_position_str": "Asc 20°10' taurus",
+          "house_retrograde": false,
+          "house_sign": 1,
+          "house_zodiac": "taurus",
+          "house_zodiac_attention": "outer",
+          "house_zodiac_drywet": "dry",
+          "house_zodiac_hotcold": "cold",
+          "house_zodiac_quality": "fixed",
+          "house_zodiac_short": "Tau",
+          "house_zodiac_yinyang": "ying",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "24": {
+          "house_degree": 16.098604154209383,
+          "house_degree_ut": 76.09860415420938,
+          "house_id": 24,
+          "house_name": "II",
+          "house_number": 1,
+          "house_position_str": "II 16°6' gemini",
+          "house_retrograde": false,
+          "house_sign": 2,
+          "house_zodiac": "gemini",
+          "house_zodiac_attention": "inner",
+          "house_zodiac_drywet": "wet",
+          "house_zodiac_hotcold": "hot",
+          "house_zodiac_quality": "mutable",
+          "house_zodiac_short": "Gem",
+          "house_zodiac_yinyang": "yang",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "25": {
+          "house_degree": 2.5295296288491613,
+          "house_degree_ut": 92.52952962884916,
+          "house_id": 25,
+          "house_name": "III",
+          "house_number": 2,
+          "house_position_str": "III 2°32' cancer",
+          "house_retrograde": false,
+          "house_sign": 3,
+          "house_zodiac": "cancer",
+          "house_zodiac_attention": "inner",
+          "house_zodiac_drywet": "wet",
+          "house_zodiac_hotcold": "cold",
+          "house_zodiac_quality": "сardinal",
+          "house_zodiac_short": "Cnc",
+          "house_zodiac_yinyang": "ying",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "26": {
+          "house_degree": 18.062249879051762,
+          "house_degree_ut": 108.06224987905176,
+          "house_id": 26,
+          "house_name": "Ic",
+          "house_number": 3,
+          "house_position_str": "Ic 18°4' cancer",
+          "house_retrograde": false,
+          "house_sign": 3,
+          "house_zodiac": "cancer",
+          "house_zodiac_attention": "inner",
+          "house_zodiac_drywet": "wet",
+          "house_zodiac_hotcold": "cold",
+          "house_zodiac_quality": "сardinal",
+          "house_zodiac_short": "Cnc",
+          "house_zodiac_yinyang": "ying",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "27": {
+          "house_degree": 7.382216118376164,
+          "house_degree_ut": 127.38221611837616,
+          "house_id": 27,
+          "house_name": "V",
+          "house_number": 4,
+          "house_position_str": "V 7°23' leo",
+          "house_retrograde": false,
+          "house_sign": 4,
+          "house_zodiac": "leo",
+          "house_zodiac_attention": "outer",
+          "house_zodiac_drywet": "dry",
+          "house_zodiac_hotcold": "hot",
+          "house_zodiac_quality": "fixed",
+          "house_zodiac_short": "Leo",
+          "house_zodiac_yinyang": "yang",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "28": {
+          "house_degree": 10.483160668721894,
+          "house_degree_ut": 160.4831606687219,
+          "house_id": 28,
+          "house_name": "VI",
+          "house_number": 5,
+          "house_position_str": "VI 10°29' virgo",
+          "house_retrograde": false,
+          "house_sign": 5,
+          "house_zodiac": "virgo",
+          "house_zodiac_attention": "outer",
+          "house_zodiac_drywet": "dry",
+          "house_zodiac_hotcold": "cold",
+          "house_zodiac_quality": "mutable",
+          "house_zodiac_short": "Vir",
+          "house_zodiac_yinyang": "ying",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "29": {
+          "house_degree": 20.16407603448374,
+          "house_degree_ut": 230.16407603448374,
+          "house_id": 29,
+          "house_name": "Dsc",
+          "house_number": 6,
+          "house_position_str": "Dsc 20°10' scorpio",
+          "house_retrograde": false,
+          "house_sign": 7,
+          "house_zodiac": "scorpio",
+          "house_zodiac_attention": "inner",
+          "house_zodiac_drywet": "wet",
+          "house_zodiac_hotcold": "cold",
+          "house_zodiac_quality": "fixed",
+          "house_zodiac_short": "Sco",
+          "house_zodiac_yinyang": "ying",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "30": {
+          "house_degree": 16.098604154209397,
+          "house_degree_ut": 256.0986041542094,
+          "house_id": 30,
+          "house_name": "VIII",
+          "house_number": 7,
+          "house_position_str": "VIII 16°6' sagittarius",
+          "house_retrograde": false,
+          "house_sign": 8,
+          "house_zodiac": "sagittarius",
+          "house_zodiac_attention": "outer",
+          "house_zodiac_drywet": "dry",
+          "house_zodiac_hotcold": "hot",
+          "house_zodiac_quality": "mutable",
+          "house_zodiac_short": "Sgr",
+          "house_zodiac_yinyang": "yang",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "31": {
+          "house_degree": 2.5295296288491613,
+          "house_degree_ut": 272.52952962884916,
+          "house_id": 31,
+          "house_name": "IX",
+          "house_number": 8,
+          "house_position_str": "IX 2°32' capricorn",
+          "house_retrograde": false,
+          "house_sign": 9,
+          "house_zodiac": "capricorn",
+          "house_zodiac_attention": "outer",
+          "house_zodiac_drywet": "dry",
+          "house_zodiac_hotcold": "cold",
+          "house_zodiac_quality": "сardinal",
+          "house_zodiac_short": "Cap",
+          "house_zodiac_yinyang": "ying",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "32": {
+          "house_degree": 18.062249879051762,
+          "house_degree_ut": 288.06224987905176,
+          "house_id": 32,
+          "house_name": "Mc",
+          "house_number": 9,
+          "house_position_str": "Mc 18°4' capricorn",
+          "house_retrograde": false,
+          "house_sign": 9,
+          "house_zodiac": "capricorn",
+          "house_zodiac_attention": "outer",
+          "house_zodiac_drywet": "dry",
+          "house_zodiac_hotcold": "cold",
+          "house_zodiac_quality": "сardinal",
+          "house_zodiac_short": "Cap",
+          "house_zodiac_yinyang": "ying",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "33": {
+          "house_degree": 7.382216118376164,
+          "house_degree_ut": 307.38221611837616,
+          "house_id": 33,
+          "house_name": "XI",
+          "house_number": 10,
+          "house_position_str": "XI 7°23' aquarius",
+          "house_retrograde": false,
+          "house_sign": 10,
+          "house_zodiac": "aquarius",
+          "house_zodiac_attention": "inner",
+          "house_zodiac_drywet": "wet",
+          "house_zodiac_hotcold": "hot",
+          "house_zodiac_quality": "fixed",
+          "house_zodiac_short": "Aqr",
+          "house_zodiac_yinyang": "yang",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        },
+        "34": {
+          "house_degree": 10.483160668721894,
+          "house_degree_ut": 340.4831606687219,
+          "house_id": 34,
+          "house_name": "XII",
+          "house_number": 11,
+          "house_position_str": "XII 10°29' pisces",
+          "house_retrograde": false,
+          "house_sign": 11,
+          "house_zodiac": "pisces",
+          "house_zodiac_attention": "inner",
+          "house_zodiac_drywet": "wet",
+          "house_zodiac_hotcold": "cold",
+          "house_zodiac_quality": "mutable",
+          "house_zodiac_short": "Psc",
+          "house_zodiac_yinyang": "ying",
+          "planet_type": "house",
+          "planet_visible_json": 1
+        }
+      },
+      "t_planet_dict": {
+        "0": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 4.6488811212441306,
+          "planet_degree_ut": 304.64888112124413,
+          "planet_house": [
+            9
+          ],
+          "planet_houses": [
+            9,
+            10
+          ],
+          "planet_id": 0,
+          "planet_lat_speed": -5.393608509800276e-05,
+          "planet_latitude": 1.6240945780056052e-05,
+          "planet_lon_speed": 1.0172525432034447,
+          "planet_longitude": 304.64888112124413,
+          "planet_name": "sun",
+          "planet_position_str": "sun 4°39' aquarius Mc",
+          "planet_retrograde": false,
+          "planet_sign": 10,
+          "planet_speed": 1.0172525446333263,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "aquarius",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Aqr",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "1": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 1.895692097702863,
+          "planet_degree_ut": 301.89569209770286,
+          "planet_house": [
+            9
+          ],
+          "planet_houses": [
+            9
+          ],
+          "planet_id": 1,
+          "planet_lat_speed": -1.2733807980012757,
+          "planet_latitude": -0.2044509433897319,
+          "planet_lon_speed": 13.780716525802188,
+          "planet_longitude": 301.89569209770286,
+          "planet_name": "moon",
+          "planet_position_str": "moon 1°54' aquarius Mc",
+          "planet_retrograde": false,
+          "planet_sign": 10,
+          "planet_speed": 13.839423637609908,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "aquarius",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Aqr",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "2": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 23.87258639787973,
+          "planet_degree_ut": 293.87258639787973,
+          "planet_house": [
+            9
+          ],
+          "planet_houses": [
+            9
+          ],
+          "planet_id": 2,
+          "planet_lat_speed": -0.0340843686939855,
+          "planet_latitude": 3.5225306247319117,
+          "planet_lon_speed": -0.9558917721034764,
+          "planet_longitude": 293.87258639787973,
+          "planet_name": "mercury",
+          "planet_position_str": "mercury 23°52' capricorn Mc retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 9,
+          "planet_speed": 0.9564992546596114,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "capricorn",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cap",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "3": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 17.818977707957004,
+          "planet_degree_ut": 257.818977707957,
+          "planet_house": [
+            7
+          ],
+          "planet_houses": [
+            7
+          ],
+          "planet_id": 3,
+          "planet_lat_speed": -0.04353081564565995,
+          "planet_latitude": 3.5401441604666877,
+          "planet_lon_speed": 1.0290981818221738,
+          "planet_longitude": 257.818977707957,
+          "planet_name": "venus",
+          "planet_position_str": "venus 17°49' sagittarius VIII",
+          "planet_retrograde": false,
+          "planet_sign": 8,
+          "planet_speed": 1.0300184463107835,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "sagittarius",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Sgr",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "4": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 18.900442325541746,
+          "planet_degree_ut": 138.90044232554175,
+          "planet_house": [
+            4
+          ],
+          "planet_houses": [
+            4
+          ],
+          "planet_id": 4,
+          "planet_lat_speed": 0.019728108274476006,
+          "planet_latitude": 4.445316301938461,
+          "planet_lon_speed": -0.3655792909034776,
+          "planet_longitude": 138.90044232554175,
+          "planet_name": "mars",
+          "planet_position_str": "mars 18°54' leo V retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 4,
+          "planet_speed": 0.366111207413238,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "leo",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Leo",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "5": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 13.810304959243581,
+          "planet_degree_ut": 343.8103049592436,
+          "planet_house": [
+            11
+          ],
+          "planet_houses": [
+            11
+          ],
+          "planet_id": 5,
+          "planet_lat_speed": 0.0013196704668348783,
+          "planet_latitude": -1.0774066168268064,
+          "planet_lon_speed": 0.21438133387111066,
+          "planet_longitude": 343.8103049592436,
+          "planet_name": "jupiter",
+          "planet_position_str": "jupiter 13°49' pisces XII",
+          "planet_retrograde": false,
+          "planet_sign": 11,
+          "planet_speed": 0.2143853955905058,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "pisces",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Psc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "6": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 12.734385908975412,
+          "planet_degree_ut": 312.7343859089754,
+          "planet_house": [
+            10
+          ],
+          "planet_houses": [
+            10
+          ],
+          "planet_id": 6,
+          "planet_lat_speed": -0.0009829188305196565,
+          "planet_latitude": -0.782199861132105,
+          "planet_lon_speed": 0.11911280018586602,
+          "planet_longitude": 312.7343859089754,
+          "planet_name": "saturn",
+          "planet_position_str": "saturn 12°44' aquarius XI",
+          "planet_retrograde": false,
+          "planet_sign": 10,
+          "planet_speed": 0.11911685563993635,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "aquarius",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Aqr",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "7": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 4.420335280800316,
+          "planet_degree_ut": 154.42033528080032,
+          "planet_house": [
+            4
+          ],
+          "planet_houses": [
+            4
+          ],
+          "planet_id": 7,
+          "planet_lat_speed": 0.0004356598283999928,
+          "planet_latitude": 0.7959124956222009,
+          "planet_lon_speed": -0.036051828336776344,
+          "planet_longitude": 154.42033528080032,
+          "planet_name": "uranus",
+          "planet_position_str": "uranus 4°25' virgo V retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 5,
+          "planet_speed": 0.036054460554978095,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "virgo",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Vir",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "8": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 15.529048715556229,
+          "planet_degree_ut": 225.52904871555623,
+          "planet_house": [
+            5
+          ],
+          "planet_houses": [
+            5,
+            6
+          ],
+          "planet_id": 8,
+          "planet_lat_speed": 0.0009630772295725503,
+          "planet_latitude": 1.7617021805211557,
+          "planet_lon_speed": 0.012398359502150043,
+          "planet_longitude": 225.52904871555623,
+          "planet_name": "neptune",
+          "planet_position_str": "neptune 15°32' scorpio VI",
+          "planet_retrograde": false,
+          "planet_sign": 7,
+          "planet_speed": 0.01243570810588104,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "scorpio",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Sco",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "9": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 11.730547152118817,
+          "planet_degree_ut": 161.73054715211882,
+          "planet_house": [
+            5
+          ],
+          "planet_houses": [
+            5
+          ],
+          "planet_id": 9,
+          "planet_lat_speed": 0.005530338653835359,
+          "planet_latitude": 13.78232325700117,
+          "planet_lon_speed": -0.019508944025959547,
+          "planet_longitude": 161.73054715211882,
+          "planet_name": "pluto",
+          "planet_position_str": "pluto 11°44' virgo VI retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 5,
+          "planet_speed": 0.020277661172682815,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "virgo",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Vir",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "10": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 29.394961770434207,
+          "planet_degree_ut": 119.39496177043421,
+          "planet_house": [
+            3
+          ],
+          "planet_houses": [
+            3
+          ],
+          "planet_id": 10,
+          "planet_lat_speed": 0.0,
+          "planet_latitude": 0.0,
+          "planet_lon_speed": -0.05293151595702672,
+          "planet_longitude": 119.39496177043421,
+          "planet_name": "mean node",
+          "planet_position_str": "mean node 29°24' cancer Ic retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 3,
+          "planet_speed": 0.05293151595702672,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "cancer",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cnc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "11": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 29.684205070068685,
+          "planet_degree_ut": 119.68420507006869,
+          "planet_house": [
+            3
+          ],
+          "planet_houses": [
+            3
+          ],
+          "planet_id": 11,
+          "planet_lat_speed": 0.0,
+          "planet_latitude": 0.0,
+          "planet_lon_speed": -0.0006882252207940951,
+          "planet_longitude": 119.68420507006869,
+          "planet_name": "true node",
+          "planet_position_str": "true node 29°41' cancer Ic retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 3,
+          "planet_speed": 0.0006882252207940951,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "cancer",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cnc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "12": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 20.463077178771357,
+          "planet_degree_ut": 200.46307717877136,
+          "planet_house": [
+            5
+          ],
+          "planet_houses": [
+            5
+          ],
+          "planet_id": 12,
+          "planet_lat_speed": 0.002282501265602533,
+          "planet_latitude": 5.08333025505307,
+          "planet_lon_speed": 0.11206053313962887,
+          "planet_longitude": 200.46307717877136,
+          "planet_name": "mean apogee",
+          "planet_position_str": "mean apogee 20°28' libra VI",
+          "planet_retrograde": false,
+          "planet_sign": 6,
+          "planet_speed": 0.11208377625493056,
+          "planet_type": "planet",
+          "planet_visible_json": 1,
+          "planet_zodiac": "libra",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Lib",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "13": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 0.8752574253788339,
+          "planet_degree_ut": 180.87525742537883,
+          "planet_house": [
+            5
+          ],
+          "planet_houses": [
+            5
+          ],
+          "planet_id": 13,
+          "planet_lat_speed": -0.08266202805325301,
+          "planet_latitude": 4.63242198939641,
+          "planet_lon_speed": -1.8327519514966883,
+          "planet_longitude": 180.87525742537883,
+          "planet_name": "osc. apogee",
+          "planet_position_str": "osc. apogee 0°53' libra VI retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 6,
+          "planet_speed": 1.8346151440007237,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "libra",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Lib",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "14": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 0.0,
+          "planet_degree_ut": 0.0,
+          "planet_house": [
+            11
+          ],
+          "planet_houses": [
+            11
+          ],
+          "planet_id": 14,
+          "planet_lat_speed": 0.0,
+          "planet_latitude": 0.0,
+          "planet_lon_speed": 0.0,
+          "planet_longitude": 0.0,
+          "planet_name": "earth",
+          "planet_position_str": "earth 0°0' aries XII",
+          "planet_retrograde": false,
+          "planet_sign": 0,
+          "planet_speed": 0.0,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "aries",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Ari",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "15": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 8.304418657484462,
+          "planet_degree_ut": 338.30441865748446,
+          "planet_house": [
+            10
+          ],
+          "planet_houses": [
+            10,
+            11
+          ],
+          "planet_id": 15,
+          "planet_lat_speed": -0.003462246634738464,
+          "planet_latitude": 4.994302400576632,
+          "planet_lon_speed": 0.05596337689977847,
+          "planet_longitude": 338.30441865748446,
+          "planet_name": "chiron",
+          "planet_position_str": "chiron 8°18' pisces XI",
+          "planet_retrograde": false,
+          "planet_sign": 11,
+          "planet_speed": 0.056070372798710875,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "pisces",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Psc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "16": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 15.26851505045363,
+          "planet_degree_ut": 315.26851505045363,
+          "planet_house": [
+            10
+          ],
+          "planet_houses": [
+            10
+          ],
+          "planet_id": 16,
+          "planet_lat_speed": -0.0009110007279970581,
+          "planet_latitude": -7.289434243395114,
+          "planet_lon_speed": 0.037680895360149624,
+          "planet_longitude": 315.26851505045363,
+          "planet_name": "pholus",
+          "planet_position_str": "pholus 15°16' aquarius XI",
+          "planet_retrograde": false,
+          "planet_sign": 10,
+          "planet_speed": 0.03769190625942069,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "aquarius",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Aqr",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "17": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 17.387847590260122,
+          "planet_degree_ut": 167.38784759026012,
+          "planet_house": [
+            5
+          ],
+          "planet_houses": [
+            5
+          ],
+          "planet_id": 17,
+          "planet_lat_speed": 0.09577243899303875,
+          "planet_latitude": 14.706233876498965,
+          "planet_lon_speed": -0.06638762382013545,
+          "planet_longitude": 167.38784759026012,
+          "planet_name": "ceres",
+          "planet_position_str": "ceres 17°23' virgo VI retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 5,
+          "planet_speed": 0.11653186974883371,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "virgo",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Vir",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "18": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 8.098080109220305,
+          "planet_degree_ut": 98.0980801092203,
+          "planet_house": [
+            2
+          ],
+          "planet_houses": [
+            2
+          ],
+          "planet_id": 18,
+          "planet_lat_speed": 0.27438682603648795,
+          "planet_latitude": -51.310910926747596,
+          "planet_lon_speed": -0.20689730580887886,
+          "planet_longitude": 98.0980801092203,
+          "planet_name": "pallas",
+          "planet_position_str": "pallas 8°6' cancer III retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 3,
+          "planet_speed": 0.3436489858174335,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "cancer",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cnc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "19": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 27.043127808493352,
+          "planet_degree_ut": 177.04312780849335,
+          "planet_house": [
+            5
+          ],
+          "planet_houses": [
+            5
+          ],
+          "planet_id": 19,
+          "planet_lat_speed": 0.05024142688861977,
+          "planet_latitude": -3.281327853053929,
+          "planet_lon_speed": -0.05421430000319328,
+          "planet_longitude": 177.04312780849335,
+          "planet_name": "juno",
+          "planet_position_str": "juno 27°3' virgo VI retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 5,
+          "planet_speed": 0.07391475698830896,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "virgo",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Vir",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "20": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 0.6307245382078008,
+          "planet_degree_ut": 180.6307245382078,
+          "planet_house": [
+            5
+          ],
+          "planet_houses": [
+            5
+          ],
+          "planet_id": 20,
+          "planet_lat_speed": 0.08176693149933086,
+          "planet_latitude": 8.446267872590877,
+          "planet_lon_speed": 0.04054082882683758,
+          "planet_longitude": 180.6307245382078,
+          "planet_name": "vesta",
+          "planet_position_str": "vesta 0°38' libra VI",
+          "planet_retrograde": false,
+          "planet_sign": 6,
+          "planet_speed": 0.0912654912263294,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "libra",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Lib",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "21": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 22.670558008734986,
+          "planet_degree_ut": 202.670558008735,
+          "planet_house": [
+            5
+          ],
+          "planet_houses": [
+            5
+          ],
+          "planet_id": 21,
+          "planet_lat_speed": 0.0014601447530593439,
+          "planet_latitude": 5.245606251410098,
+          "planet_lon_speed": 0.2260291352141657,
+          "planet_longitude": 202.670558008735,
+          "planet_name": "intp. apogee",
+          "planet_position_str": "intp. apogee 22°40' libra VI",
+          "planet_retrograde": false,
+          "planet_sign": 6,
+          "planet_speed": 0.22603385142133797,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "libra",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Lib",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "22": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 29.172863245202166,
+          "planet_degree_ut": 359.17286324520217,
+          "planet_house": [
+            11
+          ],
+          "planet_houses": [
+            11
+          ],
+          "planet_id": 22,
+          "planet_lat_speed": 0.020567318510744913,
+          "planet_latitude": -4.556203330632593,
+          "planet_lon_speed": -0.41942774224033097,
+          "planet_longitude": 359.17286324520217,
+          "planet_name": "intp. perigee",
+          "planet_position_str": "intp. perigee 29°10' pisces XII retrograde",
+          "planet_retrograde": true,
+          "planet_sign": 11,
+          "planet_speed": 0.4199317153437496,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "pisces",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Psc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "23": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 20.16407603448374,
+          "planet_degree_ut": 50.16407603448374,
+          "planet_house": [
+            0,
+            11
+          ],
+          "planet_houses": [
+            0,
+            11
+          ],
+          "planet_id": 23,
+          "planet_lat_speed": 23,
+          "planet_latitude": 23,
+          "planet_lon_speed": 23,
+          "planet_longitude": 23,
+          "planet_name": "Asc",
+          "planet_position_str": "Asc 20°10' taurus Asc, XII",
+          "planet_retrograde": false,
+          "planet_sign": 1,
+          "planet_speed": 32.526911934581186,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "taurus",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Tau",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "24": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 16.098604154209383,
+          "planet_degree_ut": 76.09860415420938,
+          "planet_house": [
+            0,
+            1
+          ],
+          "planet_houses": [
+            0,
+            1
+          ],
+          "planet_id": 24,
+          "planet_lat_speed": 24,
+          "planet_latitude": 24,
+          "planet_lon_speed": 24,
+          "planet_longitude": 24,
+          "planet_name": "II",
+          "planet_position_str": "II 16°6' gemini Asc, II",
+          "planet_retrograde": false,
+          "planet_sign": 2,
+          "planet_speed": 33.94112549695428,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "gemini",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Gem",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "25": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 2.5295296288491613,
+          "planet_degree_ut": 92.52952962884916,
+          "planet_house": [
+            1,
+            2
+          ],
+          "planet_houses": [
+            1,
+            2
+          ],
+          "planet_id": 25,
+          "planet_lat_speed": 25,
+          "planet_latitude": 25,
+          "planet_lon_speed": 25,
+          "planet_longitude": 25,
+          "planet_name": "III",
+          "planet_position_str": "III 2°32' cancer II, III",
+          "planet_retrograde": false,
+          "planet_sign": 3,
+          "planet_speed": 35.35533905932738,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "cancer",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cnc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "26": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 18.062249879051762,
+          "planet_degree_ut": 108.06224987905176,
+          "planet_house": [
+            2,
+            3
+          ],
+          "planet_houses": [
+            2,
+            3
+          ],
+          "planet_id": 26,
+          "planet_lat_speed": 26,
+          "planet_latitude": 26,
+          "planet_lon_speed": 26,
+          "planet_longitude": 26,
+          "planet_name": "Ic",
+          "planet_position_str": "Ic 18°4' cancer III, Ic",
+          "planet_retrograde": false,
+          "planet_sign": 3,
+          "planet_speed": 36.76955262170047,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "cancer",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cnc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "27": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 7.382216118376164,
+          "planet_degree_ut": 127.38221611837616,
+          "planet_house": [
+            3,
+            4
+          ],
+          "planet_houses": [
+            3,
+            4
+          ],
+          "planet_id": 27,
+          "planet_lat_speed": 27,
+          "planet_latitude": 27,
+          "planet_lon_speed": 27,
+          "planet_longitude": 27,
+          "planet_name": "V",
+          "planet_position_str": "V 7°23' leo Ic, V",
+          "planet_retrograde": false,
+          "planet_sign": 4,
+          "planet_speed": 38.18376618407357,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "leo",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Leo",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "28": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 10.483160668721894,
+          "planet_degree_ut": 160.4831606687219,
+          "planet_house": [
+            4,
+            5
+          ],
+          "planet_houses": [
+            4,
+            5
+          ],
+          "planet_id": 28,
+          "planet_lat_speed": 28,
+          "planet_latitude": 28,
+          "planet_lon_speed": 28,
+          "planet_longitude": 28,
+          "planet_name": "VI",
+          "planet_position_str": "VI 10°29' virgo V, VI",
+          "planet_retrograde": false,
+          "planet_sign": 5,
+          "planet_speed": 39.59797974644666,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "virgo",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Vir",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "29": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 20.16407603448374,
+          "planet_degree_ut": 230.16407603448374,
+          "planet_house": [
+            5,
+            6
+          ],
+          "planet_houses": [
+            5,
+            6
+          ],
+          "planet_id": 29,
+          "planet_lat_speed": 29,
+          "planet_latitude": 29,
+          "planet_lon_speed": 29,
+          "planet_longitude": 29,
+          "planet_name": "Dsc",
+          "planet_position_str": "Dsc 20°10' scorpio VI, Dsc",
+          "planet_retrograde": false,
+          "planet_sign": 7,
+          "planet_speed": 41.012193308819754,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "scorpio",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Sco",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "30": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 16.098604154209397,
+          "planet_degree_ut": 256.0986041542094,
+          "planet_house": [
+            6,
+            7
+          ],
+          "planet_houses": [
+            6,
+            7
+          ],
+          "planet_id": 30,
+          "planet_lat_speed": 30,
+          "planet_latitude": 30,
+          "planet_lon_speed": 30,
+          "planet_longitude": 30,
+          "planet_name": "VIII",
+          "planet_position_str": "VIII 16°6' sagittarius Dsc, VIII",
+          "planet_retrograde": false,
+          "planet_sign": 8,
+          "planet_speed": 42.42640687119285,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "sagittarius",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Sgr",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "31": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 2.5295296288491613,
+          "planet_degree_ut": 272.52952962884916,
+          "planet_house": [
+            7,
+            8
+          ],
+          "planet_houses": [
+            7,
+            8
+          ],
+          "planet_id": 31,
+          "planet_lat_speed": 31,
+          "planet_latitude": 31,
+          "planet_lon_speed": 31,
+          "planet_longitude": 31,
+          "planet_name": "IX",
+          "planet_position_str": "IX 2°32' capricorn VIII, IX",
+          "planet_retrograde": false,
+          "planet_sign": 9,
+          "planet_speed": 43.840620433565945,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "capricorn",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cap",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "32": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 18.062249879051762,
+          "planet_degree_ut": 288.06224987905176,
+          "planet_house": [
+            8,
+            9
+          ],
+          "planet_houses": [
+            8,
+            9
+          ],
+          "planet_id": 32,
+          "planet_lat_speed": 32,
+          "planet_latitude": 32,
+          "planet_lon_speed": 32,
+          "planet_longitude": 32,
+          "planet_name": "Mc",
+          "planet_position_str": "Mc 18°4' capricorn IX, Mc",
+          "planet_retrograde": false,
+          "planet_sign": 9,
+          "planet_speed": 45.254833995939045,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "capricorn",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cap",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "33": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 7.382216118376164,
+          "planet_degree_ut": 307.38221611837616,
+          "planet_house": [
+            9,
+            10
+          ],
+          "planet_houses": [
+            9,
+            10
+          ],
+          "planet_id": 33,
+          "planet_lat_speed": 33,
+          "planet_latitude": 33,
+          "planet_lon_speed": 33,
+          "planet_longitude": 33,
+          "planet_name": "XI",
+          "planet_position_str": "XI 7°23' aquarius Mc, XI",
+          "planet_retrograde": false,
+          "planet_sign": 10,
+          "planet_speed": 46.66904755831214,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "aquarius",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Aqr",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "34": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 10.483160668721894,
+          "planet_degree_ut": 340.4831606687219,
+          "planet_house": [
+            10,
+            11
+          ],
+          "planet_houses": [
+            10,
+            11
+          ],
+          "planet_id": 34,
+          "planet_lat_speed": 34,
+          "planet_latitude": 34,
+          "planet_lon_speed": 34,
+          "planet_longitude": 34,
+          "planet_name": "XII",
+          "planet_position_str": "XII 10°29' pisces XI, XII",
+          "planet_retrograde": false,
+          "planet_sign": 11,
+          "planet_speed": 48.08326112068523,
+          "planet_type": "house",
+          "planet_visible_json": 0,
+          "planet_zodiac": "pisces",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "mutable",
+          "planet_zodiac_short": "Psc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "35": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 17.410887010942474,
+          "planet_degree_ut": 47.410887010942474,
+          "planet_house": [
+            11
+          ],
+          "planet_houses": [
+            0,
+            11
+          ],
+          "planet_id": 35,
+          "planet_lat_speed": 35,
+          "planet_latitude": 35,
+          "planet_lon_speed": 35,
+          "planet_longitude": 35,
+          "planet_name": "day pars",
+          "planet_position_str": "day pars 17°25' taurus XII",
+          "planet_retrograde": false,
+          "planet_sign": 1,
+          "planet_speed": 49.49747468305833,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "taurus",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Tau",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "36": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 22.91726505802501,
+          "planet_degree_ut": 52.91726505802501,
+          "planet_house": [
+            0
+          ],
+          "planet_houses": [
+            0
+          ],
+          "planet_id": 36,
+          "planet_lat_speed": 36,
+          "planet_latitude": 36,
+          "planet_lon_speed": 36,
+          "planet_longitude": 36,
+          "planet_name": "night pars",
+          "planet_position_str": "night pars 22°55' taurus Asc",
+          "planet_retrograde": false,
+          "planet_sign": 1,
+          "planet_speed": 50.91168824543142,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "taurus",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Tau",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "37": {
+          "aspect_orbis_planet": 1,
+          "planet_degree": 29.684205070068685,
+          "planet_degree_ut": 299.6842050700687,
+          "planet_house": [
+            9
+          ],
+          "planet_houses": [
+            9
+          ],
+          "planet_id": 37,
+          "planet_lat_speed": 37,
+          "planet_latitude": 37,
+          "planet_lon_speed": 37,
+          "planet_longitude": 37,
+          "planet_name": "south node",
+          "planet_position_str": "south node 29°41' capricorn Mc",
+          "planet_retrograde": false,
+          "planet_sign": 9,
+          "planet_speed": 52.32590180780452,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "capricorn",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cap",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "38": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 22.50917436101048,
+          "planet_degree_ut": 22.50917436101048,
+          "planet_house": [
+            11
+          ],
+          "planet_houses": [
+            11
+          ],
+          "planet_id": 38,
+          "planet_lat_speed": 38,
+          "planet_latitude": 38,
+          "planet_lon_speed": 38,
+          "planet_longitude": 38,
+          "planet_name": "marriage pars",
+          "planet_position_str": "marriage pars 22°31' aries XII",
+          "planet_retrograde": false,
+          "planet_sign": 0,
+          "planet_speed": 53.74011537017761,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "aries",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Ari",
+          "planet_zodiac_yinyang": "yang"
+        },
+        "39": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 12.298511748667707,
+          "planet_degree_ut": 102.2985117486677,
+          "planet_house": [
+            2
+          ],
+          "planet_houses": [
+            2
+          ],
+          "planet_id": 39,
+          "planet_lat_speed": 39,
+          "planet_latitude": 39,
+          "planet_lon_speed": 39,
+          "planet_longitude": 39,
+          "planet_name": "black sun",
+          "planet_position_str": "black sun 12°18' cancer III",
+          "planet_retrograde": false,
+          "planet_sign": 3,
+          "planet_speed": 55.154328932550705,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "cancer",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cnc",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "40": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 20.38669374685641,
+          "planet_degree_ut": 50.38669374685641,
+          "planet_house": [
+            0
+          ],
+          "planet_houses": [
+            0
+          ],
+          "planet_id": 40,
+          "planet_lat_speed": 40,
+          "planet_latitude": 40,
+          "planet_lon_speed": 40,
+          "planet_longitude": 40,
+          "planet_name": "vulcanus",
+          "planet_position_str": "vulcanus 20°23' taurus Asc",
+          "planet_retrograde": false,
+          "planet_sign": 1,
+          "planet_speed": 56.568542494923804,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "taurus",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "fixed",
+          "planet_zodiac_short": "Tau",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "41": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 5.067087345687071,
+          "planet_degree_ut": 275.06708734568707,
+          "planet_house": [
+            8
+          ],
+          "planet_houses": [
+            8
+          ],
+          "planet_id": 41,
+          "planet_lat_speed": 41,
+          "planet_latitude": 41,
+          "planet_lon_speed": 41,
+          "planet_longitude": 41,
+          "planet_name": "persephone",
+          "planet_position_str": "persephone 5°4' capricorn IX",
+          "planet_retrograde": false,
+          "planet_sign": 9,
+          "planet_speed": 57.982756057296896,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "capricorn",
+          "planet_zodiac_attention": "outer",
+          "planet_zodiac_drywet": "dry",
+          "planet_zodiac_hotcold": "cold",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Cap",
+          "planet_zodiac_yinyang": "ying"
+        },
+        "42": {
+          "aspect_orbis_planet": 10,
+          "planet_degree": 12.121916074491935,
+          "planet_degree_ut": 192.12191607449193,
+          "planet_house": [
+            5
+          ],
+          "planet_houses": [
+            5
+          ],
+          "planet_id": 42,
+          "planet_lat_speed": 42,
+          "planet_latitude": 42,
+          "planet_lon_speed": 42,
+          "planet_longitude": 42,
+          "planet_name": "true lilith own",
+          "planet_position_str": "true lilith own 12°7' libra VI",
+          "planet_retrograde": false,
+          "planet_sign": 6,
+          "planet_speed": 59.39696961966999,
+          "planet_type": "planet",
+          "planet_visible_json": 0,
+          "planet_zodiac": "libra",
+          "planet_zodiac_attention": "inner",
+          "planet_zodiac_drywet": "wet",
+          "planet_zodiac_hotcold": "hot",
+          "planet_zodiac_quality": "сardinal",
+          "planet_zodiac_short": "Lib",
+          "planet_zodiac_yinyang": "yang"
+        }
       }
     },
     "atgrid": [
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
       {},
       {},
       {},
@@ -2407,7 +4004,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 10,
@@ -2534,7 +4133,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 9,
@@ -2661,7 +4262,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -2788,7 +4391,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -2915,7 +4520,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -3042,7 +4649,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 7,
@@ -3169,7 +4778,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -3296,7 +4907,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -3423,7 +5036,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -3550,7 +5165,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -3677,7 +5294,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -3803,7 +5422,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -3929,7 +5550,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -4082,7 +5705,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -4299,7 +5924,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -4344,7 +5971,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -4367,7 +5994,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -4428,7 +6056,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -4473,7 +6103,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -4496,7 +6126,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -4557,7 +6188,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -4602,7 +6235,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -4625,7 +6258,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -4686,7 +6320,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -4731,7 +6367,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -4754,7 +6390,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -4815,7 +6452,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -4860,7 +6499,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -4883,7 +6522,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -4944,7 +6584,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -4989,7 +6631,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -5012,7 +6654,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -5073,7 +6716,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -5118,7 +6763,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -5141,7 +6786,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -5202,7 +6848,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -5247,7 +6895,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -5270,7 +6918,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -5331,7 +6980,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -5376,7 +7027,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -5399,7 +7050,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -5460,7 +7112,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -5505,7 +7159,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -5528,7 +7182,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -5589,7 +7244,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -5634,7 +7291,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -5657,7 +7314,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -5718,7 +7376,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -5763,7 +7423,7 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1
           },
           "Transit": {
             "0": 1,
@@ -5786,7 +7446,8 @@
             "80": 0,
             "90": 1,
             "default": 1,
-            "visible2": 0
+            "visible2": 1,
+            "visible_aspect_line12": 0
           },
           "Zemletochki": {
             "0": 4,
@@ -5873,7 +7534,9 @@
             "72": 0,
             "80": 0,
             "90": 1,
-            "default": 1
+            "default": 1,
+            "visible_aspect_line12": 1,
+            "visible_aspect_line21": 1
           },
           "Radix": {
             "0": 5,
@@ -8223,7 +9886,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -8350,7 +10015,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -8477,7 +10144,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -8604,7 +10273,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -8731,7 +10402,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -8858,7 +10531,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -8985,7 +10660,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -9112,7 +10789,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -9239,7 +10918,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -9366,7 +11047,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -9493,7 +11176,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -9619,7 +11304,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -9745,7 +11432,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -9898,7 +11587,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -10141,7 +11832,9 @@
                 "72": "<MAX_DEPTH 7>",
                 "80": "<MAX_DEPTH 7>",
                 "90": "<MAX_DEPTH 7>",
-                "default": "<MAX_DEPTH 7>"
+                "default": "<MAX_DEPTH 7>",
+                "visible_aspect_line12": "<MAX_DEPTH 7>",
+                "visible_aspect_line21": "<MAX_DEPTH 7>"
               },
               "Radix": {
                 "0": "<MAX_DEPTH 7>",
@@ -10366,7 +12059,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 10,
@@ -10493,7 +12188,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 9,
@@ -10620,7 +12317,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -10747,7 +12446,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -10874,7 +12575,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -11001,7 +12704,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 7,
@@ -11128,7 +12833,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -11255,7 +12962,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -11382,7 +13091,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -11509,7 +13220,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -11636,7 +13349,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -11762,7 +13477,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -11888,7 +13605,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -12041,7 +13760,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -12284,7 +14005,9 @@
               "72": 0,
               "80": 0,
               "90": 1,
-              "default": 1
+              "default": 1,
+              "visible_aspect_line12": 1,
+              "visible_aspect_line21": 1
             },
             "Radix": {
               "0": 5,
@@ -12457,1503 +14180,6 @@
     },
     "t_altitude": 25,
     "t_aspect_all_str": "",
-    "t_astro_dict": {
-      "t_house_dict": {
-        "23": {
-          "house_degree": 20.16407603448374,
-          "house_degree_ut": 50.16407603448374,
-          "house_id": 23,
-          "house_name": "Asc",
-          "house_number": 0,
-          "house_position_str": "Asc 20°10' taurus",
-          "house_retrograde": false,
-          "house_sign": 1,
-          "house_zodiac": "taurus",
-          "house_zodiac_attention": "outer",
-          "house_zodiac_drywet": "dry",
-          "house_zodiac_hotcold": "cold",
-          "house_zodiac_quality": "fixed",
-          "house_zodiac_short": "Tau",
-          "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
-        },
-        "24": {
-          "house_degree": 16.098604154209383,
-          "house_degree_ut": 76.09860415420938,
-          "house_id": 24,
-          "house_name": "II",
-          "house_number": 1,
-          "house_position_str": "II 16°6' gemini",
-          "house_retrograde": false,
-          "house_sign": 2,
-          "house_zodiac": "gemini",
-          "house_zodiac_attention": "inner",
-          "house_zodiac_drywet": "wet",
-          "house_zodiac_hotcold": "hot",
-          "house_zodiac_quality": "mutable",
-          "house_zodiac_short": "Gem",
-          "house_zodiac_yinyang": "yang",
-          "planet_type": "house"
-        },
-        "25": {
-          "house_degree": 2.5295296288491613,
-          "house_degree_ut": 92.52952962884916,
-          "house_id": 25,
-          "house_name": "III",
-          "house_number": 2,
-          "house_position_str": "III 2°32' cancer",
-          "house_retrograde": false,
-          "house_sign": 3,
-          "house_zodiac": "cancer",
-          "house_zodiac_attention": "inner",
-          "house_zodiac_drywet": "wet",
-          "house_zodiac_hotcold": "cold",
-          "house_zodiac_quality": "сardinal",
-          "house_zodiac_short": "Cnc",
-          "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
-        },
-        "26": {
-          "house_degree": 18.062249879051762,
-          "house_degree_ut": 108.06224987905176,
-          "house_id": 26,
-          "house_name": "Ic",
-          "house_number": 3,
-          "house_position_str": "Ic 18°4' cancer",
-          "house_retrograde": false,
-          "house_sign": 3,
-          "house_zodiac": "cancer",
-          "house_zodiac_attention": "inner",
-          "house_zodiac_drywet": "wet",
-          "house_zodiac_hotcold": "cold",
-          "house_zodiac_quality": "сardinal",
-          "house_zodiac_short": "Cnc",
-          "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
-        },
-        "27": {
-          "house_degree": 7.382216118376164,
-          "house_degree_ut": 127.38221611837616,
-          "house_id": 27,
-          "house_name": "V",
-          "house_number": 4,
-          "house_position_str": "V 7°23' leo",
-          "house_retrograde": false,
-          "house_sign": 4,
-          "house_zodiac": "leo",
-          "house_zodiac_attention": "outer",
-          "house_zodiac_drywet": "dry",
-          "house_zodiac_hotcold": "hot",
-          "house_zodiac_quality": "fixed",
-          "house_zodiac_short": "Leo",
-          "house_zodiac_yinyang": "yang",
-          "planet_type": "house"
-        },
-        "28": {
-          "house_degree": 10.483160668721894,
-          "house_degree_ut": 160.4831606687219,
-          "house_id": 28,
-          "house_name": "VI",
-          "house_number": 5,
-          "house_position_str": "VI 10°29' virgo",
-          "house_retrograde": false,
-          "house_sign": 5,
-          "house_zodiac": "virgo",
-          "house_zodiac_attention": "outer",
-          "house_zodiac_drywet": "dry",
-          "house_zodiac_hotcold": "cold",
-          "house_zodiac_quality": "mutable",
-          "house_zodiac_short": "Vir",
-          "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
-        },
-        "29": {
-          "house_degree": 20.16407603448374,
-          "house_degree_ut": 230.16407603448374,
-          "house_id": 29,
-          "house_name": "Dsc",
-          "house_number": 6,
-          "house_position_str": "Dsc 20°10' scorpio",
-          "house_retrograde": false,
-          "house_sign": 7,
-          "house_zodiac": "scorpio",
-          "house_zodiac_attention": "inner",
-          "house_zodiac_drywet": "wet",
-          "house_zodiac_hotcold": "cold",
-          "house_zodiac_quality": "fixed",
-          "house_zodiac_short": "Sco",
-          "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
-        },
-        "30": {
-          "house_degree": 16.098604154209397,
-          "house_degree_ut": 256.0986041542094,
-          "house_id": 30,
-          "house_name": "VIII",
-          "house_number": 7,
-          "house_position_str": "VIII 16°6' sagittarius",
-          "house_retrograde": false,
-          "house_sign": 8,
-          "house_zodiac": "sagittarius",
-          "house_zodiac_attention": "outer",
-          "house_zodiac_drywet": "dry",
-          "house_zodiac_hotcold": "hot",
-          "house_zodiac_quality": "mutable",
-          "house_zodiac_short": "Sgr",
-          "house_zodiac_yinyang": "yang",
-          "planet_type": "house"
-        },
-        "31": {
-          "house_degree": 2.5295296288491613,
-          "house_degree_ut": 272.52952962884916,
-          "house_id": 31,
-          "house_name": "IX",
-          "house_number": 8,
-          "house_position_str": "IX 2°32' capricorn",
-          "house_retrograde": false,
-          "house_sign": 9,
-          "house_zodiac": "capricorn",
-          "house_zodiac_attention": "outer",
-          "house_zodiac_drywet": "dry",
-          "house_zodiac_hotcold": "cold",
-          "house_zodiac_quality": "сardinal",
-          "house_zodiac_short": "Cap",
-          "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
-        },
-        "32": {
-          "house_degree": 18.062249879051762,
-          "house_degree_ut": 288.06224987905176,
-          "house_id": 32,
-          "house_name": "Mc",
-          "house_number": 9,
-          "house_position_str": "Mc 18°4' capricorn",
-          "house_retrograde": false,
-          "house_sign": 9,
-          "house_zodiac": "capricorn",
-          "house_zodiac_attention": "outer",
-          "house_zodiac_drywet": "dry",
-          "house_zodiac_hotcold": "cold",
-          "house_zodiac_quality": "сardinal",
-          "house_zodiac_short": "Cap",
-          "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
-        },
-        "33": {
-          "house_degree": 7.382216118376164,
-          "house_degree_ut": 307.38221611837616,
-          "house_id": 33,
-          "house_name": "XI",
-          "house_number": 10,
-          "house_position_str": "XI 7°23' aquarius",
-          "house_retrograde": false,
-          "house_sign": 10,
-          "house_zodiac": "aquarius",
-          "house_zodiac_attention": "inner",
-          "house_zodiac_drywet": "wet",
-          "house_zodiac_hotcold": "hot",
-          "house_zodiac_quality": "fixed",
-          "house_zodiac_short": "Aqr",
-          "house_zodiac_yinyang": "yang",
-          "planet_type": "house"
-        },
-        "34": {
-          "house_degree": 10.483160668721894,
-          "house_degree_ut": 340.4831606687219,
-          "house_id": 34,
-          "house_name": "XII",
-          "house_number": 11,
-          "house_position_str": "XII 10°29' pisces",
-          "house_retrograde": false,
-          "house_sign": 11,
-          "house_zodiac": "pisces",
-          "house_zodiac_attention": "inner",
-          "house_zodiac_drywet": "wet",
-          "house_zodiac_hotcold": "cold",
-          "house_zodiac_quality": "mutable",
-          "house_zodiac_short": "Psc",
-          "house_zodiac_yinyang": "ying",
-          "planet_type": "house"
-        }
-      },
-      "t_planet_dict": {
-        "0": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 4.6488811212441306,
-          "planet_degree_ut": 304.64888112124413,
-          "planet_house": [
-            9
-          ],
-          "planet_houses": [
-            9,
-            10
-          ],
-          "planet_id": 0,
-          "planet_lat_speed": -5.393608509800276e-05,
-          "planet_latitude": 1.6240945780056052e-05,
-          "planet_lon_speed": 1.0172525432034447,
-          "planet_longitude": 304.64888112124413,
-          "planet_name": "sun",
-          "planet_position_str": "sun 4°39' aquarius Mc",
-          "planet_retrograde": false,
-          "planet_sign": 10,
-          "planet_speed": 1.0172525446333263,
-          "planet_type": "planet",
-          "planet_zodiac": "aquarius",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Aqr",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "1": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 1.895692097702863,
-          "planet_degree_ut": 301.89569209770286,
-          "planet_house": [
-            9
-          ],
-          "planet_houses": [
-            9
-          ],
-          "planet_id": 1,
-          "planet_lat_speed": -1.2733807980012757,
-          "planet_latitude": -0.2044509433897319,
-          "planet_lon_speed": 13.780716525802188,
-          "planet_longitude": 301.89569209770286,
-          "planet_name": "moon",
-          "planet_position_str": "moon 1°54' aquarius Mc",
-          "planet_retrograde": false,
-          "planet_sign": 10,
-          "planet_speed": 13.839423637609908,
-          "planet_type": "planet",
-          "planet_zodiac": "aquarius",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Aqr",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "2": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 23.87258639787973,
-          "planet_degree_ut": 293.87258639787973,
-          "planet_house": [
-            9
-          ],
-          "planet_houses": [
-            9
-          ],
-          "planet_id": 2,
-          "planet_lat_speed": -0.0340843686939855,
-          "planet_latitude": 3.5225306247319117,
-          "planet_lon_speed": -0.9558917721034764,
-          "planet_longitude": 293.87258639787973,
-          "planet_name": "mercury",
-          "planet_position_str": "mercury 23°52' capricorn Mc retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 9,
-          "planet_speed": 0.9564992546596114,
-          "planet_type": "planet",
-          "planet_zodiac": "capricorn",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cap",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "3": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 17.818977707957004,
-          "planet_degree_ut": 257.818977707957,
-          "planet_house": [
-            7
-          ],
-          "planet_houses": [
-            7
-          ],
-          "planet_id": 3,
-          "planet_lat_speed": -0.04353081564565995,
-          "planet_latitude": 3.5401441604666877,
-          "planet_lon_speed": 1.0290981818221738,
-          "planet_longitude": 257.818977707957,
-          "planet_name": "venus",
-          "planet_position_str": "venus 17°49' sagittarius VIII",
-          "planet_retrograde": false,
-          "planet_sign": 8,
-          "planet_speed": 1.0300184463107835,
-          "planet_type": "planet",
-          "planet_zodiac": "sagittarius",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Sgr",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "4": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 18.900442325541746,
-          "planet_degree_ut": 138.90044232554175,
-          "planet_house": [
-            4
-          ],
-          "planet_houses": [
-            4
-          ],
-          "planet_id": 4,
-          "planet_lat_speed": 0.019728108274476006,
-          "planet_latitude": 4.445316301938461,
-          "planet_lon_speed": -0.3655792909034776,
-          "planet_longitude": 138.90044232554175,
-          "planet_name": "mars",
-          "planet_position_str": "mars 18°54' leo V retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 4,
-          "planet_speed": 0.366111207413238,
-          "planet_type": "planet",
-          "planet_zodiac": "leo",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Leo",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "5": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 13.810304959243581,
-          "planet_degree_ut": 343.8103049592436,
-          "planet_house": [
-            11
-          ],
-          "planet_houses": [
-            11
-          ],
-          "planet_id": 5,
-          "planet_lat_speed": 0.0013196704668348783,
-          "planet_latitude": -1.0774066168268064,
-          "planet_lon_speed": 0.21438133387111066,
-          "planet_longitude": 343.8103049592436,
-          "planet_name": "jupiter",
-          "planet_position_str": "jupiter 13°49' pisces XII",
-          "planet_retrograde": false,
-          "planet_sign": 11,
-          "planet_speed": 0.2143853955905058,
-          "planet_type": "planet",
-          "planet_zodiac": "pisces",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Psc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "6": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 12.734385908975412,
-          "planet_degree_ut": 312.7343859089754,
-          "planet_house": [
-            10
-          ],
-          "planet_houses": [
-            10
-          ],
-          "planet_id": 6,
-          "planet_lat_speed": -0.0009829188305196565,
-          "planet_latitude": -0.782199861132105,
-          "planet_lon_speed": 0.11911280018586602,
-          "planet_longitude": 312.7343859089754,
-          "planet_name": "saturn",
-          "planet_position_str": "saturn 12°44' aquarius XI",
-          "planet_retrograde": false,
-          "planet_sign": 10,
-          "planet_speed": 0.11911685563993635,
-          "planet_type": "planet",
-          "planet_zodiac": "aquarius",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Aqr",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "7": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 4.420335280800316,
-          "planet_degree_ut": 154.42033528080032,
-          "planet_house": [
-            4
-          ],
-          "planet_houses": [
-            4
-          ],
-          "planet_id": 7,
-          "planet_lat_speed": 0.0004356598283999928,
-          "planet_latitude": 0.7959124956222009,
-          "planet_lon_speed": -0.036051828336776344,
-          "planet_longitude": 154.42033528080032,
-          "planet_name": "uranus",
-          "planet_position_str": "uranus 4°25' virgo V retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 5,
-          "planet_speed": 0.036054460554978095,
-          "planet_type": "planet",
-          "planet_zodiac": "virgo",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Vir",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "8": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 15.529048715556229,
-          "planet_degree_ut": 225.52904871555623,
-          "planet_house": [
-            5
-          ],
-          "planet_houses": [
-            5,
-            6
-          ],
-          "planet_id": 8,
-          "planet_lat_speed": 0.0009630772295725503,
-          "planet_latitude": 1.7617021805211557,
-          "planet_lon_speed": 0.012398359502150043,
-          "planet_longitude": 225.52904871555623,
-          "planet_name": "neptune",
-          "planet_position_str": "neptune 15°32' scorpio VI",
-          "planet_retrograde": false,
-          "planet_sign": 7,
-          "planet_speed": 0.01243570810588104,
-          "planet_type": "planet",
-          "planet_zodiac": "scorpio",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Sco",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "9": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 11.730547152118817,
-          "planet_degree_ut": 161.73054715211882,
-          "planet_house": [
-            5
-          ],
-          "planet_houses": [
-            5
-          ],
-          "planet_id": 9,
-          "planet_lat_speed": 0.005530338653835359,
-          "planet_latitude": 13.78232325700117,
-          "planet_lon_speed": -0.019508944025959547,
-          "planet_longitude": 161.73054715211882,
-          "planet_name": "pluto",
-          "planet_position_str": "pluto 11°44' virgo VI retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 5,
-          "planet_speed": 0.020277661172682815,
-          "planet_type": "planet",
-          "planet_zodiac": "virgo",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Vir",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "10": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 29.394961770434207,
-          "planet_degree_ut": 119.39496177043421,
-          "planet_house": [
-            3
-          ],
-          "planet_houses": [
-            3
-          ],
-          "planet_id": 10,
-          "planet_lat_speed": 0.0,
-          "planet_latitude": 0.0,
-          "planet_lon_speed": -0.05293151595702672,
-          "planet_longitude": 119.39496177043421,
-          "planet_name": "mean node",
-          "planet_position_str": "mean node 29°24' cancer Ic retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 3,
-          "planet_speed": 0.05293151595702672,
-          "planet_type": "planet",
-          "planet_zodiac": "cancer",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cnc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "11": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 29.684205070068685,
-          "planet_degree_ut": 119.68420507006869,
-          "planet_house": [
-            3
-          ],
-          "planet_houses": [
-            3
-          ],
-          "planet_id": 11,
-          "planet_lat_speed": 0.0,
-          "planet_latitude": 0.0,
-          "planet_lon_speed": -0.0006882252207940951,
-          "planet_longitude": 119.68420507006869,
-          "planet_name": "true node",
-          "planet_position_str": "true node 29°41' cancer Ic retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 3,
-          "planet_speed": 0.0006882252207940951,
-          "planet_type": "planet",
-          "planet_zodiac": "cancer",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cnc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "12": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 20.463077178771357,
-          "planet_degree_ut": 200.46307717877136,
-          "planet_house": [
-            5
-          ],
-          "planet_houses": [
-            5
-          ],
-          "planet_id": 12,
-          "planet_lat_speed": 0.002282501265602533,
-          "planet_latitude": 5.08333025505307,
-          "planet_lon_speed": 0.11206053313962887,
-          "planet_longitude": 200.46307717877136,
-          "planet_name": "mean apogee",
-          "planet_position_str": "mean apogee 20°28' libra VI",
-          "planet_retrograde": false,
-          "planet_sign": 6,
-          "planet_speed": 0.11208377625493056,
-          "planet_type": "planet",
-          "planet_zodiac": "libra",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Lib",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "13": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 0.8752574253788339,
-          "planet_degree_ut": 180.87525742537883,
-          "planet_house": [
-            5
-          ],
-          "planet_houses": [
-            5
-          ],
-          "planet_id": 13,
-          "planet_lat_speed": -0.08266202805325301,
-          "planet_latitude": 4.63242198939641,
-          "planet_lon_speed": -1.8327519514966883,
-          "planet_longitude": 180.87525742537883,
-          "planet_name": "osc. apogee",
-          "planet_position_str": "osc. apogee 0°53' libra VI retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 6,
-          "planet_speed": 1.8346151440007237,
-          "planet_type": "planet",
-          "planet_zodiac": "libra",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Lib",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "14": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 0.0,
-          "planet_degree_ut": 0.0,
-          "planet_house": [
-            11
-          ],
-          "planet_houses": [
-            11
-          ],
-          "planet_id": 14,
-          "planet_lat_speed": 0.0,
-          "planet_latitude": 0.0,
-          "planet_lon_speed": 0.0,
-          "planet_longitude": 0.0,
-          "planet_name": "earth",
-          "planet_position_str": "earth 0°0' aries XII",
-          "planet_retrograde": false,
-          "planet_sign": 0,
-          "planet_speed": 0.0,
-          "planet_type": "planet",
-          "planet_zodiac": "aries",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Ari",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "15": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 8.304418657484462,
-          "planet_degree_ut": 338.30441865748446,
-          "planet_house": [
-            10
-          ],
-          "planet_houses": [
-            10,
-            11
-          ],
-          "planet_id": 15,
-          "planet_lat_speed": -0.003462246634738464,
-          "planet_latitude": 4.994302400576632,
-          "planet_lon_speed": 0.05596337689977847,
-          "planet_longitude": 338.30441865748446,
-          "planet_name": "chiron",
-          "planet_position_str": "chiron 8°18' pisces XI",
-          "planet_retrograde": false,
-          "planet_sign": 11,
-          "planet_speed": 0.056070372798710875,
-          "planet_type": "planet",
-          "planet_zodiac": "pisces",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Psc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "16": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 15.26851505045363,
-          "planet_degree_ut": 315.26851505045363,
-          "planet_house": [
-            10
-          ],
-          "planet_houses": [
-            10
-          ],
-          "planet_id": 16,
-          "planet_lat_speed": -0.0009110007279970581,
-          "planet_latitude": -7.289434243395114,
-          "planet_lon_speed": 0.037680895360149624,
-          "planet_longitude": 315.26851505045363,
-          "planet_name": "pholus",
-          "planet_position_str": "pholus 15°16' aquarius XI",
-          "planet_retrograde": false,
-          "planet_sign": 10,
-          "planet_speed": 0.03769190625942069,
-          "planet_type": "planet",
-          "planet_zodiac": "aquarius",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Aqr",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "17": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 17.387847590260122,
-          "planet_degree_ut": 167.38784759026012,
-          "planet_house": [
-            5
-          ],
-          "planet_houses": [
-            5
-          ],
-          "planet_id": 17,
-          "planet_lat_speed": 0.09577243899303875,
-          "planet_latitude": 14.706233876498965,
-          "planet_lon_speed": -0.06638762382013545,
-          "planet_longitude": 167.38784759026012,
-          "planet_name": "ceres",
-          "planet_position_str": "ceres 17°23' virgo VI retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 5,
-          "planet_speed": 0.11653186974883371,
-          "planet_type": "planet",
-          "planet_zodiac": "virgo",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Vir",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "18": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 8.098080109220305,
-          "planet_degree_ut": 98.0980801092203,
-          "planet_house": [
-            2
-          ],
-          "planet_houses": [
-            2
-          ],
-          "planet_id": 18,
-          "planet_lat_speed": 0.27438682603648795,
-          "planet_latitude": -51.310910926747596,
-          "planet_lon_speed": -0.20689730580887886,
-          "planet_longitude": 98.0980801092203,
-          "planet_name": "pallas",
-          "planet_position_str": "pallas 8°6' cancer III retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 3,
-          "planet_speed": 0.3436489858174335,
-          "planet_type": "planet",
-          "planet_zodiac": "cancer",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cnc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "19": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 27.043127808493352,
-          "planet_degree_ut": 177.04312780849335,
-          "planet_house": [
-            5
-          ],
-          "planet_houses": [
-            5
-          ],
-          "planet_id": 19,
-          "planet_lat_speed": 0.05024142688861977,
-          "planet_latitude": -3.281327853053929,
-          "planet_lon_speed": -0.05421430000319328,
-          "planet_longitude": 177.04312780849335,
-          "planet_name": "juno",
-          "planet_position_str": "juno 27°3' virgo VI retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 5,
-          "planet_speed": 0.07391475698830896,
-          "planet_type": "planet",
-          "planet_zodiac": "virgo",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Vir",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "20": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 0.6307245382078008,
-          "planet_degree_ut": 180.6307245382078,
-          "planet_house": [
-            5
-          ],
-          "planet_houses": [
-            5
-          ],
-          "planet_id": 20,
-          "planet_lat_speed": 0.08176693149933086,
-          "planet_latitude": 8.446267872590877,
-          "planet_lon_speed": 0.04054082882683758,
-          "planet_longitude": 180.6307245382078,
-          "planet_name": "vesta",
-          "planet_position_str": "vesta 0°38' libra VI",
-          "planet_retrograde": false,
-          "planet_sign": 6,
-          "planet_speed": 0.0912654912263294,
-          "planet_type": "planet",
-          "planet_zodiac": "libra",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Lib",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "21": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 22.670558008734986,
-          "planet_degree_ut": 202.670558008735,
-          "planet_house": [
-            5
-          ],
-          "planet_houses": [
-            5
-          ],
-          "planet_id": 21,
-          "planet_lat_speed": 0.0014601447530593439,
-          "planet_latitude": 5.245606251410098,
-          "planet_lon_speed": 0.2260291352141657,
-          "planet_longitude": 202.670558008735,
-          "planet_name": "intp. apogee",
-          "planet_position_str": "intp. apogee 22°40' libra VI",
-          "planet_retrograde": false,
-          "planet_sign": 6,
-          "planet_speed": 0.22603385142133797,
-          "planet_type": "planet",
-          "planet_zodiac": "libra",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Lib",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "22": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 29.172863245202166,
-          "planet_degree_ut": 359.17286324520217,
-          "planet_house": [
-            11
-          ],
-          "planet_houses": [
-            11
-          ],
-          "planet_id": 22,
-          "planet_lat_speed": 0.020567318510744913,
-          "planet_latitude": -4.556203330632593,
-          "planet_lon_speed": -0.41942774224033097,
-          "planet_longitude": 359.17286324520217,
-          "planet_name": "intp. perigee",
-          "planet_position_str": "intp. perigee 29°10' pisces XII retrograde",
-          "planet_retrograde": true,
-          "planet_sign": 11,
-          "planet_speed": 0.4199317153437496,
-          "planet_type": "planet",
-          "planet_zodiac": "pisces",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Psc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "23": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 20.16407603448374,
-          "planet_degree_ut": 50.16407603448374,
-          "planet_house": [
-            0,
-            11
-          ],
-          "planet_houses": [
-            0,
-            11
-          ],
-          "planet_id": 23,
-          "planet_lat_speed": 23,
-          "planet_latitude": 23,
-          "planet_lon_speed": 23,
-          "planet_longitude": 23,
-          "planet_name": "Asc",
-          "planet_position_str": "Asc 20°10' taurus Asc, XII",
-          "planet_retrograde": false,
-          "planet_sign": 1,
-          "planet_speed": 32.526911934581186,
-          "planet_type": "house",
-          "planet_zodiac": "taurus",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Tau",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "24": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 16.098604154209383,
-          "planet_degree_ut": 76.09860415420938,
-          "planet_house": [
-            0,
-            1
-          ],
-          "planet_houses": [
-            0,
-            1
-          ],
-          "planet_id": 24,
-          "planet_lat_speed": 24,
-          "planet_latitude": 24,
-          "planet_lon_speed": 24,
-          "planet_longitude": 24,
-          "planet_name": "II",
-          "planet_position_str": "II 16°6' gemini Asc, II",
-          "planet_retrograde": false,
-          "planet_sign": 2,
-          "planet_speed": 33.94112549695428,
-          "planet_type": "house",
-          "planet_zodiac": "gemini",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Gem",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "25": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 2.5295296288491613,
-          "planet_degree_ut": 92.52952962884916,
-          "planet_house": [
-            1,
-            2
-          ],
-          "planet_houses": [
-            1,
-            2
-          ],
-          "planet_id": 25,
-          "planet_lat_speed": 25,
-          "planet_latitude": 25,
-          "planet_lon_speed": 25,
-          "planet_longitude": 25,
-          "planet_name": "III",
-          "planet_position_str": "III 2°32' cancer II, III",
-          "planet_retrograde": false,
-          "planet_sign": 3,
-          "planet_speed": 35.35533905932738,
-          "planet_type": "house",
-          "planet_zodiac": "cancer",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cnc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "26": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 18.062249879051762,
-          "planet_degree_ut": 108.06224987905176,
-          "planet_house": [
-            2,
-            3
-          ],
-          "planet_houses": [
-            2,
-            3
-          ],
-          "planet_id": 26,
-          "planet_lat_speed": 26,
-          "planet_latitude": 26,
-          "planet_lon_speed": 26,
-          "planet_longitude": 26,
-          "planet_name": "Ic",
-          "planet_position_str": "Ic 18°4' cancer III, Ic",
-          "planet_retrograde": false,
-          "planet_sign": 3,
-          "planet_speed": 36.76955262170047,
-          "planet_type": "house",
-          "planet_zodiac": "cancer",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cnc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "27": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 7.382216118376164,
-          "planet_degree_ut": 127.38221611837616,
-          "planet_house": [
-            3,
-            4
-          ],
-          "planet_houses": [
-            3,
-            4
-          ],
-          "planet_id": 27,
-          "planet_lat_speed": 27,
-          "planet_latitude": 27,
-          "planet_lon_speed": 27,
-          "planet_longitude": 27,
-          "planet_name": "V",
-          "planet_position_str": "V 7°23' leo Ic, V",
-          "planet_retrograde": false,
-          "planet_sign": 4,
-          "planet_speed": 38.18376618407357,
-          "planet_type": "house",
-          "planet_zodiac": "leo",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Leo",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "28": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 10.483160668721894,
-          "planet_degree_ut": 160.4831606687219,
-          "planet_house": [
-            4,
-            5
-          ],
-          "planet_houses": [
-            4,
-            5
-          ],
-          "planet_id": 28,
-          "planet_lat_speed": 28,
-          "planet_latitude": 28,
-          "planet_lon_speed": 28,
-          "planet_longitude": 28,
-          "planet_name": "VI",
-          "planet_position_str": "VI 10°29' virgo V, VI",
-          "planet_retrograde": false,
-          "planet_sign": 5,
-          "planet_speed": 39.59797974644666,
-          "planet_type": "house",
-          "planet_zodiac": "virgo",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Vir",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "29": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 20.16407603448374,
-          "planet_degree_ut": 230.16407603448374,
-          "planet_house": [
-            5,
-            6
-          ],
-          "planet_houses": [
-            5,
-            6
-          ],
-          "planet_id": 29,
-          "planet_lat_speed": 29,
-          "planet_latitude": 29,
-          "planet_lon_speed": 29,
-          "planet_longitude": 29,
-          "planet_name": "Dsc",
-          "planet_position_str": "Dsc 20°10' scorpio VI, Dsc",
-          "planet_retrograde": false,
-          "planet_sign": 7,
-          "planet_speed": 41.012193308819754,
-          "planet_type": "house",
-          "planet_zodiac": "scorpio",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Sco",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "30": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 16.098604154209397,
-          "planet_degree_ut": 256.0986041542094,
-          "planet_house": [
-            6,
-            7
-          ],
-          "planet_houses": [
-            6,
-            7
-          ],
-          "planet_id": 30,
-          "planet_lat_speed": 30,
-          "planet_latitude": 30,
-          "planet_lon_speed": 30,
-          "planet_longitude": 30,
-          "planet_name": "VIII",
-          "planet_position_str": "VIII 16°6' sagittarius Dsc, VIII",
-          "planet_retrograde": false,
-          "planet_sign": 8,
-          "planet_speed": 42.42640687119285,
-          "planet_type": "house",
-          "planet_zodiac": "sagittarius",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Sgr",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "31": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 2.5295296288491613,
-          "planet_degree_ut": 272.52952962884916,
-          "planet_house": [
-            7,
-            8
-          ],
-          "planet_houses": [
-            7,
-            8
-          ],
-          "planet_id": 31,
-          "planet_lat_speed": 31,
-          "planet_latitude": 31,
-          "planet_lon_speed": 31,
-          "planet_longitude": 31,
-          "planet_name": "IX",
-          "planet_position_str": "IX 2°32' capricorn VIII, IX",
-          "planet_retrograde": false,
-          "planet_sign": 9,
-          "planet_speed": 43.840620433565945,
-          "planet_type": "house",
-          "planet_zodiac": "capricorn",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cap",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "32": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 18.062249879051762,
-          "planet_degree_ut": 288.06224987905176,
-          "planet_house": [
-            8,
-            9
-          ],
-          "planet_houses": [
-            8,
-            9
-          ],
-          "planet_id": 32,
-          "planet_lat_speed": 32,
-          "planet_latitude": 32,
-          "planet_lon_speed": 32,
-          "planet_longitude": 32,
-          "planet_name": "Mc",
-          "planet_position_str": "Mc 18°4' capricorn IX, Mc",
-          "planet_retrograde": false,
-          "planet_sign": 9,
-          "planet_speed": 45.254833995939045,
-          "planet_type": "house",
-          "planet_zodiac": "capricorn",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cap",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "33": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 7.382216118376164,
-          "planet_degree_ut": 307.38221611837616,
-          "planet_house": [
-            9,
-            10
-          ],
-          "planet_houses": [
-            9,
-            10
-          ],
-          "planet_id": 33,
-          "planet_lat_speed": 33,
-          "planet_latitude": 33,
-          "planet_lon_speed": 33,
-          "planet_longitude": 33,
-          "planet_name": "XI",
-          "planet_position_str": "XI 7°23' aquarius Mc, XI",
-          "planet_retrograde": false,
-          "planet_sign": 10,
-          "planet_speed": 46.66904755831214,
-          "planet_type": "house",
-          "planet_zodiac": "aquarius",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Aqr",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "34": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 10.483160668721894,
-          "planet_degree_ut": 340.4831606687219,
-          "planet_house": [
-            10,
-            11
-          ],
-          "planet_houses": [
-            10,
-            11
-          ],
-          "planet_id": 34,
-          "planet_lat_speed": 34,
-          "planet_latitude": 34,
-          "planet_lon_speed": 34,
-          "planet_longitude": 34,
-          "planet_name": "XII",
-          "planet_position_str": "XII 10°29' pisces XI, XII",
-          "planet_retrograde": false,
-          "planet_sign": 11,
-          "planet_speed": 48.08326112068523,
-          "planet_type": "house",
-          "planet_zodiac": "pisces",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "mutable",
-          "planet_zodiac_short": "Psc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "35": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 17.410887010942474,
-          "planet_degree_ut": 47.410887010942474,
-          "planet_house": [
-            11
-          ],
-          "planet_houses": [
-            0,
-            11
-          ],
-          "planet_id": 35,
-          "planet_lat_speed": 35,
-          "planet_latitude": 35,
-          "planet_lon_speed": 35,
-          "planet_longitude": 35,
-          "planet_name": "day pars",
-          "planet_position_str": "day pars 17°25' taurus XII",
-          "planet_retrograde": false,
-          "planet_sign": 1,
-          "planet_speed": 49.49747468305833,
-          "planet_type": "planet",
-          "planet_zodiac": "taurus",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Tau",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "36": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 22.91726505802501,
-          "planet_degree_ut": 52.91726505802501,
-          "planet_house": [
-            0
-          ],
-          "planet_houses": [
-            0
-          ],
-          "planet_id": 36,
-          "planet_lat_speed": 36,
-          "planet_latitude": 36,
-          "planet_lon_speed": 36,
-          "planet_longitude": 36,
-          "planet_name": "night pars",
-          "planet_position_str": "night pars 22°55' taurus Asc",
-          "planet_retrograde": false,
-          "planet_sign": 1,
-          "planet_speed": 50.91168824543142,
-          "planet_type": "planet",
-          "planet_zodiac": "taurus",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Tau",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "37": {
-          "aspect_orbis_planet": 1,
-          "planet_degree": 29.684205070068685,
-          "planet_degree_ut": 299.6842050700687,
-          "planet_house": [
-            9
-          ],
-          "planet_houses": [
-            9
-          ],
-          "planet_id": 37,
-          "planet_lat_speed": 37,
-          "planet_latitude": 37,
-          "planet_lon_speed": 37,
-          "planet_longitude": 37,
-          "planet_name": "south node",
-          "planet_position_str": "south node 29°41' capricorn Mc",
-          "planet_retrograde": false,
-          "planet_sign": 9,
-          "planet_speed": 52.32590180780452,
-          "planet_type": "planet",
-          "planet_zodiac": "capricorn",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cap",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "38": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 22.50917436101048,
-          "planet_degree_ut": 22.50917436101048,
-          "planet_house": [
-            11
-          ],
-          "planet_houses": [
-            11
-          ],
-          "planet_id": 38,
-          "planet_lat_speed": 38,
-          "planet_latitude": 38,
-          "planet_lon_speed": 38,
-          "planet_longitude": 38,
-          "planet_name": "marriage pars",
-          "planet_position_str": "marriage pars 22°31' aries XII",
-          "planet_retrograde": false,
-          "planet_sign": 0,
-          "planet_speed": 53.74011537017761,
-          "planet_type": "planet",
-          "planet_zodiac": "aries",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Ari",
-          "planet_zodiac_yinyang": "yang"
-        },
-        "39": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 12.298511748667707,
-          "planet_degree_ut": 102.2985117486677,
-          "planet_house": [
-            2
-          ],
-          "planet_houses": [
-            2
-          ],
-          "planet_id": 39,
-          "planet_lat_speed": 39,
-          "planet_latitude": 39,
-          "planet_lon_speed": 39,
-          "planet_longitude": 39,
-          "planet_name": "black sun",
-          "planet_position_str": "black sun 12°18' cancer III",
-          "planet_retrograde": false,
-          "planet_sign": 3,
-          "planet_speed": 55.154328932550705,
-          "planet_type": "planet",
-          "planet_zodiac": "cancer",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cnc",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "40": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 20.38669374685641,
-          "planet_degree_ut": 50.38669374685641,
-          "planet_house": [
-            0
-          ],
-          "planet_houses": [
-            0
-          ],
-          "planet_id": 40,
-          "planet_lat_speed": 40,
-          "planet_latitude": 40,
-          "planet_lon_speed": 40,
-          "planet_longitude": 40,
-          "planet_name": "vulcanus",
-          "planet_position_str": "vulcanus 20°23' taurus Asc",
-          "planet_retrograde": false,
-          "planet_sign": 1,
-          "planet_speed": 56.568542494923804,
-          "planet_type": "planet",
-          "planet_zodiac": "taurus",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "fixed",
-          "planet_zodiac_short": "Tau",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "41": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 5.067087345687071,
-          "planet_degree_ut": 275.06708734568707,
-          "planet_house": [
-            8
-          ],
-          "planet_houses": [
-            8
-          ],
-          "planet_id": 41,
-          "planet_lat_speed": 41,
-          "planet_latitude": 41,
-          "planet_lon_speed": 41,
-          "planet_longitude": 41,
-          "planet_name": "persephone",
-          "planet_position_str": "persephone 5°4' capricorn IX",
-          "planet_retrograde": false,
-          "planet_sign": 9,
-          "planet_speed": 57.982756057296896,
-          "planet_type": "planet",
-          "planet_zodiac": "capricorn",
-          "planet_zodiac_attention": "outer",
-          "planet_zodiac_drywet": "dry",
-          "planet_zodiac_hotcold": "cold",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Cap",
-          "planet_zodiac_yinyang": "ying"
-        },
-        "42": {
-          "aspect_orbis_planet": 10,
-          "planet_degree": 12.121916074491935,
-          "planet_degree_ut": 192.12191607449193,
-          "planet_house": [
-            5
-          ],
-          "planet_houses": [
-            5
-          ],
-          "planet_id": 42,
-          "planet_lat_speed": 42,
-          "planet_latitude": 42,
-          "planet_lon_speed": 42,
-          "planet_longitude": 42,
-          "planet_name": "true lilith own",
-          "planet_position_str": "true lilith own 12°7' libra VI",
-          "planet_retrograde": false,
-          "planet_sign": 6,
-          "planet_speed": 59.39696961966999,
-          "planet_type": "planet",
-          "planet_zodiac": "libra",
-          "planet_zodiac_attention": "inner",
-          "planet_zodiac_drywet": "wet",
-          "planet_zodiac_hotcold": "hot",
-          "planet_zodiac_quality": "сardinal",
-          "planet_zodiac_short": "Lib",
-          "planet_zodiac_yinyang": "yang"
-        }
-      }
-    },
     "t_day": 25,
     "t_geolat": 55.78472277151802,
     "t_geolon": 37.628137530436106,
@@ -14687,7 +14913,7 @@
           0,
           0,
           0,
-          0.07545842126245361,
+          0,
           0,
           0,
           0,
@@ -30049,51 +30275,6 @@
           0,
           0,
           0,
-          0.7291639375433192,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
           0,
           0,
           0,
@@ -30274,7 +30455,7 @@
           0,
           0,
           0,
-          0.2533365805788321,
+          0,
           0,
           0,
           0,
@@ -30314,7 +30495,52 @@
           0,
           0,
           0,
-          0.3010670399185926,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           0,
           0,
           0,
@@ -41665,51 +41891,6 @@
           0,
           0,
           0,
-          0.7291639375433192,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
           0,
           0,
           0,
@@ -41890,7 +42071,7 @@
           0,
           0,
           0,
-          0.25333658057886055,
+          0,
           0,
           0,
           0,
@@ -41930,7 +42111,52 @@
           0,
           0,
           0,
-          0.3010670399185926,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           0,
           0,
           0,
@@ -49547,7 +49773,7 @@
           0,
           0,
           0,
-          0.07545842126245361,
+          0,
           0,
           0,
           0,
@@ -88156,13 +88382,13 @@
         "",
         "",
         "",
-        "120",
         "",
         "",
         "",
         "",
         "",
-        "60",
+        "",
+        "",
         "",
         "",
         "",
@@ -88290,13 +88516,58 @@
         "",
         "",
         "",
-        "180",
         "",
         "",
         "",
         "",
         "",
-        "0",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
         "",
         "",
         "",
@@ -88381,53 +88652,8 @@
         "",
         "",
         "",
-        "120",
         "",
         "",
-        "",
-        "",
-        "",
-        "60",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
-      [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "120",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "60",
         "",
         "",
         "",
@@ -90436,10 +90662,6 @@
           "id": ""
         },
         {
-          "delta": 0.7291639375433192,
-          "id": "120"
-        },
-        {
           "delta": "",
           "id": ""
         },
@@ -90460,8 +90682,12 @@
           "id": ""
         },
         {
-          "delta": 0.7291639375433192,
-          "id": "60"
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
         },
         {
           "delta": "",
@@ -90954,8 +91180,24 @@
           "id": ""
         },
         {
-          "delta": 0.07545842126245361,
-          "id": "180"
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
         },
         {
           "delta": "",
@@ -90978,8 +91220,166 @@
           "id": ""
         },
         {
-          "delta": 0.07545842126245361,
-          "id": "0"
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        }
+      ],
+      [
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
+        },
+        {
+          "delta": "",
+          "id": ""
         },
         {
           "delta": "",
@@ -91306,186 +91706,12 @@
           "id": ""
         },
         {
-          "delta": 0.25333658057886055,
-          "id": "120"
-        },
-        {
           "delta": "",
           "id": ""
         },
         {
           "delta": "",
           "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": 0.2533365805788321,
-          "id": "60"
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        }
-      ],
-      [
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": 0.3010670399185926,
-          "id": "120"
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": "",
-          "id": ""
-        },
-        {
-          "delta": 0.3010670399185926,
-          "id": "60"
         },
         {
           "delta": "",

@@ -2076,6 +2076,21 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					return True
 		return False
 
+	def _is_transit_aspect_visible(self, natal_index: int, transit_index: int) -> bool:
+		natal_entry = self.planets[natal_index]
+		transit_entry = self.planets[transit_index]
+		if natal_entry.get("visible", 1) == 1 and transit_entry.get("visible", 1) == 1:
+			natal_orb = natal_entry.get("planet_orb", {}).get(self.type, {})
+			transit_orb = transit_entry.get("planet_orb", {}).get(self.type, {})
+			if natal_orb.get("visible_aspect_line21", 1) == 1 and transit_orb.get("visible_aspect_line12", 1) == 1:
+				return True
+		return (
+			(natal_entry.get("visible") == 1)
+			and (transit_entry.get("t_visible", 1) == 1)
+			and (natal_entry.get("visible_aspect_line", 1) == 1)
+			and (transit_entry.get("visible_aspect_line", 1) == 1)
+		)
+
 	def makeAspectsTransit( self , r , ar ):
 		out = ""
 		self.atgrid=[]
@@ -2095,22 +2110,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				self.t_planets_aspects_id_dic[i].append({'id':"", 'delta':""})
 				end=self.t_planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
-				#loop orbs
-				# if ((self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1) or \
-				# 		(self.planets[i]['visible'] == 1) & ('t_visible' not in self.planets[x])) and \
-				# 	((self.planets[i]['visible_aspect_line'] == 1) & (self.planets[x]['visible_aspect_line'] == 1)):
-				asp_visible = False
-				if (self.planets[i]['visible'] == 1) & (self.planets[x]['visible'] == 1):
-					if ('planet_orb' in self.planets[i] and "visible_aspect_line2" in self.planets[i]['planet_orb'][self.type]) and \
-							('planet_orb' in self.planets[x] and "visible_aspect_line2" in self.planets[x]['planet_orb'][self.type]) :
-						if self.planets[i]['planet_orb'][self.type]["visible_aspect_line2"] == 1  & \
-							self.planets[x]['planet_orb'][self.type]["visible_aspect_line2"] == 1:
-							asp_visible = True
-				# OR
-				if ((self.planets[i]['visible'] == 1) & ('t_visible' in self.planets[x] and self.planets[x]['t_visible'] == 1) or \
-						(self.planets[i]['visible'] == 1) & ('t_visible' not in self.planets[x])) and \
-					((self.planets[i]['visible_aspect_line'] == 1) & (self.planets[x]['visible_aspect_line'] == 1)):
-					asp_visible = True
+				asp_visible = self._is_transit_aspect_visible(i, x)
 
 				if 	asp_visible == True:
 					if ('planet_orb' in self.planets[x]):

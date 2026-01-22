@@ -1409,8 +1409,33 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		And self.houses_dict for all houses
 		:return:
 		"""
+		settings_planet_dict: Dict[str, Dict[str, Any]] = {}
+		settings_house_dict: Dict[str, Dict[str, Any]] = {}
+		settings_payload = getattr(self, "settings", None)
+		if isinstance(settings_payload, dict):
+			settings_planet_dict = settings_payload.get("settings_planet_dict", {}) or {}
+			settings_house_dict = settings_payload.get("settings_house_dict", {}) or {}
+		else:
+			settings_planet_dict = getattr(settings_payload, "settings_planet_dict", None) or {}
+			if not isinstance(settings_planet_dict, dict):
+				settings_planet_dict = getattr(settings_payload, "settings", {}).get("settings_planet_dict", {}) or {}
+			settings_house_dict = getattr(settings_payload, "settings_house_dict", None) or {}
+			if not isinstance(settings_house_dict, dict):
+				settings_house_dict = getattr(settings_payload, "settings", {}).get("settings_house_dict", {}) or {}
+
 		self.planets_dict = {}
-		self.astro_dict = {"planet_dict": {}, "house_dict": {}}
+		t_planet_dict = {}
+		t_house_dict = {}
+		existing_astro_dict = getattr(self, "astro_dict", None)
+		if isinstance(existing_astro_dict, dict):
+			t_planet_dict = existing_astro_dict.get("t_planet_dict", {})
+			t_house_dict = existing_astro_dict.get("t_house_dict", {})
+		self.astro_dict = {
+			"planet_dict": {},
+			"house_dict": {},
+			"t_planet_dict": t_planet_dict,
+			"t_house_dict": t_house_dict,
+		}
 		self.houses_dict = {}
 		self.planets_all_str = ""
 		self.houses_all_str = ""
@@ -1494,6 +1519,10 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				planet_id_key = planet_id
 			if planet_id_key in house_id_set:
 				astro_entry["planet_type"] = "house"
+			visible_entry = settings_planet_dict.get(str(planet_id))
+			if not isinstance(visible_entry, dict):
+				visible_entry = settings_planet_dict.get(planet_id)
+			astro_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
 			self.astro_dict["planet_dict"][planet_id] = astro_entry
 
 			if self._is_house_index(i):
@@ -1525,6 +1554,10 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				house_id = self.planets[i].get("id", hi) if isinstance(self.planets[i], dict) else hi
 				astro_house_entry["house_id"] = house_id
 				astro_house_entry["house_number"] = hi
+				visible_entry = settings_house_dict.get(str(house_id))
+				if not isinstance(visible_entry, dict):
+					visible_entry = settings_house_dict.get(house_id)
+				astro_house_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
 				self.astro_dict["house_dict"][house_id] = astro_house_entry
 				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
 					self.houses_all_str = self.houses_all_str + houses_position_str + """
@@ -1547,8 +1580,25 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 		:return:
 		"""
+		settings_planet_dict: Dict[str, Dict[str, Any]] = {}
+		settings_house_dict: Dict[str, Dict[str, Any]] = {}
+		settings_payload = getattr(self, "settings", None)
+		if isinstance(settings_payload, dict):
+			settings_planet_dict = settings_payload.get("settings_planet_dict", {}) or {}
+			settings_house_dict = settings_payload.get("settings_house_dict", {}) or {}
+		else:
+			settings_planet_dict = getattr(settings_payload, "settings_planet_dict", None) or {}
+			if not isinstance(settings_planet_dict, dict):
+				settings_planet_dict = getattr(settings_payload, "settings", {}).get("settings_planet_dict", {}) or {}
+			settings_house_dict = getattr(settings_payload, "settings_house_dict", None) or {}
+			if not isinstance(settings_house_dict, dict):
+				settings_house_dict = getattr(settings_payload, "settings", {}).get("settings_house_dict", {}) or {}
+
 		self.t_planets_dict = {}
-		self.t_astro_dict = {"t_planet_dict": {}, "t_house_dict": {}}
+		if not isinstance(getattr(self, "astro_dict", None), dict):
+			self.astro_dict = {}
+		self.astro_dict.setdefault("t_planet_dict", {})
+		self.astro_dict.setdefault("t_house_dict", {})
 		self.t_houses_dict = {}
 		self.t_planets_all_str = ""
 		self.t_houses_all_str = ""
@@ -1635,7 +1685,11 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				planet_id_key = planet_id
 			if planet_id_key in house_id_set:
 				astro_entry["planet_type"] = "house"
-			self.t_astro_dict["t_planet_dict"][planet_id] = astro_entry
+			visible_entry = settings_planet_dict.get(str(planet_id))
+			if not isinstance(visible_entry, dict):
+				visible_entry = settings_planet_dict.get(planet_id)
+			astro_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
+			self.astro_dict["t_planet_dict"][planet_id] = astro_entry
 
 			if self._is_house_index(i):
 				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]}"
@@ -1666,7 +1720,11 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				house_id = self.planets[i].get("id", hi) if isinstance(self.planets[i], dict) else hi
 				astro_house_entry["house_id"] = house_id
 				astro_house_entry["house_number"] = hi
-				self.t_astro_dict["t_house_dict"][house_id] = astro_house_entry
+				visible_entry = settings_house_dict.get(str(house_id))
+				if not isinstance(visible_entry, dict):
+					visible_entry = settings_house_dict.get(house_id)
+				astro_house_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
+				self.astro_dict["t_house_dict"][house_id] = astro_house_entry
 				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
 					self.t_houses_all_str = self.t_houses_all_str + houses_position_str + """
 """
@@ -1679,7 +1737,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			i += 1
 		# Placeholder for natal->transit aspects dict, built in renderer during transit aspects.
 		self.planets_dict_t = {}
-		return self.t_astro_dict
+		return self.astro_dict
 
 
 	def get_house_for_planet(self, planet_degree, houses_degree_ut, one_house=True):

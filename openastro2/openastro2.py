@@ -2009,6 +2009,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 	def makeAspects( self , r , ar ):
 		out=""
+		self._reset_natal_aspect_data()
 		self.planets_aspects= {}
 		self.planets_aspects_arr = [[[0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.settings.settings["settings_aspect"]))]
 		self.planets_aspects_arr_diff = [[[0.0 for x in range(len(self.planets))] for x in range(len(self.planets))] for x in range(len(self.settings.settings["settings_aspect"]))]
@@ -2069,6 +2070,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 									self.planets_aspects_arr[z][i][x] = 0
 								# out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.settings.settings["color_codes"]["aspect_%s" %(self.settings.settings["settings_aspect"][z]['degree'])] )
 								out = out + self.drawAspect( r , ar , self.planets_degree_ut[i] , self.planets_degree_ut[x] , self.settings.settings["settings_aspect"][z]['color'] )
+								self._record_natal_aspect(i, x, diff, z)
 
 		return out
 
@@ -2101,6 +2103,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 	def makeAspectsTransit( self , r , ar ):
 		out = ""
+		self._reset_transit_aspect_data()
 		self.atgrid=[]
 		self.t_planets_aspects_id_arr = []
 		self.t_planets_aspects_id_dic = []
@@ -2187,6 +2190,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 												# print(aspect_arr['delta'])
 												# self.t_planets_aspects_id_dic[i][x] = aspect_arr
 												self.t_planets_aspects_id_dic[i][x] = {'id':self.settings.settings["settings_aspect"][z]['id'], 'delta':self.t_planets_aspects_arr[z][i][x]}
+												self._record_transit_aspect(i, x, diff, z)
 												# print(self.t_planets_aspects_id_dic[i][x])
 
 											#aspect grid dictionary
@@ -2198,6 +2202,145 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 												# self.atgrid[-1]['diff']=diff
 										# self.t_planets_aspects_id_dic[i][x] = aspect_arr
 		return out
+
+	def _reset_natal_aspect_data(self) -> None:
+		self.planets_aspects_list = []
+		self.aspect_all_str = ""
+		if hasattr(self, "planets_dict") and isinstance(self.planets_dict, dict):
+			for entry in self.planets_dict.values():
+				if isinstance(entry, dict):
+					entry.pop("aspects", None)
+		if hasattr(self, "houses_dict") and isinstance(self.houses_dict, dict):
+			for entry in self.houses_dict.values():
+				if isinstance(entry, dict):
+					entry.pop("aspects", None)
+		if isinstance(getattr(self, "astro_dict", None), dict):
+			for entry in self.astro_dict.get("planet_dict", {}).values():
+				if isinstance(entry, dict):
+					entry.pop("aspects", None)
+
+	def _reset_transit_aspect_data(self) -> None:
+		self.t_planets_aspects_list = []
+		self.t_aspect_all_str = ""
+		if isinstance(getattr(self, "astro_dict", None), dict):
+			for entry in self.astro_dict.get("t_planet_dict", {}).values():
+				if isinstance(entry, dict):
+					entry.pop("aspects", None)
+		if hasattr(self, "planets_dict_t") and isinstance(self.planets_dict_t, dict):
+			for entry in self.planets_dict_t.values():
+				if isinstance(entry, dict):
+					entry.pop("aspects", None)
+
+	def _record_natal_aspect(self, a: int, b: int, diff: float, aspect_index: int) -> None:
+		aspects_degree_id = self.settings.settings["settings_aspect"][aspect_index]['id']
+		aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
+		asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][aspect_index]['degree'])))
+		asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
+		asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']} orb={asp_orb_deg}"
+		orb1, orb2, aspect_orb_default = self.getAspectOrbs(aspect_index, a, b)
+		aspect_accuracy = None
+		aspect_score = None
+		if aspect_orb_default and aspect_orb_default != 0:
+			aspect_accuracy = asp_orb / aspect_orb_default
+			aspect_score = 1 - aspect_accuracy
+		asp_dict_a = {
+			'aspect_str': asp_str,
+			'planet_name1': self.planets[a]['name'],
+			'planet_name2': self.planets[b]['name'],
+			'planet_id1': a,
+			'planet_id2': b,
+			'aspect_degree': self.settings.settings["settings_aspect"][aspect_index]['degree'],
+			'aspect_diff': diff,
+			'aspect_orbis': asp_orb,
+			'aspect_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
+			'aspect_id': aspects_degree_id,
+			'aspect_orbis_calc': aspect_orb_default,
+			'aspect_orbis_accuracy': aspect_accuracy,
+			'aspect_orbis_score': aspect_score,
+			'aspect_orbis_planet': orb2,
+			'aspect_orbis_deg': asp_orb_deg,
+			'aspect_weight': aspect_weight,
+		}
+		asp_dict_b = dict(asp_dict_a)
+		asp_dict_b['aspect_orbis_planet'] = orb1
+		self.planets_aspects_list.append(asp_dict_a)
+		if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
+			if ('visible_json' in self.planets[b] and self.planets[b]['visible_json'] == 1):
+				if ('visible_json' in self.settings.settings["settings_aspect_dic"][aspects_degree_id]
+					and self.settings.settings["settings_aspect_dic"][aspects_degree_id]['visible_json'] == 1):
+					self.aspect_all_str = self.aspect_all_str + asp_str + """\n"""
+		if hasattr(self, "planets_dict") and isinstance(self.planets_dict, dict):
+			self.planets_dict.setdefault(a, {}).setdefault('aspects', {})[b] = asp_dict_a
+			self.planets_dict.setdefault(b, {}).setdefault('aspects', {})[a] = asp_dict_b
+		if isinstance(getattr(self, "astro_dict", None), dict):
+			astro_planets = self.astro_dict.get("planet_dict", {})
+			planet_key_a = str(a)
+			planet_key_b = str(b)
+			if planet_key_a in astro_planets:
+				astro_planets[planet_key_a].setdefault('aspects', {})[str(b)] = asp_dict_a
+			if planet_key_b in astro_planets:
+				astro_planets[planet_key_b].setdefault('aspects', {})[str(a)] = asp_dict_b
+		# Houses aspects
+		if (22 < a and a < 35):
+			if hasattr(self, "houses_dict") and isinstance(self.houses_dict, dict):
+				self.houses_dict.setdefault(a, {}).setdefault('aspects', {})[b] = asp_dict_a
+		if (22 < b and b < 35):
+			if hasattr(self, "houses_dict") and isinstance(self.houses_dict, dict):
+				self.houses_dict.setdefault(b, {}).setdefault('aspects', {})[a] = asp_dict_b
+
+	def _record_transit_aspect(self, natal_index: int, transit_index: int, diff: float, aspect_index: int) -> None:
+		aspects_degree_id = self.settings.settings["settings_aspect"][aspect_index]['id']
+		aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
+		asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][aspect_index]['degree'])))
+		asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
+		asp_str = f"{self.planets[natal_index]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id].get('label')} {self.planets[transit_index]['name']} orb={asp_orb_deg}"
+		orb1, orb2, aspect_orb_default = self.getAspectOrbs(aspect_index, natal_index, transit_index)
+		aspect_accuracy = None
+		aspect_score = None
+		if aspect_orb_default and aspect_orb_default != 0:
+			aspect_accuracy = asp_orb / aspect_orb_default
+			aspect_score = 1 - aspect_accuracy
+		asp_dict_a = {
+			'aspect_str': asp_str,
+			'planet_name1': self.planets[natal_index]['name'],
+			'planet_name2': self.planets[transit_index]['name'],
+			'planet_id1': natal_index,
+			'planet_id2': transit_index,
+			'aspect_degree': self.settings.settings["settings_aspect"][aspect_index]['degree'],
+			'aspect_diff': diff,
+			'aspect_orbis': asp_orb,
+			'aspect_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
+			'aspect_id': aspects_degree_id,
+			'aspect_orbis_calc': aspect_orb_default,
+			'aspect_orbis_accuracy': aspect_accuracy,
+			'aspect_orbis_score': aspect_score,
+			'aspect_orbis_planet': orb2,
+			'aspect_orbis_deg': asp_orb_deg,
+			'aspect_weight': aspect_weight,
+		}
+		asp_dict_b = dict(asp_dict_a)
+		asp_dict_b['aspect_orbis_planet'] = orb1
+		self.t_planets_aspects_list.append(asp_dict_a)
+		if ('visible_json' in self.planets[natal_index] and self.planets[natal_index]['visible_json'] == 1):
+			if ('t_visible_json' in self.planets[transit_index] and self.planets[transit_index]['t_visible_json'] == 1):
+				if ('visible_json' in self.settings.settings["settings_aspect_dic"][aspects_degree_id]
+					and self.settings.settings["settings_aspect_dic"][aspects_degree_id]['visible_json'] == 1):
+					self.t_aspect_all_str = self.t_aspect_all_str + asp_str + """\n"""
+		if hasattr(self, "planets_dict") and isinstance(self.planets_dict, dict):
+			if not getattr(self, "planets_dict_t", None):
+				self.planets_dict_t = {}
+				for planet_key, pdata in self.planets_dict.items():
+					base = dict(pdata)
+					if 'aspects' in base:
+						base.pop('aspects')
+					self.planets_dict_t[planet_key] = base
+			if natal_index in self.planets_dict_t:
+				self.planets_dict_t[natal_index].setdefault('aspects', {})[transit_index] = asp_dict_a
+		if isinstance(getattr(self, "astro_dict", None), dict):
+			astro_transit = self.astro_dict.get("t_planet_dict", {})
+			planet_key = str(transit_index)
+			if planet_key in astro_transit:
+				astro_transit[planet_key].setdefault('aspects', {})[str(natal_index)] = asp_dict_b
 
 	def makeAspectTransitGrid( self , r ):
 		return self.renderer.makeAspectTransitGrid(r)

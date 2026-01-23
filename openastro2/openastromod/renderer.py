@@ -1345,23 +1345,37 @@ class ChartRenderer:
 												self.aspect_all_str = self.aspect_all_str + asp_str + """
 """
 
-									if 'aspects' not in self.planets_dict[self.planets[a]['name']]:
-										self.planets_dict[self.planets[a]['name']]['aspects'] = {}
-									self.planets_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict_a
-									if 'aspects' not in self.planets_dict[self.planets[b]['name']]:
-										self.planets_dict[self.planets[b]['name']]['aspects'] = {}
-									self.planets_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict_b
+									if 'aspects' not in self.planets_dict[a]:
+										self.planets_dict[a]['aspects'] = {}
+									self.planets_dict[a]['aspects'][b] = asp_dict_a
+									if hasattr(self, "astro_dict") and isinstance(self.astro_dict, dict):
+										astro_planets = self.astro_dict.get("planet_dict", {})
+										planet_key = str(a)
+										if planet_key in astro_planets:
+											if 'aspects' not in astro_planets[planet_key]:
+												astro_planets[planet_key]['aspects'] = {}
+											astro_planets[planet_key]['aspects'][str(b)] = asp_dict_a
+									if 'aspects' not in self.planets_dict[b]:
+										self.planets_dict[b]['aspects'] = {}
+									self.planets_dict[b]['aspects'][a] = asp_dict_b
+									if hasattr(self, "astro_dict") and isinstance(self.astro_dict, dict):
+										astro_planets = self.astro_dict.get("planet_dict", {})
+										planet_key = str(b)
+										if planet_key in astro_planets:
+											if 'aspects' not in astro_planets[planet_key]:
+												astro_planets[planet_key]['aspects'] = {}
+											astro_planets[planet_key]['aspects'][str(a)] = asp_dict_b
 
 									# Houses aspects
 									if (22 < a and a < 35):
-										if 'aspects' not in self.houses_dict[self.planets[a]['name']]:
-											self.houses_dict[self.planets[a]['name']]['aspects'] = {}
-										self.houses_dict[self.planets[a]['name']]['aspects'][self.planets[b]['name']] = asp_dict_a
+										if 'aspects' not in self.houses_dict[a]:
+											self.houses_dict[a]['aspects'] = {}
+										self.houses_dict[a]['aspects'][b] = asp_dict_a
 									# Houses aspects
 									if (22 < b and b < 35):
-										if 'aspects' not in self.houses_dict[self.planets[b]['name']]:
-											self.houses_dict[self.planets[b]['name']]['aspects'] = {}
-										self.houses_dict[self.planets[b]['name']]['aspects'][self.planets[a]['name']] = asp_dict_b
+										if 'aspects' not in self.houses_dict[b]:
+											self.houses_dict[b]['aspects'] = {}
+										self.houses_dict[b]['aspects'][a] = asp_dict_b
 
 		if self.type == "Transit" or self.type == "Direction":
 			box = 12
@@ -1483,17 +1497,23 @@ class ChartRenderer:
 									if hasattr(self, "planets_dict"):
 										if not getattr(self, "planets_dict_t", None):
 											self.planets_dict_t = {}
-											for pname, pdata in self.planets_dict.items():
+											for planet_key, pdata in self.planets_dict.items():
 												base = dict(pdata)
 												if 'aspects' in base:
 													base.pop('aspects')
-												self.planets_dict_t[pname] = base
-										planet_n_name = self.planets[a]['name']
-										planet_t_name = self.planets[b]['name']
-										if planet_n_name in self.planets_dict_t:
-											if 'aspects' not in self.planets_dict_t[planet_n_name]:
-												self.planets_dict_t[planet_n_name]['aspects'] = {}
-											self.planets_dict_t[planet_n_name]['aspects'][planet_t_name] = asp_dict_a
+												self.planets_dict_t[planet_key] = base
+										planet_n_key = a
+										if planet_n_key in self.planets_dict_t:
+											if 'aspects' not in self.planets_dict_t[planet_n_key]:
+												self.planets_dict_t[planet_n_key]['aspects'] = {}
+											self.planets_dict_t[planet_n_key]['aspects'][b] = asp_dict_a
+									if hasattr(self, "astro_dict") and isinstance(self.astro_dict, dict):
+										astro_transit = self.astro_dict.get("t_planet_dict", {})
+										planet_key = str(b)
+										if planet_key in astro_transit:
+											if 'aspects' not in astro_transit[planet_key]:
+												astro_transit[planet_key]['aspects'] = {}
+											astro_transit[planet_key]['aspects'][str(a)] = asp_dict_b
 
 		return out
 

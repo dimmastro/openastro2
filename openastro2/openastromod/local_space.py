@@ -806,6 +806,8 @@ class LocalSpaceMixin:
 				if isinstance(astro_dict, dict):
 					astro_planets = astro_dict.get("planet_dict", {})
 					planet_entry = astro_planets.get(planet_code)
+					if not planet_entry and astro_planets:
+						planet_entry = astro_planets.get(str(planet_code))
 					if planet_entry:
 						planet_lon = planet_entry.get("planet_longitude")
 						planet_lat = planet_entry.get("planet_latitude", 0.0)
@@ -821,7 +823,7 @@ class LocalSpaceMixin:
 					except Exception:
 						planet_pos = None
 				# if planet_pos is None:
-				if planet_entry.get("planet_type") == 'house':
+				if planet_entry and planet_entry.get("planet_type") == 'house':
 					get_house_number = getattr(self, "get_house_number_by_id", lambda _: None)
 					h_i = get_house_number(planet_code)
 					if h_i is None:
@@ -1376,6 +1378,8 @@ class LocalSpaceMixin:
 			if isinstance(astro_dict, dict):
 				astro_planets = astro_dict.get("planet_dict") or astro_dict.get("t_planet_dict") or {}
 				planet_entry = astro_planets.get(planet_code)
+				if not planet_entry and astro_planets:
+					planet_entry = astro_planets.get(str(planet_code))
 			if not planet_entry:
 				continue
 
@@ -1590,11 +1594,10 @@ class LocalSpaceMixin:
 
 		if type_tr == "Radix":
 			astro_dict = getattr(self, "astro_dict", None)
-			astro_houses = astro_dict.get("house_dict")or {}
+			astro_houses = astro_dict.get("house_dict") or {}
 		elif type_tr == "Transit":
 			astro_dict = getattr(self, "astro_dict", None)
 			astro_houses = astro_dict.get("t_house_dict") or {}
-
 		else:
 			astro_dict = getattr(self, "astro_dict", None)
 			astro_houses = astro_dict.get("house_dict") or {}
@@ -1609,6 +1612,8 @@ class LocalSpaceMixin:
 
 		for house_id in house_ids:
 			house_entry = astro_houses.get(house_id)
+			if not house_entry and astro_houses:
+				house_entry = astro_houses.get(str(house_id))
 			if not house_entry:
 				continue
 			house_number = house_entry.get("planet_number")

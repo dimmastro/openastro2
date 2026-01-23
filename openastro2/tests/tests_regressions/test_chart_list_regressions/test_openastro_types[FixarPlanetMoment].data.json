@@ -18,7 +18,8 @@
         "t_visible": 1,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 1
+        "visible_json": 1,
+        "weight": 2
       },
       {
         "color": "#bbbbbb",
@@ -33,7 +34,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -48,7 +50,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -63,7 +66,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -78,7 +82,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -93,7 +98,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -108,7 +114,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -123,7 +130,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#ef5350",
@@ -138,7 +146,8 @@
         "t_visible": 1,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 1
+        "visible_json": 1,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -153,7 +162,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -168,7 +178,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#444444",
@@ -183,7 +194,8 @@
         "t_visible": 1,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 1
+        "visible_json": 1,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -198,7 +210,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -213,7 +226,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#ef5350",
@@ -228,7 +242,8 @@
         "t_visible": 1,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 1
+        "visible_json": 1,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -243,7 +258,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -258,7 +274,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#bbbbbb",
@@ -273,7 +290,8 @@
         "t_visible": 0,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 0
+        "visible_json": 0,
+        "weight": 1
       },
       {
         "color": "#444444",
@@ -288,7 +306,8 @@
         "t_visible": 1,
         "visible": 1,
         "visible_grid": 1,
-        "visible_json": 1
+        "visible_json": 1,
+        "weight": 1.5
       }
     ],
     "astro_dict": {
@@ -557,6 +576,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 2,
           "planet_zodiac": "virgo",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -587,6 +607,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1.5,
           "planet_zodiac": "leo",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -618,6 +639,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -649,6 +671,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -679,6 +702,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -710,6 +734,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -740,6 +765,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "aries",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -770,6 +796,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "gemini",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -800,6 +827,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "capricorn",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -830,6 +858,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "pisces",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -860,6 +889,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "aquarius",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -891,6 +921,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -921,6 +952,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "libra",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -951,6 +983,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "scorpio",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -982,6 +1015,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1012,6 +1046,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "cancer",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1044,6 +1079,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "pisces",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1076,6 +1112,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "taurus",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1108,6 +1145,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "gemini",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1140,6 +1178,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "gemini",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1172,6 +1211,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "cancer",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1204,6 +1244,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "cancer",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1236,6 +1277,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "virgo",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1266,6 +1308,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "scorpio",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1298,6 +1341,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "scorpio",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1330,6 +1374,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1362,6 +1407,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1394,6 +1440,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "capricorn",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1426,6 +1473,7 @@
           "planet_speed": 0,
           "planet_type": "house",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "capricorn",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1456,6 +1504,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "aquarius",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1486,6 +1535,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "pisces",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1517,6 +1567,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "gemini",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1548,6 +1599,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "capricorn",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1578,6 +1630,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "cancer",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1608,6 +1661,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "gemini",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1639,6 +1693,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "taurus",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1669,6 +1724,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1699,6 +1755,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 0,
+          "planet_weight": 1,
           "planet_zodiac": "sagittarius",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1729,6 +1786,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "aquarius",
           "planet_zodiac_attention": "inner",
           "planet_zodiac_drywet": "wet",
@@ -1759,6 +1817,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "aries",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1789,6 +1848,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "taurus",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1819,6 +1879,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "virgo",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -1849,6 +1910,7 @@
           "planet_speed": 0,
           "planet_type": "planet",
           "planet_visible_json": 1,
+          "planet_weight": 1,
           "planet_zodiac": "leo",
           "planet_zodiac_attention": "outer",
           "planet_zodiac_drywet": "dry",
@@ -2555,6 +2617,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 2,
         "zodiac_relation": "4"
       },
       {
@@ -2684,6 +2747,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 1.5,
         "zodiac_relation": "3"
       },
       {
@@ -2813,6 +2877,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "2,5"
       },
       {
@@ -2942,6 +3007,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "1,6"
       },
       {
@@ -3071,6 +3137,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "0"
       },
       {
@@ -3200,6 +3267,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "8"
       },
       {
@@ -3329,6 +3397,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "9"
       },
       {
@@ -3458,6 +3527,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "10"
       },
       {
@@ -3587,6 +3657,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "11"
       },
       {
@@ -3716,6 +3787,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 1,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "7"
       },
       {
@@ -3844,6 +3916,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -3972,6 +4045,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4101,6 +4175,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4114,6 +4189,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4127,6 +4203,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4255,6 +4332,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4268,6 +4346,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4281,6 +4360,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4294,6 +4374,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4307,6 +4388,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4320,6 +4402,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4333,6 +4416,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4346,6 +4430,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4478,6 +4563,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4610,6 +4696,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4742,6 +4829,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -4874,6 +4962,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5006,6 +5095,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5138,6 +5228,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5270,6 +5361,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5402,6 +5494,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5534,6 +5627,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5666,6 +5760,7 @@
         "visible_aspect_grid": 1,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5798,6 +5893,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5930,6 +6026,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 1,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5943,6 +6040,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -5956,6 +6054,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -6083,6 +6182,7 @@
         "visible": 1,
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -6096,6 +6196,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -6109,6 +6210,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -6122,6 +6224,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -6135,6 +6238,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       },
       {
@@ -6148,6 +6252,7 @@
         "visible_aspect_grid": 0,
         "visible_aspect_line": 0,
         "visible_json": 0,
+        "weight": 1,
         "zodiac_relation": "-1"
       }
     ],
@@ -83340,7 +83445,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 2
           },
           {
             "color": "#bbbbbb",
@@ -83355,7 +83461,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83370,7 +83477,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83385,7 +83493,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83400,7 +83509,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83415,7 +83525,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83430,7 +83541,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83445,7 +83557,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#ef5350",
@@ -83460,7 +83573,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83475,7 +83589,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83490,7 +83605,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#444444",
@@ -83505,7 +83621,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83520,7 +83637,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83535,7 +83653,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#ef5350",
@@ -83550,7 +83669,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83565,7 +83685,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83580,7 +83701,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#bbbbbb",
@@ -83595,7 +83717,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           {
             "color": "#444444",
@@ -83610,7 +83733,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 1.5
           }
         ],
         "settings_aspect_dic": {
@@ -83627,7 +83751,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 2
           },
           "100": {
             "color": "#bbbbbb",
@@ -83642,7 +83767,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "108": {
             "color": "#bbbbbb",
@@ -83657,7 +83783,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "120": {
             "color": "#ef5350",
@@ -83672,7 +83799,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 1
           },
           "135": {
             "color": "#bbbbbb",
@@ -83687,7 +83815,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "144": {
             "color": "#bbbbbb",
@@ -83702,7 +83831,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "150": {
             "color": "#bbbbbb",
@@ -83717,7 +83847,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "18": {
             "color": "#bbbbbb",
@@ -83732,7 +83863,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "180": {
             "color": "#444444",
@@ -83747,7 +83879,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 1.5
           },
           "20": {
             "color": "#bbbbbb",
@@ -83762,7 +83895,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "30": {
             "color": "#bbbbbb",
@@ -83777,7 +83911,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "36": {
             "color": "#bbbbbb",
@@ -83792,7 +83927,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "40": {
             "color": "#bbbbbb",
@@ -83807,7 +83943,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "45": {
             "color": "#bbbbbb",
@@ -83822,7 +83959,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "51.5": {
             "color": "#bbbbbb",
@@ -83837,7 +83975,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "60": {
             "color": "#ef5350",
@@ -83852,7 +83991,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 1
           },
           "72": {
             "color": "#bbbbbb",
@@ -83867,7 +84007,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "80": {
             "color": "#bbbbbb",
@@ -83882,7 +84023,8 @@
             "t_visible": 0,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 0
+            "visible_json": 0,
+            "weight": 1
           },
           "90": {
             "color": "#444444",
@@ -83897,7 +84039,8 @@
             "t_visible": 1,
             "visible": 1,
             "visible_grid": 1,
-            "visible_json": 1
+            "visible_json": 1,
+            "weight": 1
           }
         },
         "settings_planet": [
@@ -84028,6 +84171,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 2,
             "zodiac_relation": "4"
           },
           {
@@ -84157,6 +84301,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 1.5,
             "zodiac_relation": "3"
           },
           {
@@ -84286,6 +84431,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "2,5"
           },
           {
@@ -84415,6 +84561,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "1,6"
           },
           {
@@ -84544,6 +84691,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "0"
           },
           {
@@ -84673,6 +84821,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "8"
           },
           {
@@ -84802,6 +84951,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "9"
           },
           {
@@ -84931,6 +85081,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "10"
           },
           {
@@ -85060,6 +85211,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "11"
           },
           {
@@ -85189,6 +85341,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 1,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "7"
           },
           {
@@ -85317,6 +85470,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 0,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85445,6 +85599,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85574,6 +85729,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 0,
             "visible_json": 1,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85587,6 +85743,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85600,6 +85757,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85728,6 +85886,7 @@
             "visible_aspect_grid": 1,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85741,6 +85900,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85754,6 +85914,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85767,6 +85928,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85780,6 +85942,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85793,6 +85956,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85806,6 +85970,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85819,6 +85984,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85832,6 +85998,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85845,6 +86012,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85972,6 +86140,7 @@
             "visible": 1,
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85985,6 +86154,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -85998,6 +86168,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -86011,6 +86182,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -86024,6 +86196,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           },
           {
@@ -86037,6 +86210,7 @@
             "visible_aspect_grid": 0,
             "visible_aspect_line": 0,
             "visible_json": 0,
+            "weight": 1,
             "zodiac_relation": "-1"
           }
         ],
@@ -86201,6 +86375,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 2,
           "zodiac_relation": "4"
         },
         {
@@ -86330,6 +86505,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 1.5,
           "zodiac_relation": "3"
         },
         {
@@ -86459,6 +86635,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "2,5"
         },
         {
@@ -86588,6 +86765,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "1,6"
         },
         {
@@ -86717,6 +86895,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "0"
         },
         {
@@ -86846,6 +87025,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "8"
         },
         {
@@ -86975,6 +87155,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "9"
         },
         {
@@ -87104,6 +87285,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "10"
         },
         {
@@ -87233,6 +87415,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "11"
         },
         {
@@ -87362,6 +87545,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 1,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "7"
         },
         {
@@ -87490,6 +87674,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 0,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87618,6 +87803,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87747,6 +87933,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 0,
           "visible_json": 1,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87760,6 +87947,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87773,6 +87961,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87901,6 +88090,7 @@
           "visible_aspect_grid": 1,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87914,6 +88104,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87927,6 +88118,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87940,6 +88132,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87953,6 +88146,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87966,6 +88160,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87979,6 +88174,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -87992,6 +88188,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -88005,6 +88202,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -88018,6 +88216,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -88145,6 +88344,7 @@
           "visible": 1,
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -88158,6 +88358,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -88171,6 +88372,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -88184,6 +88386,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -88197,6 +88400,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         },
         {
@@ -88210,6 +88414,7 @@
           "visible_aspect_grid": 0,
           "visible_aspect_line": 0,
           "visible_json": 0,
+          "weight": 1,
           "zodiac_relation": "-1"
         }
       ],

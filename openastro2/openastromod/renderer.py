@@ -1319,25 +1319,25 @@ class ChartRenderer:
 										aspect_accuracy = asp_orb / aspect_orb_default
 										aspect_score = 1 - aspect_accuracy
 									asp_dict_a = {
-										'aspects_str': asp_str,
-										'planets_name1': self.planets[a]['name'],
-										'planets_name2': self.planets[b]['name'],
-										'planets_id1': a,
-										'planets_id2': b,
-										'aspects_degree': self.settings.settings["settings_aspect"][z]['degree'],
-										'aspects_diff': diff,
-										'aspects_orbis': asp_orb,
-										'aspects_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
-										'aspects_id': aspects_degree_id,
-										'aspects_orbis_calc': aspect_orb_default,
-										'aspects_orbis_accuracy': aspect_accuracy,
-										'aspects_orbis_score': aspect_score,
-										'aspects_orbis_planet': orb2,
-										'aspects_orbis_deg': asp_orb_deg,
+										'aspect_str': asp_str,
+										'planet_name1': self.planets[a]['name'],
+										'planet_name2': self.planets[b]['name'],
+										'planet_id1': a,
+										'planet_id2': b,
+										'aspect_degree': self.settings.settings["settings_aspect"][z]['degree'],
+										'aspect_diff': diff,
+										'aspect_orbis': asp_orb,
+										'aspect_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
+										'aspect_id': aspects_degree_id,
+										'aspect_orbis_calc': aspect_orb_default,
+										'aspect_orbis_accuracy': aspect_accuracy,
+										'aspect_orbis_score': aspect_score,
+										'aspect_orbis_planet': orb2,
+										'aspect_orbis_deg': asp_orb_deg,
 										'aspect_weight': aspect_weight,
 									}
 									asp_dict_b = dict(asp_dict_a)
-									asp_dict_b['aspects_orbis_planet'] = orb1
+									asp_dict_b['aspect_orbis_planet'] = orb1
 
 									self.planets_aspects_list.append(asp_dict_a)
 
@@ -1468,25 +1468,25 @@ class ChartRenderer:
 										aspect_accuracy = asp_orb / aspect_orb_default
 										aspect_score = 1 - aspect_accuracy
 									asp_dict_a = {
-										'aspects_str': asp_str,
-										'planets_name1': self.planets[a]['name'],
-										'planets_name2': self.planets[b]['name'],
-										'planets_id1': a,
-										'planets_id2': b,
-										'aspects_degree': self.settings.settings["settings_aspect"][z]['degree'],
-										'aspects_diff': diff,
-										'aspects_orbis': asp_orb,
-										'aspects_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
-										'aspects_id': aspects_degree_id,
-										'aspects_orbis_calc': aspect_orb_default,
-										'aspects_orbis_accuracy': aspect_accuracy,
-										'aspects_orbis_score': aspect_score,
-										'aspects_orbis_planet': orb2,
-										'aspects_orbis_deg': asp_orb_deg,
+										'aspect_str': asp_str,
+										'planet_name1': self.planets[a]['name'],
+										'planet_name2': self.planets[b]['name'],
+										'planet_id1': a,
+										'planet_id2': b,
+										'aspect_degree': self.settings.settings["settings_aspect"][z]['degree'],
+										'aspect_diff': diff,
+										'aspect_orbis': asp_orb,
+										'aspect_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
+										'aspect_id': aspects_degree_id,
+										'aspect_orbis_calc': aspect_orb_default,
+										'aspect_orbis_accuracy': aspect_accuracy,
+										'aspect_orbis_score': aspect_score,
+										'aspect_orbis_planet': orb2,
+										'aspect_orbis_deg': asp_orb_deg,
 										'aspect_weight': aspect_weight,
 									}
 									asp_dict_b = dict(asp_dict_a)
-									asp_dict_b['aspects_orbis_planet'] = orb1
+									asp_dict_b['aspect_orbis_planet'] = orb1
 
 									self.t_planets_aspects_list.append(asp_dict_a)
 									if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):

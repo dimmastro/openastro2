@@ -1347,26 +1347,10 @@ class ChartRenderer:
 												self.aspect_all_str = self.aspect_all_str + asp_str + """
 """
 
-									if 'aspects' not in self.planets_dict[a]:
-										self.planets_dict[a]['aspects'] = {}
-									self.planets_dict[a]['aspects'][b] = asp_dict_a
-									if hasattr(self, "astro_dict") and isinstance(self.astro_dict, dict):
-										astro_planets = self.astro_dict.get("planet_dict", {})
-										planet_key = str(a)
-										if planet_key in astro_planets:
-											if 'aspects' not in astro_planets[planet_key]:
-												astro_planets[planet_key]['aspects'] = {}
-											astro_planets[planet_key]['aspects'][str(b)] = asp_dict_a
-									if 'aspects' not in self.planets_dict[b]:
-										self.planets_dict[b]['aspects'] = {}
-									self.planets_dict[b]['aspects'][a] = asp_dict_b
-									if hasattr(self, "astro_dict") and isinstance(self.astro_dict, dict):
-										astro_planets = self.astro_dict.get("planet_dict", {})
-										planet_key = str(b)
-										if planet_key in astro_planets:
-											if 'aspects' not in astro_planets[planet_key]:
-												astro_planets[planet_key]['aspects'] = {}
-											astro_planets[planet_key]['aspects'][str(a)] = asp_dict_b
+									# planets_dict is populated in makeAspects now
+									# astro_dict is populated in makeAspects now
+									# planets_dict is populated in makeAspects now
+									# astro_dict is populated in makeAspects now
 
 									# Houses aspects
 									if (22 < a and a < 35):
@@ -1498,26 +1482,8 @@ class ChartRenderer:
 												self.t_aspect_all_str = self.t_aspect_all_str + asp_str + """
 """
 									# Add transit aspects to natal->transit dictionary.
-									if hasattr(self, "planets_dict"):
-										if not getattr(self, "planets_dict_t", None):
-											self.planets_dict_t = {}
-											for planet_key, pdata in self.planets_dict.items():
-												base = dict(pdata)
-												if 'aspects' in base:
-													base.pop('aspects')
-												self.planets_dict_t[planet_key] = base
-										planet_n_key = a
-										if planet_n_key in self.planets_dict_t:
-											if 'aspects' not in self.planets_dict_t[planet_n_key]:
-												self.planets_dict_t[planet_n_key]['aspects'] = {}
-											self.planets_dict_t[planet_n_key]['aspects'][b] = asp_dict_a
-									if hasattr(self, "astro_dict") and isinstance(self.astro_dict, dict):
-										astro_transit = self.astro_dict.get("t_planet_dict", {})
-										planet_key = str(b)
-										if planet_key in astro_transit:
-											if 'aspects' not in astro_transit[planet_key]:
-												astro_transit[planet_key]['aspects'] = {}
-											astro_transit[planet_key]['aspects'][str(a)] = asp_dict_b
+									# planets_dict_t is populated in makeAspectsTransit now
+									# astro_dict is populated in makeAspectsTransit now
 
 		return out
 

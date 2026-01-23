@@ -1511,7 +1511,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				else:
 					astro_key = key
 				astro_entry[astro_key] = value
-			self.planets_dict[name] = planet_entry
+			if isinstance(self.planets[i], dict) and "aspects" in self.planets[i]:
+				astro_entry["aspects"] = self.planets[i]["aspects"]
+			self.planets_dict[i] = planet_entry
 			planet_id = self.planets[i].get("id", i) if isinstance(self.planets[i], dict) else i
 			try:
 				planet_id_key = int(planet_id)
@@ -1523,7 +1525,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			if not isinstance(visible_entry, dict):
 				visible_entry = settings_planet_dict.get(planet_id)
 			astro_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
-			self.astro_dict["planet_dict"][planet_id] = astro_entry
+			self.astro_dict["planet_dict"][str(planet_id)] = astro_entry
 
 			if self._is_house_index(i):
 				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]}"
@@ -1543,7 +1545,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					'houses_zodiac_attention': self.zodiac_attention[self.planets_sign[i]],
 					'houses_id': hi,
 				}
-				self.houses_dict[name] = house_entry
+				self.houses_dict[i] = house_entry
 				astro_house_entry = {"planet_type": "house"}
 				for key, value in house_entry.items():
 					if key.startswith("houses_"):
@@ -1558,7 +1560,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				if not isinstance(visible_entry, dict):
 					visible_entry = settings_house_dict.get(house_id)
 				astro_house_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
-				self.astro_dict["house_dict"][house_id] = astro_house_entry
+				self.astro_dict["house_dict"][str(house_id)] = astro_house_entry
 				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
 					self.houses_all_str = self.houses_all_str + houses_position_str + """
 """
@@ -1677,7 +1679,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				else:
 					astro_key = key
 				astro_entry[astro_key] = value
-			self.t_planets_dict[name] = planet_entry
+			if isinstance(self.planets[i], dict) and "aspects" in self.planets[i]:
+				astro_entry["aspects"] = self.planets[i]["aspects"]
+			self.t_planets_dict[i] = planet_entry
 			planet_id = self.planets[i].get("id", i) if isinstance(self.planets[i], dict) else i
 			try:
 				planet_id_key = int(planet_id)
@@ -1689,7 +1693,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			if not isinstance(visible_entry, dict):
 				visible_entry = settings_planet_dict.get(planet_id)
 			astro_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
-			self.astro_dict["t_planet_dict"][planet_id] = astro_entry
+			self.astro_dict["t_planet_dict"][str(planet_id)] = astro_entry
 
 			if self._is_house_index(i):
 				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]}"
@@ -1709,7 +1713,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					'houses_zodiac_attention': self.zodiac_attention[self.t_planets_sign[i]],
 					'houses_id': hi,
 				}
-				self.t_houses_dict[name] = house_entry
+				self.t_houses_dict[i] = house_entry
 				astro_house_entry = {"planet_type": "house"}
 				for key, value in house_entry.items():
 					if key.startswith("houses_"):
@@ -1724,7 +1728,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				if not isinstance(visible_entry, dict):
 					visible_entry = settings_house_dict.get(house_id)
 				astro_house_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
-				self.astro_dict["t_house_dict"][house_id] = astro_house_entry
+				self.astro_dict["t_house_dict"][str(house_id)] = astro_house_entry
 				if ('visible_json' in self.planets[i] and self.planets[i]['visible_json'] == 1):
 					self.t_houses_all_str = self.t_houses_all_str + houses_position_str + """
 """

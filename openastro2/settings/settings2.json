@@ -100,7 +100,8 @@
       "is_major": 1,
       "is_minor": 0,
       "orb": 10,
-      "visible_json": 1
+      "visible_json": 1,
+      "weight": 2
     },
     {
       "id": "18",
@@ -115,7 +116,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "20",
@@ -130,7 +132,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "30",
@@ -145,7 +148,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "36",
@@ -160,7 +164,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "40",
@@ -175,7 +180,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "45",
@@ -190,7 +196,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "51.5",
@@ -205,7 +212,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "60",
@@ -220,7 +228,8 @@
       "is_major": 1,
       "is_minor": 0,
       "orb": 5,
-      "visible_json": 1
+      "visible_json": 1,
+      "weight": 1
     },
     {
       "id": "72",
@@ -235,7 +244,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "80",
@@ -250,7 +260,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "90",
@@ -265,7 +276,8 @@
       "is_major": 1,
       "is_minor": 0,
       "orb": 5,
-      "visible_json": 1
+      "visible_json": 1,
+      "weight": 1
     },
     {
       "id": "100",
@@ -280,7 +292,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "108",
@@ -295,7 +308,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "120",
@@ -310,7 +324,8 @@
       "is_major": 1,
       "is_minor": 0,
       "orb": 6,
-      "visible_json": 1
+      "visible_json": 1,
+      "weight": 1
     },
     {
       "id": "135",
@@ -325,7 +340,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "144",
@@ -340,7 +356,8 @@
       "is_major": 0,
       "is_minor": 1,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "150",
@@ -355,7 +372,8 @@
       "is_major": 0,
       "is_minor": 0,
       "orb": 1,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     {
       "id": "180",
@@ -370,7 +388,8 @@
       "is_major": 1,
       "is_minor": 0,
       "orb": 6,
-      "visible_json": 1
+      "visible_json": 1,
+      "weight": 1.5
     }
   ],
   "settings_svg": {
@@ -487,7 +506,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 2,
@@ -510,7 +529,8 @@
           "150": 1,
           "180": 2
         }
-      }
+      },
+      "weight": 2
     },
     "1": {
       "id": 1,
@@ -593,7 +613,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1.5,
@@ -616,7 +636,8 @@
           "150": 1,
           "180": 1.5
         }
-      }
+      },
+      "weight": 1.5
     },
     "2": {
       "id": 2,
@@ -699,7 +720,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -722,7 +743,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "3": {
       "id": 3,
@@ -805,7 +827,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -828,7 +850,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "4": {
       "id": 4,
@@ -911,7 +934,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -934,7 +957,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "5": {
       "id": 5,
@@ -1017,7 +1041,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -1040,7 +1064,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "6": {
       "id": 6,
@@ -1123,7 +1148,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -1146,7 +1171,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "7": {
       "id": 7,
@@ -1229,7 +1255,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -1252,7 +1278,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "8": {
       "id": 8,
@@ -1335,7 +1362,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -1358,7 +1385,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "9": {
       "id": 9,
@@ -1441,7 +1469,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -1464,7 +1492,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "10": {
       "id": 10,
@@ -1546,7 +1575,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -1569,7 +1598,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "11": {
       "id": 11,
@@ -1652,7 +1682,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -1675,7 +1705,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "12": {
       "id": 12,
@@ -1758,7 +1789,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -1781,7 +1812,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "13": {
       "id": 13,
@@ -1794,7 +1826,8 @@
       "label_short": "?",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "14": {
       "id": 14,
@@ -1807,7 +1840,8 @@
       "label_short": "earth",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "15": {
       "id": 15,
@@ -1890,7 +1924,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -1913,7 +1947,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "16": {
       "id": 16,
@@ -1926,7 +1961,8 @@
       "label_short": "pholus",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "17": {
       "id": 17,
@@ -1939,7 +1975,8 @@
       "label_short": "ceres",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "18": {
       "id": 18,
@@ -1952,7 +1989,8 @@
       "label_short": "pallas",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "19": {
       "id": 19,
@@ -1965,7 +2003,8 @@
       "label_short": "juno",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "20": {
       "id": 20,
@@ -1978,7 +2017,8 @@
       "label_short": "vesta",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "21": {
       "id": 21,
@@ -1991,7 +2031,8 @@
       "label_short": "intp. apogee",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "22": {
       "id": 22,
@@ -2004,9 +2045,9 @@
       "label_short": "intp. perigee",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
-
     "35": {
       "id": 35,
       "name": "day pars",
@@ -2018,7 +2059,8 @@
       "label_short": "DP",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "36": {
       "id": 36,
@@ -2031,7 +2073,8 @@
       "label_short": "NP",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "37": {
       "id": 37,
@@ -2113,7 +2156,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -2158,7 +2201,8 @@
           "150": 0,
           "180": 4
         }
-      }
+      },
+      "weight": 1
     },
     "38": {
       "id": 38,
@@ -2171,7 +2215,8 @@
       "label_short": "SNode",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "39": {
       "id": 39,
@@ -2184,7 +2229,8 @@
       "label_short": "SNode",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "40": {
       "id": 40,
@@ -2197,7 +2243,8 @@
       "label_short": "SNode",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "41": {
       "id": 41,
@@ -2210,7 +2257,8 @@
       "label_short": "SNode",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     },
     "42": {
       "id": 42,
@@ -2223,7 +2271,8 @@
       "label_short": "SNode",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
-      "visible_json": 0
+      "visible_json": 0,
+      "weight": 1
     }
   },
   "settings_house_dict": {
@@ -2311,7 +2360,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -2334,7 +2383,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "24": {
       "id": 24,
@@ -2420,7 +2470,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -2443,7 +2493,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "25": {
       "id": 25,
@@ -2529,7 +2580,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -2552,7 +2603,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "26": {
       "id": 26,
@@ -2638,7 +2690,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -2661,7 +2713,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "27": {
       "id": 27,
@@ -2747,7 +2800,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -2770,7 +2823,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "28": {
       "id": 28,
@@ -2856,7 +2910,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -2879,7 +2933,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "29": {
       "id": 29,
@@ -2965,7 +3020,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -2988,7 +3043,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "30": {
       "id": 30,
@@ -3074,7 +3130,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -3097,7 +3153,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "31": {
       "id": 31,
@@ -3183,7 +3240,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -3206,7 +3263,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "32": {
       "id": 32,
@@ -3292,7 +3350,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -3315,7 +3373,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "33": {
       "id": 33,
@@ -3401,7 +3460,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -3424,7 +3483,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     },
     "34": {
       "id": 34,
@@ -3510,7 +3570,7 @@
           "180": 2
         },
         "Direction": {
-          "visible_aspect_line21": 1,          
+          "visible_aspect_line21": 1,
           "visible_aspect_line12": 1,
           "default": 1,
           "0": 1,
@@ -3533,7 +3593,8 @@
           "150": 1,
           "180": 1
         }
-      }
+      },
+      "weight": 1
     }
   }
 }

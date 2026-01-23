@@ -1308,6 +1308,7 @@ class ChartRenderer:
 							for z in range(len(self.settings.settings["settings_aspect"])):
 								if(self.planetsInAspect(diff, z, a, b)):
 									aspects_degree_id = self.settings.settings["settings_aspect"][z]['id']
+									aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
 									asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree'])))
 									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
 									asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']} orb={asp_orb_deg}"
@@ -1333,6 +1334,7 @@ class ChartRenderer:
 										'aspects_orbis_score': aspect_score,
 										'aspects_orbis_planet': orb2,
 										'aspects_orbis_deg': asp_orb_deg,
+										'aspect_weight': aspect_weight,
 									}
 									asp_dict_b = dict(asp_dict_a)
 									asp_dict_b['aspects_orbis_planet'] = orb1
@@ -1455,6 +1457,7 @@ class ChartRenderer:
 										yorb + 1) + '" xlink:href="#orb' + str(self.settings.settings["settings_aspect"][z]['degree']) + '" />\n'
 
 									aspects_degree_id = self.settings.settings["settings_aspect"][z]['id']
+									aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
 									asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][z]['degree'])))
 									asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
 									asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect'][z]['degree']} {self.planets[b]['name']} orb={asp_orb_deg}"
@@ -1480,6 +1483,7 @@ class ChartRenderer:
 										'aspects_orbis_score': aspect_score,
 										'aspects_orbis_planet': orb2,
 										'aspects_orbis_deg': asp_orb_deg,
+										'aspect_weight': aspect_weight,
 									}
 									asp_dict_b = dict(asp_dict_a)
 									asp_dict_b['aspects_orbis_planet'] = orb1

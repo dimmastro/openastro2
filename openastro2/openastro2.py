@@ -1524,6 +1524,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			visible_entry = settings_planet_dict.get(str(planet_id))
 			if not isinstance(visible_entry, dict):
 				visible_entry = settings_planet_dict.get(planet_id)
+			planet_weight = visible_entry.get("weight", 1) if isinstance(visible_entry, dict) else 1
+			astro_entry["planet_weight"] = planet_weight
 			astro_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
 			self.astro_dict["planet_dict"][str(planet_id)] = astro_entry
 
@@ -1692,6 +1694,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			visible_entry = settings_planet_dict.get(str(planet_id))
 			if not isinstance(visible_entry, dict):
 				visible_entry = settings_planet_dict.get(planet_id)
+			planet_weight = visible_entry.get("weight", 1) if isinstance(visible_entry, dict) else 1
+			astro_entry["planet_weight"] = planet_weight
 			astro_entry["planet_visible_json"] = 1 if isinstance(visible_entry, dict) and visible_entry.get("visible_json") == 1 else 0
 			self.astro_dict["t_planet_dict"][str(planet_id)] = astro_entry
 

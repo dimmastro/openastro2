@@ -17,7 +17,7 @@
     along with OpenAstro.org.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-#basics
+# Basics and standard utilities used across the whole engine.
 from typing import Dict, List, Any, Tuple, Optional, Union, Set
 import copy
 import math, sys, os, os.path, tempfile, gettext, codecs, datetime
@@ -49,7 +49,7 @@ from string import Template
 import json
 from pathlib import Path
 
-#internal openastro modules
+# Internal OpenAstro modules (core calculation + helpers).
 sys.path.append("/usr/lib/python3.5/dist-packages") #trying to 'fix' some problems importing openastromod on some distros
 sys.path.append("/usr/lib/python3.5/site-packages") #trying to 'fix' some problems importing openastromod on some distros
 from openastromod import zonetab, geoname, importfile, swiss as ephemeris
@@ -67,12 +67,12 @@ import json5
 
 _SETTINGS0_CACHE = None
 
-#debug
+# Debug/version flags shared by the module.
 LOCAL=True
 DEBUG=False
 VERSION='2.0.0'
 
-#directories
+# Base data directory resolution (local install first).
 if LOCAL:
 	DATADIR=os.path.dirname(__file__)
 # elif os.path.exists(os.path.join(sys.prefix,'share','openastro.org')):
@@ -85,7 +85,7 @@ else:
 	print("Exiting... can't find data directory")
 	sys.exit()
 
-#Translations
+# Translation registry for UI labels.
 LANGUAGES_LABEL={
 			"ar":"الْعَرَبيّة",
 			"pt_BR":"Português brasileiro",
@@ -134,6 +134,8 @@ except IOError as err:
 class openAstroSettings:
 
 	def __init__(self, settings: Dict[str, Any] = {}) -> None:
+		# Load base settings, merge with overrides, normalize planet/house blocks,
+		# and prepare translation + resource paths.
 		self.version = VERSION
 		dprint("-------------------------------")
 		dprint('  OpenAstro2 ' + str(self.version))
@@ -221,6 +223,7 @@ class openAstroSettings:
 
 
 	def read_settings(self, settings_path: str) -> Optional[Dict[str, Any]]:
+		# Load external JSON/JSON5 settings file (relative to module root).
 		try:
 			DATADIR = Path(__file__).parent
 			json_path = DATADIR / settings_path
@@ -236,6 +239,7 @@ class openAstroSettings:
 
 
 	def setLanguage(self, lang: Optional[str] = None) -> None:
+		# Attach gettext translation for label strings.
 		if lang == None or lang == "default":
 			TRANSLATION["default"].install()
 			dprint("installing default language")
@@ -245,27 +249,34 @@ class openAstroSettings:
 		return
 
 	def getColors(self) -> Dict[str, Any]:
+		# Convenience accessors for UI/settings blocks.
 		out = self.settings["color_codes"]
 		return out
 
 	def getLabel(self) -> Dict[str, Any]:
+		# Convenience accessors for UI/settings blocks.
 		out = self.settings["label"]
 		return out
 
 	def getSettingsPlanet(self) -> List[Dict[str, Any]]:
+		# Return list form of planet settings.
 		return self.settings["settings_planet"]
 
 	def getSettingsPlanetDict(self) -> Dict[str, Dict[str, Any]]:
+		# Return dict form of planet settings (id->entry).
 		return self.settings["settings_planet_dict"]
 
 	def getSettingsHouse(self) -> List[Dict[str, Any]]:
+		# Return list form of house settings.
 		return self.settings.get("settings_house", [])
 
 	def getSettingsHouseDict(self) -> Dict[str, Dict[str, Any]]:
+		# Return dict form of house settings (id->entry).
 		return self.settings.get("settings_house_dict", {})
 
 
 	def getSettingsAspect(self) -> Dict[str, Any]:
+		# Return list of aspect definitions.
 		dict = self.settings["settings_aspect"]
 		return dict
 
@@ -274,10 +285,7 @@ class openAstroSettings:
 		return self.settings["settings_svg"]
 
 	def sanitize_for_snapshot(self) -> None:
-		"""
-		Clear folders names before regression tests
-		:return:
-		"""
+		"""Remove machine-specific paths/fields for regression snapshots."""
 		placeholder = "<tmp>"
 		sensitive_attrs = (
 			"tmpdir",
@@ -330,6 +338,7 @@ class openAstroSettings:
 			delattr(self, "settings_house")
 
 	def _ensure_writable_tmpdir(self, preferred: str) -> str:
+		# Try preferred tmpdir, then fallback to module-local tmp.
 		candidates = [preferred, os.path.join(Path(__file__).parent, 'tmp')]
 		for path in candidates:
 			try:
@@ -344,7 +353,7 @@ class openAstroSettings:
 		return preferred
 
 	def _build_settings_aspect_dic(self) -> Dict[str, Dict[str, Any]]:
-		"""Derive the aspect lookup dictionary from the list form that is stored in JSON."""
+		"""Derive the aspect lookup dictionary from the list form stored in JSON."""
 		aspect_dic: Dict[str, Dict[str, Any]] = {}
 		for aspect in self.settings.get("settings_aspect", []):
 			aspect_id = str(aspect.get("id"))
@@ -357,12 +366,15 @@ class openAstroSettings:
 		return aspect_dic
 
 	def _normalize_planet_settings(self) -> None:
+		# Normalize planet list/dict into a consistent dict form.
 		self._normalize_settings_block("settings_planet", "settings_planet_dict")
 
 	def _normalize_house_settings(self) -> None:
+		# Normalize house list/dict into a consistent dict form.
 		self._normalize_settings_block("settings_house", "settings_house_dict")
 
 	def _normalize_settings_block(self, list_key: str, dict_key: str) -> None:
+		# Accept either list or dict input and materialize a dict by id.
 		ordered_items: List[Tuple[str, Dict[str, Any]]] = []
 		list_payload = self.settings.get(list_key)
 		if isinstance(list_payload, list) and list_payload:
@@ -407,6 +419,10 @@ class openAstroSettings:
 
 
 class openAstro(LocalSpaceMixin, LocalToMixin):
+	"""
+	Main API: builds events, computes ephemerides, assembles data dicts,
+	and renders SVG output for different chart types.
+	"""
 	MODULE_BASE_ATTRS = (
 		"planets_sign",
 		"planets_degree",
@@ -444,6 +460,10 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 	@staticmethod
 	def event(name: str = "Now", year: Union[str, int] = "", month: Union[str, int] = "", day: Union[str, int] = "", hour: Union[str, int] = "", minute: Union[str, int] = "", second: Union[str, int] = "", timezone: Optional[float] = None, location: str = "London", countrycode: str = "", geolat: Optional[float] = None, geolon: Optional[float] = None, altitude: int = 25) -> Dict[str, Any]:
+		"""
+		Build an event dictionary from explicit date/time and location fields.
+		This is the canonical shape used throughout calculation and rendering.
+		"""
 		event = {}
 		geo = None
 		if(timezone is None or geolat is None or geolon is None):
@@ -507,6 +527,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 	@classmethod
 	def event_dt_str(cls, name: str = "Now", dt_str: str = "", dt_str_format: str = "%Y-%m-%d %H:%M:%S", timezone: Union[bool, float] = False, location: str = "London", countrycode: str = "", geolat: Union[bool, float] = False, geolon: Union[bool, float] = False, altitude: int = 25) -> Dict[str, Any]:
+		"""
+		Parse datetime from string and delegate to event().
+		"""
 		# date_time_str = '2022-12-01 10:27:03.929149'
 		dt = datetime.datetime.strptime(dt_str, dt_str_format)
 		year = dt.year
@@ -519,6 +542,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 	@classmethod
 	def event_dt(cls, name: str = "Now", dt: Optional[datetime.datetime] = None, timezone: Union[bool, float] = False, location: str = "London", countrycode: str = "", geolat: Union[bool, float] = False, geolon: Union[bool, float] = False, altitude: int = 25) -> Dict[str, Any]:
+		"""
+		Build event from datetime object (default: now).
+		"""
 		# date_time_str = '2022-12-01 10:27:03.929149'
 		# dt = datetime.datetime.strptime(dt_str, dt_str_format)
 		if dt is None:
@@ -533,6 +559,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 
 	def __init__(self, event1: Dict[str, Any], event2: List[Any] = [], type: str = "Radix", settings: Dict[str, Any] = {}, oa_args: Dict[str, Any] = {}, *args: Any, **kwargs: Any) -> None:
+		"""
+		Initialize settings, normalize input events, and precompute UTC values.
+		"""
 		self.settings = openAstroSettings(settings=settings)
 		self._init_house_metadata()
 		self._renderer = ChartRenderer(self, dprint)
@@ -948,6 +977,13 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 
 	def calcAstro( self ):
+		"""
+		Core calculation pipeline:
+		- select chart type,
+		- compute ephemerides,
+		- populate planetary/house arrays,
+		- build dictionary structures.
+		"""
 		# empty element points
 		self.fire = 0.0
 		self.earth = 0.0
@@ -1406,6 +1442,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 
 	def makePlanetDict(self):
 		"""
+		Build natal planet/house dictionaries and fill astro_dict["planet_dict"].
+		"""
+		"""
 		Make self.planets_dict for all planets
 		And self.houses_dict for all houses
 		:return:
@@ -1581,6 +1620,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		return self.astro_dict
 
 	def t_makePlanetDict(self):
+		"""
+		Build transit planet/house dictionaries and fill astro_dict["t_planet_dict"].
+		"""
 		"""
 		Make self.planets_dict for all planets
 		And self.houses_dict for all houses
@@ -2014,6 +2056,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		return self.renderer.makePatterns()
 
 	def makeAspects( self , r , ar ):
+		"""
+		Compute natal-natal aspects and populate planets_dict/astro_dict aspects.
+		"""
 		out=""
 		self._reset_natal_aspect_data()
 		self.planets_aspects= {}
@@ -2110,6 +2155,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		)
 
 	def makeAspectsTransit( self , r , ar ):
+		"""
+		Compute natal-to-transit aspects (event1 vs event2).
+		"""
 		out = ""
 		self._reset_transit_aspect_data()
 		self.atgrid=[]
@@ -2275,6 +2323,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		)
 
 	def makeAspectsTransitTransit(self) -> None:
+		"""
+		Compute transit-to-transit aspects (event2 vs event2) into tt_planet_dict.
+		"""
 		self._ensure_tt_planet_dict()
 		self._reset_tt_aspect_data()
 		if not isinstance(getattr(self, "astro_dict", None), dict):
@@ -2357,6 +2408,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 						astro_tt[planet_key_b].setdefault("aspects", {})[str(i)] = asp_dict_b
 						self._accumulate_planet_impact_natal(astro_tt[planet_key_b], aspect_type, asp_dict_b.get("aspect_impact", 0))
 	def _record_natal_aspect(self, a: int, b: int, diff: float, aspect_index: int) -> None:
+		"""
+		Build aspect payloads and attach them to planet_dict and astro_dict (natal).
+		"""
 		aspect_entry = self.settings.settings["settings_aspect"][aspect_index]
 		aspects_degree_id = aspect_entry['id']
 		aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
@@ -2457,6 +2511,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		return 0
 
 	def _record_transit_aspect(self, natal_index: int, transit_index: int, diff: float, aspect_index: int) -> None:
+		"""
+		Build aspect payloads and attach them to transit dicts (natal->transit).
+		"""
 		aspect_entry = self.settings.settings["settings_aspect"][aspect_index]
 		aspects_degree_id = aspect_entry['id']
 		aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
@@ -2540,6 +2597,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 						)
 
 	def _accumulate_planet_impact(self, target: Dict[str, Any], aspect_type: Optional[str], impact: Optional[float]) -> None:
+		"""
+		Accumulate impact for transit planet entries into planet_impact2.score.
+		"""
 		impact_bucket = aspect_type if aspect_type in {"tense", "neutral", "harmonious"} else "neutral"
 		value = impact or 0
 		planet_impact = target.setdefault(
@@ -2563,6 +2623,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		score["all"] = score.get("all", 0) + value
 
 	def _merge_impact_scores(self, base: Dict[str, float], extra: Dict[str, float]) -> Dict[str, float]:
+		"""
+		Merge two impact dictionaries using the domain-specific dominance rules.
+		"""
 		def normalize(score: Dict[str, float]) -> Dict[str, float]:
 			tense = score.get("tense", 0) or 0
 			neutral = score.get("neutral", 0) or 0
@@ -2590,6 +2653,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		}
 
 	def _multiply_impact_scores(self, base: Dict[str, float], extra: Dict[str, float]) -> Dict[str, float]:
+		"""
+		Multiply two impact dictionaries with cross-bucket mapping rules.
+		"""
 		base_vals = {
 			"tense": base.get("tense", 0) or 0,
 			"neutral": base.get("neutral", 0) or 0,
@@ -2616,7 +2682,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					bucket = "harmonious"
 				else:
 					bucket = a_key
-				out[bucket] += prod
+				out[bucket] += prod/3
 		return {
 			"tense": out["tense"],
 			"neutral": out["neutral"],
@@ -2625,6 +2691,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		}
 
 	def _compute_impact_score_for_transit_by_natal(self) -> None:
+		"""
+		Compute score_natal/score_transit/score_natal_transit and their multiplicative variants.
+		"""
 		astro_dict = getattr(self, "astro_dict", None)
 		if not isinstance(astro_dict, dict):
 			return
@@ -2670,18 +2739,22 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				score = impact_entry.get("score", {})
 				if not isinstance(score, dict):
 					score = {}
-				impact_entry["score_natal"] = self._merge_impact_scores(score, natal_scaled)
-				impact_entry["score_transit"] = self._merge_impact_scores(score, transit_scaled)
+				impact_entry["score_sum_natal"] = self._merge_impact_scores(score, natal_scaled)
+				impact_entry["score_sum_transit"] = self._merge_impact_scores(score, transit_scaled)
 				combined_extra = {
 					"tense": (natal_scaled.get("tense", 0) or 0) + (transit_scaled.get("tense", 0) or 0),
 					"neutral": (natal_scaled.get("neutral", 0) or 0) + (transit_scaled.get("neutral", 0) or 0),
 					"harmonious": (natal_scaled.get("harmonious", 0) or 0) + (transit_scaled.get("harmonious", 0) or 0),
 					"all": (natal_scaled.get("all", 0) or 0) + (transit_scaled.get("all", 0) or 0),
 				}
-				impact_entry["score_natal_transit"] = self._merge_impact_scores(score, combined_extra)
+				impact_entry["score_sum_natal_transit"] = self._merge_impact_scores(score, combined_extra)
 				impact_entry["score_mult_natal"] = self._multiply_impact_scores(score, natal_scaled)
 				impact_entry["score_mult_transit"] = self._multiply_impact_scores(score, transit_scaled)
-				impact_entry["score_mult_natal_transit"] = self._multiply_impact_scores(score, combined_extra)
+				# impact_entry["score_mult_natal_transit"] = self._multiply_impact_scores(score, combined_extra)
+				score_mult_natal_transit = self._merge_impact_scores(impact_entry["score_mult_natal"], impact_entry["score_mult_transit"])
+				score_2score = self._multiply_impact_scores(score, score)
+				score_mult_natal_transit = self._merge_impact_scores(score_mult_natal_transit,score_2score)
+				impact_entry["score_mult_natal_transit"] = score_mult_natal_transit
 
 	def _accumulate_planet_impact_natal(
 		self,
@@ -2689,6 +2762,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		aspect_type: Optional[str],
 		impact: Optional[float],
 	) -> None:
+		"""
+		Accumulate impact for natal planet entries into planet_impact.score.
+		"""
 		impact_bucket = aspect_type if aspect_type in {"tense", "neutral", "harmonious"} else "neutral"
 		value = impact or 0
 		planet_impact = target.setdefault(
@@ -2708,6 +2784,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		aspect_type: Optional[str],
 		impact: Optional[float],
 	) -> None:
+		"""
+		Accumulate impact for planet_impact1.score (transit aspects by target planet).
+		"""
 		impact_bucket = aspect_type if aspect_type in {"tense", "neutral", "harmonious"} else "neutral"
 		value = impact or 0
 		planet_impact1 = target.setdefault(

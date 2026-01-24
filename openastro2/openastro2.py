@@ -2690,6 +2690,40 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			"all": out["tense"] + out["neutral"] + out["harmonious"],
 		}
 
+	def _set_planet_impact_sum12(self, transit_entry: Dict[str, Any]) -> None:
+		"""
+		Sum planet_impact2 and planet_impact1 element-wise into planet_impact_sum12.
+		"""
+		impact2 = transit_entry.get("planet_impact2", {})
+		impact1 = transit_entry.get("planet_impact1", {})
+		score2 = impact2.get("score", {}) if isinstance(impact2, dict) else {}
+		score1 = impact1.get("score", {}) if isinstance(impact1, dict) else {}
+		sum_score = {
+			"tense": (score2.get("tense", 0) or 0) + (score1.get("tense", 0) or 0),
+			"neutral": (score2.get("neutral", 0) or 0) + (score1.get("neutral", 0) or 0),
+			"harmonious": (score2.get("harmonious", 0) or 0) + (score1.get("harmonious", 0) or 0),
+		}
+		sum_score["all"] = sum_score["tense"] + sum_score["neutral"] + sum_score["harmonious"]
+		sum_payload = {"score": sum_score}
+		for score_key in (
+			"score_sum_natal",
+			"score_sum_transit",
+			"score_sum_natal_transit",
+			"score_mult_natal",
+			"score_mult_transit",
+			"score_mult_natal_transit",
+		):
+			score2 = impact2.get(score_key, {}) if isinstance(impact2, dict) else {}
+			score1 = impact1.get(score_key, {}) if isinstance(impact1, dict) else {}
+			sum_entry = {
+				"tense": (score2.get("tense", 0) or 0) + (score1.get("tense", 0) or 0),
+				"neutral": (score2.get("neutral", 0) or 0) + (score1.get("neutral", 0) or 0),
+				"harmonious": (score2.get("harmonious", 0) or 0) + (score1.get("harmonious", 0) or 0),
+			}
+			sum_entry["all"] = sum_entry["tense"] + sum_entry["neutral"] + sum_entry["harmonious"]
+			sum_payload[score_key] = sum_entry
+		transit_entry["planet_impact_sum12"] = sum_payload
+
 	def _compute_impact_score_for_transit_by_natal(self) -> None:
 		"""
 		Compute score_natal/score_transit/score_natal_transit and their multiplicative variants.
@@ -2755,6 +2789,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				score_2score = self._multiply_impact_scores(score, score)
 				score_mult_natal_transit = self._merge_impact_scores(score_mult_natal_transit,score_2score)
 				impact_entry["score_mult_natal_transit"] = score_mult_natal_transit
+			self._set_planet_impact_sum12(transit_entry)
 
 	def _accumulate_planet_impact_natal(
 		self,

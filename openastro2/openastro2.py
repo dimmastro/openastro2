@@ -2589,6 +2589,41 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			"all": tense + neutral + harmonious,
 		}
 
+	def _multiply_impact_scores(self, base: Dict[str, float], extra: Dict[str, float]) -> Dict[str, float]:
+		base_vals = {
+			"tense": base.get("tense", 0) or 0,
+			"neutral": base.get("neutral", 0) or 0,
+			"harmonious": base.get("harmonious", 0) or 0,
+		}
+		extra_vals = {
+			"tense": extra.get("tense", 0) or 0,
+			"neutral": extra.get("neutral", 0) or 0,
+			"harmonious": extra.get("harmonious", 0) or 0,
+		}
+		out = {"tense": 0, "neutral": 0, "harmonious": 0}
+		for a_key, a_val in base_vals.items():
+			for b_key, b_val in extra_vals.items():
+				prod = a_val * b_val
+				if prod == 0:
+					continue
+				if a_key == b_key:
+					bucket = a_key
+				elif (a_key == "tense" and b_key == "neutral") or (a_key == "neutral" and b_key == "tense"):
+					bucket = "tense"
+				elif (a_key == "tense" and b_key == "harmonious") or (a_key == "harmonious" and b_key == "tense"):
+					bucket = "neutral"
+				elif (a_key == "harmonious" and b_key == "neutral") or (a_key == "neutral" and b_key == "harmonious"):
+					bucket = "harmonious"
+				else:
+					bucket = a_key
+				out[bucket] += prod
+		return {
+			"tense": out["tense"],
+			"neutral": out["neutral"],
+			"harmonious": out["harmonious"],
+			"all": out["tense"] + out["neutral"] + out["harmonious"],
+		}
+
 	def _compute_impact_score_for_transit_by_natal(self) -> None:
 		astro_dict = getattr(self, "astro_dict", None)
 		if not isinstance(astro_dict, dict):
@@ -2644,6 +2679,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					"all": (natal_scaled.get("all", 0) or 0) + (transit_scaled.get("all", 0) or 0),
 				}
 				impact_entry["score_natal_transit"] = self._merge_impact_scores(score, combined_extra)
+				impact_entry["score_mult_natal"] = self._multiply_impact_scores(score, natal_scaled)
+				impact_entry["score_mult_transit"] = self._multiply_impact_scores(score, transit_scaled)
+				impact_entry["score_mult_natal_transit"] = self._multiply_impact_scores(score, combined_extra)
 
 	def _accumulate_planet_impact_natal(
 		self,

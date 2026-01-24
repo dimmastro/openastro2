@@ -1819,7 +1819,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			oa_args = {}
 			oa_args['DirectionToEndType'] = "360"
 			oa_args['dateEndStr'] = "1990-08-15 09:40:00"
-			oa2 = openAstro(event1, self.event2, type="DirectionWithEnd", oa_args=oa_args)
+			oa2 = openAstro(event1, self.event2, type="DirectionWithEnd", settings=self.settings.settings, oa_args=oa_args)
 			oa2.calcAstro()
 			r = self.settings.settings["settings_svg"]["r"]
 			self.c3 = 120
@@ -2232,8 +2232,10 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					entry.pop("aspects", None)
 
 	def _record_natal_aspect(self, a: int, b: int, diff: float, aspect_index: int) -> None:
-		aspects_degree_id = self.settings.settings["settings_aspect"][aspect_index]['id']
+		aspect_entry = self.settings.settings["settings_aspect"][aspect_index]
+		aspects_degree_id = aspect_entry['id']
 		aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
+		aspect_type = aspect_entry.get('type')
 		asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][aspect_index]['degree'])))
 		asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
 		asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']} orb={asp_orb_deg}"
@@ -2243,6 +2245,19 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		if aspect_orb_default and aspect_orb_default != 0:
 			aspect_accuracy = asp_orb / aspect_orb_default
 			aspect_score = 1 - aspect_accuracy
+		# aspect_impact = aspect_orbis_score * aspect_weight * planet_weight(planet_id1) * planet_weight(planet_id2)
+		settings_payload = getattr(self, "settings", None)
+		settings_planet_dict = {}
+		if isinstance(settings_payload, dict):
+			settings_planet_dict = settings_payload.get("settings_planet_dict", {}) or {}
+		else:
+			settings_planet_dict = getattr(settings_payload, "settings_planet_dict", None) or {}
+			if not isinstance(settings_planet_dict, dict):
+				settings_planet_dict = getattr(settings_payload, "settings", {}).get("settings_planet_dict", {}) or {}
+		planet_weight1 = settings_planet_dict.get(str(a), {}).get("weight", 1)
+		planet_weight2 = settings_planet_dict.get(str(b), {}).get("weight", 1)
+		aspect_orbis_score = aspect_score if aspect_score is not None else 0
+		aspect_impact = aspect_orbis_score * aspect_weight * planet_weight1 * planet_weight2
 		asp_dict_a = {
 			'aspect_str': asp_str,
 			'planet_name1': self.planets[a]['name'],
@@ -2260,9 +2275,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			'aspect_orbis_planet': orb2,
 			'aspect_orbis_deg': asp_orb_deg,
 			'aspect_weight': aspect_weight,
+			'aspect_type': aspect_type,
+			'aspect_impact': aspect_impact,
 		}
 		asp_dict_b = dict(asp_dict_a)
 		asp_dict_b['aspect_orbis_planet'] = orb1
+		# asp_dict_b['planet_id1'], asp_dict_b['planet_id2'] = asp_dict_b['planet_id2'], asp_dict_b['planet_id1']
+		# asp_dict_b['planet_name1'], asp_dict_b['planet_name2'] = asp_dict_b['planet_name2'], asp_dict_b['planet_name1']
+		asp_dict_b['aspect_str'] = f"t.{asp_dict_b['planet_name2']} {asp_dict_b['aspect_label']} n.{asp_dict_b['planet_name1']} orb={asp_orb_deg}"
 		self.planets_aspects_list.append(asp_dict_a)
 		if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
 			if ('visible_json' in self.planets[b] and self.planets[b]['visible_json'] == 1):
@@ -2276,10 +2296,15 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			astro_planets = self.astro_dict.get("planet_dict", {})
 			planet_key_a = str(a)
 			planet_key_b = str(b)
+			visible_pair = self.planet_visible_json(a) == 1 and self.planet_visible_json(b) == 1
 			if planet_key_a in astro_planets:
 				astro_planets[planet_key_a].setdefault('aspects', {})[str(b)] = asp_dict_a
+				if visible_pair:
+					self._accumulate_planet_impact(astro_planets[planet_key_a], aspect_type, asp_dict_a.get("aspect_impact", 0))
 			if planet_key_b in astro_planets:
 				astro_planets[planet_key_b].setdefault('aspects', {})[str(a)] = asp_dict_b
+				if visible_pair:
+					self._accumulate_planet_impact(astro_planets[planet_key_b], aspect_type, asp_dict_b.get("aspect_impact", 0))
 		# Houses aspects
 		if (22 < a and a < 35):
 			if hasattr(self, "houses_dict") and isinstance(self.houses_dict, dict):
@@ -2288,9 +2313,29 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			if hasattr(self, "houses_dict") and isinstance(self.houses_dict, dict):
 				self.houses_dict.setdefault(b, {}).setdefault('aspects', {})[a] = asp_dict_b
 
+	def planet_visible_json(self, planet_id: int, use_transit: bool = False) -> int:
+		planet_key = planet_id
+		if isinstance(getattr(self, "planets", None), list) and 0 <= planet_id < len(self.planets):
+			planet = self.planets[planet_id]
+			if isinstance(planet, dict):
+				planet_key = planet.get("id", planet_id)
+		if isinstance(getattr(self, "astro_dict", None), dict):
+			planet_bucket = "t_planet_dict" if use_transit else "planet_dict"
+			planet_entry = self.astro_dict.get(planet_bucket, {}).get(str(planet_key))
+			if isinstance(planet_entry, dict):
+				return 1 if planet_entry.get("planet_visible_json") == 1 else 0
+		if isinstance(getattr(self, "planets", None), list) and 0 <= planet_id < len(self.planets):
+			planet = self.planets[planet_id]
+			if isinstance(planet, dict):
+				visible_key = "t_visible_json" if use_transit else "visible_json"
+				return 1 if planet.get(visible_key) == 1 else 0
+		return 0
+
 	def _record_transit_aspect(self, natal_index: int, transit_index: int, diff: float, aspect_index: int) -> None:
-		aspects_degree_id = self.settings.settings["settings_aspect"][aspect_index]['id']
+		aspect_entry = self.settings.settings["settings_aspect"][aspect_index]
+		aspects_degree_id = aspect_entry['id']
 		aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
+		aspect_type = aspect_entry.get('type')
 		asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][aspect_index]['degree'])))
 		asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
 		asp_str = f"{self.planets[natal_index]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id].get('label')} {self.planets[transit_index]['name']} orb={asp_orb_deg}"
@@ -2300,6 +2345,19 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		if aspect_orb_default and aspect_orb_default != 0:
 			aspect_accuracy = asp_orb / aspect_orb_default
 			aspect_score = 1 - aspect_accuracy
+		# aspect_impact = aspect_orbis_score * aspect_weight * planet_weight(planet_id1) * planet_weight(planet_id2)
+		settings_payload = getattr(self, "settings", None)
+		settings_planet_dict = {}
+		if isinstance(settings_payload, dict):
+			settings_planet_dict = settings_payload.get("settings_planet_dict", {}) or {}
+		else:
+			settings_planet_dict = getattr(settings_payload, "settings_planet_dict", None) or {}
+			if not isinstance(settings_planet_dict, dict):
+				settings_planet_dict = getattr(settings_payload, "settings", {}).get("settings_planet_dict", {}) or {}
+		planet_weight1 = settings_planet_dict.get(str(natal_index), {}).get("weight", 1)
+		planet_weight2 = settings_planet_dict.get(str(transit_index), {}).get("weight", 1)
+		aspect_orbis_score = aspect_score if aspect_score is not None else 0
+		aspect_impact = aspect_orbis_score * aspect_weight * planet_weight1 * planet_weight2
 		asp_dict_a = {
 			'aspect_str': asp_str,
 			'planet_name1': self.planets[natal_index]['name'],
@@ -2317,9 +2375,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			'aspect_orbis_planet': orb2,
 			'aspect_orbis_deg': asp_orb_deg,
 			'aspect_weight': aspect_weight,
+			'aspect_type': aspect_type,
+			'aspect_impact': aspect_impact,
 		}
 		asp_dict_b = dict(asp_dict_a)
 		asp_dict_b['aspect_orbis_planet'] = orb1
+		# asp_dict_b['planet_id1'], asp_dict_b['planet_id2'] = asp_dict_b['planet_id2'], asp_dict_b['planet_id1']
+		# asp_dict_b['planet_name1'], asp_dict_b['planet_name2'] = asp_dict_b['planet_name2'], asp_dict_b['planet_name1']
+		asp_dict_b['aspect_str'] = f"t.{asp_dict_b['planet_name2']} {asp_dict_b['aspect_label']} n.{asp_dict_b['planet_name1']} orb={asp_orb_deg}"
 		self.t_planets_aspects_list.append(asp_dict_a)
 		if ('visible_json' in self.planets[natal_index] and self.planets[natal_index]['visible_json'] == 1):
 			if ('t_visible_json' in self.planets[transit_index] and self.planets[transit_index]['t_visible_json'] == 1):
@@ -2341,6 +2404,40 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			planet_key = str(transit_index)
 			if planet_key in astro_transit:
 				astro_transit[planet_key].setdefault('aspects', {})[str(natal_index)] = asp_dict_b
+				if self.planet_visible_json(natal_index) == 1 and self.planet_visible_json(transit_index, use_transit=True) == 1:
+					self._accumulate_planet_impact(astro_transit[planet_key], aspect_type, asp_dict_b.get("aspect_impact", 0))
+					impact_target = astro_transit.get(str(asp_dict_b.get("planet_id1")))
+					if isinstance(impact_target, dict):
+						self._accumulate_planet_impact1(
+							impact_target,
+							aspect_type,
+							asp_dict_b.get("aspect_impact", 0),
+						)
+
+	def _accumulate_planet_impact(self, target: Dict[str, Any], aspect_type: Optional[str], impact: Optional[float]) -> None:
+		impact_bucket = aspect_type if aspect_type in {"tense", "neutral", "harmonious"} else "neutral"
+		value = impact or 0
+		planet_impact = target.setdefault(
+			"planet_impact2",
+			{"tense": 0, "neutral": 0, "harmonious": 0, "all": 0},
+		)
+		planet_impact[impact_bucket] = planet_impact.get(impact_bucket, 0) + value
+		planet_impact["all"] = planet_impact.get("all", 0) + value
+
+	def _accumulate_planet_impact1(
+		self,
+		target: Dict[str, Any],
+		aspect_type: Optional[str],
+		impact: Optional[float],
+	) -> None:
+		impact_bucket = aspect_type if aspect_type in {"tense", "neutral", "harmonious"} else "neutral"
+		value = impact or 0
+		planet_impact1 = target.setdefault(
+			"planet_impact1",
+			{"tense": 0, "neutral": 0, "harmonious": 0, "all": 0},
+		)
+		planet_impact1[impact_bucket] = planet_impact1.get(impact_bucket, 0) + value
+		planet_impact1["all"] = planet_impact1.get("all", 0) + value
 
 	def makeAspectTransitGrid( self , r ):
 		return self.renderer.makeAspectTransitGrid(r)

@@ -101,6 +101,7 @@
       "is_minor": 0,
       "orb": 10,
       "visible_json": 1,
+      "type": "neutral",
       "weight": 2
     },
     {
@@ -117,6 +118,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -133,6 +135,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -149,6 +152,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "harmonious",
       "weight": 1
     },
     {
@@ -165,6 +169,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -181,6 +186,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -197,6 +203,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "tense",
       "weight": 1
     },
     {
@@ -213,6 +220,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -229,6 +237,7 @@
       "is_minor": 0,
       "orb": 5,
       "visible_json": 1,
+      "type": "harmonious",
       "weight": 1
     },
     {
@@ -245,6 +254,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -261,6 +271,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -277,6 +288,7 @@
       "is_minor": 0,
       "orb": 5,
       "visible_json": 1,
+      "type": "tense",
       "weight": 1
     },
     {
@@ -293,6 +305,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -309,6 +322,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -325,6 +339,7 @@
       "is_minor": 0,
       "orb": 6,
       "visible_json": 1,
+      "type": "harmonious",
       "weight": 1
     },
     {
@@ -341,6 +356,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "tense",
       "weight": 1
     },
     {
@@ -357,6 +373,7 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
+      "type": "neutral",
       "weight": 1
     },
     {
@@ -373,6 +390,7 @@
       "is_minor": 0,
       "orb": 1,
       "visible_json": 0,
+      "type": "harmonious",
       "weight": 1
     },
     {
@@ -389,6 +407,7 @@
       "is_minor": 0,
       "orb": 6,
       "visible_json": 1,
+      "type": "tense",
       "weight": 1.5
     }
   ],

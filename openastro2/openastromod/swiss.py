@@ -20,7 +20,9 @@ from typing import List, Dict, Any, Tuple, Optional, Union
 import importlib
 import os.path, sys, datetime, math
 from pathlib import Path
-from skyfield.api import load, wgs84
+from skyfield.api import wgs84
+
+from openastromod.skyfield_loader import load
 from openastromod.utils import decHour
 # #swiss ephemeris files directory
 # swissDir = os.path.join(sys.prefix,'share','swisseph')

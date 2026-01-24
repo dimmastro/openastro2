@@ -5,7 +5,9 @@ import datetime
 import ephem
 import pytz
 
-from skyfield.api import load, wgs84
+from skyfield.api import wgs84
+
+from openastromod.skyfield_loader import load
 
 from openastromod import swiss as ephemeris
 from openastromod.utils import decHour, decHourJoin, local_to_utc

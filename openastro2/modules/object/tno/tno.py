@@ -6,7 +6,7 @@ import math
 import shutil
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-from skyfield.api import load
+from openastromod.skyfield_loader import load
 from skyfield.constants import AU_KM
 from skyfield.framelib import ecliptic_frame
 

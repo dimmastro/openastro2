@@ -2018,6 +2018,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			start=self.planets_degree_ut[i]
 			# for x in range(i):
 			for x in range(len(self.planets)):
+				if i == x:
+					continue
 				self.planets_aspects[i][x] = {}
 				end=self.planets_degree_ut[x]
 				diff=float(self.degreeDiff(start,end))
@@ -2238,7 +2240,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		aspect_type = aspect_entry.get('type')
 		asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][aspect_index]['degree'])))
 		asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
-		asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']} orb={asp_orb_deg}"
+		asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']}\n  orb={asp_orb_deg}"
 		orb1, orb2, aspect_orb_default = self.getAspectOrbs(aspect_index, a, b)
 		aspect_accuracy = None
 		aspect_score = None
@@ -2280,9 +2282,9 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		}
 		asp_dict_b = dict(asp_dict_a)
 		asp_dict_b['aspect_orbis_planet'] = orb1
-		# asp_dict_b['planet_id1'], asp_dict_b['planet_id2'] = asp_dict_b['planet_id2'], asp_dict_b['planet_id1']
-		# asp_dict_b['planet_name1'], asp_dict_b['planet_name2'] = asp_dict_b['planet_name2'], asp_dict_b['planet_name1']
-		asp_dict_b['aspect_str'] = f"t.{asp_dict_b['planet_name2']} {asp_dict_b['aspect_label']} n.{asp_dict_b['planet_name1']} orb={asp_orb_deg}"
+		asp_dict_b['planet_id1'], asp_dict_b['planet_id2'] = asp_dict_b['planet_id2'], asp_dict_b['planet_id1']
+		asp_dict_b['planet_name1'], asp_dict_b['planet_name2'] = asp_dict_b['planet_name2'], asp_dict_b['planet_name1']
+		asp_dict_b['aspect_str'] = f"{asp_dict_b['planet_name1']} {asp_dict_b['aspect_label']} {asp_dict_b['planet_name2']}\n  orb={asp_orb_deg}"
 		self.planets_aspects_list.append(asp_dict_a)
 		if ('visible_json' in self.planets[a] and self.planets[a]['visible_json'] == 1):
 			if ('visible_json' in self.planets[b] and self.planets[b]['visible_json'] == 1):
@@ -2300,11 +2302,11 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			if planet_key_a in astro_planets:
 				astro_planets[planet_key_a].setdefault('aspects', {})[str(b)] = asp_dict_a
 				if visible_pair:
-					self._accumulate_planet_impact(astro_planets[planet_key_a], aspect_type, asp_dict_a.get("aspect_impact", 0))
+					self._accumulate_planet_impact_natal(astro_planets[planet_key_a], aspect_type, asp_dict_a.get("aspect_impact", 0))
 			if planet_key_b in astro_planets:
 				astro_planets[planet_key_b].setdefault('aspects', {})[str(a)] = asp_dict_b
 				if visible_pair:
-					self._accumulate_planet_impact(astro_planets[planet_key_b], aspect_type, asp_dict_b.get("aspect_impact", 0))
+					self._accumulate_planet_impact_natal(astro_planets[planet_key_b], aspect_type, asp_dict_b.get("aspect_impact", 0))
 		# Houses aspects
 		if (22 < a and a < 35):
 			if hasattr(self, "houses_dict") and isinstance(self.houses_dict, dict):
@@ -2419,6 +2421,21 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		value = impact or 0
 		planet_impact = target.setdefault(
 			"planet_impact2",
+			{"tense": 0, "neutral": 0, "harmonious": 0, "all": 0},
+		)
+		planet_impact[impact_bucket] = planet_impact.get(impact_bucket, 0) + value
+		planet_impact["all"] = planet_impact.get("all", 0) + value
+
+	def _accumulate_planet_impact_natal(
+		self,
+		target: Dict[str, Any],
+		aspect_type: Optional[str],
+		impact: Optional[float],
+	) -> None:
+		impact_bucket = aspect_type if aspect_type in {"tense", "neutral", "harmonious"} else "neutral"
+		value = impact or 0
+		planet_impact = target.setdefault(
+			"planet_impact",
 			{"tense": 0, "neutral": 0, "harmonious": 0, "all": 0},
 		)
 		planet_impact[impact_bucket] = planet_impact.get(impact_bucket, 0) + value

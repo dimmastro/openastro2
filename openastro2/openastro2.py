@@ -2594,8 +2594,10 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		if not isinstance(astro_dict, dict):
 			return
 		impact_coef = self.settings.settings.get("astrocfg", {}).get("impact_planet_coef_natal_sum", 1)
+		impact_coef_transit = self.settings.settings.get("astrocfg", {}).get("impact_planet_coef_transit_sum", 1)
 		natal_planets = astro_dict.get("planet_dict", {})
 		transit_planets = astro_dict.get("t_planet_dict", {})
+		tt_planets = astro_dict.get("tt_planet_dict", {})
 		if not isinstance(natal_planets, dict) or not isinstance(transit_planets, dict):
 			return
 		for planet_id, transit_entry in transit_planets.items():
@@ -2613,6 +2615,19 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				"harmonious": (natal_impact.get("harmonious", 0) or 0) * impact_coef,
 				"all": (natal_impact.get("all", 0) or 0) * impact_coef,
 			}
+			transit_scaled = {}
+			if isinstance(tt_planets, dict):
+				tt_entry = tt_planets.get(str(planet_id))
+				if isinstance(tt_entry, dict):
+					tt_impact = tt_entry.get("planet_impact", {}).get("score", {})
+					if not isinstance(tt_impact, dict):
+						tt_impact = {}
+					transit_scaled = {
+						"tense": (tt_impact.get("tense", 0) or 0) * impact_coef_transit,
+						"neutral": (tt_impact.get("neutral", 0) or 0) * impact_coef_transit,
+						"harmonious": (tt_impact.get("harmonious", 0) or 0) * impact_coef_transit,
+						"all": (tt_impact.get("all", 0) or 0) * impact_coef_transit,
+					}
 			for impact_key in ("planet_impact2", "planet_impact1"):
 				impact_entry = transit_entry.get(impact_key)
 				if not isinstance(impact_entry, dict):
@@ -2621,6 +2636,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				if not isinstance(score, dict):
 					score = {}
 				impact_entry["score_natal"] = self._merge_impact_scores(score, natal_scaled)
+				impact_entry["score_transit"] = self._merge_impact_scores(score, transit_scaled)
+				combined_extra = {
+					"tense": (natal_scaled.get("tense", 0) or 0) + (transit_scaled.get("tense", 0) or 0),
+					"neutral": (natal_scaled.get("neutral", 0) or 0) + (transit_scaled.get("neutral", 0) or 0),
+					"harmonious": (natal_scaled.get("harmonious", 0) or 0) + (transit_scaled.get("harmonious", 0) or 0),
+					"all": (natal_scaled.get("all", 0) or 0) + (transit_scaled.get("all", 0) or 0),
+				}
+				impact_entry["score_natal_transit"] = self._merge_impact_scores(score, combined_extra)
 
 	def _accumulate_planet_impact_natal(
 		self,

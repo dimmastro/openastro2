@@ -16,7 +16,9 @@
     "language": "en",
     "round_aspects": 1,
     "planet_in_one_house": 0,
-    "geo_zodiac_start": 0
+    "geo_zodiac_start": 0,
+    "impact_planet_coef_natal_sum": 1,
+    "impact_planet_coef_transit_sum": 1
   },
   "color_codes": {
     "paper_0": "#000000",

@@ -2203,6 +2203,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 												# self.atgrid[-1]['aid']=z
 												# self.atgrid[-1]['diff']=diff
 										# self.t_planets_aspects_id_dic[i][x] = aspect_arr
+		self._compute_impact_score_for_transit_by_natal()
 		return out
 
 	def _reset_natal_aspect_data(self) -> None:
@@ -2421,10 +2422,83 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		value = impact or 0
 		planet_impact = target.setdefault(
 			"planet_impact2",
+			{"score": {"tense": 0, "neutral": 0, "harmonious": 0, "all": 0}},
+		)
+		if "score" not in planet_impact:
+			legacy = {
+				"tense": planet_impact.get("tense", 0),
+				"neutral": planet_impact.get("neutral", 0),
+				"harmonious": planet_impact.get("harmonious", 0),
+				"all": planet_impact.get("all", 0),
+			}
+			planet_impact.clear()
+			planet_impact["score"] = legacy
+		score = planet_impact.setdefault(
+			"score",
 			{"tense": 0, "neutral": 0, "harmonious": 0, "all": 0},
 		)
-		planet_impact[impact_bucket] = planet_impact.get(impact_bucket, 0) + value
-		planet_impact["all"] = planet_impact.get("all", 0) + value
+		score[impact_bucket] = score.get(impact_bucket, 0) + value
+		score["all"] = score.get("all", 0) + value
+
+	def _merge_impact_scores(self, base: Dict[str, float], extra: Dict[str, float]) -> Dict[str, float]:
+		def normalize(score: Dict[str, float]) -> Dict[str, float]:
+			tense = score.get("tense", 0) or 0
+			neutral = score.get("neutral", 0) or 0
+			harmonious = score.get("harmonious", 0) or 0
+			if tense >= harmonious:
+				tense = tense + harmonious
+				harmonious = 0
+			else:
+				harmonious = tense + harmonious
+				tense = 0
+			return {"tense": tense, "neutral": neutral, "harmonious": harmonious}
+
+		# base_norm = normalize(base)
+		# extra_norm = normalize(extra)
+		base_norm = base
+		extra_norm = extra
+		tense = base_norm["tense"] + extra_norm["tense"]
+		harmonious = base_norm["harmonious"] + extra_norm["harmonious"]
+		neutral = base_norm["neutral"] + extra_norm["neutral"]
+		return {
+			"tense": tense,
+			"neutral": neutral,
+			"harmonious": harmonious,
+			"all": tense + neutral + harmonious,
+		}
+
+	def _compute_impact_score_for_transit_by_natal(self) -> None:
+		astro_dict = getattr(self, "astro_dict", None)
+		if not isinstance(astro_dict, dict):
+			return
+		impact_coef = self.settings.settings.get("astrocfg", {}).get("impact_planet_coef_natal_sum", 1)
+		natal_planets = astro_dict.get("planet_dict", {})
+		transit_planets = astro_dict.get("t_planet_dict", {})
+		if not isinstance(natal_planets, dict) or not isinstance(transit_planets, dict):
+			return
+		for planet_id, transit_entry in transit_planets.items():
+			if not isinstance(transit_entry, dict):
+				continue
+			natal_entry = natal_planets.get(str(planet_id))
+			if not isinstance(natal_entry, dict):
+				continue
+			natal_impact = natal_entry.get("planet_impact", {}).get("score", {})
+			if not isinstance(natal_impact, dict):
+				natal_impact = {}
+			natal_scaled = {
+				"tense": (natal_impact.get("tense", 0) or 0) * impact_coef,
+				"neutral": (natal_impact.get("neutral", 0) or 0) * impact_coef,
+				"harmonious": (natal_impact.get("harmonious", 0) or 0) * impact_coef,
+				"all": (natal_impact.get("all", 0) or 0) * impact_coef,
+			}
+			for impact_key in ("planet_impact2", "planet_impact1"):
+				impact_entry = transit_entry.get(impact_key)
+				if not isinstance(impact_entry, dict):
+					continue
+				score = impact_entry.get("score", {})
+				if not isinstance(score, dict):
+					score = {}
+				impact_entry["score_natal"] = self._merge_impact_scores(score, natal_scaled)
 
 	def _accumulate_planet_impact_natal(
 		self,
@@ -2436,10 +2510,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		value = impact or 0
 		planet_impact = target.setdefault(
 			"planet_impact",
+			{"score": {"tense": 0, "neutral": 0, "harmonious": 0, "all": 0}},
+		)
+		score = planet_impact.setdefault(
+			"score",
 			{"tense": 0, "neutral": 0, "harmonious": 0, "all": 0},
 		)
-		planet_impact[impact_bucket] = planet_impact.get(impact_bucket, 0) + value
-		planet_impact["all"] = planet_impact.get("all", 0) + value
+		score[impact_bucket] = score.get(impact_bucket, 0) + value
+		score["all"] = score.get("all", 0) + value
 
 	def _accumulate_planet_impact1(
 		self,
@@ -2451,10 +2529,23 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		value = impact or 0
 		planet_impact1 = target.setdefault(
 			"planet_impact1",
+			{"score": {"tense": 0, "neutral": 0, "harmonious": 0, "all": 0}},
+		)
+		if "score" not in planet_impact1:
+			legacy = {
+				"tense": planet_impact1.get("tense", 0),
+				"neutral": planet_impact1.get("neutral", 0),
+				"harmonious": planet_impact1.get("harmonious", 0),
+				"all": planet_impact1.get("all", 0),
+			}
+			planet_impact1.clear()
+			planet_impact1["score"] = legacy
+		score = planet_impact1.setdefault(
+			"score",
 			{"tense": 0, "neutral": 0, "harmonious": 0, "all": 0},
 		)
-		planet_impact1[impact_bucket] = planet_impact1.get(impact_bucket, 0) + value
-		planet_impact1["all"] = planet_impact1.get("all", 0) + value
+		score[impact_bucket] = score.get(impact_bucket, 0) + value
+		score["all"] = score.get("all", 0) + value
 
 	def makeAspectTransitGrid( self , r ):
 		return self.renderer.makeAspectTransitGrid(r)

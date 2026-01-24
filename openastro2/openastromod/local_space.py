@@ -9,7 +9,9 @@ import pydeck as pdk
 import swisseph as swe
 from geographiclib.geodesic import Geodesic
 from skyfield import api, framelib
-from skyfield.api import N, E, load, wgs84
+from skyfield.api import N, E, wgs84
+
+from openastromod.skyfield_loader import load
 from skyfield.positionlib import Apparent
 
 
@@ -984,7 +986,7 @@ class LocalSpaceMixin:
 
 		tau = api.tau
 		ts = api.load.timescale()
-		eph = api.load('de421.bsp')
+		eph = load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
@@ -1078,7 +1080,7 @@ class LocalSpaceMixin:
 
 		tau = api.tau
 		ts = api.load.timescale()
-		eph = api.load('de421.bsp')
+		eph = load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
@@ -2102,7 +2104,7 @@ class LocalSpaceMixin:
 
 		tau = api.tau
 		ts = api.load.timescale()
-		eph = api.load('de421.bsp')
+		eph = load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
@@ -2172,7 +2174,7 @@ class LocalSpaceMixin:
 
 		tau = api.tau
 		ts = api.load.timescale()
-		eph = api.load('de421.bsp')
+		eph = load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
@@ -2228,7 +2230,7 @@ class LocalSpaceMixin:
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 		tau = api.tau
 		ts = api.load.timescale()
-		eph = api.load('de421.bsp')
+		eph = load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		# angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
@@ -2250,7 +2252,7 @@ class LocalSpaceMixin:
 		# classmethod from_time_and_frame_vectors(t, frame, distance, velocity)
 		tau = api.tau
 		ts = api.load.timescale()
-		eph = api.load('de421.bsp')
+		eph = load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		lon_rad = np.array(eclips_arr_lon)/360 * tau
@@ -2715,7 +2717,7 @@ class LocalSpaceMixin:
 
 		tau = api.tau
 		ts = api.load.timescale()
-		eph = api.load('de421.bsp')
+		eph = load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		# angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau
@@ -2795,7 +2797,7 @@ class LocalSpaceMixin:
 
 		tau = api.tau
 		ts = api.load.timescale()
-		eph = api.load('de421.bsp')
+		eph = load('de421.bsp')
 		bluffton = api.Topos(lat, lon)
 		t = ts.utc(dt.year,dt.month,dt.day,dt.hour,dt.minute, dt.second)
 		# angle = - np.arange(12) / 12.0 * tau + 1/4.0 * tau

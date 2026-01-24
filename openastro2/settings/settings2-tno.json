@@ -8,7 +8,7 @@
     "home_timezonestr": "Asia/Krasnoyarsk",
     "use_geonames.org": "0",
     "houses_system": "P",
-    "houses_system_polar": "A",
+    "houses_system_polar": "D",
     "postype": "geo",
     "chartview": "european",
     "zodiactype": "tropical",
@@ -17,6 +17,8 @@
     "round_aspects": 1,
     "planet_in_one_house": 0,
     "geo_zodiac_start": 0,
+    "impact_planet_coef_natal_sum": 1,
+    "impact_planet_coef_transit_sum": 1,
     "modules": {
       "object": {
         "tno": {
@@ -175,48 +177,6 @@
     "color_radix": "#444444",
     "color_transit_1": "#ff0000",
     "color_transit_2": "#0000FF",
-    "planet_0": "#444444",
-    "planet_1": "#444444",
-    "planet_2": "#444444",
-    "planet_3": "#444444",
-    "planet_4": "#444444",
-    "planet_5": "#444444",
-    "planet_6": "#444444",
-    "planet_7": "#444444",
-    "planet_8": "#444444",
-    "planet_9": "#444444",
-    "planet_10": "#444444",
-    "planet_11": "#444444",
-    "planet_12": "#444444",
-    "planet_13": "#444444",
-    "planet_14": "#444444",
-    "planet_15": "#444444",
-    "planet_16": "#444444",
-    "planet_17": "#444444",
-    "planet_18": "#444444",
-    "planet_19": "#444444",
-    "planet_20": "#444444",
-    "planet_21": "#444444",
-    "planet_22": "#444444",
-    "planet_23": "#444444",
-    "planet_24": "#444444",
-    "planet_25": "#444444",
-    "planet_26": "#444444",
-    "planet_27": "#444444",
-    "planet_28": "#444444",
-    "planet_29": "#444444",
-    "planet_30": "#444444",
-    "planet_31": "#444444",
-    "planet_32": "#444444",
-    "planet_33": "#444444",
-    "planet_34": "#444444",
-    "planet_90482": "#444444",
-    "planet_136108": "#444444",
-    "planet_50000": "#444444",
-    "planet_136472": "#444444",
-    "planet_225088": "#444444",
-    "planet_136199": "#444444",
-    "planet_90377": "#444444",
     "lunar_phase_0": "#000000",
     "lunar_phase_1": "#FFFFFF",
     "lunar_phase_2": "#CCCCCC"
@@ -260,6 +220,7 @@
       "is_minor": 0,
       "orb": 10,
       "visible_json": 1,
+      "type": "neutral",
       "weight": 2
     },
     {
@@ -276,7 +237,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "20",
@@ -292,7 +254,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "30",
@@ -308,7 +271,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "harmonious",
+      "weight": 0.5
     },
     {
       "id": "36",
@@ -324,7 +288,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "40",
@@ -340,7 +305,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "45",
@@ -356,7 +322,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "tense",
+      "weight": 0.5
     },
     {
       "id": "51.5",
@@ -372,7 +339,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "60",
@@ -388,6 +356,7 @@
       "is_minor": 0,
       "orb": 5,
       "visible_json": 1,
+      "type": "harmonious",
       "weight": 1
     },
     {
@@ -404,7 +373,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "80",
@@ -420,7 +390,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "90",
@@ -436,6 +407,7 @@
       "is_minor": 0,
       "orb": 5,
       "visible_json": 1,
+      "type": "tense",
       "weight": 1
     },
     {
@@ -452,7 +424,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "108",
@@ -468,7 +441,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "120",
@@ -484,6 +458,7 @@
       "is_minor": 0,
       "orb": 6,
       "visible_json": 1,
+      "type": "harmonious",
       "weight": 1
     },
     {
@@ -500,7 +475,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "tense",
+      "weight": 0.5
     },
     {
       "id": "144",
@@ -516,7 +492,8 @@
       "is_minor": 1,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "neutral",
+      "weight": 0.5
     },
     {
       "id": "150",
@@ -532,7 +509,8 @@
       "is_minor": 0,
       "orb": 1,
       "visible_json": 0,
-      "weight": 1
+      "type": "tense",
+      "weight": 0.5
     },
     {
       "id": "180",
@@ -548,6 +526,7 @@
       "is_minor": 0,
       "orb": 6,
       "visible_json": 1,
+      "type": "tense",
       "weight": 1.5
     }
   ],
@@ -2247,6 +2226,7 @@
       "label_short": "SNode",
       "visible_aspect_line": 1,
       "visible_aspect_grid": 0,
+      "visible_json": 0,
       "planet_orb": {
         "Radix": {
           "default": 5,

@@ -1,5 +1,7 @@
 from typing import List, Dict, Any, Tuple
-from skyfield.api import load, wgs84
+from skyfield.api import wgs84
+
+from openastromod.skyfield_loader import load
 from skyfield.framelib import ICRS
 from skyfield.positionlib import build_position
 from skyfield.framelib import ecliptic_frame

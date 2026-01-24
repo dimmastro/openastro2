@@ -55,7 +55,7 @@ sys.path.append("/usr/lib/python3.5/site-packages") #trying to 'fix' some proble
 from openastromod import zonetab, geoname, importfile, swiss as ephemeris
 
 
-from skyfield.api import N, E, wgs84, load
+from skyfield.api import N, E, wgs84
 
 import ephem
 

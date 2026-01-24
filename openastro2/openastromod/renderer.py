@@ -675,6 +675,8 @@ class ChartRenderer:
 		# make chart
 		# transit
 		if self.type == "Transit" or self.type == "Direction":
+			# Ensure natal aspects populate planet_dict even for transit charts.
+			self.makeAspects(r, (r - self.c3))
 			td['transitRing'] = self.transitRing(r)
 			td['degreeRing'] = self.degreeTransitRing(r)
 			# circles

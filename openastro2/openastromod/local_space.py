@@ -799,6 +799,8 @@ class LocalSpaceMixin:
 		distance2 = 6371 * 3.1  # Расстояние (в километрах)
 		sp_hour = self.decHourJoin(dt.hour, dt.minute, dt.second)
 		jul_day_UT = swe.julday(dt.year, dt.month, dt.day, sp_hour)
+		ts = api.load.timescale()
+		t = ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
 		dfd = []
 		for i in planets:
 			if 1:
@@ -825,7 +827,8 @@ class LocalSpaceMixin:
 					except Exception:
 						planet_pos = None
 				# if planet_pos is None:
-				if planet_entry and planet_entry.get("planet_type") == 'house':
+				is_house = bool(planet_entry and planet_entry.get("planet_type") == 'house')
+				if is_house:
 					get_house_number = getattr(self, "get_house_number_by_id", lambda _: None)
 					h_i = get_house_number(planet_code)
 					if h_i is None:
@@ -838,6 +841,14 @@ class LocalSpaceMixin:
 					planet_pos = []
 					planet_pos.append([sh[0][h_i], 0, 1, 1, 1, 1])
 
+				planet_geo = None
+				if planet_pos is not None:
+					if is_house:
+						[h_lat, h_lon] = self.eclips_to_geo0_house([planet_pos[0][0]], [planet_pos[0][1]], t)
+					else:
+						[h_lat, h_lon] = self.eclips_to_geo([planet_pos[0][0]], [planet_pos[0][1]], t)
+					planet_geo = [float(h_lon[0]), float(h_lat[0])]
+
 				azimuth0, true_altitude, apparent_altitude = swe.azalt(jul_day_UT, swe.ECL2HOR,
 																	   [lon, lat, 287], 0, 0,
 																	   planet_pos[0])
@@ -847,6 +858,7 @@ class LocalSpaceMixin:
 
 				for aspect in aspects:
 					label_short = self._settings_planet_entry(i)['label_short']
+					aspect_geo = None
 					if aspect_type == 'ecliptic_parallel':
 						deg_ut = planet_pos[0][0] - aspect # rotation is different for ecliptic and azimuth
 						if (deg_ut < 0):
@@ -863,6 +875,11 @@ class LocalSpaceMixin:
 						azimuth = azimuth + 180
 						if (azimuth > 360):
 							azimuth = azimuth - 360
+						if is_house:
+							[h_lat, h_lon] = self.eclips_to_geo0_house([planet_pos_asp[0][0]], [planet_pos_asp[0][1]], t)
+						else:
+							[h_lat, h_lon] = self.eclips_to_geo([planet_pos_asp[0][0]], [planet_pos_asp[0][1]], t)
+						aspect_geo = [float(h_lon[0]), float(h_lat[0])]
 
 					elif aspect_type == 'ecliptic_diagonal':
 						deg_ut = planet_pos[0][0] - aspect # rotation is different for ecliptic and azimuth
@@ -886,6 +903,11 @@ class LocalSpaceMixin:
 						azimuth = azimuth + 180
 						if (azimuth > 360):
 							azimuth = azimuth - 360
+						if is_house:
+							[h_lat, h_lon] = self.eclips_to_geo0_house([planet_pos_asp[0][0]], [planet_pos_asp[0][1]], t)
+						else:
+							[h_lat, h_lon] = self.eclips_to_geo([planet_pos_asp[0][0]], [planet_pos_asp[0][1]], t)
+						aspect_geo = [float(h_lon[0]), float(h_lat[0])]
 
 					else:
 						azimuth = azimuth0 + aspect # rotation is different for ecliptic and azimuth
@@ -893,11 +915,33 @@ class LocalSpaceMixin:
 							azimuth = azimuth - 360
 
 
-					new_latitude, new_longitude = self.compute_destination_point(starting_latitude, starting_longitude,
-																				 azimuth, distance2)
-					new_latitude2, new_longitude2 = self.compute_destination_point(starting_latitude,
-																				   starting_longitude, azimuth,
-																				   -distance2)
+					new_latitude, new_longitude = self.compute_destination_point(
+						starting_latitude,
+						starting_longitude,
+						azimuth,
+						distance2,
+					)
+					new_latitude2, new_longitude2 = self.compute_destination_point(
+						starting_latitude,
+						starting_longitude,
+						azimuth,
+						-distance2,
+					)
+					aspect_geo_fallback = None
+					if aspect_geo is None and planet_geo is not None:
+						aspect_distance_km = Geodesic.WGS84.Inverse(
+							starting_latitude,
+							starting_longitude,
+							planet_geo[1],
+							planet_geo[0],
+						)["s12"] / 1000.0
+						aspect_latitude, aspect_longitude = self.compute_destination_point(
+							starting_latitude,
+							starting_longitude,
+							azimuth,
+							aspect_distance_km,
+						)
+						aspect_geo_fallback = [aspect_longitude, aspect_latitude]
 					dfdata = {
 						"from": {
 							"name": self.name + "/" + "+" + self._settings_planet_entry(i)['name'] + "-" + str(
@@ -908,13 +952,15 @@ class LocalSpaceMixin:
 						"to": {
 							"name": self.name + "/" + "+" + self._settings_planet_entry(i)['name'] + "-" + str(
 								aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
-							"label_short": f"{label_short}-{aspect}",
-							"coordinates": [new_longitude, new_latitude]
-						},
+						"label_short": f"{label_short}-{aspect}",
+						"coordinates": [new_longitude, new_latitude]
+					},
 						"name": self.name + "/" + "+" + self._settings_planet_entry(i)['name'] + "-" + str(
 							aspect) + " (" + " az=" + '{0:.1f}'.format(azimuth) + ")",
 						"label_short": f"{label_short}-{aspect}",
 						"azimuth": azimuth,
+						"planet_geo": planet_geo,
+						"aspect_geo": aspect_geo or aspect_geo_fallback or [new_longitude, new_latitude],
 					}
 
 					dfd.append(dfdata)

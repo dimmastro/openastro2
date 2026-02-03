@@ -1,62 +1,63 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openastro 2-dev\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-11 11:36+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2013-01-11 11:36+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-12-24 18:48+0000\n"
 "X-Generator: Launchpad (build 18521)\n"
 "Generated-By: pygettext.py 1.5\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: openastro.org/current/openastro:385
 msgid "biquintile"
-msgstr ""
+msgstr "bikvintil"
 
 #: openastro.org/current/openastro:385
 msgid "conjunction"
-msgstr ""
+msgstr "konjunksjon"
 
 #: openastro.org/current/openastro:385
 msgid "opposition"
-msgstr ""
+msgstr "opposisjon"
 
 #: openastro.org/current/openastro:385
 msgid "quincunx"
-msgstr ""
+msgstr "kvinkunx"
 
 #: openastro.org/current/openastro:385
 msgid "quintile"
-msgstr ""
+msgstr "kvintil"
 
 #: openastro.org/current/openastro:385
 msgid "semi-sextile"
-msgstr ""
+msgstr "halvsekstil"
 
 #: openastro.org/current/openastro:385
 msgid "semi-square"
-msgstr ""
+msgstr "halvkvadrat"
 
 #: openastro.org/current/openastro:385
 msgid "sesquiquadrate"
-msgstr ""
+msgstr "seskvikvadrat"
 
 #: openastro.org/current/openastro:385
 msgid "sextile"
-msgstr ""
+msgstr "sekstil"
 
 #: openastro.org/current/openastro:385
 msgid "square"
-msgstr ""
+msgstr "kvadrat"
 
 #: openastro.org/current/openastro:385
 msgid "trine"
-msgstr ""
+msgstr "trigon"
 
 #: openastro.org/current/openastro:507
 msgid "Cusp"
@@ -152,31 +153,31 @@ msgstr ""
 
 #: openastro.org/current/openastro:595
 msgid "Jupiter"
-msgstr ""
+msgstr "Jupiter"
 
 #: openastro.org/current/openastro:595
 msgid "Mars"
-msgstr ""
+msgstr "Mars"
 
 #: openastro.org/current/openastro:595
 msgid "Mercury"
-msgstr ""
+msgstr "Merkur"
 
 #: openastro.org/current/openastro:595
 msgid "Moon"
-msgstr ""
+msgstr "Månen"
 
 #: openastro.org/current/openastro:595
 msgid "Saturn"
-msgstr ""
+msgstr "Saturn"
 
 #: openastro.org/current/openastro:595
 msgid "Sun"
-msgstr ""
+msgstr "Solen"
 
 #: openastro.org/current/openastro:595
 msgid "Venus"
-msgstr ""
+msgstr "Venus"
 
 #: openastro.org/current/openastro:596
 msgid "Lilith"
@@ -184,7 +185,7 @@ msgstr ""
 
 #: openastro.org/current/openastro:596
 msgid "Neptune"
-msgstr ""
+msgstr "Neptun"
 
 #: openastro.org/current/openastro:596
 msgid "North Node"
@@ -196,11 +197,11 @@ msgstr ""
 
 #: openastro.org/current/openastro:596
 msgid "Pluto"
-msgstr ""
+msgstr "Pluto"
 
 #: openastro.org/current/openastro:596
 msgid "Uranus"
-msgstr ""
+msgstr "Uranus"
 
 #: openastro.org/current/openastro:597
 msgid "Ceres"
@@ -212,7 +213,7 @@ msgstr ""
 
 #: openastro.org/current/openastro:597
 msgid "Earth"
-msgstr ""
+msgstr "Jorden"
 
 #: openastro.org/current/openastro:597
 msgid "Juno"
@@ -941,97 +942,97 @@ msgid "Are you sure you want to save this entry to the database?"
 msgstr ""
 
 msgid "Aries"
-msgstr ""
+msgstr "Væren"
 
 msgid "Taurus"
-msgstr ""
+msgstr "Tyren"
 
 msgid "Gemini"
-msgstr ""
+msgstr "Tvillingene"
 
 msgid "Cancer"
-msgstr ""
+msgstr "Krepsen"
 
 msgid "Leo"
-msgstr ""
+msgstr "Løven"
 
 msgid "Virgo"
-msgstr ""
+msgstr "Jomfruen"
 
 msgid "Libra"
-msgstr ""
+msgstr "Vekten"
 
 msgid "Scorpio"
-msgstr ""
+msgstr "Skorpionen"
 
 msgid "Sagittarius"
-msgstr ""
+msgstr "Skytten"
 
 msgid "Capricorn"
-msgstr ""
+msgstr "Steinbukken"
 
 msgid "Aquarius"
-msgstr ""
+msgstr "Vannmannen"
 
 msgid "Pisces"
-msgstr ""
+msgstr "Fiskene"
 
 msgid "Mean Node"
-msgstr ""
+msgstr "Middelknute"
 
 msgid "True Node"
-msgstr ""
+msgstr "Sann knute"
 
 msgid "decil"
-msgstr ""
+msgstr "desil"
 
 msgid "tridecil"
-msgstr ""
+msgstr "tridesil"
 
 msgid "vigintil"
-msgstr ""
+msgstr "vigintil"
 
 msgid "septil"
-msgstr ""
+msgstr "septil"
 
 msgid "sentagon"
-msgstr ""
+msgstr "sentagon"
 
 msgid "nanogon"
-msgstr ""
+msgstr "nanogon"
 
 msgid "semi-nanogon"
-msgstr ""
+msgstr "halvnanogon"
 
 msgid "binanogon"
-msgstr ""
+msgstr "binanogon"
 
 msgid "tense"
-msgstr ""
+msgstr "spenningsfull"
 
 msgid "neutral"
-msgstr ""
+msgstr "nøytral"
 
 msgid "harmonious"
-msgstr ""
+msgstr "harmonisk"
 
 msgid "Orcus"
-msgstr ""
+msgstr "Orcus"
 
 msgid "Haumea"
-msgstr ""
+msgstr "Haumea"
 
 msgid "Quaoar"
-msgstr ""
+msgstr "Quaoar"
 
 msgid "Makemake"
-msgstr ""
+msgstr "Makemake"
 
 msgid "Gonggong"
-msgstr ""
+msgstr "Gonggong"
 
 msgid "Eris"
-msgstr ""
+msgstr "Eris"
 
 msgid "Sedna"
-msgstr ""
+msgstr "Sedna"

@@ -9,7 +9,7 @@ Complete reference for OpenAstro2 classes, methods, and functions.
 The main class for creating astrological charts.
 
 ```python
-class openAstro(event1, event2=None, type="Radix", settings=None)
+class openAstro(event1, event2=None, type="Radix", settings=None, lang=None)
 ```
 
 #### Parameters
@@ -19,6 +19,7 @@ class openAstro(event1, event2=None, type="Radix", settings=None)
   In practice this is a plain `event` dict returned by `openAstro.event(...)`.
 - **type** (`str`): Chart type (see [Chart Types](chart-types.md))
 - **settings** (`dict`, optional): Configuration settings
+- **lang** (`str`, optional): Language code for gettext translations (e.g., `en`, `ru`)
 
 #### Example
 ```python

@@ -53,6 +53,15 @@ cd openastro2
 pip install -e .
 ```
 
+## Translations
+
+If you add or edit translations under `openastro2/locale/<lang>/LC_MESSAGES/openastro.po`,
+rebuild the `.mo` files with:
+
+```bash
+openastro2/scripts/update_translations.sh
+```
+
 ## Dependencies
 
 ### Python Packages

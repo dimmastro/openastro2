@@ -240,11 +240,14 @@ class openAstroSettings:
 
 	def setLanguage(self, lang: Optional[str] = None) -> None:
 		# Attach gettext translation for label strings.
+		global _
 		if lang == None or lang == "default":
 			TRANSLATION["default"].install()
+			_ = TRANSLATION["default"].gettext
 			dprint("installing default language")
 		else:
 			TRANSLATION[lang].install()
+			_ = TRANSLATION[lang].gettext
 			dprint("installing language (%s)" % (lang))
 		return
 
@@ -423,6 +426,20 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 	Main API: builds events, computes ephemerides, assembles data dicts,
 	and renders SVG output for different chart types.
 	"""
+	ZODIAC_CANONICAL = [
+		"Aries",
+		"Taurus",
+		"Gemini",
+		"Cancer",
+		"Leo",
+		"Virgo",
+		"Libra",
+		"Scorpio",
+		"Sagittarius",
+		"Capricorn",
+		"Aquarius",
+		"Pisces",
+	]
 	MODULE_BASE_ATTRS = (
 		"planets_sign",
 		"planets_degree",
@@ -558,11 +575,18 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		return cls.event(name, year, month, day, hour, minute, second, timezone, location, countrycode, geolat, geolon, altitude)
 
 
-	def __init__(self, event1: Dict[str, Any], event2: List[Any] = [], type: str = "Radix", settings: Dict[str, Any] = {}, oa_args: Dict[str, Any] = {}, *args: Any, **kwargs: Any) -> None:
+	def __init__(self, event1: Dict[str, Any], event2: List[Any] = [], type: str = "Radix", settings: Dict[str, Any] = {}, oa_args: Dict[str, Any] = {}, lang: Optional[str] = None, *args: Any, **kwargs: Any) -> None:
 		"""
 		Initialize settings, normalize input events, and precompute UTC values.
 		"""
+		if lang is not None:
+			settings = copy.deepcopy(settings)
+			settings.setdefault("astrocfg", {})
+			settings["astrocfg"]["language"] = lang
 		self.settings = openAstroSettings(settings=settings)
+		if lang is not None:
+			self.settings.setLanguage(lang)
+			self.settings.settings["astrocfg"]["language"] = lang
 		self._init_house_metadata()
 		self._renderer = ChartRenderer(self, dprint)
 
@@ -688,6 +712,52 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 	@property
 	def renderer(self) -> ChartRenderer:
 		return self._renderer
+
+	def _translate_label(self, text: Optional[str]) -> Optional[str]:
+		if text is None:
+			return None
+		return _(text)
+
+	def _planet_label(self, name: str) -> str:
+		key = (name or "").strip()
+		if not key:
+			return key
+		key_lower = key.lower()
+		mapping = {
+			"mean node": "Mean Node",
+			"true node": "True Node",
+			"mean apogee": "Lilith",
+			"osc. apogee": "Osc. Lilith",
+			"osc apogee": "Osc. Lilith",
+			"day pars": "Day Pars",
+			"night pars": "Night Pars",
+			"marriage pars": "Marriage Pars",
+			"asc": "Asc",
+			"dsc": "Dsc",
+			"mc": "Mc",
+			"ic": "Ic",
+		}
+		msgid = mapping.get(key_lower)
+		if msgid is None:
+			msgid = " ".join(part.capitalize() for part in key.split(" "))
+		return self._translate_label(msgid) or msgid
+
+	def _zodiac_label(self, index: int) -> str:
+		if 0 <= index < len(self.ZODIAC_CANONICAL):
+			return self._translate_label(self.ZODIAC_CANONICAL[index]) or self.ZODIAC_CANONICAL[index]
+		if 0 <= index < len(self.zodiac):
+			return self._translate_label(self.zodiac[index]) or self.zodiac[index]
+		return ""
+
+	def _aspect_label(self, label: Optional[str]) -> Optional[str]:
+		if label is None:
+			return None
+		return self._translate_label(label) or label
+
+	def _aspect_type_label(self, aspect_type: Optional[str]) -> Optional[str]:
+		if aspect_type is None:
+			return None
+		return self._translate_label(aspect_type) or aspect_type
 
 	def _get_house_settings_with_numbers(self) -> List[Dict[str, Any]]:
 		house_list: List[Dict[str, Any]] = []
@@ -1504,17 +1574,19 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		hi =0
 		# Цикл для заполнения словаря
 		for name, sign, degree, degree_ut, retrograde in zip(self.planets_name, self.planets_sign, self.planets_degree, self.planets_degree_ut, self.planets_retrograde):
+			translated_name = self._planet_label(name)
+			translated_zodiac = self._zodiac_label(self.planets_sign[i])
 			retrograde_str = ' retrograde' if self.planets_retrograde[i] else ''
 			planets_house = self.get_house_for_planet(degree_ut, self.houses_degree_ut, one_house=True)
 			planets_houses = self.get_house_for_planet(degree_ut, self.houses_degree_ut, one_house=False)
 			# foreach h in planets_houses:
 			if ("planet_in_one_house" in self.settings.settings["astrocfg"] and self.settings.settings["astrocfg"]["planet_in_one_house"] == 1):
-				house_name = [self._house_name_by_number(idx) for idx in planets_house]
+				house_name = [self._translate_label(self._house_name_by_number(idx)) for idx in planets_house]
 				house_str = ', '.join(house_name)
 			else:
-				houses_names = [self._house_name_by_number(idx) for idx in planets_houses]
+				houses_names = [self._translate_label(self._house_name_by_number(idx)) for idx in planets_houses]
 				house_str = ', '.join(houses_names)
-			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]} {house_str}{retrograde_str}"
+			planets_position_str = f"{translated_name} {self.dec2deg_str(degree, type='2')} {translated_zodiac} {house_str}{retrograde_str}"
 			planet_orb_default = self.getPlanetOrbDefault(i)
 			planet_lon_speed = self.planet_lon_speed[i] if hasattr(self, "planet_lon_speed") and i < len(self.planet_lon_speed) else None
 			planet_lat_speed = self.planet_lat_speed[i] if hasattr(self, "planet_lat_speed") and i < len(self.planet_lat_speed) else None
@@ -1523,7 +1595,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			else:
 				planet_speed = planet_lon_speed if planet_lon_speed is not None else 0
 			planet_entry = {
-				'planets_name': name,
+				'planets_name': translated_name,
+				'planets_name_raw': name,
 				'planets_position_str': planets_position_str,
 				'planets_sign': sign,
 				'planets_degree': degree,
@@ -1536,13 +1609,15 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_house': planets_house,
 				'planets_houses': planets_houses,
 				'planets_retrograde': retrograde,
-				'planets_zodiac': self.zodiac[self.planets_sign[i]],
+				'planets_zodiac': translated_zodiac,
+				'planets_zodiac_raw': self.zodiac[self.planets_sign[i]],
 				'planets_zodiac_short': self.zodiac_short[self.planets_sign[i]],
-				'planets_zodiac_quality': self.zodiac_quality[self.planets_sign[i]],
-				'planets_zodiac_hotcold': self.zodiac_hotcold[self.planets_sign[i]],
-				'planets_zodiac_drywet': self.zodiac_drywet[self.planets_sign[i]],
-				'planets_zodiac_yinyang': self.zodiac_yinyang[self.planets_sign[i]],
-				'planets_zodiac_attention': self.zodiac_attention[self.planets_sign[i]],
+				'planets_zodiac_short_raw': self.zodiac_short[self.planets_sign[i]],
+				'planets_zodiac_quality': self._translate_label(self.zodiac_quality[self.planets_sign[i]]),
+				'planets_zodiac_hotcold': self._translate_label(self.zodiac_hotcold[self.planets_sign[i]]),
+				'planets_zodiac_drywet': self._translate_label(self.zodiac_drywet[self.planets_sign[i]]),
+				'planets_zodiac_yinyang': self._translate_label(self.zodiac_yinyang[self.planets_sign[i]]),
+				'planets_zodiac_attention': self._translate_label(self.zodiac_attention[self.planets_sign[i]]),
 				'planets_id': i,
 				'aspects_orbis_planet': planet_orb_default,
 			}
@@ -1574,21 +1649,24 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			self.astro_dict["planet_dict"][str(planet_id)] = astro_entry
 
 			if self._is_house_index(i):
-				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.planets_sign[i]]}"
+				houses_position_str = f"{translated_name} {self.dec2deg_str(degree, type='2')} {translated_zodiac}"
 				house_entry = {
-					'houses_name': name,
+					'houses_name': translated_name,
+					'houses_name_raw': name,
 					'houses_position_str': houses_position_str,
 					'houses_sign': sign,
 					'houses_degree': degree,
 					'houses_degree_ut': degree_ut,
 					'houses_retrograde': retrograde,
-					'houses_zodiac': self.zodiac[self.planets_sign[i]],
+					'houses_zodiac': translated_zodiac,
+					'houses_zodiac_raw': self.zodiac[self.planets_sign[i]],
 					'houses_zodiac_short': self.zodiac_short[self.planets_sign[i]],
-					'houses_zodiac_quality': self.zodiac_quality[self.planets_sign[i]],
-					'houses_zodiac_hotcold': self.zodiac_hotcold[self.planets_sign[i]],
-					'houses_zodiac_drywet': self.zodiac_drywet[self.planets_sign[i]],
-					'houses_zodiac_yinyang': self.zodiac_yinyang[self.planets_sign[i]],
-					'houses_zodiac_attention': self.zodiac_attention[self.planets_sign[i]],
+					'houses_zodiac_short_raw': self.zodiac_short[self.planets_sign[i]],
+					'houses_zodiac_quality': self._translate_label(self.zodiac_quality[self.planets_sign[i]]),
+					'houses_zodiac_hotcold': self._translate_label(self.zodiac_hotcold[self.planets_sign[i]]),
+					'houses_zodiac_drywet': self._translate_label(self.zodiac_drywet[self.planets_sign[i]]),
+					'houses_zodiac_yinyang': self._translate_label(self.zodiac_yinyang[self.planets_sign[i]]),
+					'houses_zodiac_attention': self._translate_label(self.zodiac_attention[self.planets_sign[i]]),
 					'houses_id': hi,
 				}
 				self.houses_dict[i] = house_entry
@@ -1676,19 +1754,21 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		hi = 0
 		# Цикл для заполнения словаря
 		for name, sign, degree, degree_ut, retrograde in zip(self.planets_name, self.t_planets_sign,
-								 self.t_planets_degree, self.t_planets_degree_ut,
-								 self.t_planets_retrograde):
+											self.t_planets_degree, self.t_planets_degree_ut,
+											self.t_planets_retrograde):
+			translated_name = self._planet_label(name)
+			translated_zodiac = self._zodiac_label(self.t_planets_sign[i])
 			retrograde_str = ' retrograde' if self.t_planets_retrograde[i] else ''
 			planets_house = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut, one_house=True)
 			planets_houses = self.get_house_for_planet(degree_ut, self.t_houses_degree_ut, one_house=False)
 			# foreach h in planets_houses:
 			if ("planet_in_one_house" in self.settings.settings["astrocfg"] and self.settings.settings["astrocfg"]["planet_in_one_house"] == 1):
-				house_name = [self._house_name_by_number(idx) for idx in planets_house]
+				house_name = [self._translate_label(self._house_name_by_number(idx)) for idx in planets_house]
 				house_str = ', '.join(house_name)
 			else:
-				houses_names = [self._house_name_by_number(idx) for idx in planets_houses]
+				houses_names = [self._translate_label(self._house_name_by_number(idx)) for idx in planets_houses]
 				house_str = ', '.join(houses_names)
-			planets_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]} {house_str}{retrograde_str}"
+			planets_position_str = f"{translated_name} {self.dec2deg_str(degree, type='2')} {translated_zodiac} {house_str}{retrograde_str}"
 			planet_orb_default = self.getPlanetOrbDefault(i)
 			planet_lon_speed = self.t_planet_lon_speed[i] if hasattr(self, "t_planet_lon_speed") and i < len(self.t_planet_lon_speed) else None
 			planet_lat_speed = self.t_planet_lat_speed[i] if hasattr(self, "t_planet_lat_speed") and i < len(self.t_planet_lat_speed) else None
@@ -1697,7 +1777,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			else:
 				planet_speed = planet_lon_speed if planet_lon_speed is not None else planet_lat_speed
 			planet_entry = {
-				'planets_name': name,
+				'planets_name': translated_name,
+				'planets_name_raw': name,
 				'planets_position_str': planets_position_str,
 				'planets_sign': sign,
 				'planets_degree': degree,
@@ -1710,13 +1791,15 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				'planets_house': planets_house,
 				'planets_houses': planets_houses,
 				'planets_retrograde': retrograde,
-				'planets_zodiac': self.zodiac[self.t_planets_sign[i]],
+				'planets_zodiac': translated_zodiac,
+				'planets_zodiac_raw': self.zodiac[self.t_planets_sign[i]],
 				'planets_zodiac_short': self.zodiac_short[self.t_planets_sign[i]],
-				'planets_zodiac_quality': self.zodiac_quality[self.t_planets_sign[i]],
-				'planets_zodiac_hotcold': self.zodiac_hotcold[self.t_planets_sign[i]],
-				'planets_zodiac_drywet': self.zodiac_drywet[self.t_planets_sign[i]],
-				'planets_zodiac_yinyang': self.zodiac_yinyang[self.t_planets_sign[i]],
-				'planets_zodiac_attention': self.zodiac_attention[self.t_planets_sign[i]],
+				'planets_zodiac_short_raw': self.zodiac_short[self.t_planets_sign[i]],
+				'planets_zodiac_quality': self._translate_label(self.zodiac_quality[self.t_planets_sign[i]]),
+				'planets_zodiac_hotcold': self._translate_label(self.zodiac_hotcold[self.t_planets_sign[i]]),
+				'planets_zodiac_drywet': self._translate_label(self.zodiac_drywet[self.t_planets_sign[i]]),
+				'planets_zodiac_yinyang': self._translate_label(self.zodiac_yinyang[self.t_planets_sign[i]]),
+				'planets_zodiac_attention': self._translate_label(self.zodiac_attention[self.t_planets_sign[i]]),
 				'planets_id': i,
 				'aspects_orbis_planet': planet_orb_default,
 			}
@@ -1748,21 +1831,24 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			self.astro_dict["t_planet_dict"][str(planet_id)] = astro_entry
 
 			if self._is_house_index(i):
-				houses_position_str = f"{name} {self.dec2deg_str(degree, type='2')} {self.zodiac[self.t_planets_sign[i]]}"
+				houses_position_str = f"{translated_name} {self.dec2deg_str(degree, type='2')} {translated_zodiac}"
 				house_entry = {
-					'houses_name': name,
+					'houses_name': translated_name,
+					'houses_name_raw': name,
 					'houses_position_str': houses_position_str,
 					'houses_sign': sign,
 					'houses_degree': degree,
 					'houses_degree_ut': degree_ut,
 					'houses_retrograde': retrograde,
-					'houses_zodiac': self.zodiac[self.t_planets_sign[i]],
+					'houses_zodiac': translated_zodiac,
+					'houses_zodiac_raw': self.zodiac[self.t_planets_sign[i]],
 					'houses_zodiac_short': self.zodiac_short[self.t_planets_sign[i]],
-					'houses_zodiac_quality': self.zodiac_quality[self.t_planets_sign[i]],
-					'houses_zodiac_hotcold': self.zodiac_hotcold[self.t_planets_sign[i]],
-					'houses_zodiac_drywet': self.zodiac_drywet[self.t_planets_sign[i]],
-					'houses_zodiac_yinyang': self.zodiac_yinyang[self.t_planets_sign[i]],
-					'houses_zodiac_attention': self.zodiac_attention[self.t_planets_sign[i]],
+					'houses_zodiac_short_raw': self.zodiac_short[self.t_planets_sign[i]],
+					'houses_zodiac_quality': self._translate_label(self.zodiac_quality[self.t_planets_sign[i]]),
+					'houses_zodiac_hotcold': self._translate_label(self.zodiac_hotcold[self.t_planets_sign[i]]),
+					'houses_zodiac_drywet': self._translate_label(self.zodiac_drywet[self.t_planets_sign[i]]),
+					'houses_zodiac_yinyang': self._translate_label(self.zodiac_yinyang[self.t_planets_sign[i]]),
+					'houses_zodiac_attention': self._translate_label(self.zodiac_attention[self.t_planets_sign[i]]),
 					'houses_id': hi,
 				}
 				self.t_houses_dict[i] = house_entry
@@ -2353,6 +2439,11 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 						continue
 					aspects_degree_id = aspect_entry["id"]
 					aspect_type = aspect_entry.get("type")
+					aspect_label = self.settings.settings["settings_aspect_dic"][aspects_degree_id].get("label")
+					aspect_label_tr = self._aspect_label(aspect_label)
+					aspect_type_tr = self._aspect_type_label(aspect_type)
+					planet_name_a = self._planet_label(self.planets[i]["name"])
+					planet_name_b = self._planet_label(self.planets[x]["name"])
 					aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
 					asp_orb = abs(float(diff - float(aspect_entry["degree"])))
 					asp_orb_deg = self.dec2deg_str(asp_orb, type="2")
@@ -2375,15 +2466,15 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 					aspect_orbis_score = aspect_score if aspect_score is not None else 0
 					aspect_impact = aspect_orbis_score * aspect_weight * planet_weight1 * planet_weight2
 					asp_dict_a = {
-						"aspect_str": f"{self.planets[i]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[x]['name']}\n  orb={asp_orb_deg}",
-						"planet_name1": self.planets[i]["name"],
-						"planet_name2": self.planets[x]["name"],
+						"aspect_str": f"{planet_name_a} {aspect_label_tr} {planet_name_b}\n  orb={asp_orb_deg}",
+						"planet_name1": planet_name_a,
+						"planet_name2": planet_name_b,
 						"planet_id1": i,
 						"planet_id2": x,
 						"aspect_degree": aspect_entry["degree"],
 						"aspect_diff": diff,
 						"aspect_orbis": asp_orb,
-						"aspect_label": self.settings.settings["settings_aspect_dic"][aspects_degree_id].get("label"),
+						"aspect_label": aspect_label_tr,
 						"aspect_id": aspects_degree_id,
 						"aspect_orbis_calc": aspect_orb_default,
 						"aspect_orbis_accuracy": aspect_accuracy,
@@ -2391,7 +2482,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 						"aspect_orbis_planet": orb2,
 						"aspect_orbis_deg": asp_orb_deg,
 						"aspect_weight": aspect_weight,
-						"aspect_type": aspect_type,
+						"aspect_type": aspect_type_tr,
 						"aspect_impact": aspect_impact,
 					}
 					asp_dict_b = dict(asp_dict_a)
@@ -2415,9 +2506,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		aspects_degree_id = aspect_entry['id']
 		aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
 		aspect_type = aspect_entry.get('type')
+		aspect_label = self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label')
+		aspect_label_tr = self._aspect_label(aspect_label)
+		aspect_type_tr = self._aspect_type_label(aspect_type)
+		planet_name_a = self._planet_label(self.planets[a]['name'])
+		planet_name_b = self._planet_label(self.planets[b]['name'])
 		asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][aspect_index]['degree'])))
 		asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
-		asp_str = f"{self.planets[a]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id]['label']} {self.planets[b]['name']}\n  orb={asp_orb_deg}"
+		asp_str = f"{planet_name_a} {aspect_label_tr} {planet_name_b}\n  orb={asp_orb_deg}"
 		orb1, orb2, aspect_orb_default = self.getAspectOrbs(aspect_index, a, b)
 		aspect_accuracy = None
 		aspect_score = None
@@ -2439,14 +2535,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		aspect_impact = aspect_orbis_score * aspect_weight * planet_weight1 * planet_weight2
 		asp_dict_a = {
 			'aspect_str': asp_str,
-			'planet_name1': self.planets[a]['name'],
-			'planet_name2': self.planets[b]['name'],
+			'planet_name1': planet_name_a,
+			'planet_name2': planet_name_b,
 			'planet_id1': a,
 			'planet_id2': b,
 			'aspect_degree': self.settings.settings["settings_aspect"][aspect_index]['degree'],
 			'aspect_diff': diff,
 			'aspect_orbis': asp_orb,
-			'aspect_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
+			'aspect_label': aspect_label_tr,
 			'aspect_id': aspects_degree_id,
 			'aspect_orbis_calc': aspect_orb_default,
 			'aspect_orbis_accuracy': aspect_accuracy,
@@ -2454,7 +2550,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			'aspect_orbis_planet': orb2,
 			'aspect_orbis_deg': asp_orb_deg,
 			'aspect_weight': aspect_weight,
-			'aspect_type': aspect_type,
+			'aspect_type': aspect_type_tr,
 			'aspect_impact': aspect_impact,
 		}
 		asp_dict_b = dict(asp_dict_a)
@@ -2518,9 +2614,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		aspects_degree_id = aspect_entry['id']
 		aspect_weight = self.settings.settings["settings_aspect_dic"].get(aspects_degree_id, {}).get("weight", 1)
 		aspect_type = aspect_entry.get('type')
+		aspect_label = self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label')
+		aspect_label_tr = self._aspect_label(aspect_label)
+		aspect_type_tr = self._aspect_type_label(aspect_type)
+		planet_name_a = self._planet_label(self.planets[natal_index]['name'])
+		planet_name_b = self._planet_label(self.planets[transit_index]['name'])
 		asp_orb = abs(float(diff - float(self.settings.settings["settings_aspect"][aspect_index]['degree'])))
 		asp_orb_deg = self.dec2deg_str(asp_orb, type='2')
-		asp_str = f"{self.planets[natal_index]['name']} {self.settings.settings['settings_aspect_dic'][aspects_degree_id].get('label')} {self.planets[transit_index]['name']} orb={asp_orb_deg}"
+		asp_str = f"{planet_name_a} {aspect_label_tr} {planet_name_b} orb={asp_orb_deg}"
 		orb1, orb2, aspect_orb_default = self.getAspectOrbs(aspect_index, natal_index, transit_index)
 		aspect_accuracy = None
 		aspect_score = None
@@ -2542,14 +2643,14 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 		aspect_impact = aspect_orbis_score * aspect_weight * planet_weight1 * planet_weight2
 		asp_dict_a = {
 			'aspect_str': asp_str,
-			'planet_name1': self.planets[natal_index]['name'],
-			'planet_name2': self.planets[transit_index]['name'],
+			'planet_name1': planet_name_a,
+			'planet_name2': planet_name_b,
 			'planet_id1': natal_index,
 			'planet_id2': transit_index,
 			'aspect_degree': self.settings.settings["settings_aspect"][aspect_index]['degree'],
 			'aspect_diff': diff,
 			'aspect_orbis': asp_orb,
-			'aspect_label': self.settings.settings["settings_aspect_dic"][aspects_degree_id].get('label'),
+			'aspect_label': aspect_label_tr,
 			'aspect_id': aspects_degree_id,
 			'aspect_orbis_calc': aspect_orb_default,
 			'aspect_orbis_accuracy': aspect_accuracy,
@@ -2557,7 +2658,7 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 			'aspect_orbis_planet': orb2,
 			'aspect_orbis_deg': asp_orb_deg,
 			'aspect_weight': aspect_weight,
-			'aspect_type': aspect_type,
+			'aspect_type': aspect_type_tr,
 			'aspect_impact': aspect_impact,
 		}
 		asp_dict_b = dict(asp_dict_a)

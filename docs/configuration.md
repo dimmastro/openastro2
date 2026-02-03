@@ -436,10 +436,10 @@ english_labels = {
 # Russian labels
 russian_labels = {
     'label': {
-        'radix': 'Натальная карта',
-        'transit': 'Транзитная карта',
-        'longitude': 'Долгота',
-        'latitude': 'Широта'
+        'radix': 'Natal chart',
+        'transit': 'Transit chart',
+        'longitude': 'Longitude',
+        'latitude': 'Latitude'
     }
 }
 

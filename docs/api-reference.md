@@ -15,7 +15,8 @@ class openAstro(event1, event2=None, type="Radix", settings=None)
 #### Parameters
 
 - **event1** (`event`): Primary event (usually birth data)
-- **event2** (`event`, optional): Secondary event (for transits, synastry)
+- **event2** (`event`, optional): Secondary event (for transits, synastry).  
+  In practice this is a plain `event` dict returned by `openAstro.event(...)`.
 - **type** (`str`): Chart type (see [Chart Types](chart-types.md))
 - **settings** (`dict`, optional): Configuration settings
 
@@ -36,8 +37,8 @@ Create an event using individual date/time components.
 ```python
 @staticmethod
 event(name, year, month, day, hour, minute, second, 
-      timezone=0, location="", countrycode="", 
-      geolat=0.0, geolon=0.0)
+      timezone=None, location="London", countrycode="", 
+      geolat=None, geolon=None, altitude=25)
 ```
 
 **Parameters:**
@@ -48,11 +49,13 @@ event(name, year, month, day, hour, minute, second,
 - **hour** (`int`): Hour (0-23)
 - **minute** (`int`): Minute (0-59)
 - **second** (`int`): Second (0-59)
-- **timezone** (`float`): UTC offset in hours (e.g., 2.0 for UTC+2)
+- **timezone** (`float | None`): UTC offset in hours (e.g., 2.0 for UTC+2).  
+  If `None`, the library attempts to resolve timezone from `location`.
 - **location** (`str`): Location name
 - **countrycode** (`str`): ISO country code
-- **geolat** (`float`): Latitude in decimal degrees
-- **geolon** (`float`): Longitude in decimal degrees
+- **geolat** (`float | None`): Latitude in decimal degrees
+- **geolon** (`float | None`): Longitude in decimal degrees
+- **altitude** (`int`): Altitude above sea level (default 25)
 
 #### event_dt_str()
 
@@ -60,8 +63,9 @@ Create an event using a datetime string.
 
 ```python
 @staticmethod
-event_dt_str(name, dt_str, timezone=0, location="", 
-             countrycode="", geolat=0.0, geolon=0.0)
+event_dt_str(name, dt_str, dt_str_format="%Y-%m-%d %H:%M:%S",
+             timezone=None, location="London",
+             countrycode="", geolat=None, geolon=None, altitude=25)
 ```
 
 **Parameters:**
@@ -177,13 +181,20 @@ print(lunar_info["sun_phase"])    # Sun phase name
 
 ### Aspect Data
 
-#### aspects_grid
-Aspect grid between planets.
+#### planets_aspects_list
+List of aspects between natal planets. Each element is a dict with aspect data.
 
 ```python
-aspects = chart.aspects_grid
-# Access specific aspect between planets
-aspect_sun_moon = aspects[0][1]  # Sun-Moon aspect
+aspects = chart.planets_aspects_list
+# Example: first aspect in the list
+first_aspect = aspects[0] if aspects else None
+```
+
+#### t_planets_aspects_list
+List of transit aspects (for transit charts).
+
+```python
+transit_aspects = chart.t_planets_aspects_list
 ```
 
 ## Configuration

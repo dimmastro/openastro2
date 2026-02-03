@@ -114,10 +114,10 @@ chart_placidus = openAstro(event, type="Radix")  # Default Placidus
 ### Aspects
 ```python
 # Calculate aspects between planets
-aspects = chart.aspects_grid
-
-# Major aspects will be calculated automatically
-# Check the aspects_list for detailed aspect information
+# The library stores computed aspects in a list:
+aspects = chart.planets_aspects_list
+# For transit charts use:
+transit_aspects = chart.t_planets_aspects_list
 ```
 
 ## Configuration
@@ -261,9 +261,9 @@ def get_current_transits(natal_event, location_tz='UTC'):
         "Current Transits",
         dt_str=now.strftime("%Y-%m-%d %H:%M:%S"),
         timezone=now.utcoffset().total_seconds() / 3600,
-        location=natal_event.location,
-        geolat=natal_event.geolat,
-        geolon=natal_event.geolon
+        location=natal_event["location"],
+        geolat=natal_event["geolat"],
+        geolon=natal_event["geolon"]
     )
     
     return openAstro(natal_event, transit_event, type="Transit")

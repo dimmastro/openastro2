@@ -48,9 +48,9 @@ def get_current_transits(natal_event):
         name="Current Transits",
         dt_str=now.strftime("%Y-%m-%d %H:%M:%S"),
         timezone=0,  # UTC
-        location=natal_event.location,
-        geolat=natal_event.geolat,
-        geolon=natal_event.geolon
+        location=natal_event["location"],
+        geolat=natal_event["geolat"],
+        geolon=natal_event["geolon"]
     )
     
     # Create transit chart
@@ -506,10 +506,10 @@ class TransitTracker:
             transit_event = openAstro.event_dt_str(
                 name="Transit",
                 dt_str=current_date.strftime("%Y-%m-%d 12:00:00"),
-                timezone=self.natal_event.timezone,
-                location=self.natal_event.location,
-                geolat=self.natal_event.geolat,
-                geolon=self.natal_event.geolon
+                timezone=self.natal_event["timezone"],
+                location=self.natal_event["location"],
+                geolat=self.natal_event["geolat"],
+                geolon=self.natal_event["geolon"]
             )
             
             # Create transit chart

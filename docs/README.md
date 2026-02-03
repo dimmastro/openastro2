@@ -36,6 +36,7 @@ openastro2/
 - To get started quickly: [Quick Start Guide](quickstart.md)
 - For detailed API documentation: [API Reference](api-reference.md)
 - For examples and tutorials: [Examples](examples.md)
+- For updating translations: see [Installation Guide](installation.md#translations)
 
 ## Support
 

@@ -1,771 +1,772 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openastro 2-dev\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-11 11:36+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2013-01-11 11:36+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-12-24 18:48+0000\n"
 "X-Generator: Launchpad (build 18521)\n"
 "Generated-By: pygettext.py 1.5\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: openastro.org/current/openastro:385
 msgid "biquintile"
-msgstr ""
+msgstr "biquintile"
 
 #: openastro.org/current/openastro:385
 msgid "conjunction"
-msgstr ""
+msgstr "conjunction"
 
 #: openastro.org/current/openastro:385
 msgid "opposition"
-msgstr ""
+msgstr "opposition"
 
 #: openastro.org/current/openastro:385
 msgid "quincunx"
-msgstr ""
+msgstr "quincunx"
 
 #: openastro.org/current/openastro:385
 msgid "quintile"
-msgstr ""
+msgstr "quintile"
 
 #: openastro.org/current/openastro:385
 msgid "semi-sextile"
-msgstr ""
+msgstr "semi-sextile"
 
 #: openastro.org/current/openastro:385
 msgid "semi-square"
-msgstr ""
+msgstr "semi-square"
 
 #: openastro.org/current/openastro:385
 msgid "sesquiquadrate"
-msgstr ""
+msgstr "sesquiquadrate"
 
 #: openastro.org/current/openastro:385
 msgid "sextile"
-msgstr ""
+msgstr "sextile"
 
 #: openastro.org/current/openastro:385
 msgid "square"
-msgstr ""
+msgstr "square"
 
 #: openastro.org/current/openastro:385
 msgid "trine"
-msgstr ""
+msgstr "trine"
 
 #: openastro.org/current/openastro:507
 msgid "Cusp"
-msgstr ""
+msgstr "Cusp"
 
 #: openastro.org/current/openastro:508 openastro.org/current/openastro:4548
 #: openastro.org/current/openastro:5492 openastro.org/current/openastro:5630
 #: openastro.org/current/openastro:5995 openastro.org/current/openastro:5998
 msgid "Longitude"
-msgstr ""
+msgstr "Longitude"
 
 #: openastro.org/current/openastro:509 openastro.org/current/openastro:4544
 #: openastro.org/current/openastro:5492 openastro.org/current/openastro:5629
 #: openastro.org/current/openastro:5994 openastro.org/current/openastro:5998
 msgid "Latitude"
-msgstr ""
+msgstr "Latitude"
 
 #: openastro.org/current/openastro:510
 msgid "North"
-msgstr ""
+msgstr "North"
 
 #: openastro.org/current/openastro:511
 msgid "East"
-msgstr ""
+msgstr "East"
 
 #: openastro.org/current/openastro:512
 msgid "South"
-msgstr ""
+msgstr "South"
 
 #: openastro.org/current/openastro:513
 msgid "West"
-msgstr ""
+msgstr "West"
 
 #: openastro.org/current/openastro:514
 msgid "Apparent Geocentric"
-msgstr ""
+msgstr "Apparent Geocentric"
 
 #: openastro.org/current/openastro:515
 msgid "True Geocentric"
-msgstr ""
+msgstr "True Geocentric"
 
 #: openastro.org/current/openastro:516
 msgid "Topocentric"
-msgstr ""
+msgstr "Topocentric"
 
 #: openastro.org/current/openastro:517
 msgid "Heliocentric"
-msgstr ""
+msgstr "Heliocentric"
 
 #: openastro.org/current/openastro:518
 msgid "Fire"
-msgstr ""
+msgstr "Fire"
 
 #: openastro.org/current/openastro:519
 msgid "Earth (element)"
-msgstr ""
+msgstr "Earth (element)"
 
 #: openastro.org/current/openastro:520
 msgid "Air"
-msgstr ""
+msgstr "Air"
 
 #: openastro.org/current/openastro:521
 msgid "Water"
-msgstr ""
+msgstr "Water"
 
 #: openastro.org/current/openastro:522
 msgid "Radix"
-msgstr ""
+msgstr "Radix"
 
 #: openastro.org/current/openastro:523
 msgid "Transit"
-msgstr ""
+msgstr "Transit"
 
 #: openastro.org/current/openastro:524
 msgid "Synastry"
-msgstr ""
+msgstr "Synastry"
 
 #: openastro.org/current/openastro:525
 msgid "Composite"
-msgstr ""
+msgstr "Composite"
 
 #: openastro.org/current/openastro:526
 msgid "Combine"
-msgstr ""
+msgstr "Combine"
 
 #: openastro.org/current/openastro:527
 msgid "Solar"
-msgstr ""
+msgstr "Solar"
 
 #: openastro.org/current/openastro:528 openastro.org/current/openastro:2813
 msgid "Secondary Progressions"
-msgstr ""
+msgstr "Secondary Progressions"
 
 #: openastro.org/current/openastro:595
 msgid "Jupiter"
-msgstr ""
+msgstr "Jupiter"
 
 #: openastro.org/current/openastro:595
 msgid "Mars"
-msgstr ""
+msgstr "Mars"
 
 #: openastro.org/current/openastro:595
 msgid "Mercury"
-msgstr ""
+msgstr "Mercury"
 
 #: openastro.org/current/openastro:595
 msgid "Moon"
-msgstr ""
+msgstr "Moon"
 
 #: openastro.org/current/openastro:595
 msgid "Saturn"
-msgstr ""
+msgstr "Saturn"
 
 #: openastro.org/current/openastro:595
 msgid "Sun"
-msgstr ""
+msgstr "Sun"
 
 #: openastro.org/current/openastro:595
 msgid "Venus"
-msgstr ""
+msgstr "Venus"
 
 #: openastro.org/current/openastro:596
 msgid "Lilith"
-msgstr ""
+msgstr "Lilith"
 
 #: openastro.org/current/openastro:596
 msgid "Neptune"
-msgstr ""
+msgstr "Neptune"
 
 #: openastro.org/current/openastro:596
 msgid "North Node"
-msgstr ""
+msgstr "North Node"
 
 #: openastro.org/current/openastro:596
 msgid "Osc. Lilith"
-msgstr ""
+msgstr "Osc. Lilith"
 
 #: openastro.org/current/openastro:596
 msgid "Pluto"
-msgstr ""
+msgstr "Pluto"
 
 #: openastro.org/current/openastro:596
 msgid "Uranus"
-msgstr ""
+msgstr "Uranus"
 
 #: openastro.org/current/openastro:597
 msgid "Ceres"
-msgstr ""
+msgstr "Ceres"
 
 #: openastro.org/current/openastro:597
 msgid "Chiron"
-msgstr ""
+msgstr "Chiron"
 
 #: openastro.org/current/openastro:597
 msgid "Earth"
-msgstr ""
+msgstr "Earth"
 
 #: openastro.org/current/openastro:597
 msgid "Juno"
-msgstr ""
+msgstr "Juno"
 
 #: openastro.org/current/openastro:597
 msgid "Pallas"
-msgstr ""
+msgstr "Pallas"
 
 #: openastro.org/current/openastro:597
 msgid "Pholus"
-msgstr ""
+msgstr "Pholus"
 
 #: openastro.org/current/openastro:597
 msgid "Vesta"
-msgstr ""
+msgstr "Vesta"
 
 #: openastro.org/current/openastro:598
 msgid "Asc"
-msgstr ""
+msgstr "Asc"
 
 #: openastro.org/current/openastro:598
 msgid "Day Pars"
-msgstr ""
+msgstr "Day Pars"
 
 #: openastro.org/current/openastro:598
 msgid "Dsc"
-msgstr ""
+msgstr "Dsc"
 
 #: openastro.org/current/openastro:598
 msgid "Ic"
-msgstr ""
+msgstr "Ic"
 
 #: openastro.org/current/openastro:598
 msgid "Mc"
-msgstr ""
+msgstr "Mc"
 
 #: openastro.org/current/openastro:599
 msgid "Marriage Pars"
-msgstr ""
+msgstr "Marriage Pars"
 
 #: openastro.org/current/openastro:599
 msgid "Night Pars"
-msgstr ""
+msgstr "Night Pars"
 
 #: openastro.org/current/openastro:599
 msgid "South Node"
-msgstr ""
+msgstr "South Node"
 
 #: openastro.org/current/openastro:1163 openastro.org/current/openastro:4703
 #: openastro.org/current/openastro:4714
 msgid "Here and Now"
-msgstr ""
+msgstr "Here and Now"
 
 #: openastro.org/current/openastro:1501 openastro.org/current/openastro:4380
 msgid "Fagan Bradley"
-msgstr ""
+msgstr "Fagan Bradley"
 
 #: openastro.org/current/openastro:1502 openastro.org/current/openastro:4381
 msgid "Lahiri"
-msgstr ""
+msgstr "Lahiri"
 
 #: openastro.org/current/openastro:1503 openastro.org/current/openastro:4382
 msgid "Deluce"
-msgstr ""
+msgstr "Deluce"
 
 #: openastro.org/current/openastro:1504 openastro.org/current/openastro:4383
 msgid "Ramanb"
-msgstr ""
+msgstr "Ramanb"
 
 #: openastro.org/current/openastro:1505 openastro.org/current/openastro:4384
 msgid "Ushashashi"
-msgstr ""
+msgstr "Ushashashi"
 
 #: openastro.org/current/openastro:1506 openastro.org/current/openastro:4385
 msgid "Krishnamurti"
-msgstr ""
+msgstr "Krishnamurti"
 
 #: openastro.org/current/openastro:1507 openastro.org/current/openastro:4386
 msgid "Djwhal Khul"
-msgstr ""
+msgstr "Djwhal Khul"
 
 #: openastro.org/current/openastro:1508 openastro.org/current/openastro:4387
 msgid "Yukteshwar"
-msgstr ""
+msgstr "Yukteshwar"
 
 #: openastro.org/current/openastro:1509 openastro.org/current/openastro:4388
 msgid "Jn Bhasin"
-msgstr ""
+msgstr "Jn Bhasin"
 
 #: openastro.org/current/openastro:1510 openastro.org/current/openastro:4389
 msgid "Babyl Kugler 1"
-msgstr ""
+msgstr "Babyl Kugler 1"
 
 #: openastro.org/current/openastro:1511 openastro.org/current/openastro:4390
 msgid "Babyl Kugler 2"
-msgstr ""
+msgstr "Babyl Kugler 2"
 
 #: openastro.org/current/openastro:1512 openastro.org/current/openastro:4391
 msgid "Babyl Kugler 3"
-msgstr ""
+msgstr "Babyl Kugler 3"
 
 #: openastro.org/current/openastro:1513 openastro.org/current/openastro:4392
 msgid "Babyl Huber"
-msgstr ""
+msgstr "Babyl Huber"
 
 #: openastro.org/current/openastro:1514 openastro.org/current/openastro:4393
 msgid "Babyl Etpsc"
-msgstr ""
+msgstr "Babyl Etpsc"
 
 #: openastro.org/current/openastro:1515 openastro.org/current/openastro:4394
 msgid "Aldebaran 15Tau"
-msgstr ""
+msgstr "Aldebaran 15Tau"
 
 #: openastro.org/current/openastro:1516 openastro.org/current/openastro:4395
 msgid "Hipparchos"
-msgstr ""
+msgstr "Hipparchos"
 
 #: openastro.org/current/openastro:1517 openastro.org/current/openastro:4396
 msgid "Sassanian"
-msgstr ""
+msgstr "Sassanian"
 
 #: openastro.org/current/openastro:1518 openastro.org/current/openastro:4397
 msgid "J2000"
-msgstr ""
+msgstr "J2000"
 
 #: openastro.org/current/openastro:1519 openastro.org/current/openastro:4398
 msgid "J1900"
-msgstr ""
+msgstr "J1900"
 
 #: openastro.org/current/openastro:1520 openastro.org/current/openastro:4399
 msgid "B1950"
-msgstr ""
+msgstr "B1950"
 
 #: openastro.org/current/openastro:1524 openastro.org/current/openastro:4356
 msgid "Sidereal"
-msgstr ""
+msgstr "Sidereal"
 
 #: openastro.org/current/openastro:1527 openastro.org/current/openastro:4355
 msgid "Tropical"
-msgstr ""
+msgstr "Tropical"
 
 #: openastro.org/current/openastro:2302
 msgid "Yot"
-msgstr ""
+msgstr "Yot"
 
 #: openastro.org/current/openastro:2372
 msgid "Planets in Transit"
-msgstr ""
+msgstr "Planets in Transit"
 
 #: openastro.org/current/openastro:2777
 msgid "Chart"
-msgstr ""
+msgstr "Chart"
 
 #: openastro.org/current/openastro:2778
 msgid "Quit!"
-msgstr ""
+msgstr "Quit!"
 
 #: openastro.org/current/openastro:2779
 msgid "History"
-msgstr ""
+msgstr "History"
 
 #: openastro.org/current/openastro:2780 openastro.org/current/openastro:5576
 msgid "New Chart"
-msgstr ""
+msgstr "New Chart"
 
 #: openastro.org/current/openastro:2781
 msgid "Open Chart"
-msgstr ""
+msgstr "Open Chart"
 
 #: openastro.org/current/openastro:2782
 msgid "Save Chart"
-msgstr ""
+msgstr "Save Chart"
 
 #: openastro.org/current/openastro:2783
 msgid "Save as"
-msgstr ""
+msgstr "Save as"
 
 #: openastro.org/current/openastro:2784
 msgid "PNG Image"
-msgstr ""
+msgstr "PNG Image"
 
 #: openastro.org/current/openastro:2785
 msgid "SVG Image"
-msgstr ""
+msgstr "SVG Image"
 
 #: openastro.org/current/openastro:2786
 msgid "JPG Image"
-msgstr ""
+msgstr "JPG Image"
 
 #: openastro.org/current/openastro:2787
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #: openastro.org/current/openastro:2788
 msgid "Oroboros (*.xml)"
-msgstr ""
+msgstr "Oroboros (*.xml)"
 
 #: openastro.org/current/openastro:2789
 msgid "Astrolog (*.dat)"
-msgstr ""
+msgstr "Astrolog (*.dat)"
 
 #: openastro.org/current/openastro:2790
 msgid "Skylendar (*.skif)"
-msgstr ""
+msgstr "Skylendar (*.skif)"
 
 #: openastro.org/current/openastro:2791
 msgid "Zet8 Dbase (*.zbs)"
-msgstr ""
+msgstr "Zet8 Dbase (*.zbs)"
 
 #: openastro.org/current/openastro:2792 openastro.org/current/openastro:3530
 #: openastro.org/current/openastro:3706
 msgid "Print"
-msgstr ""
+msgstr "Print"
 
 #: openastro.org/current/openastro:2793
 msgid "Event"
-msgstr ""
+msgstr "Event"
 
 #: openastro.org/current/openastro:2794
 msgid "Edit Event"
-msgstr ""
+msgstr "Edit Event"
 
 #: openastro.org/current/openastro:2795
 msgid "Open Database"
-msgstr ""
+msgstr "Open Database"
 
 #: openastro.org/current/openastro:2796
 msgid "Quick Open Database"
-msgstr ""
+msgstr "Quick Open Database"
 
 #: openastro.org/current/openastro:2797
 msgid "Open Famous People Database"
-msgstr ""
+msgstr "Open Famous People Database"
 
 #: openastro.org/current/openastro:2798
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 #: openastro.org/current/openastro:2799
 msgid "Chart Type"
-msgstr ""
+msgstr "Chart Type"
 
 #: openastro.org/current/openastro:2800
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: openastro.org/current/openastro:2801
 msgid "Planets & Angles"
-msgstr ""
+msgstr "Planets & Angles"
 
 #: openastro.org/current/openastro:2802
 msgid "Aspects"
-msgstr ""
+msgstr "Aspects"
 
 #: openastro.org/current/openastro:2803
 msgid "Colors"
-msgstr ""
+msgstr "Colors"
 
 #: openastro.org/current/openastro:2804
 msgid "Labels"
-msgstr ""
+msgstr "Labels"
 
 #: openastro.org/current/openastro:2805
 msgid "Set Home Location"
-msgstr ""
+msgstr "Set Home Location"
 
 #: openastro.org/current/openastro:2806
 msgid "Configuration"
-msgstr ""
+msgstr "Configuration"
 
 #: openastro.org/current/openastro:2807
 msgid "Radix Chart"
-msgstr ""
+msgstr "Radix Chart"
 
 #: openastro.org/current/openastro:2808
 msgid "Transit Chart"
-msgstr ""
+msgstr "Transit Chart"
 
 #: openastro.org/current/openastro:2809
 msgid "Select for Synastry"
-msgstr ""
+msgstr "Select for Synastry"
 
 #: openastro.org/current/openastro:2809
 msgid "Synastry Chart"
-msgstr ""
+msgstr "Synastry Chart"
 
 #: openastro.org/current/openastro:2810
 msgid "Composite Chart"
-msgstr ""
+msgstr "Composite Chart"
 
 #: openastro.org/current/openastro:2810
 msgid "Select for Composite"
-msgstr ""
+msgstr "Select for Composite"
 
 #: openastro.org/current/openastro:2811
 msgid "Combine Chart"
-msgstr ""
+msgstr "Combine Chart"
 
 #: openastro.org/current/openastro:2811
 msgid "Select for Combine"
-msgstr ""
+msgstr "Select for Combine"
 
 #: openastro.org/current/openastro:2812
 msgid "Solar Return"
-msgstr ""
+msgstr "Solar Return"
 
 #: openastro.org/current/openastro:2814
 msgid "Tables"
-msgstr ""
+msgstr "Tables"
 
 #: openastro.org/current/openastro:2815
 msgid "Monthly Timeline"
-msgstr ""
+msgstr "Monthly Timeline"
 
 #: openastro.org/current/openastro:2816
 msgid "Cusp Aspects"
-msgstr ""
+msgstr "Cusp Aspects"
 
 #: openastro.org/current/openastro:2817
 msgid "Extra"
-msgstr ""
+msgstr "Extra"
 
 #: openastro.org/current/openastro:2818
 msgid "Export Database"
-msgstr ""
+msgstr "Export Database"
 
 #: openastro.org/current/openastro:2819
 msgid "Import Database"
-msgstr ""
+msgstr "Import Database"
 
 #: openastro.org/current/openastro:2820
 msgid "About"
-msgstr ""
+msgstr "About"
 
 #: openastro.org/current/openastro:2821
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: openastro.org/current/openastro:2822
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: openastro.org/current/openastro:2872 openastro.org/current/openastro:2889
 msgid "OpenAstro.org Databases (*.sql)"
-msgstr ""
+msgstr "OpenAstro.org Databases (*.sql)"
 
 #: openastro.org/current/openastro:2885
 msgid "Please select database to import"
-msgstr ""
+msgstr "Please select database to import"
 
 #: openastro.org/current/openastro:2980
 msgid "PNG Image Files (*.png)"
-msgstr ""
+msgstr "PNG Image Files (*.png)"
 
 #: openastro.org/current/openastro:2985
 msgid "JPG Image Files (*.jpg)"
-msgstr ""
+msgstr "JPG Image Files (*.jpg)"
 
 #: openastro.org/current/openastro:2991
 msgid "SVG Image Files (*.svg)"
-msgstr ""
+msgstr "SVG Image Files (*.svg)"
 
 #: openastro.org/current/openastro:2996 openastro.org/current/openastro:3031
 msgid "OpenAstro Charts (*.oac)"
-msgstr ""
+msgstr "OpenAstro Charts (*.oac)"
 
 #: openastro.org/current/openastro:3002
 msgid "All files (*)"
-msgstr ""
+msgstr "All files (*)"
 
 #: openastro.org/current/openastro:3025
 msgid "Select file to open"
-msgstr ""
+msgstr "Select file to open"
 
 #: openastro.org/current/openastro:3035
 msgid "Oroboros Charts (*.xml)"
-msgstr ""
+msgstr "Oroboros Charts (*.xml)"
 
 #: openastro.org/current/openastro:3039
 msgid "Skylendar Charts (*.skif)"
-msgstr ""
+msgstr "Skylendar Charts (*.skif)"
 
 #: openastro.org/current/openastro:3042
 msgid "Astrolog32 Charts (*.dat)"
-msgstr ""
+msgstr "Astrolog32 Charts (*.dat)"
 
 #: openastro.org/current/openastro:3045
 msgid "Zet8 Databases (*.zbs)"
-msgstr ""
+msgstr "Zet8 Databases (*.zbs)"
 
 #: openastro.org/current/openastro:3106 openastro.org/current/openastro:3119
 msgid "Select year for Solar Return"
-msgstr ""
+msgstr "Select year for Solar Return"
 
 #: openastro.org/current/openastro:3154
 msgid "Enter Date"
-msgstr ""
+msgstr "Enter Date"
 
 #: openastro.org/current/openastro:3167
 msgid "Select date for Secondary Progression"
-msgstr ""
+msgstr "Select date for Secondary Progression"
 
 #: openastro.org/current/openastro:3171 openastro.org/current/openastro:3237
 #: openastro.org/current/openastro:5736
 msgid "Year"
-msgstr ""
+msgstr "Year"
 
 #: openastro.org/current/openastro:3176 openastro.org/current/openastro:3242
 #: openastro.org/current/openastro:5745
 msgid "Month"
-msgstr ""
+msgstr "Month"
 
 #: openastro.org/current/openastro:3181
 msgid "Day"
-msgstr ""
+msgstr "Day"
 
 #: openastro.org/current/openastro:3189 openastro.org/current/openastro:5772
 msgid "Hour"
-msgstr ""
+msgstr "Hour"
 
 #: openastro.org/current/openastro:3194 openastro.org/current/openastro:5781
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 #: openastro.org/current/openastro:3227
 msgid "Select Month"
-msgstr ""
+msgstr "Select Month"
 
 #: openastro.org/current/openastro:3269
 msgid "Select Export Filename"
-msgstr ""
+msgstr "Select Export Filename"
 
 #: openastro.org/current/openastro:3275
 msgid "PDF Files (*.pdf)"
-msgstr ""
+msgstr "PDF Files (*.pdf)"
 
 #: openastro.org/current/openastro:3533 openastro.org/current/openastro:3709
 msgid "Save as PDF"
-msgstr ""
+msgstr "Save as PDF"
 
 #: openastro.org/current/openastro:3728
 msgid "Author"
-msgstr ""
+msgstr "Author"
 
 #: openastro.org/current/openastro:3728
 msgid "OpenAstro.org - Open Source Astrology"
-msgstr ""
+msgstr "OpenAstro.org - Open Source Astrology"
 
 #: openastro.org/current/openastro:3728
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: openastro.org/current/openastro:3761
 msgid "Open Database Entry"
-msgstr ""
+msgstr "Open Database Entry"
 
 #: openastro.org/current/openastro:3772 openastro.org/current/openastro:3880
 #: openastro.org/current/openastro:5613
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: openastro.org/current/openastro:3773 openastro.org/current/openastro:3881
 msgid "Birth Date (Local)"
-msgstr ""
+msgstr "Birth Date (Local)"
 
 #: openastro.org/current/openastro:3774 openastro.org/current/openastro:3882
 #: openastro.org/current/openastro:4540 openastro.org/current/openastro:5492
 #: openastro.org/current/openastro:5631 openastro.org/current/openastro:5993
 #: openastro.org/current/openastro:5998
 msgid "Location"
-msgstr ""
+msgstr "Location"
 
 #: openastro.org/current/openastro:3833
 msgid "Search Name"
-msgstr ""
+msgstr "Search Name"
 
 #: openastro.org/current/openastro:3837 openastro.org/current/openastro:5724
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
 #: openastro.org/current/openastro:3840
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: openastro.org/current/openastro:3868
 msgid "Select Database Entry"
-msgstr ""
+msgstr "Select Database Entry"
 
 #: openastro.org/current/openastro:4044 openastro.org/current/openastro:4107
 #: openastro.org/current/openastro:6014
 msgid "Question"
-msgstr ""
+msgstr "Question"
 
 #: openastro.org/current/openastro:4047
 msgid "Are you sure you want to delete"
-msgstr ""
+msgstr "Are you sure you want to delete"
 
 #: openastro.org/current/openastro:4099 openastro.org/current/openastro:6006
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplicate"
 
 #: openastro.org/current/openastro:4103 openastro.org/current/openastro:6010
 msgid "There is allready an entry for this name, please choose another"
-msgstr ""
+msgstr "There is allready an entry for this name, please choose another"
 
 #: openastro.org/current/openastro:4111
 msgid "Are you sure you want to Save?"
-msgstr ""
+msgstr "Are you sure you want to Save?"
 
 #: openastro.org/current/openastro:4262
 msgid "General Configuration"
-msgstr ""
+msgstr "General Configuration"
 
 #: openastro.org/current/openastro:4280
 msgid "Use Online Geocoding (ws.geonames.org)"
-msgstr ""
+msgstr "Use Online Geocoding (ws.geonames.org)"
 
 #: openastro.org/current/openastro:4288
 msgid "Houses System"
-msgstr ""
+msgstr "Houses System"
 
 #: openastro.org/current/openastro:4316
 msgid "Position Calculation"
-msgstr ""
+msgstr "Position Calculation"
 
 #: openastro.org/current/openastro:4320
 msgid "(default)"
-msgstr ""
+msgstr "(default)"
 
 #: openastro.org/current/openastro:4335
 msgid "Chart View"
-msgstr ""
+msgstr "Chart View"
 
 #: openastro.org/current/openastro:4338
 msgid "Planets in Zodiac"
-msgstr ""
+msgstr "Planets in Zodiac"
 
 #: openastro.org/current/openastro:4339
 msgid "Planets around Zodiac"
-msgstr ""
+msgstr "Planets around Zodiac"
 
 #: openastro.org/current/openastro:4352
 msgid "Zodiac Type"
-msgstr ""
+msgstr "Zodiac Type"
 
 #: openastro.org/current/openastro:4377
 msgid "Sidereal Mode"
-msgstr ""
+msgstr "Sidereal Mode"
 
 #: openastro.org/current/openastro:4430
 msgid "Language"
-msgstr ""
+msgstr "Language"
 
 #: openastro.org/current/openastro:4433 openastro.org/current/openastro:5032
 #: openastro.org/current/openastro:5058 openastro.org/current/openastro:5084
@@ -774,264 +775,268 @@ msgstr ""
 #: openastro.org/current/openastro:5192 openastro.org/current/openastro:5218
 #: openastro.org/current/openastro:5334
 msgid "Default"
-msgstr ""
+msgstr "Default"
 
 #: openastro.org/current/openastro:4528
 msgid "Please Set Your Home Location"
-msgstr ""
+msgstr "Please Set Your Home Location"
 
 #: openastro.org/current/openastro:4556 openastro.org/current/openastro:5639
 msgid "City"
-msgstr ""
+msgstr "City"
 
 #: openastro.org/current/openastro:4562 openastro.org/current/openastro:5647
 msgid "Country-code"
-msgstr ""
+msgstr "Country-code"
 
 #: openastro.org/current/openastro:4639 openastro.org/current/openastro:5819
 msgid "Test"
-msgstr ""
+msgstr "Test"
 
 #: openastro.org/current/openastro:4746
 msgid "Aspect Settings"
-msgstr ""
+msgstr "Aspect Settings"
 
 #: openastro.org/current/openastro:4759
 msgid "Deg"
-msgstr ""
+msgstr "Deg"
 
 #: openastro.org/current/openastro:4761
 msgid "Aspect Name"
-msgstr ""
+msgstr "Aspect Name"
 
 #: openastro.org/current/openastro:4763
 msgid ""
 "Visible\n"
 "in Circle"
 msgstr ""
+"Visible\n"
+"in Circle"
 
 #: openastro.org/current/openastro:4765
 msgid ""
 "Visible\n"
 "in Grid"
 msgstr ""
+"Visible\n"
+"in Grid"
 
 #: openastro.org/current/openastro:4767
 msgid "Orb"
-msgstr ""
+msgstr "Orb"
 
 #: openastro.org/current/openastro:4867
 msgid "Planets & Angles Settings"
-msgstr ""
+msgstr "Planets & Angles Settings"
 
 #: openastro.org/current/openastro:4881
 msgid "Planet Label"
-msgstr ""
+msgstr "Planet Label"
 
 #: openastro.org/current/openastro:4883 openastro.org/current/openastro:4907
 msgid "Symbol"
-msgstr ""
+msgstr "Symbol"
 
 #: openastro.org/current/openastro:4885 openastro.org/current/openastro:4909
 msgid "Aspect Line"
-msgstr ""
+msgstr "Aspect Line"
 
 #: openastro.org/current/openastro:4887 openastro.org/current/openastro:4911
 msgid "Aspect Grid"
-msgstr ""
+msgstr "Aspect Grid"
 
 #: openastro.org/current/openastro:4903
 msgid "Point Label"
-msgstr ""
+msgstr "Point Label"
 
 #: openastro.org/current/openastro:4905
 msgid "Angle Label"
-msgstr ""
+msgstr "Angle Label"
 
 #: openastro.org/current/openastro:5001
 msgid "Color Settings"
-msgstr ""
+msgstr "Color Settings"
 
 #: openastro.org/current/openastro:5019
 msgid "Basic Chart Colors"
-msgstr ""
+msgstr "Basic Chart Colors"
 
 #: openastro.org/current/openastro:5043
 msgid "Zodiac Background Colors"
-msgstr ""
+msgstr "Zodiac Background Colors"
 
 #: openastro.org/current/openastro:5070
 msgid "Circles and Lines Colors"
-msgstr ""
+msgstr "Circles and Lines Colors"
 
 #: openastro.org/current/openastro:5077
 msgid "Radix Ring"
-msgstr ""
+msgstr "Radix Ring"
 
 #: openastro.org/current/openastro:5096
 msgid "Transit Ring"
-msgstr ""
+msgstr "Transit Ring"
 
 #: openastro.org/current/openastro:5114
 msgid "Cusp Radix"
-msgstr ""
+msgstr "Cusp Radix"
 
 #: openastro.org/current/openastro:5132
 msgid "Cusp Transit"
-msgstr ""
+msgstr "Cusp Transit"
 
 #: openastro.org/current/openastro:5151
 msgid "Zodiac Icon Colors"
-msgstr ""
+msgstr "Zodiac Icon Colors"
 
 #: openastro.org/current/openastro:5177
 msgid "Aspects Colors"
-msgstr ""
+msgstr "Aspects Colors"
 
 #: openastro.org/current/openastro:5204
 msgid "Planet Colors"
-msgstr ""
+msgstr "Planet Colors"
 
 #: openastro.org/current/openastro:5252
 msgid "Please select a color"
-msgstr ""
+msgstr "Please select a color"
 
 #: openastro.org/current/openastro:5303
 msgid "Label Settings"
-msgstr ""
+msgstr "Label Settings"
 
 #: openastro.org/current/openastro:5317
 msgid "Label"
-msgstr ""
+msgstr "Label"
 
 #: openastro.org/current/openastro:5319
 msgid "Value"
-msgstr ""
+msgstr "Value"
 
 #: openastro.org/current/openastro:5444
 msgid "City not found! Try Again."
-msgstr ""
+msgstr "City not found! Try Again."
 
 #: openastro.org/current/openastro:5518
 msgid "Quit"
-msgstr ""
+msgstr "Quit"
 
 #: openastro.org/current/openastro:5595
 msgid "Edit Event Details"
-msgstr ""
+msgstr "Edit Event Details"
 
 #: openastro.org/current/openastro:5718
 msgid "Search City"
-msgstr ""
+msgstr "Search City"
 
 #: openastro.org/current/openastro:5728
 msgid "For example: London, GB"
-msgstr ""
+msgstr "For example: London, GB"
 
 #: openastro.org/current/openastro:5810
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 #: openastro.org/current/openastro:5814
 msgid "Add to Database"
-msgstr ""
+msgstr "Add to Database"
 
 #: openastro.org/current/openastro:6018
 msgid "Are you sure you want to save this entry to the database?"
-msgstr ""
+msgstr "Are you sure you want to save this entry to the database?"
 
 msgid "Aries"
-msgstr ""
+msgstr "Aries"
 
 msgid "Taurus"
-msgstr ""
+msgstr "Taurus"
 
 msgid "Gemini"
-msgstr ""
+msgstr "Gemini"
 
 msgid "Cancer"
-msgstr ""
+msgstr "Cancer"
 
 msgid "Leo"
-msgstr ""
+msgstr "Leo"
 
 msgid "Virgo"
-msgstr ""
+msgstr "Virgo"
 
 msgid "Libra"
-msgstr ""
+msgstr "Libra"
 
 msgid "Scorpio"
-msgstr ""
+msgstr "Scorpio"
 
 msgid "Sagittarius"
-msgstr ""
+msgstr "Sagittarius"
 
 msgid "Capricorn"
-msgstr ""
+msgstr "Capricorn"
 
 msgid "Aquarius"
-msgstr ""
+msgstr "Aquarius"
 
 msgid "Pisces"
-msgstr ""
+msgstr "Pisces"
 
 msgid "Mean Node"
-msgstr ""
+msgstr "Mean Node"
 
 msgid "True Node"
-msgstr ""
+msgstr "True Node"
 
 msgid "decil"
-msgstr ""
+msgstr "decil"
 
 msgid "tridecil"
-msgstr ""
+msgstr "tridecil"
 
 msgid "vigintil"
-msgstr ""
+msgstr "vigintil"
 
 msgid "septil"
-msgstr ""
+msgstr "septil"
 
 msgid "sentagon"
-msgstr ""
+msgstr "sentagon"
 
 msgid "nanogon"
-msgstr ""
+msgstr "nanogon"
 
 msgid "semi-nanogon"
-msgstr ""
+msgstr "semi-nanogon"
 
 msgid "binanogon"
-msgstr ""
+msgstr "binanogon"
 
 msgid "tense"
-msgstr ""
+msgstr "tense"
 
 msgid "neutral"
-msgstr ""
+msgstr "neutral"
 
 msgid "harmonious"
-msgstr ""
+msgstr "harmonious"
 
 msgid "Orcus"
-msgstr ""
+msgstr "Orcus"
 
 msgid "Haumea"
-msgstr ""
+msgstr "Haumea"
 
 msgid "Quaoar"
-msgstr ""
+msgstr "Quaoar"
 
 msgid "Makemake"
-msgstr ""
+msgstr "Makemake"
 
 msgid "Gonggong"
-msgstr ""
+msgstr "Gonggong"
 
 msgid "Eris"
-msgstr ""
+msgstr "Eris"
 
 msgid "Sedna"
-msgstr ""
+msgstr "Sedna"

@@ -267,10 +267,10 @@ def predictive_analysis(birth_event, target_date):
     # Create target event
     target_event = openAstro.event_dt_str(
         "Target", target_date.strftime("%Y-%m-%d %H:%M:%S"),
-        timezone=birth_event.timezone,
-        location=birth_event.location,
-        geolat=birth_event.geolat,
-        geolon=birth_event.geolon
+        timezone=birth_event["timezone"],
+        location=birth_event["location"],
+        geolat=birth_event["geolat"],
+        geolon=birth_event["geolon"]
     )
     
     analysis = {}
@@ -314,13 +314,13 @@ def relocation_analysis(birth_event, new_location):
     
     # Create relocated event
     relocated_event = openAstro.event(
-        name=f"{birth_event.name} - Relocated",
-        year=birth_event.year,
-        month=birth_event.month,
-        day=birth_event.day,
-        hour=birth_event.hour,
-        minute=birth_event.minute,
-        second=birth_event.second,
+        name=f"{birth_event['name']} - Relocated",
+        year=birth_event["year"],
+        month=birth_event["month"],
+        day=birth_event["day"],
+        hour=birth_event["hour"],
+        minute=birth_event["minute"],
+        second=birth_event["second"],
         timezone=new_location['timezone'],
         location=new_location['name'],
         countrycode=new_location['country'],
@@ -406,7 +406,7 @@ retrograde = chart.planets_retrograde
 houses = chart.houses_degree_ut
 
 # Aspects
-aspects = chart.aspects_grid
+aspects = chart.planets_aspects_list
 
 # Lunar phase
 lunar = chart.lunar_phase
@@ -467,8 +467,8 @@ def progressive_timeline(birth_event, years_ahead=5):
         year_start = datetime(year, 1, 1, 12, 0, 0)
         year_event = openAstro.event_dt_str(
             f"Year {year}", year_start.strftime("%Y-%m-%d %H:%M:%S"),
-            timezone=birth_event.timezone, location=birth_event.location,
-            geolat=birth_event.geolat, geolon=birth_event.geolon
+            timezone=birth_event["timezone"], location=birth_event["location"],
+            geolat=birth_event["geolat"], geolon=birth_event["geolon"]
         )
         year_data['year_transits'] = openAstro(birth_event, year_event, type="Transit")
         

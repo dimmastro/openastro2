@@ -239,15 +239,12 @@ class openAstroSettings:
 
 
 	def setLanguage(self, lang: Optional[str] = None) -> None:
-		# Attach gettext translation for label strings.
-		global _
-		if lang == None or lang == "default":
-			TRANSLATION["default"].install()
-			_ = TRANSLATION["default"].gettext
+		# Attach gettext translation for label strings without installing global _.
+		if lang is None or lang == "default":
+			self.gettext = TRANSLATION["default"].gettext
 			dprint("installing default language")
 		else:
-			TRANSLATION[lang].install()
-			_ = TRANSLATION[lang].gettext
+			self.gettext = TRANSLATION[lang].gettext
 			dprint("installing language (%s)" % (lang))
 		return
 
@@ -716,12 +713,17 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 	def _translate_label(self, text: Optional[str]) -> Optional[str]:
 		if text is None:
 			return None
-		return _(text)
+		gettext_fn = getattr(self.settings, "gettext", None)
+		if callable(gettext_fn):
+			return gettext_fn(text)
+		return text
 
 	def _planet_label(self, name: str) -> str:
 		key = (name or "").strip()
 		if not key:
 			return key
+		if key.isupper():
+			return self._translate_label(key) or key
 		key_lower = key.lower()
 		mapping = {
 			"mean node": "Mean Node",

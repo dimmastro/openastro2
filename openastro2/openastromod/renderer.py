@@ -15,6 +15,12 @@ class ChartRenderer:
 	def __init__(self, context: "openAstro", debug_printer: Optional[Callable[[str], None]] = None) -> None:
 		self.ctx = context
 		self._debug_printer = debug_printer
+		self._gettext = getattr(context.settings, "gettext", None)
+
+	def _t(self, text: str) -> str:
+		if callable(self._gettext):
+			return self._gettext(text)
+		return text
 
 	def __setattr__(self, key: str, value: Any) -> None:
 		"""
@@ -677,6 +683,9 @@ class ChartRenderer:
 		if self.type == "Transit" or self.type == "Direction":
 			# Ensure natal aspects populate planet_dict even for transit charts.
 			self.makeAspects(r, (r - self.c3))
+			for attr in ("planets_aspects", "planets_aspects_arr", "planets_aspects_arr_diff"):
+				if hasattr(self.ctx, attr):
+					delattr(self.ctx, attr)
 			td['transitRing'] = self.transitRing(r)
 			td['degreeRing'] = self.degreeTransitRing(r)
 			# circles
@@ -785,37 +794,37 @@ class ChartRenderer:
 
 		# bottom left
 		siderealmode_chartview = {
-			"FAGAN_BRADLEY": _("Fagan Bradley"),
-			"LAHIRI": _("Lahiri"),
-			"DELUCE": _("Deluce"),
-			"RAMAN": _("Ramanb"),
-			"USHASHASHI": _("Ushashashi"),
-			"KRISHNAMURTI": _("Krishnamurti"),
-			"DJWHAL_KHUL": _("Djwhal Khul"),
-			"YUKTESHWAR": _("Yukteshwar"),
-			"JN_BHASIN": _("Jn Bhasin"),
-			"BABYL_KUGLER1": _("Babyl Kugler 1"),
-			"BABYL_KUGLER2": _("Babyl Kugler 2"),
-			"BABYL_KUGLER3": _("Babyl Kugler 3"),
-			"BABYL_HUBER": _("Babyl Huber"),
-			"BABYL_ETPSC": _("Babyl Etpsc"),
-			"ALDEBARAN_15TAU": _("Aldebaran 15Tau"),
-			"HIPPARCHOS": _("Hipparchos"),
-			"SASSANIAN": _("Sassanian"),
-			"J2000": _("J2000"),
-			"J1900": _("J1900"),
-			"B1950": _("B1950")
+			"FAGAN_BRADLEY": self._t("Fagan Bradley"),
+			"LAHIRI": self._t("Lahiri"),
+			"DELUCE": self._t("Deluce"),
+			"RAMAN": self._t("Ramanb"),
+			"USHASHASHI": self._t("Ushashashi"),
+			"KRISHNAMURTI": self._t("Krishnamurti"),
+			"DJWHAL_KHUL": self._t("Djwhal Khul"),
+			"YUKTESHWAR": self._t("Yukteshwar"),
+			"JN_BHASIN": self._t("Jn Bhasin"),
+			"BABYL_KUGLER1": self._t("Babyl Kugler 1"),
+			"BABYL_KUGLER2": self._t("Babyl Kugler 2"),
+			"BABYL_KUGLER3": self._t("Babyl Kugler 3"),
+			"BABYL_HUBER": self._t("Babyl Huber"),
+			"BABYL_ETPSC": self._t("Babyl Etpsc"),
+			"ALDEBARAN_15TAU": self._t("Aldebaran 15Tau"),
+			"HIPPARCHOS": self._t("Hipparchos"),
+			"SASSANIAN": self._t("Sassanian"),
+			"J2000": self._t("J2000"),
+			"J1900": self._t("J1900"),
+			"B1950": self._t("B1950")
 		}
 
 		if self.settings.settings["astrocfg"]['zodiactype'] == 'sidereal':
-			td['bottomLeft1'] = _("Sidereal")
+			td['bottomLeft1'] = self._t("Sidereal")
 			td['bottomLeft2'] = siderealmode_chartview[self.settings.settings["astrocfg"]['siderealmode']]
 		else:
-			td['bottomLeft1'] = _("Tropical")
+			td['bottomLeft1'] = self._t("Tropical")
 			td['bottomLeft2'] = '%s: %s (%s) %s (%s)' % (
-			_("Lunar Phase"), self.lunar_phase['sun_phase'], _("Sun"), self.lunar_phase['moon_phase'], _("Moon"))
+			self._t("Lunar Phase"), self.lunar_phase['sun_phase'], self._t("Sun"), self.lunar_phase['moon_phase'], self._t("Moon"))
 
-		td['bottomLeft3'] = '%s: %s' % (_("Lunar Phase"), self.dec2deg(self.lunar_phase['degrees']))
+		td['bottomLeft3'] = '%s: %s' % (self._t("Lunar Phase"), self.dec2deg(self.lunar_phase['degrees']))
 		td['bottomLeft4'] = ''
 
 		# lunar phase
@@ -1136,7 +1145,7 @@ class ChartRenderer:
 		if len(yot) >= 1:
 			y=0
 			for k,v in yot.items():
-				out += '<text y="%s" style="fill:%s; font-size: 12px;">%s</text>\n' % (y,self.settings.settings["color_codes"]['paper_0'],_("Yot"))
+				out += '<text y="%s" style="fill:%s; font-size: 12px;">%s</text>\n' % (y,self.settings.settings["color_codes"]['paper_0'],self._t("Yot"))
 
 				#first planet symbol
 				out += '<g transform="translate(20,%s)">' % (y)
@@ -1161,7 +1170,7 @@ class ChartRenderer:
 
 	def makeAspectTransitGrid( self , r ):
 		out = ''
-		out += '<text y="-15" x="0" style="fill:%s; font-size: 12px;">%s</text>\n' % (self.settings.settings["color_codes"]['paper_0'],_("Planets in Transit"))
+		out += '<text y="-15" x="0" style="fill:%s; font-size: 12px;">%s</text>\n' % (self.settings.settings["color_codes"]['paper_0'],self._t("Planets in Transit"))
 		line = 0
 		nl = 0
 		def _visible_natal(idx):

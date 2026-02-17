@@ -18,47 +18,47 @@ msgstr ""
 
 #: openastro.org/current/openastro:385
 msgid "biquintile"
-msgstr ""
+msgstr "биквинтиль"
 
 #: openastro.org/current/openastro:385
 msgid "conjunction"
-msgstr ""
+msgstr "соединение"
 
 #: openastro.org/current/openastro:385
 msgid "opposition"
-msgstr ""
+msgstr "оппозиция"
 
 #: openastro.org/current/openastro:385
 msgid "quincunx"
-msgstr ""
+msgstr "квинконс"
 
 #: openastro.org/current/openastro:385
 msgid "quintile"
-msgstr ""
+msgstr "квинтиль"
 
 #: openastro.org/current/openastro:385
 msgid "semi-sextile"
-msgstr ""
+msgstr "полусекстиль"
 
 #: openastro.org/current/openastro:385
 msgid "semi-square"
-msgstr ""
+msgstr "полуквадрат"
 
 #: openastro.org/current/openastro:385
 msgid "sesquiquadrate"
-msgstr ""
+msgstr "полутораквадрат"
 
 #: openastro.org/current/openastro:385
 msgid "sextile"
-msgstr ""
+msgstr "секстиль"
 
 #: openastro.org/current/openastro:385
 msgid "square"
-msgstr ""
+msgstr "квадрат"
 
 #: openastro.org/current/openastro:385
 msgid "trine"
-msgstr ""
+msgstr "трин"
 
 #: openastro.org/current/openastro:507
 msgid "Cusp"
@@ -94,35 +94,35 @@ msgstr ""
 
 #: openastro.org/current/openastro:514
 msgid "Apparent Geocentric"
-msgstr ""
+msgstr "Видимый геоцентрический"
 
 #: openastro.org/current/openastro:515
 msgid "True Geocentric"
-msgstr ""
+msgstr "Истинный геоцентрический"
 
 #: openastro.org/current/openastro:516
 msgid "Topocentric"
-msgstr ""
+msgstr "Топоцентрический"
 
 #: openastro.org/current/openastro:517
 msgid "Heliocentric"
-msgstr ""
+msgstr "Гелиоцентрический"
 
 #: openastro.org/current/openastro:518
 msgid "Fire"
-msgstr ""
+msgstr "Огонь"
 
 #: openastro.org/current/openastro:519
 msgid "Earth (element)"
-msgstr ""
+msgstr "Земля"
 
 #: openastro.org/current/openastro:520
 msgid "Air"
-msgstr ""
+msgstr "Воздух"
 
 #: openastro.org/current/openastro:521
 msgid "Water"
-msgstr ""
+msgstr "Вода"
 
 #: openastro.org/current/openastro:522
 msgid "Radix"
@@ -154,115 +154,115 @@ msgstr ""
 
 #: openastro.org/current/openastro:595
 msgid "Jupiter"
-msgstr ""
+msgstr "Юпитер"
 
 #: openastro.org/current/openastro:595
 msgid "Mars"
-msgstr ""
+msgstr "Марс"
 
 #: openastro.org/current/openastro:595
 msgid "Mercury"
-msgstr ""
+msgstr "Меркурий"
 
 #: openastro.org/current/openastro:595
 msgid "Moon"
-msgstr ""
+msgstr "Луна"
 
 #: openastro.org/current/openastro:595
 msgid "Saturn"
-msgstr ""
+msgstr "Сатурн"
 
 #: openastro.org/current/openastro:595
 msgid "Sun"
-msgstr ""
+msgstr "Солнце"
 
 #: openastro.org/current/openastro:595
 msgid "Venus"
-msgstr ""
+msgstr "Венера"
 
 #: openastro.org/current/openastro:596
 msgid "Lilith"
-msgstr ""
+msgstr "Лилит"
 
 #: openastro.org/current/openastro:596
 msgid "Neptune"
-msgstr ""
+msgstr "Нептун"
 
 #: openastro.org/current/openastro:596
 msgid "North Node"
-msgstr ""
+msgstr "Северный узел"
 
 #: openastro.org/current/openastro:596
 msgid "Osc. Lilith"
-msgstr ""
+msgstr "Осц. Лилит"
 
 #: openastro.org/current/openastro:596
 msgid "Pluto"
-msgstr ""
+msgstr "Плутон"
 
 #: openastro.org/current/openastro:596
 msgid "Uranus"
-msgstr ""
+msgstr "Уран"
 
 #: openastro.org/current/openastro:597
 msgid "Ceres"
-msgstr ""
+msgstr "Церера"
 
 #: openastro.org/current/openastro:597
 msgid "Chiron"
-msgstr ""
+msgstr "Хирон"
 
 #: openastro.org/current/openastro:597
 msgid "Earth"
-msgstr ""
+msgstr "Земля"
 
 #: openastro.org/current/openastro:597
 msgid "Juno"
-msgstr ""
+msgstr "Юнона"
 
 #: openastro.org/current/openastro:597
 msgid "Pallas"
-msgstr ""
+msgstr "Паллада"
 
 #: openastro.org/current/openastro:597
 msgid "Pholus"
-msgstr ""
+msgstr "Фол"
 
 #: openastro.org/current/openastro:597
 msgid "Vesta"
-msgstr ""
+msgstr "Веста"
 
 #: openastro.org/current/openastro:598
 msgid "Asc"
-msgstr ""
+msgstr "Асц"
 
 #: openastro.org/current/openastro:598
 msgid "Day Pars"
-msgstr ""
+msgstr "Дневной парс"
 
 #: openastro.org/current/openastro:598
 msgid "Dsc"
-msgstr ""
+msgstr "Дсц"
 
 #: openastro.org/current/openastro:598
 msgid "Ic"
-msgstr ""
+msgstr "ИЦ"
 
 #: openastro.org/current/openastro:598
 msgid "Mc"
-msgstr ""
+msgstr "МС"
 
 #: openastro.org/current/openastro:599
 msgid "Marriage Pars"
-msgstr ""
+msgstr "Брачный парс"
 
 #: openastro.org/current/openastro:599
 msgid "Night Pars"
-msgstr ""
+msgstr "Ночной парс"
 
 #: openastro.org/current/openastro:599
 msgid "South Node"
-msgstr ""
+msgstr "Южный узел"
 
 #: openastro.org/current/openastro:1163 openastro.org/current/openastro:4703
 #: openastro.org/current/openastro:4714
@@ -943,97 +943,97 @@ msgid "Are you sure you want to save this entry to the database?"
 msgstr ""
 
 msgid "Aries"
-msgstr ""
+msgstr "Овен"
 
 msgid "Taurus"
-msgstr ""
+msgstr "Телец"
 
 msgid "Gemini"
-msgstr ""
+msgstr "Близнецы"
 
 msgid "Cancer"
-msgstr ""
+msgstr "Рак"
 
 msgid "Leo"
-msgstr ""
+msgstr "Лев"
 
 msgid "Virgo"
-msgstr ""
+msgstr "Дева"
 
 msgid "Libra"
-msgstr ""
+msgstr "Весы"
 
 msgid "Scorpio"
-msgstr ""
+msgstr "Скорпион"
 
 msgid "Sagittarius"
-msgstr ""
+msgstr "Стрелец"
 
 msgid "Capricorn"
-msgstr ""
+msgstr "Козерог"
 
 msgid "Aquarius"
-msgstr ""
+msgstr "Водолей"
 
 msgid "Pisces"
-msgstr ""
+msgstr "Рыбы"
 
 msgid "Mean Node"
-msgstr ""
+msgstr "Средний узел"
 
 msgid "True Node"
-msgstr ""
+msgstr "Истинный узел"
 
 msgid "decil"
-msgstr ""
+msgstr "дециль"
 
 msgid "tridecil"
-msgstr ""
+msgstr "тридециль"
 
 msgid "vigintil"
-msgstr ""
+msgstr "вигинтиль"
 
 msgid "septil"
-msgstr ""
+msgstr "септиль"
 
 msgid "sentagon"
-msgstr ""
+msgstr "сентагон"
 
 msgid "nanogon"
-msgstr ""
+msgstr "нано́гон"
 
 msgid "semi-nanogon"
-msgstr ""
+msgstr "полу-нано́гон"
 
 msgid "binanogon"
-msgstr ""
+msgstr "бинано́гон"
 
 msgid "tense"
-msgstr ""
+msgstr "напряженный"
 
 msgid "neutral"
-msgstr ""
+msgstr "нейтральный"
 
 msgid "harmonious"
-msgstr ""
+msgstr "гармоничный"
 
 msgid "Orcus"
-msgstr ""
+msgstr "Орк"
 
 msgid "Haumea"
-msgstr ""
+msgstr "Хаумеа"
 
 msgid "Quaoar"
-msgstr ""
+msgstr "Квавар"
 
 msgid "Makemake"
-msgstr ""
+msgstr "Макемаке"
 
 msgid "Gonggong"
-msgstr ""
+msgstr "Гунгун"
 
 msgid "Eris"
-msgstr ""
+msgstr "Эрида"
 
 msgid "Sedna"
-msgstr ""
+msgstr "Седна"

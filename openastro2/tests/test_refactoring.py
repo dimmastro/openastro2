@@ -76,6 +76,48 @@ def test_openastro_integration():
     print("✓ OpenAstro integration test passed!")
 
 
+def test_calcastro_prepares_render_data():
+    """calcAstro should prepare SVG calculation caches before makeSVG2 is called."""
+    from openastro2.openastro2 import openAstro
+
+    event1 = openAstro.event(
+        name='Base',
+        year=1990,
+        month=6,
+        day=15,
+        hour=12,
+        minute=0,
+        second=0,
+        timezone=0,
+        location="London",
+        geolat=51.5074,
+        geolon=-0.1278,
+    )
+    event2 = openAstro.event(
+        name='Transit',
+        year=1991,
+        month=6,
+        day=15,
+        hour=12,
+        minute=0,
+        second=0,
+        timezone=0,
+        location="London",
+        geolat=51.5074,
+        geolon=-0.1278,
+    )
+
+    astro = openAstro(event1, event2, type="Transit")
+    astro.calcAstro()
+
+    render_data = getattr(astro, "_svg_render_data", None)
+    assert isinstance(render_data, dict)
+    assert render_data["r"] == astro.settings.settings["settings_svg"]["r"]
+    assert isinstance(render_data["makeAspects"], str)
+    assert isinstance(render_data["makeAspectGrid"], str)
+    assert astro.c3 == 120 or astro.c3 == astro.settings.settings["settings_svg"]["c3"]
+
+
 if __name__ == "__main__":
     try:
         test_utility_functions()

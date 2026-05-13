@@ -1511,6 +1511,8 @@ class openAstro(LocalSpaceMixin, LocalToMixin):
 				self.planets_sign[i], self.planets_degree[i] = get_zodiac_sign(self.planets_degree_ut[i])
 				self.planets_retrograde[i] = False
 
+		self.renderer._prepare_render_data()
+
 
 	def makePlanetDict(self):
 		"""

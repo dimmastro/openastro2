@@ -628,6 +628,84 @@ class ChartRenderer:
 			planets_delta[idx] = delta
 		return planets_delta
 
+	def _prepare_render_data(self):
+		r = self.settings.settings["settings_svg"]["r"]
+		if self.settings.settings["astrocfg"]['chartview'] == "european":
+			c1 = self.settings.settings["settings_svg"]["c1"]
+			c2 = self.settings.settings["settings_svg"]['c2']
+			c3 = self.settings.settings["settings_svg"]['c3']
+		else:
+			c1 = 0
+			c2 = 36
+			c3 = 120
+
+		self.ctx.c1 = c1
+		self.ctx.c2 = c2
+		self.ctx.c3 = c3
+		self.c1 = c1
+		self.c2 = c2
+		self.c3 = c3
+
+		render_data = {"r": r}
+		if self.type == "Transit" or self.type == "Direction":
+			# Ensure natal aspects populate planet_dict even for transit charts.
+			self.makeAspects(r, (r - self.c3))
+			for attr in ("planets_aspects", "planets_aspects_arr", "planets_aspects_arr_diff"):
+				if hasattr(self.ctx, attr):
+					delattr(self.ctx, attr)
+			render_data.update({
+				'transitRing': self.transitRing(r),
+				'degreeRing': self.degreeTransitRing(r),
+				'c1': 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"',
+				'c1style': 'fill: %s; stroke: %s;  fill-opacity:0.0; stroke-width: 0px; stroke-opacity:1.0;' % (
+					self.settings.settings["color_codes"]['paper_1'],
+					self.settings.settings["color_codes"]['zodiac_transit_ring_2'],
+				),
+				'c2': 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"',
+				'c2style': 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.4; stroke-width: 0px' % (
+					self.settings.settings["color_codes"]['paper_1'],
+					self.settings.settings["color_codes"]['zodiac_transit_ring_1'],
+				),
+				'c3': 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"',
+				'c3style': 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px' % (
+					self.settings.settings["color_codes"]['paper_1'],
+					self.settings.settings["color_codes"]['zodiac_transit_ring_0'],
+				),
+				'makeAspects': self.makeAspectsTransit(r, (r - self.c3)),
+				'makeAspectGrid': "",
+				'makePatterns': '',
+			})
+			if self.settings.settings["settings_svg"]["printAspectGrid"] == 1:
+				render_data['makeAspectGrid'] = self.makeAspectGrid(r)
+		else:
+			render_data.update({
+				'transitRing': "",
+				'degreeRing': "",
+				'c1': 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"',
+				'c1style': 'fill: none; stroke: %s; stroke-width: 0.0px; ' % (
+					self.settings.settings["color_codes"]['zodiac_radix_ring_2']
+				),
+				'c2': 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"',
+				'c2style': 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.3; stroke-width: 0.0px' % (
+					self.settings.settings["color_codes"]['paper_1'],
+					self.settings.settings["color_codes"]['zodiac_radix_ring_1'],
+				),
+				'c3': 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"',
+				'c3style': 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 0.5px' % (
+					self.settings.settings["color_codes"]['paper_1'],
+					self.settings.settings["color_codes"]['zodiac_radix_ring_0'],
+				),
+				'makeAspects': self.makeAspects(r, (r - self.c3)),
+				'makeAspectGrid': "",
+				'makePatterns': self.makePatterns(),
+			})
+			if self.settings.settings["settings_svg"]["printAspectGrid"] == 1:
+				render_data['makeAspectGrid'] = self.makeAspectGrid(r)
+
+		self.ctx._svg_render_data = render_data
+		self._svg_render_data = render_data
+		return render_data
+
 	def makeSVG2(self, printing=None):
 		self.calcAstro()
 
@@ -661,69 +739,12 @@ class ChartRenderer:
 
 		# template dictionary
 		td = dict()
-		r = self.settings.settings["settings_svg"]["r"]
-		if (self.settings.settings["astrocfg"]['chartview'] == "european"):
-			c1 = self.settings.settings["settings_svg"]["c1"]
-			c2 = self.settings.settings["settings_svg"]['c2']
-			c3 = self.settings.settings["settings_svg"]['c3']
-		else:
-			c1 = 0
-			c2 = 36
-			c3 = 120
-
-		self.ctx.c1 = c1
-		self.ctx.c2 = c2
-		self.ctx.c3 = c3
-		self.c1 = c1
-		self.c2 = c2
-		self.c3 = c3
-
-		# make chart
-		# transit
-		if self.type == "Transit" or self.type == "Direction":
-			# Ensure natal aspects populate planet_dict even for transit charts.
-			self.makeAspects(r, (r - self.c3))
-			for attr in ("planets_aspects", "planets_aspects_arr", "planets_aspects_arr_diff"):
-				if hasattr(self.ctx, attr):
-					delattr(self.ctx, attr)
-			td['transitRing'] = self.transitRing(r)
-			td['degreeRing'] = self.degreeTransitRing(r)
-			# circles
-			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"'
-			td['c1style'] = 'fill: %s; stroke: %s;  fill-opacity:0.0; stroke-width: 0px; stroke-opacity:1.0;' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_transit_ring_2'])
-			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"'
-			td['c2style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.4; stroke-width: 0px' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_transit_ring_1'])
-			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"'
-			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 1px' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_transit_ring_0'])
-			td['makeAspects'] = self.makeAspectsTransit(r, (r - self.c3))
-
-			td['makeAspectGrid'] = ""
-			if self.settings.settings["settings_svg"]["printAspectGrid"] == 1:
-				td['makeAspectGrid'] = self.makeAspectGrid(r)
-			td['makePatterns'] = ''
-		else:
-			td['transitRing'] = ""
-			# td['degreeRing'] = self.degreeRing(r)
-			td['degreeRing'] = ""
-			# circles
-			td['c1'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c1) + '"'
-			td['c1style'] = 'fill: none; stroke: %s; stroke-width: 0.0px; ' % (self.settings.settings["color_codes"]['zodiac_radix_ring_2'])
-			td['c2'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c2) + '"'
-			td['c2style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-opacity:.3; stroke-width: 0.0px' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_radix_ring_1'])
-			td['c3'] = 'cx="' + str(r) + '" cy="' + str(r) + '" r="' + str(r - self.c3) + '"'
-			td['c3style'] = 'fill: %s; fill-opacity:1.0; stroke: %s; stroke-width: 0.5px' % (
-			self.settings.settings["color_codes"]['paper_1'], self.settings.settings["color_codes"]['zodiac_radix_ring_0'])
-			td['makeAspects'] = self.makeAspects(r, (r - self.c3))
-
-			td['makeAspectGrid'] = ""
-			if self.settings.settings["settings_svg"]["printAspectGrid"] == 1:
-				td['makeAspectGrid'] = self.makeAspectGrid(r)
-
-			td['makePatterns'] = self.makePatterns()
+		render_data = getattr(self, "_svg_render_data", None)
+		if not isinstance(render_data, dict):
+			render_data = self._prepare_render_data()
+		r = render_data["r"]
+		for key in ("transitRing", "degreeRing", "c1", "c1style", "c2", "c2style", "c3", "c3style", "makeAspects", "makeAspectGrid", "makePatterns"):
+			td[key] = render_data[key]
 
 		td['circleX'] = str(self.settings.settings["settings_svg"]["circleX"])
 		td['circleY'] = str(self.settings.settings["settings_svg"]["circleY"])

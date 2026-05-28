@@ -85,6 +85,9 @@ class Eris:
 
     def _load_ephemeris(self):
         if not self.bsp_path:
+            de440_path = self._resolve_default_kernel_path("de440.bsp")
+            if de440_path is not None:
+                return load(str(de440_path))
             return load("de440.bsp")
 
         if str(self.bsp_path).startswith(("http://", "https://")):
@@ -95,6 +98,9 @@ class Eris:
         if path.is_absolute():
             if path.exists():
                 return load(str(path))
+            de440_path = self._resolve_default_kernel_path("de440.bsp")
+            if de440_path is not None:
+                return load(str(de440_path))
             return load("de440.bsp")
 
         module_root = Path(__file__).resolve().parents[3]
@@ -132,19 +138,35 @@ class Eris:
 
     def _ensure_local_kernel(self, url: str) -> Path:
         filename = Path(url).name
-        module_root = Path(__file__).resolve().parents[3]
-        repo_root = module_root.parent
-        for candidate in (module_root / filename, repo_root / filename):
+        for candidate in self._iter_default_kernel_candidates(filename):
             if candidate.exists():
                 return candidate
 
         downloaded = Path(load.download(url))
+        repo_root = Path(__file__).resolve().parents[3].parent
         target = repo_root / filename
         try:
             shutil.copyfile(downloaded, target)
             return target
         except OSError:
             return downloaded
+
+    def _resolve_default_kernel_path(self, filename: str) -> Path | None:
+        for candidate in self._iter_default_kernel_candidates(filename):
+            if candidate.exists():
+                return candidate
+        return None
+
+    def _iter_default_kernel_candidates(self, filename: str) -> tuple[Path, ...]:
+        module_root = Path(__file__).resolve().parents[3]
+        repo_root = module_root.parent
+        # Дополнительно проверяем cwd, потому что bsp может лежать рядом с вызывающим проектом.
+        cwd_root = Path.cwd()
+        return (
+            module_root / filename,
+            repo_root / filename,
+            cwd_root / filename,
+        )
 
     def _equatorial_to_ecliptic(self, x_km: float, y_km: float, z_km: float) -> Tuple[float, float, float]:
         import math

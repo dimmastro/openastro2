@@ -118,11 +118,18 @@ class Tno:
         return ((lon, lat, dist, 0.0, 0.0, 0.0), 0)
 
     def _earth_heliocentric_au(self, t) -> Tuple[float, float, float]:
-        eph = load("de440.bsp")
+        # Сначала используем локальный de440.bsp, чтобы не зависеть от сети.
+        eph = self._load_de440_ephemeris()
         sun = eph["sun"]
         earth = eph["earth"]
         earth_helio = sun.at(t).observe(earth).frame_xyz(ecliptic_frame).au
         return (earth_helio[0], earth_helio[1], earth_helio[2])
+
+    def _load_de440_ephemeris(self):
+        de440_path = self._resolve_default_kernel_path("de440.bsp")
+        if de440_path is not None:
+            return load(str(de440_path))
+        return load("de440.bsp")
 
     def _elements_to_xyz_au(self, elements: TnoElements, jd_tt: float) -> Tuple[float, float, float]:
         inc = math.radians(elements.inc_deg)
@@ -188,19 +195,35 @@ class Tno:
 
     def _ensure_local_kernel(self, url: str) -> Path:
         filename = Path(url).name
-        module_root = Path(__file__).resolve().parents[3]
-        repo_root = module_root.parent
-        for candidate in (module_root / filename, repo_root / filename):
+        for candidate in self._iter_default_kernel_candidates(filename):
             if candidate.exists():
                 return candidate
 
         downloaded = Path(load.download(url))
+        repo_root = Path(__file__).resolve().parents[3].parent
         target = repo_root / filename
         try:
             shutil.copyfile(downloaded, target)
             return target
         except OSError:
             return downloaded
+
+    def _resolve_default_kernel_path(self, filename: str) -> Path | None:
+        for candidate in self._iter_default_kernel_candidates(filename):
+            if candidate.exists():
+                return candidate
+        return None
+
+    def _iter_default_kernel_candidates(self, filename: str) -> Tuple[Path, ...]:
+        module_root = Path(__file__).resolve().parents[3]
+        repo_root = module_root.parent
+        # Дополнительно проверяем cwd, потому что часть запусков кладёт bsp рядом с рабочим проектом.
+        cwd_root = Path.cwd()
+        return (
+            module_root / filename,
+            repo_root / filename,
+            cwd_root / filename,
+        )
 
     def _hour_to_hms(self, hour: float) -> Tuple[int, int, float]:
         h = int(hour)

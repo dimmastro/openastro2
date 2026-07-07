@@ -120,7 +120,6 @@ Try OpenAstro2 in Google Colab:
 - `pyswisseph>=2.10.3.2` - Swiss Ephemeris calculations
 - `skyfield>=1.46` - Astronomical computations
 - `svgwrite>=1.4.3` - SVG generation
-- `pandas>=2.0.2` - Data manipulation
 - `numpy>=1.26.4` - Numerical operations
 
 ### System Dependencies (Optional)
@@ -199,12 +198,9 @@ python -m venv venv
 source venv/bin/activate  # Linux/macOS
 venv\Scripts\activate     # Windows
 
-# Install development dependencies
-pip install -r requirements.txt
-pip install pytest pytest-cov black flake8
-
 # Install in development mode
 pip install -e .
+pip install -r requirements.txt
 
 # Run tests
 pytest tests/
@@ -229,6 +225,4 @@ OpenAstro2 is released under the **GNU General Public License v3.0**. See [LICEN
 ---
 
 **OpenAstro2** - Making professional astrological calculations accessible to everyone.
-
-
 

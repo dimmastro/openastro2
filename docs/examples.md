@@ -332,7 +332,6 @@ results = batch_process_charts(
 ### Research Data Extraction
 
 ```python
-import pandas as pd
 from datetime import datetime, timedelta
 
 class AstrologyDataExtractor:
@@ -395,9 +394,9 @@ class AstrologyDataExtractor:
                 print(f"Error processing {event_data.get('name', 'Unknown')}: {e}")
                 continue
         
-        return pd.DataFrame(data)
+        return data
     
-    def analyze_element_distribution(self, df):
+    def analyze_element_distribution(self, rows):
         """Analyze distribution of planets by element."""
         
         element_map = {
@@ -413,20 +412,22 @@ class AstrologyDataExtractor:
         
         for planet in planets:
             sign_col = f'{planet}_sign_num'
-            if sign_col in df.columns:
-                for sign_num in df[sign_col]:
-                    element = element_map.get(sign_num, 'Unknown')
-                    if element in element_counts:
-                        element_counts[element] += 1
+            for row in rows:
+                sign_num = row.get(sign_col)
+                if sign_num is None:
+                    continue
+                element = element_map.get(sign_num, 'Unknown')
+                if element in element_counts:
+                    element_counts[element] += 1
         
         return element_counts
     
-    def find_aspect_patterns(self, df, aspect_orb=8):
+    def find_aspect_patterns(self, rows, aspect_orb=8):
         """Find common aspect patterns in dataset."""
         
         patterns = []
         
-        for index, row in df.iterrows():
+        for row in rows:
             row_patterns = []
             
             # Check major aspects between planets

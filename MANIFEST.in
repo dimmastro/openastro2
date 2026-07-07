@@ -1,2 +1,13 @@
 include README.md
-recursive-include openastro2 *
+recursive-include openastro2/settings *
+recursive-include openastro2/xml *
+recursive-include openastro2/icons *
+recursive-include openastro2/locale *
+recursive-include openastro2/swiss_ephemeris *
+include openastro2/VERSION
+prune openastro2/tests
+prune openastro2/tmp
+prune openastro2/skyfield_cache
+prune openastro2/x_diary
+global-exclude __pycache__
+global-exclude *.py[cod]

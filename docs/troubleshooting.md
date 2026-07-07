@@ -477,8 +477,7 @@ def collect_debug_info():
         'architecture': platform.architecture(),
         'openastro2_version': pkg_resources.get_distribution('openastro2').version,
         'swisseph_version': None,
-        'numpy_version': None,
-        'pandas_version': None
+        'numpy_version': None
     }
     
     try:
@@ -492,12 +491,6 @@ def collect_debug_info():
         info['numpy_version'] = numpy.__version__
     except ImportError:
         info['numpy_version'] = 'Not installed'
-    
-    try:
-        import pandas
-        info['pandas_version'] = pandas.__version__
-    except ImportError:
-        info['pandas_version'] = 'Not installed'
     
     return info
 

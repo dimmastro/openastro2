@@ -4,7 +4,6 @@ from datetime import datetime
 
 import json5
 import numpy as np
-import pandas as pd
 import pydeck as pdk
 import pytest
 
@@ -45,13 +44,17 @@ LOCAL_SPACE_METHODS = [
 
 
 def _serialize_local_space_output(value):
+	value_type = type(value)
+	value_module = getattr(value_type, "__module__", "")
+	value_name = getattr(value_type, "__name__", "")
+
 	if isinstance(value, pdk.Layer):
 		layer_payload = json5.loads(value.to_json())
 		layer_payload.pop("id", None)
 		return layer_payload
-	if isinstance(value, pd.DataFrame):
+	if value_module.startswith("pandas") and value_name == "DataFrame":
 		return value.to_dict(orient="records")
-	if isinstance(value, pd.Series):
+	if value_module.startswith("pandas") and value_name == "Series":
 		return value.to_dict()
 	if isinstance(value, np.ndarray):
 		return value.tolist()

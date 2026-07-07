@@ -33,14 +33,9 @@ git clone https://github.com/dimmastro/openastro2.git
 cd openastro2
 ```
 
-2. **Install dependencies**:
+2. **Install the package**:
 ```bash
-pip install -r requirements.txt
-```
-
-3. **Install the package**:
-```bash
-python setup.py install
+pip install .
 ```
 
 ### Method 3: Development Installation
@@ -51,6 +46,7 @@ For development work:
 git clone https://github.com/dimmastro/openastro2.git
 cd openastro2
 pip install -e .
+pip install -r requirements.txt
 ```
 
 ## Translations
@@ -72,7 +68,6 @@ OpenAstro2 requires the following Python packages (automatically installed with 
 pyswisseph==2.10.3.2    # Swiss Ephemeris calculations
 skyfield==1.46          # Astronomical computations
 svgwrite==1.4.3         # SVG generation
-pandas==2.0.2           # Data manipulation
 numpy==1.26.4           # Numerical operations
 pytz                    # Time zone handling
 requests==2.31.0        # HTTP client
@@ -129,8 +124,7 @@ sudo port install librsvg2 ImageMagick
 2. **Install Visual C++ Build Tools** (if compiling from source)
 3. **Run installation**:
 ```cmd
-py -m pip install -r requirements.txt
-py setup.py install
+py -m pip install .
 ```
 
 ### Linux
@@ -145,8 +139,7 @@ python3 --version
 sudo apt-get install librsvg2-bin imagemagick
 
 # Install OpenAstro2
-pip3 install -r requirements.txt
-python3 setup.py install
+pip3 install .
 ```
 
 ### macOS
@@ -159,8 +152,7 @@ python3 setup.py install
 brew install python librsvg imagemagick
 
 # Install OpenAstro2
-pip3 install -r requirements.txt
-python3 setup.py install
+pip3 install .
 ```
 
 ## Verification
@@ -248,14 +240,14 @@ Install librsvg2-bin (Linux) or librsvg (macOS/Windows)
 #### "Permission denied" errors
 ```bash
 # Use user installation
-pip install --user -r requirements.txt
+pip install --user .
 
 # Or use virtual environment
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
 # or
 venv\Scripts\activate     # Windows
-pip install -r requirements.txt
+pip install .
 ```
 
 #### Swiss Ephemeris data issues

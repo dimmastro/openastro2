@@ -72,10 +72,8 @@ numpy==1.26.4           # Numerical operations
 pytz                    # Time zone handling
 requests==2.31.0        # HTTP client
 pydeck==0.8.0          # Geospatial visualization
-openpyxl==3.1.5        # Excel file support
 ephem==4.2             # Additional ephemeris
 geographiclib==2.0     # Geographic calculations
-certifi==2023.11.17    # SSL certificates
 ```
 
 ### System Dependencies
